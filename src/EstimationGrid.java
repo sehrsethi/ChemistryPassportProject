@@ -97,6 +97,7 @@ public class EstimationGrid extends JComponent {
 
 				cell.setBlocked(false);
 				cell.createTree();
+				
 
 				countTreeTypes(cell);
 

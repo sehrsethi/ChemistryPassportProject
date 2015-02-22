@@ -130,7 +130,7 @@ public class GridCell extends JPanel {
 		
 	}
 
-	public boolean isBlocked() {
+	public boolean isBlocked() { 
 		return blocked;
 	}
 

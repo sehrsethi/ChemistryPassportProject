@@ -17,7 +17,7 @@ public class EstimationGameApplication {
 		
 		JFrame frame = new JFrame() ;
 		
-		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT); 
 		
 		frame.setTitle("Estimation Game");
 		
