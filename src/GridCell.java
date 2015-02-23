@@ -22,4 +22,37 @@ public class GridCell {
 	//The row this cell is in.
 	private int row;
 	
+	/**
+	 * Create a new GridCell
+	 * @param sCol The column of this cell
+	 * @param sRow The row of this cell
+	 */
+	public GridCell(int sCol, int sRow){
+		
+		//By default, it is unblocked and has no trees
+		numRedTrees = 0;
+		numGreenTrees = 0;
+		isBlocked = false;
+		
+		//Set row and column
+		col = sCol;
+		row = sRow;
+	}
+	
+	/**
+	 * Returns true if the cell is blocked, or false otherwise
+	 * @return
+	 */
+	public boolean isBlocked(){
+		return isBlocked;
+	}
+	
+	/**
+	 * Sets whether or not this cell is blocked
+	 * @param nIsBlocked True if blocked, or false otherwise
+	 */
+	public void setBlocked(boolean nIsBlocked){
+		isBlocked = nIsBlocked;
+	}
+	
 }
