@@ -28,6 +28,7 @@ public class EstimationGrid extends JComponent{
 	public EstimationGrid(){
 		//First, we create the GridCell
 		//objects and the data for this grid
+		cellData = new GridCell[NUM_ROWS][NUM_COLS];
 		
 		//Next, we add trees/blocking for the cells
 		
