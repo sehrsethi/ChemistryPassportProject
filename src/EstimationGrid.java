@@ -1,5 +1,3 @@
-import java.awt.GridLayout;
-
 import javax.swing.JComponent;
 
 /**
@@ -17,6 +15,9 @@ public class EstimationGrid extends JComponent{
 	
 	// (1/PERCENT_BLOCKED) of cells will be blocked
 	private static final int PERCENT_BLOCKED = 3;
+	
+	//The number of trees to put in the grid
+	private static final int NUM_TREES = 10;
 	
 	//A 2D array of GridCells, each representing
 	//data in a given cell.
@@ -58,11 +59,37 @@ public class EstimationGrid extends JComponent{
 			}
 		}
 		
-		
-		
 		//Next, we add trees to the unblocked cells
+		for (int i = 0; i < NUM_TREES; i++){
+			addNewTree();
+		}
+		
+		//Next, we draw the trees
 		
 		//Now, we add the border lines and draw the blocked cells
+	}
+	
+	/**
+	 * Randomly adds a red or green tree to the cell data
+	 * (Note that it does not actually DRAW the tree)
+	 */
+	private void addNewTree(){
+		//Pick randomly red or green--0 is red and 1 is green
+		int colorNum = (int) (Math.random() * 2 );
+		
+		//Pick randomly which cell
+		int rowNum = (int) (Math.random() * NUM_ROWS);
+		int colNum = (int) (Math.random() * NUM_COLS);
+		
+		//Add specified tree color to cell
+		if (colorNum == 0){
+			//Add red tree
+			cellData[rowNum][colNum].addRedTree();
+		}
+		else {
+			//Add green tree
+			cellData[rowNum][colNum].addGreenTree();
+		}
 	}
 	
 	

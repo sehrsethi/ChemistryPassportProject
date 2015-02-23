@@ -55,4 +55,33 @@ public class GridCell {
 		isBlocked = nIsBlocked;
 	}
 	
+	/**
+	 * Add a green tree to the cell
+	 */
+	public void addGreenTree(){
+		numGreenTrees++;
+	}
+	
+	/**
+	 * Add a red tree to the cell
+	 */
+	public void addRedTree(){
+		numRedTrees++;
+	}
+	
+	/**
+	 * Returns how many green trees are in this cell
+	 * @return
+	 */
+	public int getNumGreenTrees(){
+		return numGreenTrees;
+	}
+	
+	/**
+	 * Returns how many red trees are in this cell
+	 * @return
+	 */
+	public int getNumRedTrees(){
+		return numRedTrees;
+	}
 }
