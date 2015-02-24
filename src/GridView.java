@@ -14,7 +14,7 @@ public class GridView extends JPanel{
 	private static final int GRID_HEIGHT = 600;
 	
 	//The width of the grid
-	private static final int GRID_WIDTH = 400;
+	private static final int GRID_WIDTH = 600;
 	
 	//The width of each cell
 	private int cellWidth;
@@ -38,13 +38,22 @@ public class GridView extends JPanel{
 	
 	public void paintComponent(Graphics g){
 		
+		//First we draw the grid lines
+		drawGridLines(g);
+	}
+
+	/**
+	 * Draws the vertical and horizontal lines for the grid
+	 * @param g The graphics to use to draw
+	 */
+	private void drawGridLines(Graphics g) {
 		//This will draw the vertical lines
-		for (int i = 0; i < EstimationGrid.NUM_COLS; i++){
+		for (int i = 0; i <= EstimationGrid.NUM_COLS; i++){
 			g.drawLine(i*cellWidth,0,i*cellWidth, GRID_HEIGHT);
 		}
 		
 		//This will draw the horizontal lines
-		for (int i = 0; i < EstimationGrid.NUM_ROWS; i++){
+		for (int i = 0; i <= EstimationGrid.NUM_ROWS; i++){
 			g.drawLine(0,i*cellHeight,GRID_WIDTH, i*cellHeight);
 		}
 	}
