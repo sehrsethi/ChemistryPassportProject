@@ -72,6 +72,26 @@ public class GridView extends JPanel{
 		}
 		else {
 			//Otherwise, we need to draw the trees.
+			//We need it to be at least 50% in this cell.  I -think- this
+			//will be satisfied as long as the center is in the cell, but
+			//I'm not sure.  Also, we want it to be clear enough
+			//that the tree is mostly in the cell--a tree that is 51% in
+			//this cell and 49% in another cell will be hard to figure out
+			//Also, should trees be able to overlap?
+			//What size will the trees be?  All the same size or different sizes?
+			//Basically, we need to figure out what the constraints are
+			//on how the trees look/are placed in the grid and then figure
+			//out how to satisfy those constraints.
+			//Additionally, does it matter if we put all green trees down
+			//before red trees?  If so, what do we do to make sure this
+			//doesn't cause issues
+			
+			if (toDraw.getNumGreenTrees() > 0){
+				//Draw green trees
+			}
+			if (toDraw.getNumRedTrees() > 0){
+				//Draw red trees
+			}
 			
 		}
 	}
