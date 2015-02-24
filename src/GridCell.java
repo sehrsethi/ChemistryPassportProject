@@ -29,10 +29,10 @@ public class GridCell {
 	 */
 	public GridCell(int sCol, int sRow){
 		
-		//By default, it is unblocked and has no trees
+		//By default, it is blocked and has no trees
 		numRedTrees = 0;
 		numGreenTrees = 0;
-		isBlocked = false;
+		isBlocked = true;
 		
 		//Set row and column
 		col = sCol;
@@ -56,17 +56,19 @@ public class GridCell {
 	}
 	
 	/**
-	 * Add a green tree to the cell
+	 * Adds specified number of green trees to cell
+	 * @param toAdd Number of green trees to add to cell
 	 */
-	public void addGreenTree(){
-		numGreenTrees++;
+	public void addGreenTree(int toAdd){
+		numGreenTrees+=toAdd;
 	}
 	
 	/**
-	 * Add a red tree to the cell
+	 * Adds specified number of red trees to cell
+	 * @param toAdd Number of red trees to add to cell
 	 */
-	public void addRedTree(){
-		numRedTrees++;
+	public void addRedTree(int toAdd){
+		numRedTrees+=toAdd;
 	}
 	
 	/**
