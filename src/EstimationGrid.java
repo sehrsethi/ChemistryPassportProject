@@ -49,9 +49,6 @@ public class EstimationGrid {
 		// Next, we add trees to the unblocked cells
 		addNewTrees();
 
-		// Next, we draw the trees
-
-		// Now, we add the border lines and draw the blocked cells
 	}
 
 	/**
@@ -60,8 +57,8 @@ public class EstimationGrid {
 	 */
 	private void addNewTrees() {
 
-		// Calculate how many cells to unblock
-		int numToUnblock = NUM_ROWS * NUM_COLS / PERCENT_BLOCKED;
+		// Calculate how many cells to unblock--might need to edit this
+		int numToUnblock = (2 *NUM_ROWS * NUM_COLS / PERCENT_BLOCKED);
 
 		// Keep track of how many unblocked cells we've created
 		int numUnblocked = 0;
@@ -72,7 +69,7 @@ public class EstimationGrid {
 			// Pick randomly which cell to unblock (and add trees to)
 			int rowNum = (int) (Math.random() * NUM_ROWS);
 			int colNum = (int) (Math.random() * NUM_COLS);
-
+			
 			// If this is a blocked cell, we unblock it and add random trees.
 			if (cellData[rowNum][colNum].isBlocked()) {
 

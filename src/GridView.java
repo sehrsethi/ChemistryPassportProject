@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -40,8 +41,41 @@ public class GridView extends JPanel{
 		
 		//First we draw the grid lines
 		drawGridLines(g);
+		
+		//Now we draw each cell
+		for (int i = 0; i < EstimationGrid.NUM_ROWS; i++){
+			for (int j = 0; j < EstimationGrid.NUM_COLS; j++){
+				drawCell(gridCells[i][j],i,j, g);
+			}
+		}
 	}
 
+	/**
+	 * Draw the specified cell
+	 * @param toDraw Cell data for drawing
+	 * @param row The row this cell is in
+	 * @param col The column this cell is in
+	 */
+	private void drawCell(GridCell toDraw, int row, int col, Graphics g){
+		
+		//We need to calculate the boundaries of the cell
+		int startX = row * cellWidth;
+		int startY = col * cellHeight;
+		
+		//First we see if it is blocked
+		if (toDraw.isBlocked()){
+
+			//In this case, we just block out the cell by filling it with gray
+			g.setColor(Color.GRAY);
+			g.fillRect(startX, startY, cellWidth, cellHeight);
+			
+		}
+		else {
+			//Otherwise, we need to draw the trees.
+			
+		}
+	}
+	
 	/**
 	 * Draws the vertical and horizontal lines for the grid
 	 * @param g The graphics to use to draw
