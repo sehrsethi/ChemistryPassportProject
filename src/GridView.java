@@ -48,6 +48,10 @@ public class GridView extends JPanel{
 				drawCell(gridCells[i][j],i,j, g);
 			}
 		}
+		
+		
+		//We should make sure that the blocking is on top of the trees
+		//and the grid lines are on top of everything else
 	}
 
 	/**
@@ -88,10 +92,12 @@ public class GridView extends JPanel{
 			
 			if (toDraw.getNumGreenTrees() > 0){
 				//Draw green trees
+				
 			}
 			if (toDraw.getNumRedTrees() > 0){
 				//Draw red trees
 			}
+			
 			
 		}
 	}
