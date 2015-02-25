@@ -17,11 +17,16 @@ public class EstimationGameApplication {
 		
 		//Create the grid and add it to the frame
 		EstimationGrid grid = new EstimationGrid();
+		
 		frame.getContentPane().add(new GridView(grid.getCellData()));
 		
 		//Make the frame visible
 		frame.setVisible(true);
 		
+		frame.setResizable(false);
+		
+		// close operation
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
 	}

@@ -7,10 +7,10 @@
  */
 public class EstimationGrid {
 	// The number of rows in the grid
-	public static final int NUM_ROWS = 7;
+	public static final int NUM_ROWS = 4;
 
 	// The number of columns in the grid
-	public static final int NUM_COLS = 7;
+	public static final int NUM_COLS = 4;
 
 	// (1/PERCENT_BLOCKED) of cells will be blocked
 	private static final int PERCENT_BLOCKED = 3;
@@ -21,6 +21,10 @@ public class EstimationGrid {
 	// A 2D array of GridCells, each representing
 	// data in a given cell.
 	private GridCell[][] cellData;
+	
+	private int totalInfested ;
+	
+	private int totalNonInfested ;
 
 	/**
 	 * Returns the cell data array
@@ -52,13 +56,13 @@ public class EstimationGrid {
 	}
 
 	/**
-	 * Randomly adds a red or green tree to the cell data (Note that it does not
+	 * Randomly adds a non-infested or infested tree to the cell data (Note that it does not
 	 * actually DRAW the tree)
 	 */
 	private void addNewTrees() {
 
 		// Calculate how many cells to unblock--might need to edit this
-		int numToUnblock = (2 *NUM_ROWS * NUM_COLS / PERCENT_BLOCKED);
+		int numToUnblock = (NUM_ROWS * NUM_COLS / PERCENT_BLOCKED);
 
 		// Keep track of how many unblocked cells we've created
 		int numUnblocked = 0;
@@ -79,16 +83,35 @@ public class EstimationGrid {
 				// Note that we've unblocked another cell
 				numUnblocked++;
 
-				// Add a random number of red and green trees
+				// Add a random number of non-infested and infested trees
+				
+				int numNonInfested = (int) (Math.random() * MAX_TREE_NUM);
+				
+				totalNonInfested += numNonInfested ;
+				
 				cellData[rowNum][colNum]
-						.addRedTree((int) (Math.random() * MAX_TREE_NUM));
+						.addNonInfestedTree(numNonInfested);
 
+				int numInfested = (int) (Math.random() * MAX_TREE_NUM);
+				
+				totalInfested += numInfested ;
+				
 				cellData[rowNum][colNum]
-						.addGreenTree((int) (Math.random() * MAX_TREE_NUM));
+						.addInfestedTree(numInfested );
 			}
 
 		}
 
 	}
+
+	public int getTotalInfested() {
+		return totalInfested;
+	}
+
+	public int getTotalNonInfested() {
+		return totalNonInfested;
+	}
+	
+	
 
 }

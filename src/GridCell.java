@@ -7,15 +7,15 @@
  */
 public class GridCell {
 
-	// The number of red trees that are in this cell (i.e. more than 50% in
+	// The number of non-infested trees that are in this cell (i.e. more than 50% in
 	// cell)
-	private int numRedTrees;
+	private int numInfestedTrees;
 
-	// The number of green trees that are in this cell (i.e. more than 50% in
+	// The number of infested trees that are in this cell (i.e. more than 50% in
 	// cell)
-	private int numGreenTrees;
+	private int numNonInfestedTrees;
 
-	// True if this cell is "blocked" (covered in gray) or false otherwise
+	// True if this cell is "blocked" (covenon-infested in gray) or false otherwise
 	private boolean isBlocked;
 
 	// The column this cell is in
@@ -35,8 +35,8 @@ public class GridCell {
 	public GridCell(int sCol, int sRow) {
 
 		// By default, it is blocked and has no trees
-		numRedTrees = 0;
-		numGreenTrees = 0;
+		numInfestedTrees = 0;
+		numNonInfestedTrees = 0;
 		isBlocked = true;
 
 		// Set row and column
@@ -64,40 +64,40 @@ public class GridCell {
 	}
 
 	/**
-	 * Adds specified number of green trees to cell
+	 * Adds specified number of infested trees to cell
 	 * 
 	 * @param toAdd
-	 *            Number of green trees to add to cell
+	 *            Number of infested trees to add to cell
 	 */
-	public void addGreenTree(int toAdd) {
-		numGreenTrees += toAdd;
+	public void addInfestedTree(int toAdd) {
+		numNonInfestedTrees += toAdd;
 	}
 
 	/**
-	 * Adds specified number of red trees to cell
+	 * Adds specified number of non-infested trees to cell
 	 * 
 	 * @param toAdd
-	 *            Number of red trees to add to cell
+	 *            Number of non-infested trees to add to cell
 	 */
-	public void addRedTree(int toAdd) {
-		numRedTrees += toAdd;
+	public void addNonInfestedTree(int toAdd) {
+		numInfestedTrees += toAdd;
 	}
 
 	/**
-	 * Returns how many green trees are in this cell
+	 * Returns how many infested trees are in this cell
 	 * 
 	 * @return
 	 */
-	public int getNumGreenTrees() {
-		return numGreenTrees;
+	public int getNumInfestedTrees() {
+		return numNonInfestedTrees;
 	}
 
 	/**
-	 * Returns how many red trees are in this cell
+	 * Returns how many non-infested trees are in this cell
 	 * 
 	 * @return
 	 */
-	public int getNumRedTrees() {
-		return numRedTrees;
+	public int getNumNonInfestedTrees() {
+		return numInfestedTrees;
 	}
 }
