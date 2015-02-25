@@ -7,24 +7,27 @@
  */
 public class EstimationGrid {
 	// The number of rows in the grid
-	public static final int NUM_ROWS = 4;
+	public static final int NUM_ROWS = 7;
 
 	// The number of columns in the grid
-	public static final int NUM_COLS = 4;
+	public static final int NUM_COLS = 7;
 
 	// (1/PERCENT_BLOCKED) of cells will be blocked
-	private static final int PERCENT_BLOCKED = 3;
+	private static final int RATIO_BLOCKED = 3;
 
-	//The maximum number of trees of one color that can be placed in one cell
+	//The maximum number of trees of each color that can be placed in one cell
 	private static final int MAX_TREE_NUM = 3;
 
 	// A 2D array of GridCells, each representing
 	// data in a given cell.
 	private GridCell[][] cellData;
 	
+	// total number of infested trees in the entire grid
 	private int totalInfested ;
 	
+	// total number of non-infested trees in the entire grid
 	private int totalNonInfested ;
+	
 
 	/**
 	 * Returns the cell data array
@@ -62,7 +65,8 @@ public class EstimationGrid {
 	private void addNewTrees() {
 
 		// Calculate how many cells to unblock--might need to edit this
-		int numToUnblock = (NUM_ROWS * NUM_COLS / PERCENT_BLOCKED);
+		//1/3rd of the cells should be blocked
+		int numToUnblock = (NUM_ROWS * NUM_COLS / RATIO_BLOCKED);
 
 		// Keep track of how many unblocked cells we've created
 		int numUnblocked = 0;
@@ -87,6 +91,7 @@ public class EstimationGrid {
 				
 				int numNonInfested = (int) (Math.random() * MAX_TREE_NUM);
 				
+				// update the total number of non-infested trees in the grid
 				totalNonInfested += numNonInfested ;
 				
 				cellData[rowNum][colNum]
@@ -94,6 +99,7 @@ public class EstimationGrid {
 
 				int numInfested = (int) (Math.random() * MAX_TREE_NUM);
 				
+				// update the total number of infested trees in the grid
 				totalInfested += numInfested ;
 				
 				cellData[rowNum][colNum]
@@ -104,10 +110,18 @@ public class EstimationGrid {
 
 	}
 
+	/**
+	 * Returns the total number of infested trees in the grid
+	 * @return Total number of infested trees in the grid
+	 */
 	public int getTotalInfested() {
 		return totalInfested;
 	}
 
+	/**
+	 * Return the total number of non-infested trees in the grid
+	 * @return Total number of non-infested trees in the grid
+	 */
 	public int getTotalNonInfested() {
 		return totalNonInfested;
 	}

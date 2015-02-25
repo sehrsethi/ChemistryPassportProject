@@ -15,7 +15,7 @@ public class GridCell {
 	// cell)
 	private int numNonInfestedTrees;
 
-	// True if this cell is "blocked" (covenon-infested in gray) or false otherwise
+	// True if this cell is "blocked" (covered in gray) or false otherwise
 	private boolean isBlocked;
 
 	// The column this cell is in
@@ -37,6 +37,8 @@ public class GridCell {
 		// By default, it is blocked and has no trees
 		numInfestedTrees = 0;
 		numNonInfestedTrees = 0;
+		
+		// initially all cells are blocked
 		isBlocked = true;
 
 		// Set row and column
@@ -45,9 +47,9 @@ public class GridCell {
 	}
 
 	/**
-	 * Returns true if the cell is blocked, or false otherwise
+	 * Returns true if the cell is blocked, otherwise false 
 	 * 
-	 * @return
+	 * @return  True if the cell is blocked, otherwise false 
 	 */
 	public boolean isBlocked() {
 		return isBlocked;
@@ -86,7 +88,7 @@ public class GridCell {
 	/**
 	 * Returns how many infested trees are in this cell
 	 * 
-	 * @return
+	 * @return Number of infested trees in this cell
 	 */
 	public int getNumInfestedTrees() {
 		return numNonInfestedTrees;
@@ -95,7 +97,7 @@ public class GridCell {
 	/**
 	 * Returns how many non-infested trees are in this cell
 	 * 
-	 * @return
+	 * @return Number of non-infested trees in this cell
 	 */
 	public int getNumNonInfestedTrees() {
 		return numInfestedTrees;
