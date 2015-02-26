@@ -32,12 +32,12 @@ public class FirstPage extends JPanel {
 	private static final Font LINE2_FONT = new Font("Times New Roman",
 			Font.ITALIC | Font.BOLD , 36);
 
-	private static final String LINE2_TEXT = "to Chemsitry Adventure";
+	private static final String LINE2_TEXT = "to Chemistry Adventure";
 
 	private static final Font GRADE_FONT = new Font("Times New Roman",
 			Font.PLAIN, 24);
 
-	private static final String GRADE_TEXT = "Grades K-2";
+	private static final String GRADE_TEXT = "Grades K-6";
 
 	private static final Font SPONSOR_FONT = new Font("Times New Roman",
 			Font.PLAIN, 18); 
@@ -149,6 +149,8 @@ public class FirstPage extends JPanel {
 		sponsor.setWrapStyleWord(true);
 		
 		sponsor.setLineWrap(true);	
+		
+		sponsor.setEditable(false); 
 
 		add(sponsor);
 

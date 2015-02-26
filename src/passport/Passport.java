@@ -18,7 +18,7 @@ public class Passport extends JPanel implements MouseListener{
 
 	private static final String FIRST_PAGE_NAME = "First Page" ;
 	
-	private static final FirstPage firstPage = new FirstPage() ;
+	private static final FirstPage firstPage = new FirstPage() ; 
 	
 	
 	private ArrayList<String> pageNames  = new ArrayList<String>() ;
