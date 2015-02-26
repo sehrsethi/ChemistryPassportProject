@@ -39,8 +39,8 @@ public class GridCell {
 		numInfestedTrees = 0;
 		numNonInfestedTrees = 0;
 		
-		// initially all cells are blocked
-		isBlocked = true;
+		// initially all cells are unblocked
+		isBlocked = false;
 
 		// Set row and column
 		col = sCol;
