@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class Passport extends JPanel implements MouseListener{
 	
-	private static final int PAGE_WIDTH = 500;
+	private static final int PAGE_WIDTH = 500; 
 
 	private static final int PAGE_HEIGHT = 700;
 	

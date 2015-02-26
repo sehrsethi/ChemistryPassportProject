@@ -150,7 +150,7 @@ public class FirstPage extends JPanel {
 		
 		sponsor.setLineWrap(true);	
 		
-		sponsor.setEditable(false); 
+		sponsor.setEditable(false);  
 
 		add(sponsor);
 

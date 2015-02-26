@@ -12,7 +12,7 @@ public class KitPage extends JPanel {
 	
 	private String childName ;
 	
-	public KitPage(){ 
+	public KitPage(){  
 		
 		this.setBackground(Color.yellow);
 		
