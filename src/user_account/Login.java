@@ -1,3 +1,4 @@
+package user_account;
 /**
  * authors: Sehr, Humaira and Charlotte 
  * Simple Login and Sign up Page V.1
@@ -8,6 +9,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
+
+import com.sun.org.apache.bcel.internal.generic.DADD;
 
 
 //convet to app
@@ -115,63 +118,7 @@ public class Login extends JFrame implements ActionListener, KeyListener{
             root_panel_inside_tabbedPane.add(new JPanel());
             root_panel_inside_tabbedPane.add(pan11);
             
-            JPanel pan12 = new JPanel();
-            g_contextLabel = new JLabel("Full Name:  ");
-            g_contextLabel.setFont( new Font("Monospaced", Font.PLAIN, 12) );
-            g_contextText = new JTextField(45);
-            g_contextText.setFont( new Font("Monospaced", Font.BOLD, 12) );
-
-            pan12.add( g_contextLabel );
-            pan12.add( g_contextText );
-            g_contextText.setFont( new Font("Monospaced", Font.BOLD, 12) );
-
-            g_contextText.addKeyListener( this );
-            root_panel_inside_tabbedPane.add(pan12);
-            //pan11.add(pan12);
-            
-            
-            
-            JPanel pan13 = new JPanel();
-            g_contextLabel2 = new JLabel("    Grade:  ");
-            g_contextLabel2.setFont( new Font("Monospaced", Font.PLAIN, 12) );
-            g_contextText2 = new JTextField(45);
-            g_contextText2.setFont( new Font("Monospaced", Font.BOLD, 12) );
-
-            pan13.add( g_contextLabel2 );
-            pan13.add( g_contextText2 );
-            g_contextText2.setFont( new Font("Monospaced", Font.BOLD, 12) );
-
-            g_contextText2.addKeyListener( this );
-            root_panel_inside_tabbedPane.add(pan13);
-           // pan11.add(pan12);
-            
-            
-            JPanel pan14 = new JPanel();
-            g_contextLabel3 = new JLabel("User Name:  ");
-            g_contextLabel3.setFont( new Font("Monospaced", Font.PLAIN, 12) );
-            g_contextText3 = new JTextField(45);
-            g_contextText3.setFont( new Font("Monospaced", Font.BOLD, 12) );
-
-            pan14.add( g_contextLabel3 );
-            pan14.add( g_contextText3 );
-            g_contextText3.setFont( new Font("Monospaced", Font.BOLD, 12) );
-
-            g_contextText3.addKeyListener( this );
-            root_panel_inside_tabbedPane.add(pan14);
-           // pan14.add(pan13);
-            
-            
-            JPanel pan8 = new JPanel();
-            pan8.setLayout(null);
-            g_submit = new JButton("  Submit  ");
-            pan8.add(g_submit);
-            Insets insets2 = pan8.getInsets();
-            g_submit.setBounds(430 + insets.left, insets.top, 90, 30);
-            root_panel_inside_tabbedPane.add(pan8);
-            g_submit.addActionListener(this);
-
-            g_tabbedPane.addTab("Sign Up", null, root_panel_inside_tabbedPane, "");
-            g_root.add( g_tabbedPane );
+            createSignUpWindow(root_panel_inside_tabbedPane, insets);
 
 
             JSeparator sep1 = new JSeparator();
@@ -183,14 +130,81 @@ public class Login extends JFrame implements ActionListener, KeyListener{
          
             this.setVisible(true);
        }
+
+	/**
+	 * @param root_panel_inside_tabbedPane
+	 * @param insets
+	 */
+	private void createSignUpWindow(JPanel root_panel_inside_tabbedPane,
+			Insets insets) {
+		JPanel pan12 = new JPanel();
+		g_contextLabel = new JLabel("Full Name:  ");
+		g_contextLabel.setFont( new Font("Monospaced", Font.PLAIN, 12) );
+		g_contextText = new JTextField(45);
+		g_contextText.setFont( new Font("Monospaced", Font.BOLD, 12) );
+
+		pan12.add( g_contextLabel );
+		pan12.add( g_contextText );
+		g_contextText.setFont( new Font("Monospaced", Font.BOLD, 12) );
+
+		g_contextText.addKeyListener( this );
+		root_panel_inside_tabbedPane.add(pan12);
+		//pan11.add(pan12);
+		
+		
+		
+		JPanel pan13 = new JPanel();
+		g_contextLabel2 = new JLabel("    Grade:  ");
+		g_contextLabel2.setFont( new Font("Monospaced", Font.PLAIN, 12) );
+		g_contextText2 = new JTextField(45);
+		g_contextText2.setFont( new Font("Monospaced", Font.BOLD, 12) );
+
+		pan13.add( g_contextLabel2 );
+		pan13.add( g_contextText2 );
+		g_contextText2.setFont( new Font("Monospaced", Font.BOLD, 12) );
+
+		g_contextText2.addKeyListener( this );
+		root_panel_inside_tabbedPane.add(pan13);
+         // pan11.add(pan12);
+		
+		
+		JPanel pan14 = new JPanel();
+		g_contextLabel3 = new JLabel("User Name:  ");
+		g_contextLabel3.setFont( new Font("Monospaced", Font.PLAIN, 12) );
+		g_contextText3 = new JTextField(45);
+		g_contextText3.setFont( new Font("Monospaced", Font.BOLD, 12) );
+
+		pan14.add( g_contextLabel3 );
+		pan14.add( g_contextText3 );
+		g_contextText3.setFont( new Font("Monospaced", Font.BOLD, 12) );
+
+		g_contextText3.addKeyListener( this );
+		root_panel_inside_tabbedPane.add(pan14);
+         // pan14.add(pan13);
+		
+		
+		JPanel pan8 = new JPanel();
+		pan8.setLayout(null);
+		g_submit = new JButton("  Submit  ");
+		pan8.add(g_submit);
+		Insets insets2 = pan8.getInsets();
+		g_submit.setBounds(430 + insets.left, insets.top, 90, 30);
+		root_panel_inside_tabbedPane.add(pan8);
+		g_submit.addActionListener(this);
+
+		g_tabbedPane.addTab("Sign Up", null, root_panel_inside_tabbedPane, "");
+		g_root.add( g_tabbedPane );
+		
+		
+	}
        
-       public void actionPerformed(ActionEvent evt)
+/*       public void actionPerformed(ActionEvent evt)
        {
            if(evt.getSource() == g_login) 
              this.checkFields();
            if(evt.getSource() == g_cancel)
              System.exit(0);
-       }
+       }*/
 
        public void keyTyped(KeyEvent e) {}
        public void keyReleased(KeyEvent e) {}
@@ -245,11 +259,26 @@ public class Login extends JFrame implements ActionListener, KeyListener{
                                 );
       
        }
+       
+       public void actionPerformed(ActionEvent evt)
+       {
+           /*String fullName = null;
+           fullName = (String) g_combo.getSelectedItem();
+           this.hide();
+           return;*/
+     	  
+     	  if(evt.getSource().equals(g_submit)){
+     		  
+     		  System.out.println("Clicked on submit");
+     		  
+     		  new DatabaseCreater(g_contextText, g_contextText2, g_contextText3) ;
+     	  }
+       }
 }
 
 
          
-class ChoiceDialog extends JDialog implements ActionListener{
+/*class ChoiceDialog extends JDialog implements ActionListener{
     
       private Login owner = null;
       private JComboBox g_combo = null;
@@ -292,12 +321,6 @@ class ChoiceDialog extends JDialog implements ActionListener{
          this.setVisible(true);
       }
       
-      public void actionPerformed(ActionEvent evt)
-      {
-          String fullName = null;
-          fullName = (String) g_combo.getSelectedItem();
-          this.hide();
-          return;
-      }
-}
+     
+}*/
          
