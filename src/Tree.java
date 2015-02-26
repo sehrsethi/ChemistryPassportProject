@@ -56,7 +56,7 @@ public class Tree extends Ellipse2D.Double {
 		 */
 		return ((this.x > otherTree.x)
 				&& (this.x + this.diameter < otherTree.x + otherTree.diameter)
-				&& (this.y > otherTree.x) && (this.y + this.diameter < otherTree.x
+				&& (this.y > otherTree.y) && (this.y + this.diameter < otherTree.y
 				+ otherTree.diameter));
 
 	}

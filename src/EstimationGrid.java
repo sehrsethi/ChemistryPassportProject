@@ -7,16 +7,16 @@
  */
 public class EstimationGrid {
 	// The number of rows in the grid
-	public static final int NUM_ROWS = 7;
+	public static final int NUM_ROWS = 15;
 
 	// The number of columns in the grid
-	public static final int NUM_COLS = 7;
+	public static final int NUM_COLS = 15;
 
 	// (1/PERCENT_BLOCKED) of cells will be blocked
 	private static final int RATIO_BLOCKED = 3;
 
 	//The maximum number of trees of each color that can be placed in one cell
-	private static final int MAX_TREE_NUM = 3;
+	private static final int MAX_TREE_NUM = 2;
 
 	// A 2D array of GridCells, each representing
 	// data in a given cell.
@@ -49,6 +49,7 @@ public class EstimationGrid {
 		// Create the cells
 		for (int i = 0; i < NUM_ROWS; i++) {
 			for (int j = 0; j < NUM_COLS; j++) {
+				
 				cellData[i][j] = new GridCell(i, j);
 			}
 		}
@@ -75,8 +76,8 @@ public class EstimationGrid {
 		while (numUnblocked < numToUnblock) {
 
 			// Pick randomly which cell to unblock (and add trees to)
-			int rowNum = (int) (Math.random() * NUM_ROWS);
-			int colNum = (int) (Math.random() * NUM_COLS);
+			int rowNum = (int) ( Math.random() * NUM_ROWS);
+			int colNum = (int) ( Math.random() * NUM_COLS);
 			
 			// If this is a blocked cell, we unblock it and add random trees.
 			if (cellData[rowNum][colNum].isBlocked()) {

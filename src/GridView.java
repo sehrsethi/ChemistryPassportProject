@@ -79,8 +79,8 @@ public class GridView extends JPanel {
 
 		// now draw each unblocked cell with the trees in them
 		
-		for (int r = 0; r < EstimationGrid.NUM_ROWS; r++) {
-			for (int c = 0; c < EstimationGrid.NUM_COLS; c++) {
+		for (int r = 0; r < gridCells.length; r++) {
+			for (int c = 0; c < gridCells[r].length; c++) {
 
 				drawUnblockedCell(gridCells[r][c], g, r, c);
 
@@ -88,8 +88,8 @@ public class GridView extends JPanel {
 		}
 
 		// Now we draw each blocked cell
-		for (int r = 0; r < EstimationGrid.NUM_ROWS; r++) {
-			for (int c = 0; c < EstimationGrid.NUM_COLS; c++) {
+		for (int r = 0; r < gridCells.length; r++) {
+			for (int c = 0; c < gridCells[r].length; c++) {
 
 				drawBlockedCell(gridCells[r][c], r, c, g);
 
@@ -101,6 +101,19 @@ public class GridView extends JPanel {
 
 		// We should make sure that the blocking is on top of the trees
 		// and the grid lines are on top of everything else
+		
+	
+		Graphics2D g2d = (Graphics2D) g ;
+		
+		/*// draw coordinates
+		for (int r = 0; r < gridCells.length; r++) {
+			for (int c = 0; c < gridCells[r].length; c++) {
+				
+				g.setColor(Color.BLACK) ;
+				g2d.drawString("(" + r + "," + c + ")", r*cellWidth, c*cellHeight);
+				
+			}
+		}*/
 
 	}
 
@@ -114,11 +127,17 @@ public class GridView extends JPanel {
 	private void drawBlockedCell(GridCell toDraw, int row, int col, Graphics g) {
 
 		// We need to calculate the boundaries of the cell
-		int startX = row * cellWidth;
-		int startY = col * cellHeight;
+		int startX = col * cellWidth;
+		int startY = row * cellHeight;
+		
+	
 
 		// First we see if it is blocked
 		if (toDraw.isBlocked()) {
+		/*	
+			System.out.println("blocked");
+			System.out.println("row " + row);
+			System.out.println("col " + col) ;*/
 
 			// In this case, we just block out the cell by filling it with gray
 			g.setColor(Color.GRAY);
@@ -157,6 +176,10 @@ public class GridView extends JPanel {
 		// Additionally, does it matter if we put all infested trees down
 		// before non-infested trees? If so, what do we do to make sure this
 		// doesn't cause issues
+		
+		/*System.out.println("unblocked");
+		System.out.println("row " + row);
+		System.out.println("col " + col) ;*/
 
 	
 
@@ -241,12 +264,12 @@ public class GridView extends JPanel {
 		g.setColor(Color.BLACK);
 		
 		// This will draw the vertical lines
-		for (int i = 0; i <= EstimationGrid.NUM_COLS; i++) {
+		for (int i = 0; i <= gridCells[0].length; i++) {
 			g.drawLine(i * cellWidth, 0, i * cellWidth, GRID_HEIGHT);
 		}
 
 		// This will draw the horizontal lines
-		for (int i = 0; i <= EstimationGrid.NUM_ROWS; i++) {
+		for (int i = 0; i <= gridCells.length; i++) {
 			g.drawLine(0, i * cellHeight, GRID_WIDTH, i * cellHeight);
 		}
 	}
@@ -267,12 +290,12 @@ public class GridView extends JPanel {
 		int minDimension = Math.min(cellHeight, cellWidth);
 
 		int diameter = (int) ((minDimension / 2) + Math.random()
-				* (minDimension));
+				* (minDimension*1.25));
 		
 		// center ccoordinates of the tree
-		int centerX = (int) (row * cellWidth + Math.random() * cellWidth);
+		int centerX = (int) ((col * cellWidth ) + (Math.random() * cellWidth));
 
-		int centerY = (int) (col * cellHeight + Math.random() * cellHeight);
+		int centerY = (int) ((row * cellHeight) + (Math.random() * cellHeight));
 
 		// the tree to draw
 		Tree tree = new Tree(centerX, centerY, diameter);
@@ -298,13 +321,13 @@ public class GridView extends JPanel {
 
 		g2d.draw(tree);
 
-		// draw bounding rectangle
+	/*	// draw bounding rectangle
 		g2d.setColor(Color.BLUE);
-		g2d.draw(tree.getBounds2D());
+		g2d.draw(tree.getBounds2D());*/
 
-		// draw the index of the tree in the array
+		/*// draw the index of the tree in the array
 		g2d.setColor(Color.BLACK);
-		g2d.drawString("" + num, centerX, centerY);
+		g2d.drawString("" + num, centerX, centerY);*/
 
 		//a tree was drawn so return true
 		return true;

@@ -1,3 +1,5 @@
+import java.awt.Dimension;
+
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 
@@ -5,7 +7,7 @@ import javax.swing.JFrame;
 public class EstimationApplet extends JApplet {
 	
 	public void init(){
-		
+/*		
 		//Create a JFrame for the application and give it a size and close operation
 				JFrame frame = new JFrame("Estimation game");
 				frame.setSize(605, 715);
@@ -27,12 +29,22 @@ public class EstimationApplet extends JApplet {
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
 				this.add(frame) ;
-/*		
-		this.setVisible(true);
-		
+				*/
+				
+	
 		this.setSize(598, 680);
 		
-		this.add(new EstimationGameApplication() ) ;*/
+		this.getContentPane().add(new EstimationGameApplication() ) ;
+		
+		this.setVisible(true);
+		
+		this.setMaximumSize(new Dimension(598, 680));
+		
+		this.setMinimumSize(new Dimension(598, 680));
+		
+	
+		
+		
 		
 	}
 

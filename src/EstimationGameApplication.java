@@ -23,6 +23,11 @@ public class EstimationGameApplication extends JPanel{
 		
 		AnswerPanel answerPanel = new AnswerPanel() ;
 		add(answerPanel, BorderLayout.SOUTH) ;
+		
+		System.out.println("green (non- infested) " + grid.getTotalNonInfested());
+		
+		System.out.println("red (infested) " + grid.getTotalInfested());
+		
 	}
 
 	public static void main(String[] args) {

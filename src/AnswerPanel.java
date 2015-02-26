@@ -4,7 +4,9 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -49,7 +51,7 @@ public class AnswerPanel extends JPanel {
 	 */
 	private void addNonInfestedtest() {
 
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
 		panel.add(new JPanel());
@@ -69,9 +71,20 @@ public class AnswerPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
+				try{
+				int numNonInfested = Integer.parseInt(nonInfestedText.getText()) ;
+				
+				JOptionPane.showMessageDialog(panel, "You said there are "
+						+ numNonInfested + " non infested trees");
 
-				System.out.println("You said there are "
-						+ nonInfestedText.getText() + " non infested trees");
+				/*System.out.println("You said there are "
+						+ nonInfestedText.getText() + " non infested trees");*/
+				
+				}catch(NumberFormatException e){
+					
+					JOptionPane.showMessageDialog(panel, "Please enter a number");
+				}
 
 			}
 		});
@@ -90,7 +103,7 @@ public class AnswerPanel extends JPanel {
 	 */
 	private void addInfestedText() {
 
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
@@ -118,8 +131,19 @@ public class AnswerPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				System.out.println("You said there are "
-						+ infestedText.getText() + " infested trees");
+				try{
+					int numInfested = Integer.parseInt(infestedText.getText()) ;
+					
+						JOptionPane.showMessageDialog(panel, "You said there are "
+							+ numInfested + "  infested trees");
+
+					/*System.out.println("You said there are "
+							+ infestedText.getText() + " non infested trees");*/
+					
+					}catch(NumberFormatException e){
+						
+						JOptionPane.showMessageDialog(panel, "Please enter a number");
+					}
 
 			}
 		});
