@@ -20,7 +20,6 @@ public class Passport extends JPanel implements MouseListener{
 	
 	private static final FirstPage firstPage = new FirstPage() ;
 	
-	private KitPage beetlePage = new BeetlePage() ;
 	
 	private ArrayList<String> pageNames  = new ArrayList<String>() ;
 	
@@ -37,9 +36,7 @@ public class Passport extends JPanel implements MouseListener{
 		this.add(firstPage, FIRST_PAGE_NAME) ;
 		
 		CARD_LAYOUT.show(this,FIRST_PAGE_NAME) ;
-		
-		this.add(beetlePage , "Beetle Page") ;
-		
+				
 		
 		
 	}
@@ -61,6 +58,7 @@ public class Passport extends JPanel implements MouseListener{
 		System.out.println(currentPage);
 		CARD_LAYOUT.show(this, pageNames.get(currentPage));
 	}
+	
 
 	@Override
 	public void mouseEntered(MouseEvent e) {

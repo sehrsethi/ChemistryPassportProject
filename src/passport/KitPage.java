@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-public abstract class KitPage extends JPanel {
+public class KitPage extends JPanel {
 	
 	private String pageName ;
 	

@@ -40,7 +40,7 @@ public class FirstPage extends JPanel {
 	private static final String GRADE_TEXT = "Grades K-2";
 
 	private static final Font SPONSOR_FONT = new Font("Times New Roman",
-			Font.PLAIN, 18);
+			Font.PLAIN, 18); 
 
 	// the space is necessary to center the text
 	private static final String SPONSOR_TEXT = "Funded by the Camille and Henry Dreyfus Foundation                         and Mount Holyoke College";
