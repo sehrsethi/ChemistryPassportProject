@@ -1,3 +1,4 @@
+package beetle_kit;
 
 /**
  * Chemistry Passport Project The grid for the estimation game
@@ -7,10 +8,10 @@
  */
 public class EstimationGrid {
 	// The number of rows in the grid
-	public static final int NUM_ROWS = 4;
+	public static final int NUM_ROWS = 7;
 
 	// The number of columns in the grid
-	public static final int NUM_COLS = 4;
+	public static final int NUM_COLS = 7;
 
 	// (1/PERCENT_BLOCKED) of cells will be blocked
 	private static final int RATIO_BLOCKED = 3;

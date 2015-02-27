@@ -1,3 +1,4 @@
+package beetle_kit;
 /**
  * Chemistry Passport Project This represents the information contained in a
  * cell in the grid for the Estimation Game.

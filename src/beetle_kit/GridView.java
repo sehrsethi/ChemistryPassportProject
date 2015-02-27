@@ -1,3 +1,4 @@
+package beetle_kit;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -5,7 +6,10 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 /**
  * 
@@ -64,6 +68,12 @@ public class GridView extends JPanel {
 		cellHeight = GRID_HEIGHT / EstimationGrid.NUM_ROWS;
 
 		trees = new ArrayList<Tree>();
+		
+		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 5) ;
+		
+		this.setBorder(border);
+		
+
 
 	}
 
