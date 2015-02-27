@@ -1,9 +1,11 @@
+package beetle_kit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,12 +22,17 @@ public class AnswerPanel extends JPanel {
 	private JTextField infestedText;
 
 	private JTextField nonInfestedText;
+	
+	private final EstimationGrid grid ;
 
 	/**
+	 * @param grid 
 	 * 
 	 */
-	public AnswerPanel() {
+	public AnswerPanel(EstimationGrid grid) {
 
+		this.grid = grid ;
+		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		Border border = BorderFactory.createRaisedBevelBorder();
@@ -41,6 +48,8 @@ public class AnswerPanel extends JPanel {
 		addNonInfestedtest();
 
 		this.add(new JPanel());
+		
+		
 		
 		// empty panels are added to add more space
 	}
@@ -75,7 +84,7 @@ public class AnswerPanel extends JPanel {
 				int numNonInfested = Integer.parseInt(nonInfestedText.getText()) ;
 				
 				JOptionPane.showMessageDialog(panel, "You said there are "
-						+ numNonInfested + " non infested trees");
+						+ numNonInfested + " non infested trees. There are actually " + grid.getTotalNonInfested() + " non-infested trees.");
 
 				/*System.out.println("You said there are "
 						+ nonInfestedText.getText() + " non infested trees");*/
@@ -134,7 +143,7 @@ public class AnswerPanel extends JPanel {
 					int numInfested = Integer.parseInt(infestedText.getText()) ;
 					
 						JOptionPane.showMessageDialog(panel, "You said there are "
-							+ numInfested + "  infested trees");
+							+ numInfested + "  infested trees. There are actually " + grid.getTotalInfested() + " infested trees.");
 
 					/*System.out.println("You said there are "
 							+ infestedText.getText() + " non infested trees");*/

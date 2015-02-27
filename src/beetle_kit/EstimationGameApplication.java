@@ -1,3 +1,4 @@
+package beetle_kit;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
@@ -21,12 +22,13 @@ public class EstimationGameApplication extends JPanel{
 		
 		add(gridView, BorderLayout.CENTER) ;
 		
-		AnswerPanel answerPanel = new AnswerPanel() ;
+		AnswerPanel answerPanel = new AnswerPanel(grid) ;
 		add(answerPanel, BorderLayout.SOUTH) ;
 		
 		System.out.println("green (non- infested) " + grid.getTotalNonInfested());
 		
 		System.out.println("red (infested) " + grid.getTotalInfested());
+		
 		
 	}
 
