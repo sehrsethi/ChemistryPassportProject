@@ -76,6 +76,38 @@ public class GridView extends JPanel {
 
 		this.setBorder(border);
 
+		// fillTreeArray(gridCells);
+
+	}
+
+	/**
+	 * @param gridCells
+	 */
+	public void fillTreeArray() {
+		// create trees initially
+		for (int r = 0; r < gridCells.length; r++) {
+			for (int c = 0; c < gridCells[r].length; c++) {
+
+				prepareUnblockedCell(gridCells[r][c], r, c);
+
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public ArrayList<Tree> getTrees() {
+		return trees;
+	}
+
+	/**
+	 * 
+	 * @param trees
+	 */
+	public void setTrees(ArrayList<Tree> trees) {
+		this.trees = trees;
 	}
 
 	public void paintComponent(Graphics g) {
@@ -90,15 +122,8 @@ public class GridView extends JPanel {
 
 		// now draw each unblocked cell with the trees in them
 
-		for (int r = 0; r < gridCells.length; r++) {
-			for (int c = 0; c < gridCells[r].length; c++) {
+		drawTrees(g);
 
-				drawUnblockedCell(gridCells[r][c], g, r, c);
-
-			}
-		}
-
-		
 		// paint blocked cells gray only if it is required.
 		if (hasBlockedCells) {
 			// Now we draw each blocked cell
@@ -177,13 +202,13 @@ public class GridView extends JPanel {
 	 * @param col
 	 *            The column of the grid that cell is in
 	 */
-	private void drawUnblockedCell(GridCell toDraw, Graphics g, int row, int col) {
+	private void prepareUnblockedCell(GridCell toDraw, int row, int col) {
 
-	/*	// if cell is blocked, to do nothing
-		if (toDraw.isBlocked()) {
-
-			return;
-		}*/
+		/*
+		 * // if cell is blocked, to do nothing if (toDraw.isBlocked()) {
+		 * 
+		 * return; }
+		 */
 		// Otherwise, we need to draw the trees.
 		// We need it to be at least 50% in this cell. I -think- this
 		// will be satisfied as long as the center is in the cell, but
@@ -219,7 +244,7 @@ public class GridView extends JPanel {
 			while (toDraw.getNumInfestedTrees() > numInfestedTrees) {
 
 				// check if the tree was actually drawn
-				boolean drawn = drawTree(g, INFESTED_COLOR,
+				boolean drawn = createTree(INFESTED_COLOR,
 						INFESTED_BORDER_COLOR, row, col);
 
 				if (drawn) {
@@ -233,7 +258,7 @@ public class GridView extends JPanel {
 			while (toDraw.getNumNonInfestedTrees() > numNonInfestedTrees) {
 
 				// check if the tree was actually drawn
-				boolean drawn = drawTree(g, NON_INFESTED_COLOR,
+				boolean drawn = createTree(NON_INFESTED_COLOR,
 						NON_INFESTED_BOREDR_COLOR, row, col);
 
 				if (drawn) {
@@ -250,7 +275,7 @@ public class GridView extends JPanel {
 			while (toDraw.getNumNonInfestedTrees() > numNonInfestedTrees) {
 
 				// check if the tree was actually drawn
-				boolean drawn = drawTree(g, NON_INFESTED_COLOR,
+				boolean drawn = createTree(NON_INFESTED_COLOR,
 						NON_INFESTED_BOREDR_COLOR, row, col);
 				if (drawn) {
 					numNonInfestedTrees++;
@@ -263,7 +288,7 @@ public class GridView extends JPanel {
 			while (toDraw.getNumInfestedTrees() > numInfestedTrees) {
 
 				// check if the tree was actually drawn
-				boolean drawn = drawTree(g, INFESTED_COLOR,
+				boolean drawn = createTree(INFESTED_COLOR,
 						INFESTED_BORDER_COLOR, row, col);
 
 				if (drawn) {
@@ -316,8 +341,8 @@ public class GridView extends JPanel {
 	 *            The column of the cell containing the bulk of the tree
 	 * @return True if a tree was successfully drawn. Otherwise returns false.
 	 */
-	private boolean drawTree(Graphics g, Color fillColor, Color borderColor,
-			int row, int col) {
+	private boolean createTree(Color fillColor, Color borderColor, int row,
+			int col) {
 
 		// dimensions of the tre
 		int minDimension = Math.min(cellHeight, cellWidth);
@@ -331,7 +356,7 @@ public class GridView extends JPanel {
 		int centerY = (int) ((row * cellHeight) + (Math.random() * cellHeight));
 
 		// the tree to draw
-		Tree tree = new Tree(centerX, centerY, diameter);
+		Tree tree = new Tree(centerX, centerY, diameter, fillColor, borderColor);
 
 		// if the tree we are trying to draw will completely hide another
 		// existing tree or the tree itself will be completely hidden by an
@@ -345,17 +370,6 @@ public class GridView extends JPanel {
 
 		num++;
 
-		// fill/draw the tree
-		Graphics2D g2d = (Graphics2D) g;
-
-		g2d.setColor(fillColor);
-
-		g2d.fill(tree);
-
-		g2d.setColor(borderColor);
-
-		g2d.draw(tree);
-
 		/*
 		 * // draw bounding rectangle g2d.setColor(Color.BLUE);
 		 * g2d.draw(tree.getBounds2D());
@@ -368,6 +382,28 @@ public class GridView extends JPanel {
 
 		// a tree was drawn so return true
 		return true;
+	}
+
+	/**
+	 * @param fillColor
+	 * @param borderColor
+	 * @param tree
+	 */
+	private void drawTrees(Graphics g) {
+		// fill/draw the tree
+		Graphics2D g2d = (Graphics2D) g;
+
+		for (int i = 0; i < trees.size(); i++) {
+
+			Tree tree = trees.get(i);
+			g2d.setColor(tree.getFillColor());
+
+			g2d.fill(tree);
+
+			g2d.setColor(tree.getBorderColor());
+
+			g2d.draw(tree);
+		}
 	}
 
 	/**

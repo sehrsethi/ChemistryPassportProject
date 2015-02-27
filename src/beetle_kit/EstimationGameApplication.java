@@ -19,10 +19,11 @@ public class EstimationGameApplication extends JPanel{
 		EstimationGrid grid = new EstimationGrid();
 		
 		GridView gridView = new GridView(grid.getCellData());
+		gridView.fillTreeArray();
 				
 		add(gridView, BorderLayout.CENTER) ;
 		
-		AnswerPanel answerPanel = new AnswerPanel(grid) ;
+		AnswerPanel answerPanel = new AnswerPanel(grid, gridView) ;
 		add(answerPanel, BorderLayout.SOUTH) ;
 		
 		System.out.println("green (non- infested) " + grid.getTotalUnblockedNonInfested());
@@ -40,7 +41,7 @@ public class EstimationGameApplication extends JPanel{
 		
 		//Create a JFrame for the application and give it a size and close operation
 		JFrame frame = new JFrame("Estimation game");
-		frame.setSize(605, 725);
+		frame.setSize(605, 751);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Create the grid and add it to the frame

@@ -1,4 +1,5 @@
 package beetle_kit;
+import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 
@@ -15,6 +16,10 @@ public class Tree extends Ellipse2D.Double {
 
 	// the diamater of the circular tree
 	private int diameter;
+	
+	private Color fillColor ;
+	
+	private Color borderColor ;
 
 	/**
 	 * Constructs a circular tree
@@ -22,7 +27,7 @@ public class Tree extends Ellipse2D.Double {
 	 * @param centerY The y coordinate of the center of the tree
 	 * @param diameter The diameter of the tree
 	 */
-	public Tree(int centerX, int centerY, int diameter) {
+	public Tree(int centerX, int centerY, int diameter, Color fillColor, Color borderColor) {
 
 		super();
 
@@ -41,8 +46,33 @@ public class Tree extends Ellipse2D.Double {
 		this.x = centerX - diameter / 2;
 
 		this.y = centerY - diameter / 2;
+		
+		this.fillColor = fillColor ;
+		
+		this.borderColor = borderColor ;
 
 	}
+	
+	
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Color getFillColor() {
+		return fillColor;
+	}
+
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Color getBorderColor() {
+		return borderColor;
+	}
+
+
 
 	/**
 	 * Returns true if this tree is contained within another tree. Otherwise returns false.
@@ -55,9 +85,9 @@ public class Tree extends Ellipse2D.Double {
 		 * 	Let inner parentheses be this tree .
 		 *  (()) - in this situation, returns true
 		 */
-		return ((this.x > otherTree.x)
-				&& (this.x + this.diameter < otherTree.x + otherTree.diameter)
-				&& (this.y > otherTree.y) && (this.y + this.diameter < otherTree.y
+		return ((this.x >= otherTree.x)
+				&& (this.x + this.diameter <= otherTree.x + otherTree.diameter)
+				&& (this.y >= otherTree.y) && (this.y + this.diameter <= otherTree.y
 				+ otherTree.diameter));
 
 	}

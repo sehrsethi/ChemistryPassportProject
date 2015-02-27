@@ -1,7 +1,9 @@
 package beetle_kit;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,14 +33,24 @@ public class AnswerPanel extends JPanel {
 
 	private final EstimationGrid estimationGrid;
 
+	private final GridView gridView;
+
+	private static final int ERROR_BARS = 5;
+
+	// the number by which number if infested / non- infested trees will be
+	// multiplied
+	private static final int MULTIPLY = 3;
+
 	/**
 	 * @param grid
 	 * @param gridView
 	 * 
 	 */
-	public AnswerPanel(EstimationGrid grid) {
+	public AnswerPanel(EstimationGrid grid, GridView gridView) {
 
 		this.estimationGrid = grid;
+
+		this.gridView = gridView;
 
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -48,11 +60,15 @@ public class AnswerPanel extends JPanel {
 
 		this.add(new JPanel());
 
-		addInfestedText();
+		/*
+		 * addInfestedText();
+		 * 
+		 * this.add(new JPanel());
+		 * 
+		 * addNonInfestedtest();
+		 */
 
-		this.add(new JPanel());
-
-		addNonInfestedtest();
+		estimatePanel();
 
 		this.add(new JPanel());
 
@@ -61,6 +77,107 @@ public class AnswerPanel extends JPanel {
 		this.add(new JPanel());
 
 		// empty panels are added to add more space
+	}
+
+	private void estimatePanel() {
+
+		JButton estimateButton = new JButton("Ready to Estimate!");
+
+		estimateButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				createPopUp();
+
+			}
+
+		});
+
+		add(estimateButton);
+
+	}
+
+	private void createPopUp() {
+
+		JPanel panel = new JPanel();
+		BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+		panel.setLayout(boxLayout);
+
+		createSubAnswerPanel(panel, "Infested");
+
+		createSubAnswerPanel(panel, "Non-Infested");
+		
+		//JOptionPane.showMessageDialog(gridView, panel, "Input Answer", JOptionPane.PLAIN_MESSAGE);
+		
+		JOptionPane.showConfirmDialog(gridView, panel, "Input Answer", JOptionPane.CANCEL_OPTION) ;
+		///(gridView, panel, "Input Answer", JOptionPane.CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, "Cancel", "Cancel" );
+		
+	}
+
+	private void createSubAnswerPanel(JPanel panel, String treeType) {
+
+		JPanel treePanel = new JPanel(new BorderLayout());
+
+		Border border = BorderFactory.createTitledBorder(treeType + " Tree");
+
+		treePanel.setBorder(border);
+
+		// How many trees
+		JPanel textPanel = new JPanel(new GridLayout(3, 2, 20, 20));
+
+		JLabel treeLabel = new JLabel("How many " + treeType.toLowerCase()
+				+ " trees do you see?");
+
+		textPanel.add(treeLabel);
+
+		JTextField treeField = new JTextField(10);
+
+		textPanel.add(treeField);
+
+		// multiply by what?
+		JTextArea multiplyArea = new JTextArea(
+				"What number should you multiply the number of "
+						+ treeType.toLowerCase() + " trees by?" + "\n"
+						+ "(Remember that only 1/3 of the grid is visible)");
+
+		multiplyArea.setEditable(false);
+
+		multiplyArea.setBackground(new Color(0, 0, 0, 0));
+
+		multiplyArea.setFont(new Font("Dialog", Font.BOLD, 12));
+
+		textPanel.add(multiplyArea);
+
+		JTextField multiplyField = new JTextField(10);
+
+		textPanel.add(multiplyField);
+
+		// Final Answer
+
+		JLabel answerLabel = new JLabel("How many " + treeType.toLowerCase()
+				+ " trees do you think are in the grid?");
+
+		textPanel.add(answerLabel);
+
+		JTextField answerField = new JTextField(10);
+
+		textPanel.add(answerField);
+
+		JButton checkButton = new JButton("Check my Answer!");
+
+		checkButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		treePanel.add(textPanel, BorderLayout.CENTER);
+		treePanel.add(checkButton, BorderLayout.SOUTH);
+
+		panel.add(treePanel);
 	}
 
 	/**
@@ -91,15 +208,26 @@ public class AnswerPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					int numNonInfested = Integer.parseInt(nonInfestedText
-							.getText());
+					int userAnswer = Integer.parseInt(nonInfestedText.getText());
+
+					int actualAnswer = estimationGrid
+							.getTotalUnblockedNonInfested() * 3;
+
+					boolean rightAnswer = calculateRightAnswer(userAnswer,
+							actualAnswer);
+
+					if (rightAnswer) {
+
+						// OptionPane.showMessageDialog(panel,
+						// "Good job! You got the correct answer! "
+					}
 
 					JOptionPane.showMessageDialog(panel, "You said there are "
-							+ numNonInfested
-							+ " non infested trees. There are actually "
-							+ estimationGrid.getTotalUnblockedNonInfested()
-							+ " non-infested trees that are visible.");
+							+ userAnswer + " non infested trees." + "\n"
+							+ "There are actually " + actualAnswer
+							+ " non-infested trees in total." + "");
 
+					gridView.repaint();
 					/*
 					 * System.out.println("You said there are " +
 					 * nonInfestedText.getText() + " non infested trees");
@@ -107,11 +235,12 @@ public class AnswerPanel extends JPanel {
 
 				} catch (NumberFormatException e) {
 
-					JOptionPane.showMessageDialog(panel,
+					JOptionPane.showMessageDialog(gridView,
 							"Please enter a number");
 				}
 
 			}
+
 		});
 
 		panel.add(new JPanel());
@@ -164,6 +293,8 @@ public class AnswerPanel extends JPanel {
 							+ estimationGrid.getTotalUnblockedInfested()
 							+ " infested trees that are visible");
 
+					gridView.repaint();
+
 					/*
 					 * System.out.println("You said there are " +
 					 * infestedText.getText() + " non infested trees");
@@ -171,7 +302,7 @@ public class AnswerPanel extends JPanel {
 
 				} catch (NumberFormatException e) {
 
-					JOptionPane.showMessageDialog(panel,
+					JOptionPane.showMessageDialog(gridView,
 							"Please enter a number");
 				}
 
@@ -203,11 +334,14 @@ public class AnswerPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				System.out.println("Clicked");
+				// System.out.println("Clicked");
 
 				GridView fullGridView = new GridView(estimationGrid
 						.getCellData());
+
 				fullGridView.setHasBlockedCells(false);
+
+				fullGridView.setTrees(gridView.getTrees());
 
 				JPanel fullGridPanel = new JPanel(new BorderLayout());
 
@@ -225,14 +359,21 @@ public class AnswerPanel extends JPanel {
 				fullGridPanel.add(treeInfo, BorderLayout.SOUTH);
 
 				JFrame frame = new JFrame();
-				frame.setSize(GridView.GRID_WIDTH, GridView.GRID_HEIGHT);
+				frame.setSize(GridView.GRID_WIDTH, GridView.GRID_HEIGHT + 72);
 				frame.setTitle("Showing Full Grid");
 				frame.add(fullGridPanel);
 				frame.setResizable(false);
 				frame.setVisible(true);
 
+				gridView.repaint();
 			}
 		});
+	}
+
+	private boolean calculateRightAnswer(int userAnswer, int actualAnswer) {
+
+		return ((actualAnswer >= userAnswer - ERROR_BARS) && (actualAnswer <= userAnswer
+				+ ERROR_BARS));
 	}
 
 }
