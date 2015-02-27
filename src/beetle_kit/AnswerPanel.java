@@ -2,6 +2,8 @@ package beetle_kit;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 /**
  * Allows user to type in answers
@@ -70,7 +73,7 @@ public class AnswerPanel extends JPanel {
 
 		estimatePanel();
 
-		this.add(new JPanel());
+		//this.add(new JPanel());
 
 		addShowButton();
 
@@ -80,6 +83,8 @@ public class AnswerPanel extends JPanel {
 	}
 
 	private void estimatePanel() {
+		
+		JPanel panel = new JPanel() ;
 
 		JButton estimateButton = new JButton("Ready to Estimate!");
 
@@ -93,32 +98,42 @@ public class AnswerPanel extends JPanel {
 
 		});
 
-		add(estimateButton);
+		panel.add(estimateButton);
+		
+		add(panel) ;
 
 	}
 
 	private void createPopUp() {
 
 		JPanel panel = new JPanel();
+
 		BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
 		panel.setLayout(boxLayout);
 
 		createSubAnswerPanel(panel, "Infested");
 
+		// create space between the infested and non-infested sub answer panels
+		panel.add(new JPanel());
+		panel.add(new JPanel());
+
 		createSubAnswerPanel(panel, "Non-Infested");
-		
-		//JOptionPane.showMessageDialog(gridView, panel, "Input Answer", JOptionPane.PLAIN_MESSAGE);
-		
-		JOptionPane.showConfirmDialog(gridView, panel, "Input Answer", JOptionPane.CANCEL_OPTION) ;
-		///(gridView, panel, "Input Answer", JOptionPane.CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, "Cancel", "Cancel" );
-		
+
+		// should not have the ok button
+		JOptionPane.showOptionDialog(gridView, panel, "Input Answer",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+				new Object[] {}, null);
+
 	}
 
-	private void createSubAnswerPanel(JPanel panel, String treeType) {
+	private void createSubAnswerPanel(final JPanel panel, final String treeType) {
 
 		JPanel treePanel = new JPanel(new BorderLayout());
 
-		Border border = BorderFactory.createTitledBorder(treeType + " Tree");
+		TitledBorder border = BorderFactory.createTitledBorder(treeType
+				+ " Tree");
+
+		border.setTitleFont((new Font("Dialog", Font.BOLD, 15)));
 
 		treePanel.setBorder(border);
 
@@ -130,9 +145,9 @@ public class AnswerPanel extends JPanel {
 
 		textPanel.add(treeLabel);
 
-		JTextField treeField = new JTextField(10);
+		final JTextField treeAnswerField = new JTextField(10);
 
-		textPanel.add(treeField);
+		textPanel.add(treeAnswerField);
 
 		// multiply by what?
 		JTextArea multiplyArea = new JTextArea(
@@ -148,36 +163,174 @@ public class AnswerPanel extends JPanel {
 
 		textPanel.add(multiplyArea);
 
-		JTextField multiplyField = new JTextField(10);
+		final JTextField multiplyField = new JTextField(10);
 
 		textPanel.add(multiplyField);
 
 		// Final Answer
 
-		JLabel answerLabel = new JLabel("How many " + treeType.toLowerCase()
+		JLabel finalAnswerLabel = new JLabel("How many "
+				+ treeType.toLowerCase()
 				+ " trees do you think are in the grid?");
 
-		textPanel.add(answerLabel);
+		textPanel.add(finalAnswerLabel);
 
-		JTextField answerField = new JTextField(10);
+		final JTextField finalAnswerField = new JTextField(10);
 
-		textPanel.add(answerField);
+		textPanel.add(finalAnswerField);
 
+		treePanel.add(textPanel, BorderLayout.CENTER);
+
+		createAnswerButtonPanel(panel, treeType, treePanel, treeAnswerField,
+				multiplyField, finalAnswerField);
+
+		panel.add(treePanel);
+	}
+
+	/**
+	 * @param panel
+	 * @param treeType
+	 * @param treePanel
+	 * @param treeAnswerField
+	 * @param multiplyField
+	 * @param finalAnswerField
+	 */
+	private void createAnswerButtonPanel(final JPanel panel,
+			final String treeType, JPanel treePanel,
+			final JTextField treeAnswerField, final JTextField multiplyField,
+			final JTextField finalAnswerField) {
+		// the panel is needed so that the button is of a reasonable size .
+		JPanel buttonPanel = new JPanel();
 		JButton checkButton = new JButton("Check my Answer!");
+
+		buttonPanel.add(checkButton);
 
 		checkButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				try {
+
+					int userTreeAnswer = Integer.parseInt(treeAnswerField
+							.getText());
+
+					int userMultiplyAnswer = Integer.parseInt(multiplyField
+							.getText());
+
+					if (userMultiplyAnswer != MULTIPLY) {
+
+						JOptionPane
+								.showMessageDialog(
+										panel,
+										"Are you sure you should multiply by "
+												+ userMultiplyAnswer
+												+ " ? Try again! Hint : Remeber that only one-third of the grid is visible. T");
+					}
+
+					int userFinalAnswer = Integer.parseInt(finalAnswerField
+							.getText());
+
+					int actualTreeAnswer = 0;
+
+					if (treeType.equals("Infested")) {
+
+						actualTreeAnswer = estimationGrid
+								.getTotalUnblockedInfested();
+
+					} else if (treeType.equals("Non-Infested")) {
+
+						actualTreeAnswer = estimationGrid
+								.getTotalUnblockedNonInfested();
+
+					} else {
+
+						throw new AssertionError(
+								"the string should only have been Infested or Non-Infested");
+					}
+
+					int actualFinalAnswer = actualTreeAnswer * MULTIPLY;
+
+					if (calculateRightAnswer(userFinalAnswer, actualFinalAnswer)) {
+
+						JOptionPane.showMessageDialog(panel,
+								"You got the correct answer! Good job!");
+
+					} else {
+
+						
+						JOptionPane.showMessageDialog(panel,
+								"Sorry but your answer is wrong. The correct answer is "
+										+ actualFinalAnswer + ". Try again!");
+
+					}
+
+				} catch (NumberFormatException exception) {
+
+					JOptionPane.showMessageDialog(panel,
+							"Please enter a number");
+
+				}
 
 			}
 		});
+		
+		JButton showAnswerButton = new JButton("Show me how to estimate the trees!") ;
+		
+		buttonPanel.add(showAnswerButton) ;
+		
+		showAnswerButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
 
-		treePanel.add(textPanel, BorderLayout.CENTER);
-		treePanel.add(checkButton, BorderLayout.SOUTH);
+				int actualTreeAnswer = 0;
 
-		panel.add(treePanel);
+				if (treeType.equals("Infested")) {
+
+					actualTreeAnswer = estimationGrid
+							.getTotalUnblockedInfested();
+
+				} else if (treeType.equals("Non-Infested")) {
+
+					actualTreeAnswer = estimationGrid
+							.getTotalUnblockedNonInfested();
+
+				} else {
+
+					throw new AssertionError(
+							"the string should only have been Infested or Non-Infested");
+				}
+				
+				int actualFinalAnswer = actualTreeAnswer * MULTIPLY;
+				
+				 JTextArea answerExplanationArea = new JTextArea(
+				 "There are actually "
+				 + actualTreeAnswer + " " + treeType.toLowerCase() +
+				 " trees visible in the grid. To get the total number of trees, you should do the following: "
+				 + "\n" + actualTreeAnswer + " * " + MULTIPLY + " = "
+				 + actualFinalAnswer);
+				 
+				 
+				 answerExplanationArea.setEditable(false);
+				 answerExplanationArea.setBackground(new Color(0,0,0,0));
+				 answerExplanationArea.setWrapStyleWord(true);
+				 answerExplanationArea.setLineWrap(true);
+				// answerExplanationArea.setFont(new Font("Times New Roman" , Font.PLAIN , 18));
+				 
+				 String answer = "There are actually "
+						 + actualTreeAnswer + " " + treeType.toLowerCase() +
+						 " trees visible in the grid. To get the total number of trees, you should do the following: " + actualTreeAnswer + " * " + MULTIPLY + " = "
+						 + actualFinalAnswer ;
+				JOptionPane.showMessageDialog(panel, answer);
+
+				
+			}
+		});
+
+		// treePanel.add(checkButton, BorderLayout.SOUTH);
+
+		treePanel.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
 	/**
@@ -253,7 +406,7 @@ public class AnswerPanel extends JPanel {
 	}
 
 	/**
-	 * Adds JLabel, JTextField and JBUtton pertaining to user's aswer about
+	 * Adds JLabel, JTextField and JBUtton pertaining to user's answer about
 	 * infested trees
 	 */
 	private void addInfestedText() {
@@ -321,13 +474,17 @@ public class AnswerPanel extends JPanel {
 
 	private void addShowButton() {
 
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel();
+		
+		panel.setAlignmentX(CENTER_ALIGNMENT);
+		
+		panel.setAlignmentY(CENTER_ALIGNMENT);
 
 		JButton showButton = new JButton("Show full grid");
 
 		panel.add(showButton);
 
-		add(panel);
+	
 
 		showButton.addActionListener(new ActionListener() {
 
@@ -368,8 +525,17 @@ public class AnswerPanel extends JPanel {
 				gridView.repaint();
 			}
 		});
+		
+		add(panel);
 	}
 
+	/**
+	 * Returns true if the user's answers are within the error bars
+	 * 
+	 * @param userAnswer
+	 * @param actualAnswer
+	 * @return
+	 */
 	private boolean calculateRightAnswer(int userAnswer, int actualAnswer) {
 
 		return ((actualAnswer >= userAnswer - ERROR_BARS) && (actualAnswer <= userAnswer
