@@ -1,7 +1,6 @@
 import java.awt.Dimension;
 
 import javax.swing.JApplet;
-import javax.swing.JFrame;
 
 
 public class EstimationApplet extends JApplet {

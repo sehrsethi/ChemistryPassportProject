@@ -7,10 +7,10 @@
  */
 public class EstimationGrid {
 	// The number of rows in the grid
-	public static final int NUM_ROWS = 15;
+	public static final int NUM_ROWS = 4;
 
 	// The number of columns in the grid
-	public static final int NUM_COLS = 15;
+	public static final int NUM_COLS = 4;
 
 	// (1/PERCENT_BLOCKED) of cells will be blocked
 	private static final int RATIO_BLOCKED = 3;
