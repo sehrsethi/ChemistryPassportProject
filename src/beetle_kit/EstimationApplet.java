@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 public class EstimationApplet extends JApplet {
 	
 	public void init(){
-/*		
+/*		 
 		//Create a JFrame for the application and give it a size and close operation
 				JFrame frame = new JFrame("Estimation game");
 				frame.setSize(605, 715);
