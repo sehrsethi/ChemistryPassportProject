@@ -2,9 +2,12 @@ package beetle_kit;
 import java.awt.Dimension;
 
 import javax.swing.JApplet;
-import javax.swing.JFrame;
 
-
+/**
+ * 
+ * @author Charlotte, Humaira, Sehr
+ *
+ */
 public class EstimationApplet extends JApplet {
 	
 	public void init(){

@@ -2,8 +2,6 @@ package beetle_kit;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,7 +10,6 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -152,9 +149,9 @@ public class AnswerPanel extends JPanel {
 
 		// multiply by what?
 		JTextArea multiplyArea = new JTextArea(
-				"What number should you multiply the number of "
-						+ treeType.toLowerCase() + " trees by?" + "\n"
-						+ "(Remember that only 1/3 of the grid is visible)");
+				"What number should you multiply the number of \n"
+						+ treeType.toLowerCase() + " trees by?" 
+						+ " (Remember that only 1/3 of \nthe grid is visible)");
 
 		multiplyArea.setEditable(false);
 
@@ -170,12 +167,23 @@ public class AnswerPanel extends JPanel {
 
 		// Final Answer
 
-		JLabel finalAnswerLabel = new JLabel("How many "
-				+ treeType.toLowerCase()
-				+ " trees do you think are in the grid?");
+		JTextArea finalAnswerArea = new JTextArea("How many " + 
+		treeType.toLowerCase() + " trees do you think\nare in the grid?");
+		
+		finalAnswerArea.setEditable(false);
+		
+		finalAnswerArea.setBackground(new Color(0, 0, 0, 0));
 
-		textPanel.add(finalAnswerLabel);
+		finalAnswerArea.setFont(new Font("Dialog", Font.BOLD, 12));
 
+		textPanel.add(finalAnswerArea);
+		
+//		JLabel finalAnswerLabel = new JLabel("How many "
+//				+ treeType.toLowerCase()
+//				+ " trees do you think\nare in the grid?");
+//
+//		textPanel.add(finalAnswerLabel);
+//
 		final JTextField finalAnswerField = new JTextField(10);
 
 		textPanel.add(finalAnswerField);
