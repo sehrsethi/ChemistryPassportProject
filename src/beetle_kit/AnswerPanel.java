@@ -30,6 +30,7 @@ import javax.swing.border.TitledBorder;
  */
 public class AnswerPanel extends JPanel {
 
+	
 	private JTextField infestedText;
 
 	private JTextField nonInfestedText;
@@ -47,7 +48,7 @@ public class AnswerPanel extends JPanel {
 	/**
 	 * @param grid
 	 * @param gridView
-	 * 
+	 * Creates the answer panel
 	 */
 	public AnswerPanel(EstimationGrid grid, GridView gridView) {
 
