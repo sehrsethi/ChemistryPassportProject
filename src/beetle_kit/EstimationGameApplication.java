@@ -18,6 +18,13 @@ public class EstimationGameApplication extends JPanel{
 		
 		EstimationGrid grid = new EstimationGrid();
 		
+		//Create three different gridViews and get rid of and swap
+		//when switching rounds
+		
+		//Need a control class--could be this one
+		
+		//Could take checking answer stuff and put here or in separate class
+		
 		GridView gridView = new GridView(grid.getCellData());
 		gridView.fillTreeArray();
 				

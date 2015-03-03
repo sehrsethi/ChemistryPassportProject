@@ -36,6 +36,8 @@ public class EstimationGrid {
 	private int totalUnblockedNonInfested ;
 	
 
+	
+
 	/**
 	 * Returns the cell data array
 	 * 
@@ -68,6 +70,28 @@ public class EstimationGrid {
 		blockCells(); 
 
 		countTrees() ;
+		
+	
+	}
+	
+	/**
+	 * Called by AnswerPanel when the user
+	 * has successfully completed a round and is
+	 * ready to move on to the next round
+	 */
+	public void startNextRound(){
+		//Need to complete and then call this method
+		//Still need to decide which class is in charge of
+		//checking what round we're on (and thus
+		//whether it's time to start a new round
+		//or whether they're done and it's time for the reward)
+		//Also not 100% sure this method is the best way to do it
+		//Also, do we need to keep track of whether they got the answers
+		//right on the first try?  Do we want to give them
+		//an option to skip a grid and try the next one?
+		//Do they need to get three in a row correct on the
+		//first try to get a sticker?  If not,
+		
 	}
 
 	/**

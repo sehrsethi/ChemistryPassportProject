@@ -41,6 +41,13 @@ public class AnswerPanel extends JPanel {
 	// the number by which number if infested / non- infested trees will be
 	// multiplied
 	private static final int MULTIPLY = 3;
+	
+	//Might need to change this
+	//Whether they have correctly guessed the number of non-infested trees 
+	boolean nonInfCorrect;
+	
+	//Whether they have correctly guessed the number of infested trees
+	boolean infCorrect;
 
 	/**
 	 * @param grid
@@ -48,6 +55,10 @@ public class AnswerPanel extends JPanel {
 	 * Creates the answer panel
 	 */
 	public AnswerPanel(EstimationGrid grid, GridView gridView) {
+		
+		//Initially, the user hasn't guessed anything correctly
+		nonInfCorrect = false;
+		infCorrect = false;
 
 		this.estimationGrid = grid;
 
@@ -80,6 +91,9 @@ public class AnswerPanel extends JPanel {
 		// empty panels are added to add more space
 	}
 
+	/**
+	 * 
+	 */
 	private void estimatePanel() {
 		
 		JPanel panel = new JPanel() ;
@@ -102,6 +116,9 @@ public class AnswerPanel extends JPanel {
 
 	}
 
+	/**
+	 * 
+	 */
 	private void createPopUp() {
 
 		JPanel panel = new JPanel();
@@ -124,6 +141,11 @@ public class AnswerPanel extends JPanel {
 
 	}
 
+	/**
+	 * 
+	 * @param panel
+	 * @param treeType
+	 */
 	private void createSubAnswerPanel(final JPanel panel, final String treeType) {
 
 		JPanel treePanel = new JPanel(new BorderLayout());
@@ -234,7 +256,7 @@ public class AnswerPanel extends JPanel {
 										panel,
 										"Are you sure you should multiply by "
 												+ userMultiplyAnswer
-												+ " ? Try again! Hint : Remeber that only one-third of the grid is visible. T");
+												+ "? Try again! Hint: Remember that only one-third of the grid is visible.");
 					}
 
 					int userFinalAnswer = Integer.parseInt(finalAnswerField
@@ -264,6 +286,26 @@ public class AnswerPanel extends JPanel {
 
 						JOptionPane.showMessageDialog(panel,
 								"You got the correct answer! Good job!");
+						
+						//Note that they solved one of the problems correctly
+						
+						//If they guessed infested trees, note that they got that correct
+						if (treeType.equals("Infested")){
+							infCorrect = true;
+						}
+						//If they guessed non-infested trees, note that they got that correct
+						else{
+							nonInfCorrect = true;
+						}
+						
+						//If they now have gotten both parts correct, we're going 
+						//to advance to the next level, but for now we're just going
+						//to note that fact
+						if (infCorrect && nonInfCorrect){
+							JOptionPane.showMessageDialog(panel, 
+									"You got the number of infested and non-infested"
+									+ " trees correct!  Good job!  Time to try the next round.");
+						}
 
 					} else {
 
