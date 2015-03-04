@@ -21,8 +21,8 @@ import javax.swing.border.EtchedBorder;
  */
 public class GridView extends JPanel {
 
-	private static final Color BACKGROUND_COLOR = new Color(235, 255, 214);
-
+	private static final Color BACKGROUND_COLOR = Color.WHITE;
+	
 	// The height of the grid
 	public static final int GRID_HEIGHT = 600;
 
@@ -130,10 +130,24 @@ public class GridView extends JPanel {
 			for (int r = 0; r < gridCells.length; r++) {
 				for (int c = 0; c < gridCells[r].length; c++) {
 
-					drawBlockedCell(gridCells[r][c], r, c, g);
+					drawBlockedCell(gridCells[r][c], r, c, g, Color.GRAY);
 
 				}
 			}
+			
+		}else{
+			
+			Color color = new Color(Color.GRAY.getRed(), Color.GRAY.getGreen(), Color.GRAY.getBlue(), 200) ;
+			
+			// Now we draw each blocked cell
+						for (int r = 0; r < gridCells.length; r++) {
+							for (int c = 0; c < gridCells[r].length; c++) {
+
+								drawBlockedCell(gridCells[r][c], r, c, g, color);
+
+							}
+						}
+			
 		}
 
 		// draw the grid lines last
@@ -167,8 +181,9 @@ public class GridView extends JPanel {
 	 *            The column of the grid that cell is in
 	 * @param g
 	 *            The graphics object to paint on
+	 * @param cellColor TODO
 	 */
-	private void drawBlockedCell(GridCell toDraw, int row, int col, Graphics g) {
+	private void drawBlockedCell(GridCell toDraw, int row, int col, Graphics g, Color cellColor) {
 
 		// We need to calculate the boundaries of the cell
 		int startX = col * cellWidth;
@@ -182,7 +197,7 @@ public class GridView extends JPanel {
 			 */
 
 			// In this case, we just block out the cell by filling it with gray
-			g.setColor(Color.GRAY);
+			g.setColor(cellColor);
 			g.fillRect(startX, startY, cellWidth, cellHeight);
 
 		}

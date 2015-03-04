@@ -48,7 +48,7 @@ public class EstimationGameApplication extends JPanel{
 		
 		//Create a JFrame for the application and give it a size and close operation
 		JFrame frame = new JFrame("Estimation game");
-		frame.setSize(605, 751);
+		frame.setSize(605, 661);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Create the grid and add it to the frame

@@ -2,8 +2,12 @@ package beetle_kit;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -64,13 +68,13 @@ public class AnswerPanel extends JPanel {
 
 		this.gridView = gridView;
 
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		setLayout(new FlowLayout(FlowLayout.CENTER, 15, 1));
 
 		Border border = BorderFactory.createRaisedBevelBorder();
 
 		setBorder(border);
 
-		this.add(new JPanel());
+//		this.add(new JPanel());
 
 		/*
 		 * addInfestedText();
@@ -79,14 +83,18 @@ public class AnswerPanel extends JPanel {
 		 * 
 		 * addNonInfestedtest();
 		 */
+		
+		this.add(new JPanel());
 
 		estimatePanel();
 
 		//this.add(new JPanel());
 
 		addShowButton();
-
+		
 		this.add(new JPanel());
+
+	//	this.add(new JPanel());
 
 		// empty panels are added to add more space
 	}
@@ -96,10 +104,10 @@ public class AnswerPanel extends JPanel {
 	 */
 	private void estimatePanel() {
 		
-		JPanel panel = new JPanel() ;
+		//JPanel panel = new JPanel() ;
 
 		JButton estimateButton = new JButton("Ready to Estimate!");
-
+		
 		estimateButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -110,10 +118,11 @@ public class AnswerPanel extends JPanel {
 
 		});
 
-		panel.add(estimateButton);
+		//panel.add(estimateButton);
 		
-		add(panel) ;
+		//add(panel) ;
 
+		add(estimateButton) ;
 	}
 
 	/**
@@ -147,8 +156,10 @@ public class AnswerPanel extends JPanel {
 	 * @param treeType
 	 */
 	private void createSubAnswerPanel(final JPanel panel, final String treeType) {
-
-		JPanel treePanel = new JPanel(new BorderLayout());
+		
+		//JPanel treePanel = new JPanel(new BorderLayout());
+		
+		JPanel treePanel = new JPanel(new GridBagLayout());
 
 		TitledBorder border = BorderFactory.createTitledBorder(treeType
 				+ " Tree");
@@ -157,35 +168,75 @@ public class AnswerPanel extends JPanel {
 
 		treePanel.setBorder(border);
 
+		Border componentBorder = BorderFactory.createLineBorder(new Color(0,0,0,0), 10) ;
+		
 		// How many trees
-		JPanel textPanel = new JPanel(new GridLayout(3, 2, 20, 20));
+		//JPanel textPanel = new JPanel(new GridLayout(3, 2, 20, 20));
 
 		JLabel treeLabel = new JLabel("How many " + treeType.toLowerCase()
 				+ " trees do you see?");
+		
+		treeLabel.setBorder(componentBorder);
+		
+		GridBagConstraints treeLabelConstraints = new GridBagConstraints() ;
+		treeLabelConstraints.gridx = 0 ;
+		treeLabelConstraints.gridy = 0 ;
+		//treeLabelConstraints.weightx = 1 ;
+		//treeLabelConstraints.weighty = 1 ;
+		treeLabelConstraints.anchor = GridBagConstraints.LINE_START ;
+		
+		treePanel.add(treeLabel, treeLabelConstraints) ;
+		
+		//textPanel.add(treeLabel);
 
-		textPanel.add(treeLabel);
+		final JTextField treeAnswerField = new JTextField(5);
+		
+		GridBagConstraints treeAnswerFieldConstraints = new GridBagConstraints() ;
+		treeAnswerFieldConstraints.gridx = 1 ;
+		treeAnswerFieldConstraints.gridy = 0 ;
+		//treeAnswerFieldConstraints.weightx = 1 ;
+		//treeAnswerFieldConstraints.weighty = 1 ;
+		//treeAnswerFieldConstraints.anchor = GridBagConstraints.LINE_START ;
 
-		final JTextField treeAnswerField = new JTextField(10);
+		//textPanel.add(treeAnswerField);
 
-		textPanel.add(treeAnswerField);
-
+		treePanel.add(treeAnswerField, treeAnswerFieldConstraints) ;
+		
 		// multiply by what?
 		JTextArea multiplyArea = new JTextArea(
-				"What number should you multiply the number of \n"
-						+ treeType.toLowerCase() + " trees by?" 
-						+ " (Remember that only 1/3 of \nthe grid is visible)");
+				"What number should you multiply the \nnumber of " + treeType.toLowerCase() + " trees by? \n(Remember that only 1/3 of the grid is \nvisible)");
 
 		multiplyArea.setEditable(false);
 
 		multiplyArea.setBackground(new Color(0, 0, 0, 0));
 
 		multiplyArea.setFont(new Font("Dialog", Font.BOLD, 12));
+		
+		multiplyArea.setBorder(componentBorder);
+		
+		GridBagConstraints multiplyAreaConstraints = new GridBagConstraints() ;
+		multiplyAreaConstraints.gridx = 0 ;
+		multiplyAreaConstraints.gridy = 1 ;
+		//multiplyAreaConstraints.weightx = 1 ;
+		//multiplyAreaConstraints.weighty = 1 ;
+		multiplyAreaConstraints.anchor = GridBagConstraints.LINE_START ;
+		
+		treePanel.add(multiplyArea , multiplyAreaConstraints) ;
 
-		textPanel.add(multiplyArea);
+		//textPanel.add(multiplyArea);
 
-		final JTextField multiplyField = new JTextField(10);
-
-		textPanel.add(multiplyField);
+		final JTextField multiplyField = new JTextField(5);
+		
+		GridBagConstraints multiplyFieldConstraints = new GridBagConstraints() ;
+		multiplyFieldConstraints.gridx = 1 ;
+		multiplyFieldConstraints.gridy = 1 ;
+		//multiplyFieldConstraints.weightx = 1 ;
+		//multiplyFieldConstraints.weighty = 1 ;
+		multiplyAreaConstraints.anchor = GridBagConstraints.LINE_START ;
+		
+		treePanel.add(multiplyField , multiplyFieldConstraints) ;
+		
+		//textPanel.add(multiplyField);
 
 		// Final Answer
 
@@ -197,8 +248,19 @@ public class AnswerPanel extends JPanel {
 		finalAnswerArea.setBackground(new Color(0, 0, 0, 0));
 
 		finalAnswerArea.setFont(new Font("Dialog", Font.BOLD, 12));
+		
+		finalAnswerArea.setBorder(componentBorder);
+		
+		GridBagConstraints finalAnswerAreaConstraints = new GridBagConstraints() ;
+		finalAnswerAreaConstraints.gridx = 0 ;
+		finalAnswerAreaConstraints.gridy = 2 ;
+		//finalAnswerAreaConstraints.weightx = 1 ;
+		//finalAnswerAreaConstraints.weighty = 1 ;
+		finalAnswerAreaConstraints.anchor = GridBagConstraints.LINE_START ;
+		
+		treePanel.add(finalAnswerArea , finalAnswerAreaConstraints) ;
 
-		textPanel.add(finalAnswerArea);
+		//textPanel.add(finalAnswerArea);
 		
 //		JLabel finalAnswerLabel = new JLabel("How many "
 //				+ treeType.toLowerCase()
@@ -206,11 +268,20 @@ public class AnswerPanel extends JPanel {
 //
 //		textPanel.add(finalAnswerLabel);
 //
-		final JTextField finalAnswerField = new JTextField(10);
+		final JTextField finalAnswerField = new JTextField(5);
+		
+		GridBagConstraints finalAnswerFieldConstraints = new GridBagConstraints() ;
+		finalAnswerFieldConstraints.gridx = 1 ;
+		finalAnswerFieldConstraints.gridy = 2 ;
+		//finalAnswerFieldConstraints.weightx = 1 ;
+		//finalAnswerFieldConstraints.weighty = 1 ;
+		//finalAnswerFieldConstraints.anchor = GridBagConstraints.LINE_END ;
+		
+		treePanel.add(finalAnswerField ,finalAnswerFieldConstraints) ;
 
-		textPanel.add(finalAnswerField);
+		//textPanel.add(finalAnswerField);
 
-		treePanel.add(textPanel, BorderLayout.CENTER);
+		//treePanel.add(textPanel, BorderLayout.CENTER);
 
 		createAnswerButtonPanel(panel, treeType, treePanel, treeAnswerField,
 				multiplyField, finalAnswerField);
@@ -218,6 +289,173 @@ public class AnswerPanel extends JPanel {
 		panel.add(treePanel);
 	}
 
+//	/**
+//	 * @param panel
+//	 * @param treeType
+//	 * @param treePanel
+//	 * @param treeAnswerField
+//	 * @param multiplyField
+//	 * @param finalAnswerField
+//	 */
+//	private void createAnswerButtonPanel(final JPanel panel,
+//			final String treeType, JPanel treePanel,
+//			final JTextField treeAnswerField, final JTextField multiplyField,
+//			final JTextField finalAnswerField) {
+//		// the panel is needed so that the button is of a reasonable size .
+//		JPanel buttonPanel = new JPanel();
+//		JButton checkButton = new JButton("Check my Answer!");
+//
+//		buttonPanel.add(checkButton);
+//
+//		checkButton.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//
+//				try {
+//
+//					int userTreeAnswer = Integer.parseInt(treeAnswerField
+//							.getText());
+//
+//					int userMultiplyAnswer = Integer.parseInt(multiplyField
+//							.getText());
+//
+//					if (userMultiplyAnswer != MULTIPLY) {
+//
+//						JOptionPane
+//								.showMessageDialog(
+//										panel,
+//										"Are you sure you should multiply by "
+//												+ userMultiplyAnswer
+//												+ "? Try again! Hint: Remember that only one-third of the grid is visible.");
+//					}
+//
+//					int userFinalAnswer = Integer.parseInt(finalAnswerField
+//							.getText());
+//
+//					int actualTreeAnswer = 0;
+//
+//					if (treeType.equals("Infested")) {
+//
+//						actualTreeAnswer = estimationGrid
+//								.getTotalUnblockedInfested();
+//
+//					} else if (treeType.equals("Non-Infested")) {
+//
+//						actualTreeAnswer = estimationGrid
+//								.getTotalUnblockedNonInfested();
+//
+//					} else {
+//
+//						throw new AssertionError(
+//								"the string should only have been Infested or Non-Infested");
+//					}
+//
+//					int actualFinalAnswer = actualTreeAnswer * MULTIPLY;
+//
+//					if (calculateRightAnswer(userFinalAnswer, actualFinalAnswer)) {
+//
+//						JOptionPane.showMessageDialog(panel,
+//								"You got the correct answer! Good job!");
+//						
+//						//Note that they solved one of the problems correctly
+//						
+//						//If they guessed infested trees, note that they got that correct
+//						if (treeType.equals("Infested")){
+//							infCorrect = true;
+//						}
+//						//If they guessed non-infested trees, note that they got that correct
+//						else{
+//							nonInfCorrect = true;
+//						}
+//						
+//						//If they now have gotten both parts correct, we're going 
+//						//to advance to the next level, but for now we're just going
+//						//to note that fact
+//						if (infCorrect && nonInfCorrect){
+//							JOptionPane.showMessageDialog(panel, 
+//									"You got the number of infested and non-infested"
+//									+ " trees correct!  Good job!  Time to try the next round.");
+//						}
+//
+//					} else {
+//
+//						
+//						JOptionPane.showMessageDialog(panel,
+//								"Sorry but your answer is wrong. The correct answer is "
+//										+ actualFinalAnswer + ". Try again!");
+//
+//					}
+//
+//				} catch (NumberFormatException exception) {
+//
+//					JOptionPane.showMessageDialog(panel,
+//							"Please enter a number");
+//
+//				}
+//
+//			}
+//		});
+//		
+//		JButton showAnswerButton = new JButton("Show me how to estimate the trees!") ;
+//		
+//		buttonPanel.add(showAnswerButton) ;
+//		
+//		showAnswerButton.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//
+//				int actualTreeAnswer = 0;
+//
+//				if (treeType.equals("Infested")) {
+//
+//					actualTreeAnswer = estimationGrid
+//							.getTotalUnblockedInfested();
+//
+//				} else if (treeType.equals("Non-Infested")) {
+//
+//					actualTreeAnswer = estimationGrid
+//							.getTotalUnblockedNonInfested();
+//
+//				} else {
+//
+//					throw new AssertionError(
+//							"the string should only have been Infested or Non-Infested");
+//				}
+//				
+//				int actualFinalAnswer = actualTreeAnswer * MULTIPLY;
+//				
+//				 JTextArea answerExplanationArea = new JTextArea(
+//				 "There are actually "
+//				 + actualTreeAnswer + " " + treeType.toLowerCase() +
+//				 " trees visible in the grid. To get the total number of trees, you should do the following: "
+//				 + "\n" + actualTreeAnswer + " * " + MULTIPLY + " = "
+//				 + actualFinalAnswer);
+//				 
+//				 
+//				 answerExplanationArea.setEditable(false);
+//				 answerExplanationArea.setBackground(new Color(0,0,0,0));
+//				 answerExplanationArea.setWrapStyleWord(true);
+//				 answerExplanationArea.setLineWrap(true);
+//				// answerExplanationArea.setFont(new Font("Times New Roman" , Font.PLAIN , 18));
+//				 
+//				 String answer = "There are actually "
+//						 + actualTreeAnswer + " " + treeType.toLowerCase() +
+//						 " trees visible in the grid. To get the total number of trees, you should do the following: " + actualTreeAnswer + " * " + MULTIPLY + " = "
+//						 + actualFinalAnswer ;
+//				JOptionPane.showMessageDialog(panel, answer);
+//
+//				
+//			}
+//		});
+//
+//		// treePanel.add(checkButton, BorderLayout.SOUTH);
+//
+//		treePanel.add(buttonPanel, BorderLayout.SOUTH);
+//	}
+	
+	
 	/**
 	 * @param panel
 	 * @param treeType
@@ -231,10 +469,19 @@ public class AnswerPanel extends JPanel {
 			final JTextField treeAnswerField, final JTextField multiplyField,
 			final JTextField finalAnswerField) {
 		// the panel is needed so that the button is of a reasonable size .
-		JPanel buttonPanel = new JPanel();
+		//JPanel buttonPanel = new JPanel();
 		JButton checkButton = new JButton("Check my Answer!");
 
-		buttonPanel.add(checkButton);
+		GridBagConstraints checkButtonConstraints = new GridBagConstraints() ;
+		checkButtonConstraints.gridx = 1 ;
+		checkButtonConstraints.gridy = 3 ;
+		checkButtonConstraints.insets = new Insets(5, 5, 5, 5) ;
+		//checkButtonConstraints.weightx = 1 ;
+		//checkButtonConstraints.weighty = 1 ;
+		//checkButtonConstraints.fill = GridBagConstraints.BOTH ;
+		
+		treePanel.add(checkButton , checkButtonConstraints) ;
+		//buttonPanel.add(checkButton);
 
 		checkButton.addActionListener(new ActionListener() {
 
@@ -328,7 +575,34 @@ public class AnswerPanel extends JPanel {
 		
 		JButton showAnswerButton = new JButton("Show me how to estimate the trees!") ;
 		
-		buttonPanel.add(showAnswerButton) ;
+		//showAnswerButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 3, Color.LIGHT_GRAY));
+		
+	//	buttonPanel.add(showAnswerButton) ;
+		
+		GridBagConstraints showAnswerButtonConstraints = new GridBagConstraints() ;
+		showAnswerButtonConstraints.gridx = 0 ;
+		showAnswerButtonConstraints.gridy = 3 ;
+		showAnswerButtonConstraints.insets = new Insets(5, 5, 5, 5) ;
+		//showAnswerButtonConstraints.gridheight = 4 ;
+		//showAnswerButtonConstraints.weightx = 1 ;
+		//showAnswerButtonConstraints.weighty = 2 ;
+		//showAnswerButtonConstraints.fill = GridBagConstraints.BOTH ;
+		//showAnswerButtonConstraints.gridwidth = 1 ;
+		
+		//showAnswerButtonConstraints.anchor = GridBagConstraints. ;
+//		
+//		JLabel extraPanel = new JLabel("         ") ;
+//		
+//		GridBagConstraints extraConstraints = new GridBagConstraints() ;
+//		extraConstraints.gridx = 2 ;
+//		extraConstraints.gridy = 3 ;
+//		//extraConstraints.gridwidth = 2 ;
+//		
+//		treePanel.add(extraPanel , extraConstraints) ;
+		
+		
+		
+		treePanel.add(showAnswerButton , showAnswerButtonConstraints) ;
 		
 		showAnswerButton.addActionListener(new ActionListener() {
 			
@@ -381,8 +655,9 @@ public class AnswerPanel extends JPanel {
 
 		// treePanel.add(checkButton, BorderLayout.SOUTH);
 
-		treePanel.add(buttonPanel, BorderLayout.SOUTH);
+		//treePanel.add(buttonPanel, BorderLayout.SOUTH);
 	}
+
 
 	/**
 	 * Adds JLabel, JTextField and JBUtton pertaining to user's aswer about
@@ -525,18 +800,18 @@ public class AnswerPanel extends JPanel {
 
 	private void addShowButton() {
 
-		JPanel panel = new JPanel();
+		//JPanel panel = new JPanel();
 		
-		panel.setAlignmentX(CENTER_ALIGNMENT);
+		//panel.setAlignmentX(CENTER_ALIGNMENT);
 		
-		panel.setAlignmentY(CENTER_ALIGNMENT);
+		//panel.setAlignmentY(CENTER_ALIGNMENT);
 
 		JButton showButton = new JButton("Show full grid");
+		
+		//panel.add(showButton);
 
-		panel.add(showButton);
-
-	
-
+		add(showButton) ;
+		
 		showButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -577,7 +852,7 @@ public class AnswerPanel extends JPanel {
 			}
 		});
 		
-		add(panel);
+		//add(panel);
 	}
 
 	/**
