@@ -6,8 +6,10 @@ import javax.swing.JPanel;
 
 /**
  * Chemistry Passport Project
- * Runs the estimation game
+ * Runs the Estimation Game
+ * 
  * @author Charlotte Dye, Sehr Sethi, Humaira Orchee
+ * @version March 4, 2015
  *
  */
 public class EstimationGameApplication extends JPanel{
@@ -18,6 +20,8 @@ public class EstimationGameApplication extends JPanel{
 		
 		EstimationGrid grid = new EstimationGrid();
 		
+		grid.fillTreeArray();
+		
 		//Create three different gridViews and get rid of and swap
 		//when switching rounds
 		
@@ -25,21 +29,20 @@ public class EstimationGameApplication extends JPanel{
 		
 		//Could take checking answer stuff and put here or in separate class
 		
-		GridView gridView = new GridView(grid.getCellData());
-		gridView.fillTreeArray();
+		GridView gridView = new GridView(grid.getGridCells(), grid.getTrees(), grid.getCellWidth(), grid.getCellHeight());
 				
 		add(gridView, BorderLayout.CENTER) ;
 		
 		AnswerPanel answerPanel = new AnswerPanel(grid, gridView) ;
 		add(answerPanel, BorderLayout.SOUTH) ;
 		
-		System.out.println("green (non- infested) " + grid.getTotalUnblockedNonInfested());
+		/*System.out.println("green (non- infested) " + grid.getTotalUnblockedNonInfested());
 		
 		System.out.println("red (infested) " + grid.getTotalUnblockedInfested());
 		
 		System.out.println("total green (non- infested) " + grid.getTotalNonInfested());
 		
-		System.out.println("total red (infested) " + grid.getTotalInfested());
+		System.out.println("total red (infested) " + grid.getTotalInfested());*/
 		
 		
 	}
@@ -48,14 +51,9 @@ public class EstimationGameApplication extends JPanel{
 		
 		//Create a JFrame for the application and give it a size and close operation
 		JFrame frame = new JFrame("Estimation game");
-		frame.setSize(605, 661);
+		frame.setSize(605, 671);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//Create the grid and add it to the frame
-		//EstimationGrid grid = new EstimationGrid();
-		
-		//frame.getContentPane().add(new GridView(grid.getCellData()));
-		
+
 		frame.getContentPane().add(new EstimationGameApplication()) ;
 		
 		//Make the frame visible

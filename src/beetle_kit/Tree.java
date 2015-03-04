@@ -1,39 +1,44 @@
 package beetle_kit;
+
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
-
 /**
  * A Tree object that is represented by a circle
- * @author Humaira
+ * 
+ * @author Humaira Orchee, Charlotte Dye
+ * @version March 4, 2015
  *
  */
 public class Tree extends Ellipse2D.Double {
 
-	//private int centerX;
-
-	//private int centerY;
-
-	// the diamater of the circular tree
+	// The diameter of the circular tree
 	private int diameter;
-	
-	private Color fillColor ;
-	
-	private Color borderColor ;
+
+	// The fill color of the tree
+	private Color fillColor;
+
+	// The border color of the tree
+	private Color borderColor;
 
 	/**
 	 * Constructs a circular tree
-	 * @param centerX The x coordinate of the center of the tree
-	 * @param centerY The y coordinate of the center of the tree
-	 * @param diameter The diameter of the tree
+	 * 
+	 * @param centerX
+	 *            The x coordinate of the center of the tree
+	 * @param centerY
+	 *            The y coordinate of the center of the tree
+	 * @param diameter
+	 *            The diameter of the tree
+	 * @param fillColor
+	 *            The fill color of the tree
+	 * @param borderColor
+	 *            The border color of the tree
 	 */
-	public Tree(int centerX, int centerY, int diameter, Color fillColor, Color borderColor) {
+	public Tree(int centerX, int centerY, int diameter, Color fillColor,
+			Color borderColor) {
 
 		super();
-
-		//this.centerX = centerX;
-
-		//this.centerY = centerY;
 
 		this.diameter = diameter;
 
@@ -42,48 +47,50 @@ public class Tree extends Ellipse2D.Double {
 
 		this.width = diameter;
 
-		// Since tree extends Ellipse2D.Double, calculate top x and y coordinates with the provided center coordinates and diameter
+		// Since tree extends Ellipse2D.Double, calculate top x and y
+		// coordinates with the provided center coordinates and diameter
 		this.x = centerX - diameter / 2;
 
 		this.y = centerY - diameter / 2;
-		
-		this.fillColor = fillColor ;
-		
-		this.borderColor = borderColor ;
+
+		this.fillColor = fillColor;
+
+		this.borderColor = borderColor;
 
 	}
-	
-	
 
 	/**
+	 * Returns the fill color of the tree
 	 * 
-	 * @return
+	 * @return The fill color of the tree
 	 */
 	public Color getFillColor() {
 		return fillColor;
 	}
 
-
 	/**
+	 * Returns the border color of the tree
 	 * 
-	 * @return
+	 * @return the border color of the tree
 	 */
 	public Color getBorderColor() {
 		return borderColor;
 	}
 
-
-
 	/**
-	 * Returns true if this tree is contained within another tree. Otherwise returns false.
-	 * @param otherTree The other Tree object that might contain this tree
-	 * @return True if this tree is contained within another tree. Otherwise returns false.
+	 * Returns true if this tree is contained within another tree. Otherwise
+	 * returns false.
+	 * 
+	 * @param otherTree
+	 *            The other Tree object that might contain this tree
+	 * @return True if this tree is contained within another tree. Otherwise
+	 *         returns false.
 	 */
 	public boolean containedWithin(Tree otherTree) {
 
-		/** Let outer parentheses be other tree. 
-		 * 	Let inner parentheses be this tree .
-		 *  (()) - in this situation, returns true
+		/**
+		 * Let outer parentheses be other tree. Let inner parentheses be this
+		 * tree . (()) - in this situation, returns true
 		 */
 		return ((this.x >= otherTree.x)
 				&& (this.x + this.diameter <= otherTree.x + otherTree.diameter)
@@ -93,5 +100,3 @@ public class Tree extends Ellipse2D.Double {
 	}
 
 }
-
-

@@ -4,7 +4,7 @@ package beetle_kit;
  * cell in the grid for the Estimation Game.
  * 
  * @author Charlotte Dye, Humaira Orchee, Sehr Sethi
- *
+ * @version March 4, 2015
  */
 public class GridCell {
 
