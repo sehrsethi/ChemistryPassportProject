@@ -14,10 +14,34 @@ import javax.swing.JPanel;
  */
 public class EstimationGameApplication extends JPanel{
 	
+	private int currentGridNum;
+	private GridView currentGridView;
+	private AnswerPanel currentAnswerPanel;
+	
 	public EstimationGameApplication(){
+		
+		currentGridNum = 0;
 		
 		setLayout(new BorderLayout());
 		
+		
+		createNewGrid();
+		
+		/*System.out.println("green (non- infested) " + grid.getTotalUnblockedNonInfested());
+		
+		System.out.println("red (infested) " + grid.getTotalUnblockedInfested());
+		
+		System.out.println("total green (non- infested) " + grid.getTotalNonInfested());
+		
+		System.out.println("total red (infested) " + grid.getTotalInfested());*/
+		
+		
+	}
+
+	/**
+	 * 
+	 */
+	private void createNewGrid() {
 		EstimationGrid grid = new EstimationGrid();
 		
 		grid.fillTreeArray();
@@ -29,22 +53,28 @@ public class EstimationGameApplication extends JPanel{
 		
 		//Could take checking answer stuff and put here or in separate class
 		
-		GridView gridView = new GridView(grid.getGridCells(), grid.getTrees(), grid.getCellWidth(), grid.getCellHeight());
+		currentGridView = new GridView(grid.getGridCells(), grid.getTrees(), grid.getCellWidth(), grid.getCellHeight());
 				
-		add(gridView, BorderLayout.CENTER) ;
+		add(currentGridView, BorderLayout.CENTER) ;
 		
-		AnswerPanel answerPanel = new AnswerPanel(grid, gridView) ;
-		add(answerPanel, BorderLayout.SOUTH) ;
+		currentAnswerPanel = new AnswerPanel(grid, currentGridView, this) ;
+		add(currentAnswerPanel, BorderLayout.SOUTH) ;
+	}
+	
+	public void displayNewGrid(){
 		
-		/*System.out.println("green (non- infested) " + grid.getTotalUnblockedNonInfested());
+		removeGrid() ;
+		createNewGrid() ;
+		repaint() ;
 		
-		System.out.println("red (infested) " + grid.getTotalUnblockedInfested());
-		
-		System.out.println("total green (non- infested) " + grid.getTotalNonInfested());
-		
-		System.out.println("total red (infested) " + grid.getTotalInfested());*/
-		
-		
+	}
+	
+	/**
+	 * Remove the current grid view and answer panel to prepare to replace them
+	 */
+	private void removeGrid(){
+		remove(currentGridView);
+		remove(currentAnswerPanel);
 	}
 
 	public static void main(String[] args) {

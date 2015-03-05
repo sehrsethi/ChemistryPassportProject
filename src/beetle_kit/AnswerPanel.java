@@ -55,6 +55,8 @@ public class AnswerPanel extends JPanel {
 
 	// Whether they have correctly guessed the number of infested trees
 	private boolean infCorrect;
+	
+	private final EstimationGameApplication controller;
 
 	/**
 	 * Constructs a panel that lets user's input their answers, checks their
@@ -64,9 +66,11 @@ public class AnswerPanel extends JPanel {
 	 *            The information about the Estimation Grid
 	 * @param gridView
 	 *            The Visual representation of the Estimation Grid
+	 * @param controller TODO
 	 */
-	public AnswerPanel(EstimationGrid grid, GridView gridView) {
+	public AnswerPanel(EstimationGrid grid, GridView gridView, EstimationGameApplication controller) {
 
+		this.controller = controller;
 		// Initially, the user hasn't guessed anything correctly
 		nonInfCorrect = false;
 		infCorrect = false;
@@ -205,6 +209,7 @@ public class AnswerPanel extends JPanel {
 		multiplyArea.setBackground(new Color(0, 0, 0, 0));
 		multiplyArea.setFont(new Font("Dialog", Font.BOLD, 12));
 		multiplyArea.setBorder(componentBorder);
+		multiplyArea.setFocusable(false);
 
 		GridBagConstraints multiplyAreaConstraints = new GridBagConstraints();
 		multiplyAreaConstraints.gridx = 0;
@@ -233,6 +238,7 @@ public class AnswerPanel extends JPanel {
 		estimateArea.setBackground(new Color(0, 0, 0, 0));
 		estimateArea.setFont(new Font("Dialog", Font.BOLD, 12));
 		estimateArea.setBorder(componentBorder);
+		estimateArea.setFocusable(false);
 
 		GridBagConstraints finalAnswerAreaConstraints = new GridBagConstraints();
 		finalAnswerAreaConstraints.gridx = 0;
@@ -243,7 +249,7 @@ public class AnswerPanel extends JPanel {
 
 		// users can input their estimate
 		final JTextField estimateField = new JTextField(5);
-
+		
 		GridBagConstraints finalAnswerFieldConstraints = new GridBagConstraints();
 		finalAnswerFieldConstraints.gridx = 1;
 		finalAnswerFieldConstraints.gridy = 2;
@@ -421,6 +427,10 @@ public class AnswerPanel extends JPanel {
 										"Are you sure you should multiply by "
 												+ userMultiplyAnswer
 												+ "? Try again! Hint: Remember that only one-third of the grid is visible.");
+					
+						//If they multiply by the wrong number, it won't
+						//check if the result is correct or not
+						return ;
 					}
 
 					// how many trees does the user estimate is in the the grid?
@@ -435,6 +445,10 @@ public class AnswerPanel extends JPanel {
 								+ " * " + userMultiplyAnswer
 								+ " does not equal " + userEstimateAnswer
 								+ ". Try again!");
+						
+						//If they multiply wrong, it won't
+						//check if the result is correct or not
+						return;
 					}
 
 					// depending on the treeType, how many trees are actually
@@ -493,6 +507,7 @@ public class AnswerPanel extends JPanel {
 											panel,
 											"You got the number of infested and non-infested"
 													+ " trees correct!  Good job!  Time to try the next round.");
+							controller.displayNewGrid();
 						}
 
 					} else {
