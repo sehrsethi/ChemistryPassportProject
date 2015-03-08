@@ -112,7 +112,7 @@ public class GridView extends JPanel {
 		} else {
 
 			Color color = new Color(Color.GRAY.getRed(), Color.GRAY.getGreen(),
-					Color.GRAY.getBlue(), 200);
+					Color.GRAY.getBlue(), 175);
 
 			// Now we draw each (formerly) blocked cell
 			for (int r = 0; r < gridCells.length; r++) {
