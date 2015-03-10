@@ -50,7 +50,8 @@ public class FirstPage extends JPanel {
 	private static final String SPONSOR_TEXT = "Funded by the Camille and Henry Dreyfus Foundation                         and Mount Holyoke College";
 
 	//The font for the line with the child's name
-	private static final Font CHILD_FONT = new Font("Times New Roman", Font.PLAIN, 24);
+	private static final Font CHILD_FONT = new Font("Times New Roman",
+			Font.PLAIN, 60);
 	
 	//The text color
 	private static final Color TEXT_COLOR = Color.BLACK;

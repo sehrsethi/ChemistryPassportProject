@@ -70,7 +70,7 @@ public class Passport extends JPanel implements MouseListener {
 
 		// Add the bark beetle page to the passport 
 		//NOTE: At some point we need to find whether we should show the sticker
-		addPage("Bark Beetle Infestation", true);
+		addPage("Bark Beetle", false);
 
 	}
 
@@ -98,8 +98,16 @@ public class Passport extends JPanel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
-		// Note that we're going to the next page
-		currentPage++;
+		//If we have more pages to show, prepare to show the next page
+		if (currentPage + 1 < pageNames.size()){
+			// Note that we're going to the next page
+			currentPage++;
+		}
+		
+		//Otherwise, prepare to show the first page again
+		else {
+			currentPage = 0;
+		}
 
 		// Show which page we are going to show
 		System.out.println(currentPage);
