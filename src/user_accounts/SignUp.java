@@ -134,6 +134,9 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 		pan13.add(signUp_UserNameLabel);
 		pan13.add(signUp_UserNameText);
+		
+		signup_FakeNameText.setToolTipText("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+		
 		pan14.add(signUp_Grade);
 		pan14.add(signUp_GradeCombo);
 		signUp_GradeCombo.setFont(new Font("Monospaced", Font.BOLD, 14));
@@ -259,7 +262,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 				return false ;
 			}
 			
-			userName += userName + "," ;
+			userName +=  "," ;
 
 			String fakeName = fullNameText.getText() + ",";
 
@@ -321,6 +324,10 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		return null;
 
 	}
+	
+	private String autogenerateUserName(){
+		return null;
+	}
 
 	private boolean userNameExists(String userName) {
 
@@ -336,14 +343,9 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 			for (String line : lines) {
 				
 				String[] lineArray = line.split(",") ;
-				
-				System.out.println(line);
-
-				System.out.println(lineArray[0]);
-				
+			
 				String tempUserName = lineArray[0];
 				
-				System.out.println(tempUserName.trim() + "|and|" + userName.trim());
 				
 				if (tempUserName.trim().equals(userName.trim())) {
 
@@ -367,6 +369,8 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 		return false;
 	}
+	
+	
 
 	// ChoiceDialog extends JDialog implements ActionListener {
 	//
