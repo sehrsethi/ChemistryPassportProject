@@ -1,9 +1,13 @@
 package passport;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -25,13 +29,16 @@ public class KitPage extends JPanel {
 	// The name of the child
 	private String childName;
 
+	// The label for empty sticker
+	private NoStickerPanel emptyStickerPanel = new NoStickerPanel();
+
 	// The name/location of the image this page shows:
 	// NOTE: THIS WILL CHANGE TO GET THE APPROPRIATE STICKER
 	// We should either have the image file name be some sort of parameter
 	// or we could have standardized file names (e.g., sticker_[KIT NAME].png)
 	private static final String IMAGE_FILE = "src//images//logo.png";
-	
-	//The icon that displays when the user hasn't earned this sticker
+
+	// The icon that displays when the user hasn't earned this sticker
 	private static final String EMPTY_IMAGE_FILE = "src//images//nosticker.png";
 
 	// The font for the kit name
@@ -49,8 +56,13 @@ public class KitPage extends JPanel {
 	private static final Color BACKGROUND_COLOR = Color.WHITE;
 
 	// Whether the sticker should be displayed
-	//ONLY SHOW THE STICKER AFTER THEY CLICK
+	// ONLY SHOW THE STICKER AFTER THEY CLICK
 	private boolean showSticker;
+
+	// True if they have just earned the sticker:
+	// If earnSticker is true, show an animation of the sticker being put on the
+	// page
+	private boolean earnSticker = false;
 
 	/**
 	 * Creates a new page for the kit
@@ -86,13 +98,24 @@ public class KitPage extends JPanel {
 
 	}
 
+	public void paintComponent(Graphics g) {
+
+		super.paintComponent(g);
+		g.setColor(BACKGROUND_COLOR);
+
+		g.fillRect(0, 0, getWidth(), getHeight());
+
+		emptyStickerPanel.repaint();
+
+	}
+
 	/**
 	 * Add the content to the kit page
 	 */
 	private void addContent() {
-		
-		//Create and add rigid area for spacing
-		this.add(Box.createRigidArea(new Dimension(20,20)));
+
+		// Create and add rigid area for spacing
+		this.add(Box.createRigidArea(new Dimension(20, 20)));
 
 		// Add the kit name label
 		// Kit name label
@@ -105,20 +128,18 @@ public class KitPage extends JPanel {
 		kitNameLabel.setForeground(TEXT_COLOR);
 
 		// Center the kit name
-		//kitNameLabel.setXAlignment(Component.CENTER_ALIGNMENT);
+		// kitNameLabel.setXAlignment(Component.CENTER_ALIGNMENT);
 		kitNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
+
 		// Add to the page
 		add(kitNameLabel);
-		
-		//Create and add rigid area for spacing
-				this.add(Box.createRigidArea(new Dimension(20,100)));
+
+		// Create and add rigid area for spacing
+		this.add(Box.createRigidArea(new Dimension(20, 100)));
 
 		// Check if we should add the sticker
 		if (showSticker) {
 			// Show the sticker
-			
-			
 
 			// Create the sticker icon
 			ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
@@ -126,28 +147,70 @@ public class KitPage extends JPanel {
 			// Create a label for the sticker
 			JLabel stickerLabel = new JLabel(imageIcon);
 
-			//Center the label
+			// Center the label
 			stickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-			
+
 			// Add the sticker
 			add(stickerLabel);
 		} else {
 			// Show empty sticker icon
 			// Create the sticker icon
-						ImageIcon imageIcon = new ImageIcon(EMPTY_IMAGE_FILE);
+			// ImageIcon imageIcon = new ImageIcon(EMPTY_IMAGE_FILE);
 
-						// Create a label for the sticker
-						JLabel emptyStickerLabel = new JLabel(imageIcon);
+			// imageIcon.
+			// Create a label for the sticker
+			// emptyStickerLabel = new JLabel(imageIcon);
 
-						//Center the label
-						emptyStickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-						
-						// Add the sticker
-						add(emptyStickerLabel);
+			// Center the label
+			// emptyStickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+			emptyStickerPanel.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					// Add the sticker
+
+					earnSticker = true;
+
+					emptyStickerPanel.showNoSticker = false;
+
+					repaint();
+
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+			});
+
+			// Add the sticker
+			add(emptyStickerPanel);
 		}
-		
-		//Create and add rigid area for spacing
-		this.add(Box.createRigidArea(new Dimension(50,179)));
+
+		// Create and add rigid area for spacing
+		this.add(Box.createRigidArea(new Dimension(50, 179)));
 
 		// Add the child's name
 		// Child's name label
@@ -164,6 +227,69 @@ public class KitPage extends JPanel {
 
 		// Add to the page
 		add(childNameLabel);
+
+	}
+
+	private class NoStickerPanel extends JPanel {
+
+		private boolean showNoSticker = true;
+
+		public NoStickerPanel() {
+			setLayout(new BorderLayout());
+			setSize(new Dimension(200, 200));
+		}
+
+		public void paintComponent(Graphics g) {
+
+			super.paintComponent(g);
+
+			g.setColor(BACKGROUND_COLOR);
+
+			g.fillRect(0, 0, getWidth(), getHeight());
+
+			if (showNoSticker) {
+
+				g.setColor(Color.LIGHT_GRAY);
+
+				g.fillOval(175 , getHeight()/2 - 50, 150, 150);
+
+				g.setColor(Color.BLACK);
+
+				g.drawString("You haven't earned" , 190, 140);
+				
+				g.drawString("this sticker yet!", 200, 160);
+			} else if (earnSticker) {
+
+				//
+				// // Show the sticker
+				//
+				// // Create the sticker icon
+				// ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
+				//
+				// // Create a label for the sticker
+				// JLabel stickerLabel = new JLabel(imageIcon);
+				//
+				// // Center the label
+				// stickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+				//
+				// // Add the sticker
+				// add(stickerLabel);
+				//
+				// Create the sticker icon
+
+				// emptyStickerLabel.setVisible(false);
+
+				// this.remove(emptyStickerLabel);
+				// revalidate();
+				ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
+
+				imageIcon.paintIcon(this, g,
+						getWidth() / 2 - imageIcon.getIconWidth() / 2,
+						getHeight() / 2 - imageIcon.getIconHeight() / 2);
+
+			}
+
+		}
 
 	}
 
