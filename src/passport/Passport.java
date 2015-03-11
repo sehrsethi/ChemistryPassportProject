@@ -110,7 +110,7 @@ public class Passport extends JPanel implements MouseListener {
 		}
 
 		// Show which page we are going to show
-		System.out.println(currentPage);
+		//System.out.println(currentPage);
 
 		// Show the next page
 		CARD_LAYOUT.show(this, pageNames.get(currentPage));

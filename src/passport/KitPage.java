@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -14,6 +16,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class KitPage extends JPanel {
 
@@ -30,7 +33,7 @@ public class KitPage extends JPanel {
 	private String childName;
 
 	// The label for empty sticker
-	private NoStickerPanel emptyStickerPanel = new NoStickerPanel();
+	private StickerPanel emptyStickerPanel = new StickerPanel();
 
 	// The name/location of the image this page shows:
 	// NOTE: THIS WILL CHANGE TO GET THE APPROPRIATE STICKER
@@ -230,13 +233,23 @@ public class KitPage extends JPanel {
 
 	}
 
-	private class NoStickerPanel extends JPanel {
+	private class StickerPanel extends JPanel implements Runnable{
 
 		private boolean showNoSticker = true;
 
-		public NoStickerPanel() {
+		private int currentX;
+
+		private int currentY;
+		
+		private Thread animationThread ;
+
+		public StickerPanel() {
 			setLayout(new BorderLayout());
 			setSize(new Dimension(200, 200));
+			
+			animationThread = new Thread(this) ;
+			
+			start();
 		}
 
 		public void paintComponent(Graphics g) {
@@ -251,12 +264,12 @@ public class KitPage extends JPanel {
 
 				g.setColor(Color.LIGHT_GRAY);
 
-				g.fillOval(175 , getHeight()/2 - 50, 150, 150);
+				g.fillOval(175, getHeight() / 2 - 50, 150, 150);
 
 				g.setColor(Color.BLACK);
 
-				g.drawString("You haven't earned" , 190, 140);
-				
+				g.drawString("You haven't earned", 190, 140);
+
 				g.drawString("this sticker yet!", 200, 160);
 			} else if (earnSticker) {
 
@@ -281,15 +294,113 @@ public class KitPage extends JPanel {
 
 				// this.remove(emptyStickerLabel);
 				// revalidate();
-				ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
+				
+				
+				
+			 ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
+			 
 
-				imageIcon.paintIcon(this, g,
-						getWidth() / 2 - imageIcon.getIconWidth() / 2,
-						getHeight() / 2 - imageIcon.getIconHeight() / 2);
+				final int finalX = StickerPanel.this.getWidth() / 2
+						- imageIcon.getIconWidth() / 2;
+				final int finalY = StickerPanel.this.getHeight() / 2
+						- imageIcon.getIconHeight() / 2;
+				
 
+				if ((currentX == finalX) || (currentY == finalY)) {
+					
+					animationThread = null;
+					
+					//imageIcon.paintIcon(StickerPanel.this, g, currentX,	currentY);
+					imageIcon.paintIcon(StickerPanel.this, g, finalX, finalY);
+					
+					return ;
+				}
+				//drawMovingImage(g, imageIcon);
+				
+				imageIcon.paintIcon(StickerPanel.this, g, currentX,	currentY);
+
+				
 			}
 
 		}
+
+		public void start(){
+			if (animationThread != null){
+				animationThread.start();
+			}
+		}
+
+		@Override
+		public void run() {
+			
+			while (Thread.currentThread() == animationThread){
+				currentX++;
+				currentY++;
+				
+				System.out.println("Current x is " + currentX);
+				System.out.println("Current y is " + currentY);
+
+				repaint() ;
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+		}
+		
+		
+
+		// /**
+		// * @param g
+		// * @param imageIcon
+		// */
+		// private void drawMovingImage(final Graphics g, final ImageIcon
+		// imageIcon) {
+		//
+		//
+		// Timer timer = new Timer(500, new ActionListener() {
+		//
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		//
+		// System.out.println("Current x is "+currentX);
+		// System.out.println("Current y is "+currentY);
+		// currentX++;
+		// currentY++;
+		//
+		// int finalX = StickerPanel.this.getWidth() / 2 -
+		// imageIcon.getIconWidth()
+		// / 2;
+		// int finalY = StickerPanel.this.getHeight() / 2
+		// - imageIcon.getIconHeight() / 2;
+		//
+		// System.out.println("Final x is "+finalX);
+		// System.out.println("Final y is "+finalY);
+		//
+		// if ((currentX <= finalX)
+		// && (currentY <= finalY)){
+		// System.out.println("This is here");
+		//
+		//
+		// //return ;
+		//
+		//
+		// imageIcon.paintIcon(StickerPanel.this, g, currentX,
+		// currentY);
+		// }
+		//
+		// }
+		// });
+		//
+		// timer.start();
+		//
+		// // getWidth() / 2 - imageIcon.getIconWidth() / 2,
+		// // getHeight() / 2 - imageIcon.getIconHeight() / 2);
+		// }
 
 	}
 
