@@ -1,7 +1,8 @@
 package user_accounts;
+
 /**
- * authors: Sehr, Humaira and Charlotte 
- * Simple Login and Sign up Page V.1
+ * @author Sehr, Humaira and Charlotte 
+ * @version March 10, 2015
  */
 import java.awt.Color;
 import java.awt.Component;
@@ -22,6 +23,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -36,6 +38,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import user.User;
+
 /**
  * GUI for constructing the Login and Sign Up Page
  * 
@@ -45,15 +49,15 @@ import javax.swing.JTextField;
 public class Login extends JPanel implements ActionListener, KeyListener {
 
 	// Instance variables for Login Page
-	
-	private static final String FILE_NAME = "database.csv" ; 
+
+	private static final String FILE_NAME = "database.csv";
 	private JLabel login_userNameLabel = null;
 	private JTextField login_userNameText = null;
 	private JButton loginButton = null;
 	private JButton loginCancelButton = null;
 	private Insets insets;
 	private JTabbedPane g_tabbedPane = new JTabbedPane();
-	private JPanel root_panel = null;	
+	private JPanel root_panel = null;
 	private String m_user = null;
 
 	/**
@@ -63,9 +67,9 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	 *            The title of the page
 	 */
 	Login(String title) {
-		
+
 		loginPage();
-		
+
 	}
 
 	/**
@@ -100,18 +104,21 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 		loginButton.addActionListener(this);
 		loginCancelButton.addActionListener(this);
-		
+
 		g_tabbedPane.addTab("Login", null, root_panel, "");
 
 		add(g_tabbedPane);
 		this.setBounds(100, 100, 530, 325);
 	}
 
-	
 	public void actionPerformed(ActionEvent evt) {
-		if (evt.getSource() == loginButton)
-			this.checkFields();
-			this.readToFile(login_userNameText);
+		if (evt.getSource() == loginButton) {
+
+			if (userNameEntered()) {
+				this.readFromFile(login_userNameText);
+			}
+		}
+
 		if (evt.getSource() == loginCancelButton)
 			System.exit(0);
 	}
@@ -123,44 +130,116 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void keyPressed(KeyEvent evt) {
-		if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-			checkFields();
+		if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+			if (userNameEntered()) {
+
+				this.readFromFile(login_userNameText);
+
+			}
+		}
 	}
 
-	private void checkFields() {
+	private boolean userNameEntered() {
 		m_user = login_userNameText.getText();
 
 		if ((m_user == null) || (m_user.equals(""))) {
 			JOptionPane.showMessageDialog(this, "Enter the User Name", "Error",
 					JOptionPane.ERROR_MESSAGE);
-			return;
-	
+			return false;
 
+		}
+
+		return true;
 	}
-	
-	
+
+	private void readFromFile(JTextField userNameText) {
+
+		File databaseFile = new File(FILE_NAME);
+
+		boolean userFound = false;
 		
-	}
-	
-private void readToFile(JTextField userNameText ) {
-		
-		File databaseFile = new File(FILE_NAME) ;
-		
+
 		try {
-			BufferedReader out = new BufferedReader(new FileReader(databaseFile)) ;
+			BufferedReader in = new BufferedReader(new FileReader(databaseFile));
 			
-			String userName = userNameText.getText() + " ," ;
+			// read first line
+			in.readLine();
+
+			String line = in.readLine();
+
+			while (line != null) {				
+				
+				String[] userInfo = line.split(",") ;
 			
-			out.read();
 			
-			out.close();
+				String userName = userInfo[0];
+
+				if (userName.equals(userNameText.getText())) {
+					
+				
+					userFound = true;
+
+					User user = createUser(line);
+
+					// at this point, some controller should get the user so
+					// that the passport for the user is created and the choen
+					// kit can be started.
+					
+					in.close();
+
+					break;
+				}
+				
+				line = in.readLine();
+				
+				
+			}
+
+			if (!userFound) {
+
+				JOptionPane.showMessageDialog(this, "Sorry but the username "
+						+ userNameText.getText() + " was not found.");
+
+			}
+			
+			in.close();
+
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
 
+	/**
+	 * Creates a user
+	 * 
+	 * @param line
+	 */
+	private User createUser(String line) {
+		
+		String[] userInfo = line.split(",");
 
+		String userName = userInfo[0];
+
+		String fakeName = userInfo[1];
+
+		String grade = userInfo[2];
+
+		System.out.println(grade);
+
+		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
+
+		for (int i = 3; i < userInfo.length; i++) {
+
+			kitProgress.add(Integer.parseInt(userInfo[i]));
+		}
+
+		User user = new User(userName, fakeName, grade, kitProgress);
+
+		return user;
+
+	}
 
 }

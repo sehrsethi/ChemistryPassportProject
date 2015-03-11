@@ -135,7 +135,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		pan13.add(signUp_UserNameLabel);
 		pan13.add(signUp_UserNameText);
 		
-		signup_FakeNameText.setToolTipText("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+	
 		
 		pan14.add(signUp_Grade);
 		pan14.add(signUp_GradeCombo);
@@ -324,11 +324,19 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		return null;
 
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	private String autogenerateUserName(){
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param userName
+	 * @return
+	 */
 	private boolean userNameExists(String userName) {
 
 		File databaseFile = new File(FILE_NAME);
