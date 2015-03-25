@@ -183,7 +183,7 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 					User user = createUser(line);
 
 					// at this point, some controller should get the user so
-					// that the passport for the user is created and the choen
+					// that the passport for the user is created and the chosen
 					// kit can be started.
 					
 					in.close();

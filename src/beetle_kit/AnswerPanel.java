@@ -33,7 +33,7 @@ import javax.swing.border.TitledBorder;
 public class AnswerPanel extends JPanel {
 
 	// Allows for some errors in the users' answers
-	private static final int ERROR_BARS = 10;
+	private static final int ERROR_BARS = 5;
 
 	// the number by which number if infested / non- infested trees will be
 	// multiplied
