@@ -323,11 +323,15 @@ public class EstimationGrid {
 		for (int i = 0; i < trees.size(); i++) {
 
 			Tree otherTree = trees.get(i);
+			
+			boolean hidden = otherTree.containedWithin(tree)
+					|| tree.containedWithin(otherTree);
+			
+			boolean overlaps = otherTree.checkOverlap(tree) || tree.checkOverlap(otherTree);
 
 			// if the specified tree is hidden by another existing tree or hides
 			// an existing tree, return true.
-			if (otherTree.containedWithin(tree)
-					|| tree.containedWithin(otherTree)) {
+			if ( hidden || overlaps ) {
 
 				return true;
 			}
