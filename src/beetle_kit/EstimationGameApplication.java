@@ -35,13 +35,13 @@ public class EstimationGameApplication extends JPanel {
 	 */
 	private void createNewGrid() {
 
-		// if the user has actually completed 3  rounds, no more grids should be created.
+		// if the user has actually completed 3 rounds, no more grids should be
+		// created.
 		if (currentGridNum > MAX_NUM_ROUNDS) {
 
 			JOptionPane
 					.showMessageDialog(this,
 							"Great! You have completed the Estimation Game! You now get a sticker!!!");
-	
 
 			return;
 		}
