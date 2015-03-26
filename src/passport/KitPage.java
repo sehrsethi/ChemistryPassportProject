@@ -1,8 +1,10 @@
 package passport;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -10,27 +12,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import user.User;
 
 /**
  * 
  * @author Humaira Orchee, Charlotte Dye
  * @version March 25, 2015
  */
-public class KitPage extends JPanel implements ActionListener {
-
-	// The width of the page for the kit
-	private static final int PAGE_WIDTH = 500;
-
-	// The height of the page for the kit
-	private static final int PAGE_HEIGHT = 700;
+public class KitPage extends JPanel {
 
 	// The name of the page
 	private String pageName;
@@ -56,7 +57,7 @@ public class KitPage extends JPanel implements ActionListener {
 
 	// The font for the line with the child's name
 	private static final Font CHILD_FONT = new Font("Times New Roman",
-			Font.PLAIN, 60);
+			Font.PLAIN, 40);
 
 	// The text color
 	private static final Color TEXT_COLOR = Color.BLACK;
@@ -65,11 +66,11 @@ public class KitPage extends JPanel implements ActionListener {
 	private static final Color BACKGROUND_COLOR = Color.WHITE;
 
 	// The coordinates of the sticker are updated every DELAY milliseconds
-	private static final int DELAY = 10;
+	private static final int DELAY = 4;
 
 	// If the sticker never reaches its final destination, then stop the
 	// animation after a certain period of time has passed
-	private static final long ANIMATION_TIME = 5300;
+	private static final long ANIMATION_TIME = 2600;
 
 	// Whether the sticker should be displayed
 	// ONLY SHOW THE STICKER AFTER THEY CLICK
@@ -82,7 +83,7 @@ public class KitPage extends JPanel implements ActionListener {
 
 	// False if they have not previously completed this kit and earned a sticker
 	// for it. True otherwise.
-	private boolean showNoSticker = true;
+	// private boolean showNoSticker = true;
 
 	// the current coordinates of the sticker
 	private double currentX;
@@ -95,8 +96,8 @@ public class KitPage extends JPanel implements ActionListener {
 	private ImageIcon imageIcon;
 
 	// The coordinates where the sticker actually stays
-	private double finalX;
-	private double finalY;
+	// private double finalX;
+	// private double finalY;
 
 	// The amount by which the coordinates of the sticker change
 	private double animationConstantX = -1;
@@ -112,6 +113,16 @@ public class KitPage extends JPanel implements ActionListener {
 	// Keep track of the time elapsed since the animation started
 	private long currentTime;
 
+	// Whether or not this kit page is the last page of the passport. Need to
+	// know this to add the appropriate buttons.
+	private boolean isLastPage = true;
+
+	// forward button
+	private JButton fwdButton;
+
+	// The passport this KitPage belongs to
+	private Passport passport;
+
 	/**
 	 * Creates a new page for the kit
 	 * 
@@ -121,7 +132,7 @@ public class KitPage extends JPanel implements ActionListener {
 	 * @param showSticker
 	 *            Whether the sticker should be displayed
 	 */
-	public KitPage(String pageName, String childName, boolean showSticker) {
+	public KitPage(String pageName, Passport passport, boolean showSticker) {
 
 		// Note whether we should show the sticker
 		this.showSticker = showSticker;
@@ -129,31 +140,39 @@ public class KitPage extends JPanel implements ActionListener {
 		// Set the page name
 		this.pageName = pageName.toUpperCase();
 
+		this.passport = passport;
+
 		// Save the name of the child
-		this.childName = childName;
+		this.childName = passport.getChildName();
 
 		// Set the layout to BoxLayout
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		// Set the size
-		this.setSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
+		this.setSize(new Dimension(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT));
+
+		// this.setPreferredSize(new Dimension(Passport.PAGE_WIDTH,
+		// Passport.PAGE_HEIGHT));
+		// this.setMinimumSize(new Dimension(Passport.PAGE_WIDTH,
+		// Passport.PAGE_HEIGHT));
 
 		// Set the background color
 		this.setBackground(BACKGROUND_COLOR);
 
 		imageIcon = new ImageIcon(IMAGE_FILE);
 
-		finalX = this.getWidth() / 2 - imageIcon.getIconWidth() / 2;
+		double finalX = this.getWidth() / 2 - imageIcon.getIconWidth() / 2;
 
-		finalY = this.getHeight() / 2 - imageIcon.getIconHeight() / 2;
-
-		timer = new Timer(DELAY, this);
+		double finalY = this.getHeight() / 2 - imageIcon.getIconHeight() / 2
+				- 50;
 
 		currentX = finalX;
 
+		createTimer();
+
 		// the dimensions will change depending on panel size and image size and
 		// speed of animation
-		rectangle = new Rectangle2D.Double(finalX - 10, finalY - 10, 5, 5);
+		rectangle = new Rectangle2D.Double(finalX - 15, finalY - 10, 5, 5);
 
 		// Add everything to the page
 		addContent();
@@ -171,16 +190,17 @@ public class KitPage extends JPanel implements ActionListener {
 		paintSticker(g);
 
 		// for debugging
-		// g.setColor(Color.RED);
-		//
-		// g.fillRect((int) rectangle.getX(), (int) rectangle.getY(),
-		// (int) rectangle.getWidth(), (int) rectangle.getHeight());
-		//
-		// g.setColor(Color.BLUE);
-		//
-		// g.drawRect((int) currentX, (int) currentY, imageIcon.getIconWidth(),
-		// imageIcon.getIconHeight());
-
+		/*
+		 * g.setColor(Color.RED);
+		 * 
+		 * g.fillRect((int) rectangle.getX(), (int) rectangle.getY(), (int)
+		 * rectangle.getWidth(), (int) rectangle.getHeight());
+		 * 
+		 * g.setColor(Color.BLUE);
+		 * 
+		 * g.drawRect((int) currentX, (int) currentY, imageIcon.getIconWidth(),
+		 * imageIcon.getIconHeight());
+		 */
 	}
 
 	/**
@@ -191,29 +211,35 @@ public class KitPage extends JPanel implements ActionListener {
 	 */
 	private void paintSticker(Graphics g) {
 
-		if (showNoSticker) {
+		if (!showSticker) {
+			
+			if (!earnSticker) {
 
-			g.setColor(Color.LIGHT_GRAY);
+				g.setColor(Color.LIGHT_GRAY);
 
-			int circleDiameter = 150;
+				int circleDiameter = 150;
 
-			g.fillOval(getWidth() / 2 - circleDiameter / 2, getHeight() / 2
-					- circleDiameter / 2, circleDiameter, circleDiameter);
+				g.fillOval(getWidth() / 2 - circleDiameter / 2, getHeight() / 2
+						- circleDiameter / 2 - 50, circleDiameter,
+						circleDiameter);
 
-			g.setColor(Color.BLACK);
+				g.setColor(Color.BLACK);
 
-			g.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+				g.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 
-			g.drawString("You haven't earned", getWidth() / 2 - circleDiameter
-					/ 2 + 15, getHeight() / 2 - circleDiameter / 2 + 70);
+				g.drawString("You haven't earned", getWidth() / 2
+						- circleDiameter / 2 + 15, getHeight() / 2
+						- circleDiameter / 2 + 20);
 
-			g.drawString("this sticker yet!", getWidth() / 2 - circleDiameter
-					/ 2 + 25, getHeight() / 2 - circleDiameter / 2 + 90);
+				g.drawString("this sticker yet!", getWidth() / 2
+						- circleDiameter / 2 + 25, getHeight() / 2
+						- circleDiameter / 2 + 40);
 
-		} else if (earnSticker) {
+			} else if (earnSticker) {
 
-			imageIcon.paintIcon(this, g, (int) currentX, (int) currentY);
+				imageIcon.paintIcon(this, g, (int) currentX, (int) currentY);
 
+			}
 		}
 
 	}
@@ -224,29 +250,52 @@ public class KitPage extends JPanel implements ActionListener {
 	private void addContent() {
 
 		// Create and add rigid area for spacing
-		this.add(Box.createRigidArea(new Dimension(20, 20)));
+		this.add(Box.createRigidArea(new Dimension(20, 10)));
 
-		// Add the kit name label
-		// Kit name label
-		JLabel kitNameLabel = new JLabel(pageName);
-
-		// Set the font of the child's name
-		kitNameLabel.setFont(KIT_NAME_FONT);
-
-		// Set the font color
-		kitNameLabel.setForeground(TEXT_COLOR);
-
-		// Center the kit name
-		// kitNameLabel.setXAlignment(Component.CENTER_ALIGNMENT);
-		kitNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		// Add to the page
-		add(kitNameLabel);
+		addKitName();
 
 		// Create and add rigid area for spacing
-		this.add(Box.createRigidArea(new Dimension(20, 100)));
+		this.add(Box.createRigidArea(new Dimension(20, 75)));
 
-		// IS THIS ACTUALLY ADDING THE STICKER?
+		addSticker();
+
+		// Create and add rigid area for spacing
+		this.add(Box.createRigidArea(new Dimension(50, 300)));
+
+		// Add the child's name
+		addChildName();
+
+		this.add(Box.createRigidArea(new Dimension(10, 50)));
+
+		addButtons();
+
+	}
+
+	/**
+	 * 
+	 */
+	private void addChildName() {
+		// Child's name label
+		JLabel childNameLabel = new JLabel(childName);
+
+		// Set the font of the child's name
+		childNameLabel.setFont(CHILD_FONT);
+
+		// Set the font color
+		childNameLabel.setForeground(TEXT_COLOR);
+
+		// Center the child's name
+		childNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		// Add to the page
+		add(childNameLabel);
+	}
+
+	/**
+	 * 
+	 */
+	private void addSticker() {
+
 		// Check if we should add the sticker
 		if (showSticker) {
 			// Show the sticker
@@ -287,7 +336,7 @@ public class KitPage extends JPanel implements ActionListener {
 					// something needs to happen here so that the database knows
 					// that a sticker has been added
 
-					showNoSticker = false;
+					//showNoSticker = false;
 
 					// start animation
 					startTime = System.currentTimeMillis();
@@ -323,26 +372,28 @@ public class KitPage extends JPanel implements ActionListener {
 			});
 
 		}
+	}
 
-		// Create and add rigid area for spacing
-		this.add(Box.createRigidArea(new Dimension(50, 350)));
-
-		// Add the child's name
-		// Child's name label
-		JLabel childNameLabel = new JLabel(childName);
+	/**
+	 * 
+	 */
+	private void addKitName() {
+		// Add the kit name label
+		// Kit name label
+		JLabel kitNameLabel = new JLabel(pageName);
 
 		// Set the font of the child's name
-		childNameLabel.setFont(CHILD_FONT);
+		kitNameLabel.setFont(KIT_NAME_FONT);
 
 		// Set the font color
-		childNameLabel.setForeground(TEXT_COLOR);
+		kitNameLabel.setForeground(TEXT_COLOR);
 
-		// Center the child's name
-		childNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		// Center the kit name
+		// kitNameLabel.setXAlignment(Component.CENTER_ALIGNMENT);
+		kitNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		// Add to the page
-		add(childNameLabel);
-
+		add(kitNameLabel);
 	}
 
 	/**
@@ -361,35 +412,6 @@ public class KitPage extends JPanel implements ActionListener {
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-
-		// update the coordinates of the sticker
-		animate(this.getWidth(), this.getHeight());
-
-		currentTime = System.currentTimeMillis();
-
-		// If the sticker has roughly reached the middle of the screen or if the
-		// animation has happened for a certain period of time, then stop the
-		// animation
-		
-		// if(currentX == finalX && currentY == finalY){
-
-		if (rectangle.contains(currentX, currentY)) {
-
-			timer.stop();
-
-		} else if (currentTime - startTime >= ANIMATION_TIME) {
-
-			System.out.println(currentTime - startTime);
-
-			timer.stop();
-		}
-
-		repaint();
-
-	}
-
 	/**
 	 * Animates the sticker
 	 * 
@@ -398,7 +420,7 @@ public class KitPage extends JPanel implements ActionListener {
 	 * @param maxHeight
 	 *            The y coordinate beyond which the sticker cannot go
 	 */
-	public void animate(int maxWidth, int maxHeight) {
+	private void animate(int maxWidth, int maxHeight) {
 
 		// updates sticker coordinates
 		currentX += animationConstantX;
@@ -407,6 +429,8 @@ public class KitPage extends JPanel implements ActionListener {
 		// bounce off left
 		if (currentX <= 0) {
 
+			System.out.println("here 1");
+
 			animationConstantX = animationConstantX * -1;
 
 		}
@@ -414,13 +438,15 @@ public class KitPage extends JPanel implements ActionListener {
 		// bounce of bottom
 		if (currentY + imageIcon.getIconHeight() >= maxHeight) {
 
-			animationConstantY = animationConstantY * -1;
+			animationConstantY = -1;
 		}
 
 		// bounce off right
 		if (currentX + imageIcon.getIconWidth() >= maxWidth) {
 
-			timer.setDelay(DELAY - 5);
+			// timer.setDelay(DELAY - 1);
+
+			System.out.println("here 2");
 
 			animationConstantX = animationConstantX * -1;
 			animationConstantY = -0.5;
@@ -434,18 +460,153 @@ public class KitPage extends JPanel implements ActionListener {
 
 	}
 
+	/**
+	 * Returns true if this page is the last page of the kit. Returns false
+	 * otherwise.
+	 * 
+	 * @return True if this page is the last page of the kit and false
+	 *         otherwise.
+	 */
+	public boolean isLastPage() {
+		return isLastPage;
+	}
+
+	/**
+	 * Sets this page to be last page or not depending on the value of the
+	 * parameter
+	 * 
+	 * @param isLastPage
+	 *            True if this is the last page of the passport. False if this
+	 *            is not the last page of the passport.
+	 */
+	public void setLastPage(boolean isLastPage) {
+		this.isLastPage = isLastPage;
+
+		// If this kit page is the last page then the forward button should not
+		// be working. If it is not the last page then the forward button should
+		// be working.
+		if (isLastPage) {
+
+			fwdButton.setEnabled(false);
+
+		} else {
+
+			fwdButton.setEnabled(true);
+		}
+	}
+
+	/**
+	 * Creates the back and forward buttons
+	 */
+	private void addButtons() {
+
+		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 160,
+				15));
+		buttonPanel.setBackground(Color.white);
+
+		Font font = new Font("Verdana", Font.PLAIN, 18);
+
+		// backButton
+		JButton backButton = new JButton("<----");
+		backButton.setFont(font);
+
+		backButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				passport.previouPage();
+
+			}
+		});
+
+		// forward button
+		JButton forwardButton = new JButton("---->");
+		forwardButton.setFont(font);
+
+		forwardButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				passport.nextPage();
+
+			}
+		});
+
+		// the forward button does not work for the last kitpage
+		if (isLastPage) {
+
+			forwardButton.setEnabled(false);
+		}
+
+		this.fwdButton = forwardButton;
+
+		buttonPanel.add(backButton);
+		buttonPanel.add(forwardButton);
+
+		add(buttonPanel);
+	}
+
+	/**
+	 * 
+	 */
+	private void createTimer() {
+		timer = new Timer(DELAY, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				// update the coordinates of the sticker
+				animate(KitPage.this.getWidth(), KitPage.this.getHeight() - 110);
+
+				currentTime = System.currentTimeMillis();
+
+				// If the sticker has roughly reached the middle of the screen
+				// or if the
+				// animation has happened for a certain period of time, then
+				// stop the
+				// animation
+
+				// if(currentX == finalX && currentY == finalY){
+
+				if (rectangle.contains(currentX, currentY)) {
+
+					System.out.println("collison");
+
+					timer.stop();
+
+				} else if (currentTime - startTime >= ANIMATION_TIME) {
+
+					System.out.println("time up");
+
+					timer.stop();
+				}
+
+				repaint();
+
+			}
+		});
+	}
+
 	public static void main(String[] args) {
 
 		// Create the frame
 		JFrame frame = new JFrame();
 
+		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
+		kitProgress.add(5);
+
+		User user = new User("user name", "long Fake Name Fake name Fake Name",
+				"K", kitProgress);
+
 		// Add the passport to the frame--will need to figure out
 		// how to do the name getting part
 		frame.getContentPane().add(
-				new KitPage("Bark Beetle", "Pretend Child", false));
+				new KitPage("Bark Beetle", new Passport(user), false));
 
 		// Set the size to the specified page size
-		frame.setSize(PAGE_WIDTH, PAGE_HEIGHT);
+		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
 
 		// Make visible
 		frame.setVisible(true);

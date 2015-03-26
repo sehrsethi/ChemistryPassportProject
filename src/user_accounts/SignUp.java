@@ -37,6 +37,10 @@ import javax.swing.JTextField;
 
 public class SignUp extends JPanel implements ActionListener, KeyListener {
 
+	// If the fake name is greater than 20 characters, the name will not be
+	// displayed in the passport properly
+	private static final int MAX_CHARACTERS = 20;
+
 	// Instance variables for Sign Up Page
 	private static final String FILE_NAME = "database.csv";
 	private JLabel signUpLabel = null;
@@ -134,9 +138,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 		pan13.add(signUp_UserNameLabel);
 		pan13.add(signUp_UserNameText);
-		
-	
-		
+
 		pan14.add(signUp_Grade);
 		pan14.add(signUp_GradeCombo);
 		signUp_GradeCombo.setFont(new Font("Monospaced", Font.BOLD, 14));
@@ -188,24 +190,38 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		if (evt.getSource() == submitButton)
+
+		// submit button has been clicked
+		if (evt.getSource() == submitButton) {
 			
-			if (checkSignUp()) {
+			// make sure fake name <= 20 characters
+			if (signup_FakeNameText.getText().length() > MAX_CHARACTERS) {
 
-				if(writeToFile(signup_FakeNameText, signUp_UserNameText,
-						gradeFromComboBox)){
-					JOptionPane.showMessageDialog(this, "User account for "
-							+ signup_FakeNameText.getText() + " has been created. Cheers!");
-					
-					System.exit(0);
+				JOptionPane
+						.showMessageDialog(this,
+								"Make sure your Fake name is less than or equal to 20 characters");
+				
+				return ;
 
-					
-				}
-				
-				
 			}
 
-		
+			// checks if user account exists or not
+			if (checkSignUp()) {
+
+				if (writeToFile(signup_FakeNameText, signUp_UserNameText,
+						gradeFromComboBox)) {
+
+					JOptionPane.showMessageDialog(this, "User account for "
+							+ signup_FakeNameText.getText()
+							+ " has been created. Cheers!");
+
+					System.exit(0);
+
+				}
+
+			}
+
+		}
 
 	}
 
@@ -239,8 +255,8 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	private boolean writeToFile(JTextField fullNameText, JTextField userNameText,
-			String grade) {
+	private boolean writeToFile(JTextField fullNameText,
+			JTextField userNameText, String grade) {
 
 		File databaseFile = new File(FILE_NAME);
 
@@ -257,12 +273,12 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 				JOptionPane.showMessageDialog(this,
 						"Someone already has this username: " + userName
-								+  ". Let's pick another one!");
-				
-				return false ;
+								+ ". Let's pick another one!");
+
+				return false;
 			}
-			
-			userName +=  "," ;
+
+			userName += ",";
 
 			String fakeName = fullNameText.getText() + ",";
 
@@ -270,15 +286,15 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 			out.write("\n" + userName + fakeName + grade + "," + kitProgress);
 
 			out.close();
-			
-			return true ;
-			
+
+			return true;
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return false ;
+
+		return false;
 	}
 
 	/**
@@ -324,11 +340,12 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		return null;
 
 	}
+
 	/**
 	 * 
 	 * @return
 	 */
-	private String autogenerateUserName(){
+	private String autogenerateUserName() {
 		return null;
 	}
 
@@ -349,15 +366,15 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 					StandardCharsets.UTF_8);
 
 			for (String line : lines) {
-				
-				String[] lineArray = line.split(",") ;
-			
+
+				String[] lineArray = line.split(",");
+
 				String tempUserName = lineArray[0];
-				
-				
+
 				if (tempUserName.trim().equals(userName.trim())) {
 
-					System.out.println("return true for " + tempUserName + "and" + userName);
+					System.out.println("return true for " + tempUserName
+							+ "and" + userName);
 					return true;
 				}
 
@@ -377,8 +394,6 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 		return false;
 	}
-	
-	
 
 	// ChoiceDialog extends JDialog implements ActionListener {
 	//
