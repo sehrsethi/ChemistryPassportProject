@@ -21,6 +21,12 @@ public class Tree extends Ellipse2D.Double {
 	// The border color of the tree
 	private Color borderColor;
 
+	// The x coordinate of the center of the tree
+	public int centerX;
+
+	// The y coordinate of the center of the tree
+	public int centerY;
+
 	/**
 	 * Constructs a circular tree
 	 * 
@@ -39,6 +45,10 @@ public class Tree extends Ellipse2D.Double {
 			Color borderColor) {
 
 		super();
+
+		this.centerX = centerX;
+
+		this.centerY = centerY;
 
 		this.diameter = diameter;
 
@@ -78,6 +88,10 @@ public class Tree extends Ellipse2D.Double {
 	}
 
 	/**
+	 * 
+	 * I DONT THINK WE NEED THIS METHOD ANYMORE BECAUSE THE CHECKOVERLAPP METHOD
+	 * SHOULD TAKE CARE OF THIS ALREAY
+	 * 
 	 * Returns true if this tree is contained within another tree. Otherwise
 	 * returns false.
 	 * 
@@ -96,6 +110,30 @@ public class Tree extends Ellipse2D.Double {
 				&& (this.x + this.diameter <= otherTree.x + otherTree.diameter)
 				&& (this.y >= otherTree.y) && (this.y + this.diameter <= otherTree.y
 				+ otherTree.diameter));
+
+	}
+
+	/**
+	 * Returns true if this tree has unacceptable amount of overlap. Otherwise
+	 * returns false.
+	 * 
+	 * @param otherTree
+	 *            The other Tree object that could be overlapping too much
+	 * @return
+	 */
+	public boolean checkOverlap(Tree otherTree) {
+		// Compare sum of radii to distance between centers
+
+		double radiiSum = (this.diameter / 2) + (otherTree.diameter / 2);
+
+		double diffX = Math.pow(otherTree.centerX - this.centerX, 2);
+
+		double diffY = Math.pow(otherTree.centerY - this.centerY, 2);
+
+		double distance = Math.sqrt(diffX + diffY);
+
+		// Compare sum of radii to distance between centers
+		return distance < radiiSum / 1.2;
 
 	}
 

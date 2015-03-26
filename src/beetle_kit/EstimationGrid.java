@@ -11,19 +11,20 @@ import java.util.ArrayList;
  *
  */
 public class EstimationGrid {
-	
+
 	// The number of rows in the grid
 	public static final int NUM_ROWS = 7;
 
 	// The number of columns in the grid
 	public static final int NUM_COLS = 7;
 
-	// 2/3 rd of the trees are blocked. Note 2/3 truncates to 0. That is why write 2.0/3.0
-	private static final double RATIO_BLOCKED = 2.0/3.0 ;
+	// 2/3 rd of the trees are blocked. Note 2/3 truncates to 0. That is why
+	// write 2.0/3.0
+	private static final double RATIO_BLOCKED = 2.0 / 3.0;
 
-	//The maximum number of trees of each color that can be placed in one cell
+	// The maximum number of trees of each color that can be placed in one cell
 	private static final int MAX_TREE_NUM = 2;
-	
+
 	// Color of infested trees
 	private static final Color INFESTED_COLOR = Color.RED;
 
@@ -35,7 +36,6 @@ public class EstimationGrid {
 
 	// Border color of non-infested trees
 	private static final Color NON_INFESTED_BOREDR_COLOR = new Color(0, 51, 0);
-	
 
 	// The height of the grid
 	public static final int GRID_HEIGHT = 600;
@@ -43,43 +43,47 @@ public class EstimationGrid {
 	// The width of the grid
 	public static final int GRID_WIDTH = 600;
 
+	// It is best not to have the center of the trees at the very edges of the
+	// cell. This variable stores the distance of the center of each tree from
+	// the edges of the cell
+	private static final int PADDING = 15;
+
 	// A 2D array of GridCells, each representing
 	// data in a given cell.
 	private GridCell[][] gridCells;
-	
+
 	// total number of infested trees in the entire grid
-	private int totalInfested ;
-	
+	private int totalInfested;
+
 	// total number of non-infested trees in the entire grid
-	private int totalNonInfested ;
-	
+	private int totalNonInfested;
+
 	// total number of infested trees in the unblocked cells in the entire grid
-	private int totalUnblockedInfested ;
-		
-	// total number of non-infested trees in the unblocked cells in the entire grid
-	private int totalUnblockedNonInfested ;
-	
+	private int totalUnblockedInfested;
+
+	// total number of non-infested trees in the unblocked cells in the entire
+	// grid
+	private int totalUnblockedNonInfested;
+
 	// List of all the trees in the grid
 	private ArrayList<Tree> trees;
-	
 
 	// The width of each cell
 	private int cellWidth;
 
 	// The height of each cell
 	private int cellHeight;
-	
-	
+
 	/**
 	 * Creates the grid
 	 */
 	public EstimationGrid() {
-		
-		trees = new ArrayList<Tree>() ;
-		
+
+		trees = new ArrayList<Tree>();
+
 		cellWidth = GRID_WIDTH / NUM_COLS;
 		cellHeight = GRID_HEIGHT / NUM_ROWS;
-		
+
 		// First, we create the GridCell
 		// objects and the data for this grid
 		gridCells = new GridCell[NUM_ROWS][NUM_COLS];
@@ -87,50 +91,46 @@ public class EstimationGrid {
 		// Create the cells
 		for (int i = 0; i < NUM_ROWS; i++) {
 			for (int j = 0; j < NUM_COLS; j++) {
-				
+
 				gridCells[i][j] = new GridCell(i, j);
 			}
 		}
-		
 
 		// Next, we add trees to every cell
 		addNewTrees();
-		
-		blockCells(); 
 
-		countTrees() ;
-		
+		blockCells();
+
+		countTrees();
+
 	}
-	
-	
-	
+
 	/**
 	 * Returns the width of each cell
-	 * @return The  width of each cell
+	 * 
+	 * @return The width of each cell
 	 */
 	public int getCellWidth() {
 		return cellWidth;
 	}
 
-
 	/**
 	 * Returns the height of each cell
-	 * @return The  height of each cell
+	 * 
+	 * @return The height of each cell
 	 */
 	public int getCellHeight() {
 		return cellHeight;
 	}
 
-
 	/**
 	 * Returns the array list of trees
+	 * 
 	 * @return The array list of trees
 	 */
 	public ArrayList<Tree> getTrees() {
 		return trees;
 	}
-
-
 
 	/**
 	 * Returns the cell data array
@@ -140,13 +140,13 @@ public class EstimationGrid {
 	public GridCell[][] getGridCells() {
 		return gridCells;
 	}
-	
+
 	/**
 	 * Creates trees in all the cells (blocked and unblocked) and puts them in
 	 * an array list of trees
 	 */
 	public void fillTreeArray() {
-
+		
 		// create trees initially
 		for (int r = 0; r < gridCells.length; r++) {
 			for (int c = 0; c < gridCells[r].length; c++) {
@@ -157,7 +157,7 @@ public class EstimationGrid {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * Draws infested and non-infested trees in a cell. Randomly selects whether
@@ -171,6 +171,7 @@ public class EstimationGrid {
 	 *            The column of the grid that cell is in
 	 */
 	private void createTreeInCell(GridCell toDraw, int row, int col) {
+		
 
 		// Otherwise, we need to draw the trees.
 		// We need it to be at least 50% in this cell. I -think- this
@@ -257,8 +258,7 @@ public class EstimationGrid {
 		}
 
 	}
-	
-	
+
 	/**
 	 * Draw trees on the grid. More than 50% of the tree should be in the cell
 	 * specified by the row and column. If it tries to draw a tree such that one
@@ -279,17 +279,18 @@ public class EstimationGrid {
 	 */
 	private boolean createTree(Color fillColor, Color borderColor, int row,
 			int col) {
-
+		
 		// dimensions of the tree
 		int minDimension = Math.min(cellHeight, cellWidth);
 
 		int diameter = (int) ((minDimension / 2) + Math.random()
 				* (minDimension * 1.25));
 
-		// center coordinates of the tree. its best if the center is not on the edges
-		int centerX = (int) ((5+(col * cellWidth)) + ((Math.random() * cellWidth)-5));
+		// center coordinates of the tree. its best if the center is not on the
+		// edges
+		int centerX = (int) ((PADDING + (col * cellWidth)) + (Math.random() * (cellWidth - 2 * PADDING)));
 
-		int centerY = (int) ((5+(row * cellHeight)) + ((Math.random() * cellHeight)-5));
+		int centerY = (int) ((PADDING + (row * cellHeight)) + (Math.random() * (cellHeight - 2 * PADDING)));
 
 		// the tree to draw
 		Tree tree = new Tree(centerX, centerY, diameter, fillColor, borderColor);
@@ -297,7 +298,7 @@ public class EstimationGrid {
 		// if the tree we are trying to draw will completely hide another
 		// existing tree or the tree itself will be completely hidden by an
 		// existing tree, then do nothing.
-		if (hideTree(tree)) {
+		if (checkTreeOverlap(tree)) {
 
 			return false;
 		}
@@ -317,17 +318,24 @@ public class EstimationGrid {
 	 * @return True of no tree is hidden completely by another. Otherwise
 	 *         returns false.
 	 */
-	private boolean hideTree(Tree tree) {
+	private boolean checkTreeOverlap(Tree tree) {
 
 		// look though the entire array of trees
 		for (int i = 0; i < trees.size(); i++) {
 
 			Tree otherTree = trees.get(i);
 
+			// boolean hidden = otherTree.containedWithin(tree)
+			// || tree.containedWithin(otherTree);
+			//
+			boolean overlaps = otherTree.checkOverlap(tree)
+					|| tree.checkOverlap(otherTree);
+
 			// if the specified tree is hidden by another existing tree or hides
 			// an existing tree, return true.
-			if (otherTree.containedWithin(tree)
-					|| tree.containedWithin(otherTree)) {
+			// if ( hidden || overlaps ) {
+
+			if (overlaps) {
 
 				return true;
 			}
@@ -337,52 +345,53 @@ public class EstimationGrid {
 		return false;
 	}
 
-	
 	/**
-	 * Called by AnswerPanel when the user
-	 * has successfully completed a round and is
-	 * ready to move on to the next round
+	 * Called by AnswerPanel when the user has successfully completed a round
+	 * and is ready to move on to the next round
 	 */
-	public void startNextRound(){
-		//Need to complete and then call this method
-		//Still need to decide which class is in charge of
-		//checking what round we're on (and thus
-		//whether it's time to start a new round
-		//or whether they're done and it's time for the reward)
-		//Also not 100% sure this method is the best way to do it
-		//Also, do we need to keep track of whether they got the answers
-		//right on the first try?  Do we want to give them
-		//an option to skip a grid and try the next one?
-		//Do they need to get three in a row correct on the
-		//first try to get a sticker?  If not,
-		
+	public void startNextRound() {
+		// Need to complete and then call this method
+		// Still need to decide which class is in charge of
+		// checking what round we're on (and thus
+		// whether it's time to start a new round
+		// or whether they're done and it's time for the reward)
+		// Also not 100% sure this method is the best way to do it
+		// Also, do we need to keep track of whether they got the answers
+		// right on the first try? Do we want to give them
+		// an option to skip a grid and try the next one?
+		// Do they need to get three in a row correct on the
+		// first try to get a sticker? If not,
+
 	}
 
 	/**
-	 * Adds 0-MAX_TREE_NUM non-infested or infested tree to every cell data (Note that it does NOT
-	 * actually DRAW the tree)
+	 * Adds 0-MAX_TREE_NUM non-infested or infested tree to every cell data
+	 * (Note that it does NOT actually DRAW the tree)
 	 */
 	private void addNewTrees() {
+		
 
-		for(int r = 0 ; r < NUM_ROWS ; r++){
-			
-			for(int c = 0 ; c < NUM_COLS ; c++){
-				
-				GridCell cell = gridCells[r][c] ;
-						
+		for (int r = 0; r < NUM_ROWS; r++) {
+
+			for (int c = 0; c < NUM_COLS; c++) {
+
+				GridCell cell = gridCells[r][c];
+
 				cell.addNonInfestedTree((int) (Math.random() * MAX_TREE_NUM));
 
-				cell.addInfestedTree((int) (Math.random() * MAX_TREE_NUM) );
+				cell.addInfestedTree((int) (Math.random() * MAX_TREE_NUM));
 			}
 		}
 	}
 
 	/**
-	 * Randomly chooses two-third of the cells to block 
+	 * Randomly chooses two-third of the cells to block
 	 */
 	private void blockCells() {
+		
+
 		// Calculate how many cells to unblock--might need to edit this
-		//1/3rd of the cells should be blocked
+		// 1/3rd of the cells should be blocked
 		double numToBlock = (NUM_ROWS * NUM_COLS * RATIO_BLOCKED);
 
 		// Keep track of how many unblocked cells we've created
@@ -392,9 +401,9 @@ public class EstimationGrid {
 		while (numBlocked < numToBlock) {
 
 			// Pick randomly which cell to unblock (and add trees to)
-			int rowNum = (int) ( Math.random() * NUM_ROWS);
-			int colNum = (int) ( Math.random() * NUM_COLS);
-			
+			int rowNum = (int) (Math.random() * NUM_ROWS);
+			int colNum = (int) (Math.random() * NUM_COLS);
+
 			// If this is an unblocked cell, we block it
 			if (!gridCells[rowNum][colNum].isBlocked()) {
 
@@ -406,51 +415,51 @@ public class EstimationGrid {
 			}
 		}
 
-				
 	}
-	
-	/**
-	 * Counts the total number of infested and non-infested trees that are present in the unblocked cells and in all the cells of the full grid
-	 */
-	private void countTrees(){
-		
 
-		for(int r = 0 ; r < EstimationGrid.NUM_ROWS ; r++){
-			
-			for(int c = 0 ; c < EstimationGrid.NUM_COLS ; c++){
-				
-				GridCell cell = gridCells[r][c] ;
-				
+	/**
+	 * Counts the total number of infested and non-infested trees that are
+	 * present in the unblocked cells and in all the cells of the full grid
+	 */
+	private void countTrees() {
+		
+		for (int r = 0; r < EstimationGrid.NUM_ROWS; r++) {
+
+			for (int c = 0; c < EstimationGrid.NUM_COLS; c++) {
+
+				GridCell cell = gridCells[r][c];
+
 				// if cell is not blocked, then count trees in unblocked cells
-				if(!cell.isBlocked()){
-					
-					totalUnblockedInfested += cell.getNumInfestedTrees() ;
-					
-					totalUnblockedNonInfested += cell.getNumNonInfestedTrees() ;
+				if (!cell.isBlocked()) {
+
+					totalUnblockedInfested += cell.getNumInfestedTrees();
+
+					totalUnblockedNonInfested += cell.getNumNonInfestedTrees();
 				}
-				
+
 				// count trees for all (blocked and unblocked) cells
-				
-				totalInfested += cell.getNumInfestedTrees() ;
-				
-				totalNonInfested += cell.getNumNonInfestedTrees() ;
-				
+
+				totalInfested += cell.getNumInfestedTrees();
+
+				totalNonInfested += cell.getNumNonInfestedTrees();
+
 			}
 		}
 	}
 
 	/**
 	 * Returns the total number of infested trees in the grid
+	 * 
 	 * @return Total number of infested trees in the grid
 	 */
 	public int getTotalInfested() {
-		
-		
+
 		return totalInfested;
 	}
 
 	/**
 	 * Returns the total number of non-infested trees in the grid
+	 * 
 	 * @return Total number of non-infested trees in the grid
 	 */
 	public int getTotalNonInfested() {
@@ -458,17 +467,22 @@ public class EstimationGrid {
 	}
 
 	/**
-	 * Returns the total number of infested trees in the unblocked cells of the grid
-	 * @return The total number of infested trees in the unblocked cells of the grid
+	 * Returns the total number of infested trees in the unblocked cells of the
+	 * grid
+	 * 
+	 * @return The total number of infested trees in the unblocked cells of the
+	 *         grid
 	 */
 	public int getTotalUnblockedInfested() {
 		return totalUnblockedInfested;
 	}
 
-
 	/**
-	 * Returns the total number of non-infested trees in the unblocked cells of the grid
-	 * @return The total number of non-infested trees in the unblocked cells of the grid
+	 * Returns the total number of non-infested trees in the unblocked cells of
+	 * the grid
+	 * 
+	 * @return The total number of non-infested trees in the unblocked cells of
+	 *         the grid
 	 */
 	public int getTotalUnblockedNonInfested() {
 		return totalUnblockedNonInfested;

@@ -27,13 +27,13 @@ import javax.swing.border.TitledBorder;
  * to see the full gird (with no blocked cells).
  * 
  * @author Humaira Orchee and Charlotte Dye
- * @version March 4, 2015
+ * @version March 25, 2015
  *
  */
 public class AnswerPanel extends JPanel {
 
 	// Allows for some errors in the users' answers
-	private static final int ERROR_BARS = 10;
+	private static final int ERROR_BARS = 3;
 
 	// the number by which number if infested / non- infested trees will be
 	// multiplied
@@ -55,7 +55,7 @@ public class AnswerPanel extends JPanel {
 
 	// Whether they have correctly guessed the number of infested trees
 	private boolean infCorrect;
-	
+
 	private final EstimationGameApplication controller;
 
 	/**
@@ -66,9 +66,11 @@ public class AnswerPanel extends JPanel {
 	 *            The information about the Estimation Grid
 	 * @param gridView
 	 *            The Visual representation of the Estimation Grid
-	 * @param controller TODO
+	 * @param controller
+	 *            TODO
 	 */
-	public AnswerPanel(EstimationGrid grid, GridView gridView, EstimationGameApplication controller) {
+	public AnswerPanel(EstimationGrid grid, GridView gridView,
+			EstimationGameApplication controller) {
 
 		this.controller = controller;
 		// Initially, the user hasn't guessed anything correctly
@@ -83,16 +85,6 @@ public class AnswerPanel extends JPanel {
 		setLayout(new FlowLayout(FlowLayout.CENTER, 15, 1));
 		Border border = BorderFactory.createEmptyBorder(7, 7, 7, 7);
 		setBorder(border);
-
-		// this.add(new JPanel());
-
-		/*
-		 * addInfestedText();
-		 * 
-		 * this.add(new JPanel());
-		 * 
-		 * addNonInfestedtest();
-		 */
 
 		// panel for users' answer
 		estimatePanel();
@@ -249,7 +241,7 @@ public class AnswerPanel extends JPanel {
 
 		// users can input their estimate
 		final JTextField estimateField = new JTextField(5);
-		
+
 		GridBagConstraints finalAnswerFieldConstraints = new GridBagConstraints();
 		finalAnswerFieldConstraints.gridx = 1;
 		finalAnswerFieldConstraints.gridy = 2;
@@ -331,23 +323,7 @@ public class AnswerPanel extends JPanel {
 				// depending on the treeType, how many trees are actually
 				// visible in the grid?
 
-				int actualTreeCount = 0;
-
-				if (treeType.equals("Infested")) {
-
-					actualTreeCount = estimationGrid
-							.getTotalUnblockedInfested();
-
-				} else if (treeType.equals("Non-Infested")) {
-
-					actualTreeCount = estimationGrid
-							.getTotalUnblockedNonInfested();
-
-				} else {
-
-					throw new AssertionError(
-							"the string should only have been Infested or Non-Infested");
-				}
+				int actualTreeCount = getActualCount(treeType);
 
 				// the actual estimate of the number of trees of treeType in the
 				// grid
@@ -360,6 +336,7 @@ public class AnswerPanel extends JPanel {
 						+ " trees visible in the grid. To get the total number of trees, you should do the following: "
 						+ actualTreeCount + " * " + MULTIPLY + " = "
 						+ actualEstimate;
+
 				JOptionPane.showMessageDialog(panel, answer);
 
 			}
@@ -390,6 +367,7 @@ public class AnswerPanel extends JPanel {
 			final String treeType, JPanel treePanel,
 			final JTextField countAnswerField, final JTextField multiplyField,
 			final JTextField estimateAnswerField) {
+
 		// button that checks the user's answer
 		JButton checkButton = new JButton("Check my Answer!");
 
@@ -407,31 +385,22 @@ public class AnswerPanel extends JPanel {
 
 				try {
 
-					// how many visible trees did the user count in the
-					// unblocked cells?
-					int userCountAnswer = Integer.parseInt(countAnswerField
-							.getText());
-
 					// what number is the user trying to multiply the number of
 					// visible trees by?
 					int userMultiplyAnswer = Integer.parseInt(multiplyField
 							.getText());
 
-					// if the user is not trying to multiply by the correct
-					// answer, their answer is wrong
-					if (userMultiplyAnswer != MULTIPLY) {
+					// if the user did not multiply their count by the correct
+					// number then do not proceed
+					if (checkMultiplication(panel, userMultiplyAnswer)) {
 
-						JOptionPane
-								.showMessageDialog(
-										panel,
-										"Are you sure you should multiply by "
-												+ userMultiplyAnswer
-												+ "? Try again! Hint: Remember that only one-third of the grid is visible.");
-					
-						//If they multiply by the wrong number, it won't
-						//check if the result is correct or not
-						return ;
+						return;
 					}
+
+					// how many visible trees did the user count in the
+					// unblocked cells?
+					int userCountAnswer = Integer.parseInt(countAnswerField
+							.getText());
 
 					// how many trees does the user estimate is in the the grid?
 					int userEstimateAnswer = Integer
@@ -445,84 +414,52 @@ public class AnswerPanel extends JPanel {
 								+ " * " + userMultiplyAnswer
 								+ " does not equal " + userEstimateAnswer
 								+ ". Try again!");
-						
-						//If they multiply wrong, it won't
-						//check if the result is correct or not
+
+						// If they multiply wrong, it won't
+						// check if the result is correct or not
 						return;
 					}
 
-					// depending on the treeType, how many trees are actually
-					// visible in the grid?
-					int actualCountAnswer = 0;
+					// check if the user has correctly counted the number of
+					// trees
+					checkUserCount(panel, treeType, userCountAnswer);
 
-					if (treeType.equals("Infested")) {
+					// We might not need to check if the user's estimation was
+					// correct if we are checking if the user's counting was
+					// correct.
 
-						actualCountAnswer = estimationGrid
-								.getTotalUnblockedInfested();
-
-					} else if (treeType.equals("Non-Infested")) {
-
-						actualCountAnswer = estimationGrid
-								.getTotalUnblockedNonInfested();
-
-					} else {
-
-						throw new AssertionError(
-								"the string should only have been Infested or Non-Infested");
-					}
-
-					// what should the actual estimate be?
-					int actualEstimateAnswer = actualCountAnswer * MULTIPLY;
-
-					// check if the user's answer is within the error bars. Let
-					// the user know if they got the correct answer or not and
-					// remember it.
-					if (calculateRightAnswer(userEstimateAnswer,
-							actualEstimateAnswer)) {
-
-						JOptionPane.showMessageDialog(panel,
-								"You got the correct answer! Good job!");
-
-						// Note that they solved one of the problems correctly
-
-						// If they guessed infested trees, note that they got
-						// that correct
-						if (treeType.equals("Infested")) {
-							infCorrect = true;
-						}
-						// If they guessed non-infested trees, note that they
-						// got that correct
-						else {
-							nonInfCorrect = true;
-						}
-
-						// If they now have gotten both parts correct, we're
-						// going
-						// to advance to the next level, but for now we're just
-						// going
-						// to note that fact
-						if (infCorrect && nonInfCorrect) {
-							JOptionPane
-									.showMessageDialog(
-											panel,
-											"You got the number of infested and non-infested"
-													+ " trees correct!  Good job!  Time to try the next round.");
-							controller.displayNewGrid();
-						}
-
-					} else {
-
-						// not sure if we want to let them know the correct
-						// answer of they get it wrong...
-
-						// JOptionPane.showMessageDialog(panel,
-						// "Sorry but your answer is wrong. The correct answer is "
-						// + actualEstimateAnswer + ". Try again!");
-
-						JOptionPane.showMessageDialog(panel,
-								"Sorry but your answer is wrong. Try again!");
-
-					}
+					// // what should the actual estimate be?
+					// int actualEstimateAnswer = actualCountAnswer * MULTIPLY;
+					//
+					// // check if the user's answer is within the error bars.
+					// Let
+					// // the user know if they got the correct answer or not
+					// and
+					// // remember it.
+					// if (calculateRightAnswer(userEstimateAnswer,
+					// actualEstimateAnswer)) {
+					//
+					// JOptionPane.showMessageDialog(panel,
+					// "You got the correct answer! Good job!");
+					//
+					// // Note that they solved one of the problems correctly
+					//
+					// checkBothAnswers(panel, treeType);
+					//
+					// } else {
+					//
+					// // not sure if we want to let them know the correct
+					// // answer of they get it wrong...
+					//
+					// // JOptionPane.showMessageDialog(panel,
+					// //
+					// "Sorry but your answer is wrong. The correct answer is "
+					// // + actualEstimateAnswer + ". Try again!");
+					//
+					// JOptionPane.showMessageDialog(panel,
+					// "Sorry but your answer is wrong. Try again!");
+					//
+					// }
 
 				} catch (NumberFormatException exception) {
 
@@ -535,150 +472,134 @@ public class AnswerPanel extends JPanel {
 				}
 
 			}
+
 		});
 	}
 
-	// Not sure if we need the following two methods. Should ask Professor Gomez
-	// how she wants the answers
+	/**
+	 * Checks whether or not the user has correctly counted the the number of
+	 * visible infested and non-infested trees visible in the grid and displays
+	 * a message accordingly
+	 * 
+	 * @param panel
+	 *            The panel the pop-up is attached to
+	 * @param treeType
+	 *            Infested or non-infested tree
+	 * @param userCountAnswer
+	 *            The user's answer
+	 * @throws AssertionError
+	 */
+	private void checkUserCount(final JPanel panel, final String treeType,
+			int userCountAnswer) throws AssertionError {
 
-	// /**
-	// * Adds JLabel, JTextField and JBUtton pertaining to user's answer about
-	// * infested trees
-	// */
-	// private void addNonInfestedText() {
-	//
-	// final JPanel panel = new JPanel();
-	// panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JLabel("Enter number of non-infested trees : "));
-	//
-	// panel.add(new JPanel());
-	//
-	// nonInfestedText = new JTextField();
-	// panel.add(nonInfestedText);
-	//
-	// JButton checkButton = new JButton("Check My Answer!");
-	//
-	// checkButton.addActionListener(new ActionListener() {
-	//
-	// @Override
-	// public void actionPerformed(ActionEvent arg0) {
-	//
-	// try {
-	// int userAnswer = Integer.parseInt(nonInfestedText.getText());
-	//
-	// int actualAnswer = estimationGrid
-	// .getTotalUnblockedNonInfested() * 3;
-	//
-	// boolean rightAnswer = calculateRightAnswer(userAnswer,
-	// actualAnswer);
-	//
-	// if (rightAnswer) {
-	//
-	// // OptionPane.showMessageDialog(panel,
-	// // "Good job! You got the correct answer! "
-	// }
-	//
-	// JOptionPane.showMessageDialog(panel, "You said there are "
-	// + userAnswer + " non infested trees." + "\n"
-	// + "There are actually " + actualAnswer
-	// + " non-infested trees in total." + "");
-	//
-	// gridView.repaint();
-	// /*
-	// * System.out.println("You said there are " +
-	// * nonInfestedText.getText() + " non infested trees");
-	// */
-	//
-	// } catch (NumberFormatException e) {
-	//
-	// JOptionPane.showMessageDialog(gridView,
-	// "Please enter a number");
-	// }
-	//
-	// }
-	//
-	// });
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(checkButton);
-	//
-	// panel.add(new JPanel());
-	//
-	// add(panel);
-	// }
+		int actualCountAnswer = getActualCount(treeType);
 
-	// /**
-	// * Adds JLabel, JTextField and JBUtton pertaining to user's answer about
-	// * infested trees
-	// */
-	// private void addInfestedText() {
-	//
-	// final JPanel panel = new JPanel();
-	//
-	// panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JLabel("Enter number of infested trees :   "));
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JPanel());
-	//
-	// infestedText = new JTextField();
-	// panel.add(infestedText);
-	//
-	// JButton checkButton = new JButton("Check My Answer!");
-	//
-	// checkButton.addActionListener(new ActionListener() {
-	//
-	// @Override
-	// public void actionPerformed(ActionEvent arg0) {
-	//
-	// try {
-	// int numInfested = Integer.parseInt(infestedText.getText());
-	//
-	// JOptionPane.showMessageDialog(panel, "You said there are "
-	// + numInfested
-	// + "  infested trees. There are actually "
-	// + estimationGrid.getTotalUnblockedInfested()
-	// + " infested trees that are visible");
-	//
-	// gridView.repaint();
-	//
-	// /*
-	// * System.out.println("You said there are " +
-	// * infestedText.getText() + " non infested trees");
-	// */
-	//
-	// } catch (NumberFormatException e) {
-	//
-	// JOptionPane.showMessageDialog(gridView,
-	// "Please enter a number");
-	// }
-	//
-	// }
-	// });
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(checkButton);
-	//
-	// panel.add(new JPanel());
-	//
-	// add(panel);
-	//
-	// }
+		// check if the user counted the correct number of trees
+
+		if (calculateRightAnswer(userCountAnswer, actualCountAnswer)) {
+
+			JOptionPane.showMessageDialog(panel,
+					"You counted the right number of trees! Good job!");
+
+			checkBothAnswers(panel, treeType);
+
+		} else {
+
+			JOptionPane
+					.showMessageDialog(panel,
+							"Sorry but you counted the wrong number of trees. Try again!");
+		}
+	}
+
+	/**
+	 * Returns the actual number of trees in the grid, depending on the tree
+	 * type
+	 * 
+	 * @param treeType
+	 *            Infested or non-infested trees
+	 * @return The actual number of infested or non-infested trees in the grid
+	 * @throws AssertionError
+	 */
+	private int getActualCount(final String treeType) throws AssertionError {
+
+		// depending on the treeType, how many trees are actually
+		// visible in the grid?
+
+		if (treeType.equals("Infested")) {
+
+			return estimationGrid.getTotalUnblockedInfested();
+
+		} else if (treeType.equals("Non-Infested")) {
+
+			return estimationGrid.getTotalUnblockedNonInfested();
+
+		} else {
+
+			throw new AssertionError(
+					"the string should only have been Infested or Non-Infested");
+		}
+		// return actualCountAnswer;
+	}
+
+	/**
+	 * @param panel
+	 * @param userMultiplyAnswer
+	 * @return True if the user did not multiply their count by the correct
+	 *         number. Otherwise, return false.
+	 */
+	private boolean checkMultiplication(final JPanel panel,
+			int userMultiplyAnswer) {
+
+		// if the user is not trying to multiply by the correct
+		// answer, their answer is wrong
+		if (userMultiplyAnswer != MULTIPLY) {
+
+			JOptionPane
+					.showMessageDialog(
+							panel,
+							"Are you sure you should multiply by "
+									+ userMultiplyAnswer
+									+ "? Try again! Hint: Remember that only one-third of the grid is visible.");
+
+			// If they multiply by the wrong number, it won't
+			// check if the result is correct or not
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks if the user got the correct answer for both infested and
+	 * non-infested trees.
+	 * 
+	 * @param panel
+	 * @param treeType
+	 */
+	private void checkBothAnswers(final JPanel panel, final String treeType) {
+		// If they guessed infested trees, note that they got
+		// that correct
+		if (treeType.equals("Infested")) {
+			infCorrect = true;
+		}
+		// If they guessed non-infested trees, note that they
+		// got that correct
+		else {
+			nonInfCorrect = true;
+		}
+
+		// If they now have gotten both parts correct, we're going to
+		// advance to the next level, but for now we're just going to
+		// note that fact
+		if (infCorrect && nonInfCorrect) {
+			JOptionPane
+					.showMessageDialog(
+							panel,
+							"You got the number of infested and non-infested"
+									+ " trees correct!  Good job!  Time to try the next round.");
+			controller.displayNewGrid();
+		}
+	}
 
 	/**
 	 * Creates a button that creates a pop-up that lets users see the full grid.
@@ -697,7 +618,8 @@ public class AnswerPanel extends JPanel {
 
 				// a new visual representation of the grid is created
 				GridView fullGridView = new GridView(estimationGrid
-						.getGridCells(), gridView.getTrees(), estimationGrid.getCellWidth()	, estimationGrid.getCellHeight());
+						.getGridCells(), gridView.getTrees(), estimationGrid
+						.getCellWidth(), estimationGrid.getCellHeight());
 
 				// this view has no blocked cells
 				fullGridView.setHasBlockedCells(false);
@@ -728,7 +650,8 @@ public class AnswerPanel extends JPanel {
 
 				// add the panel to a frame. will need to change this prt.
 				JFrame frame = new JFrame();
-				frame.setSize(EstimationGrid.GRID_WIDTH, EstimationGrid.GRID_HEIGHT + 72);
+				frame.setSize(EstimationGrid.GRID_WIDTH,
+						EstimationGrid.GRID_HEIGHT + 72);
 				frame.setTitle("Showing Full Grid");
 				frame.add(fullGridPanel);
 				frame.setResizable(false);
