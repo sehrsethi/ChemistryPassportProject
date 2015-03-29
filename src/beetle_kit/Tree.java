@@ -125,15 +125,30 @@ public class Tree extends Ellipse2D.Double {
 		// Compare sum of radii to distance between centers
 
 		double radiiSum = (this.diameter / 2) + (otherTree.diameter / 2);
+		
+		//System.out.println("radiiSum " + radiiSum);
 
 		double diffX = Math.pow(otherTree.centerX - this.centerX, 2);
 
+		//System.out.println("diffX " + diffX);
+		
 		double diffY = Math.pow(otherTree.centerY - this.centerY, 2);
+		
+		//System.out.println("diffY " + diffY);
 
 		double distance = Math.sqrt(diffX + diffY);
 
+		//System.out.println("distance " + distance);
+		
+		//System.out.println("overlap " + (distance < (radiiSum / 1.2)));
+		
 		// Compare sum of radii to distance between centers
-		return distance < radiiSum / 1.2;
+		
+		//return (distance < (radiiSum / 1.2));
+		
+		return ((distance) < (radiiSum/2.5 ));
+		
+		//return false ;
 
 	}
 
