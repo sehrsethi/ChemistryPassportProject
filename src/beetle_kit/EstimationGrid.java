@@ -23,7 +23,7 @@ public class EstimationGrid {
 	private static final double RATIO_BLOCKED = 2.0 / 3.0;
 
 	// The maximum number of trees of each color that can be placed in one cell
-	private static final int MAX_TREE_NUM = 2;
+	private static final int MAX_TREE_NUM = 3;
 
 	// Color of infested trees
 	private static final Color INFESTED_COLOR = Color.RED;
@@ -291,6 +291,10 @@ public class EstimationGrid {
 		int centerX = (int) ((PADDING + (col * cellWidth)) + (Math.random() * (cellWidth - 2 * PADDING)));
 
 		int centerY = (int) ((PADDING + (row * cellHeight)) + (Math.random() * (cellHeight - 2 * PADDING)));
+		
+//		int centerX = (int) ((5+ (col * cellWidth)) + ((Math.random() * cellWidth )-5));
+//
+//		int centerY = (int) ((5+ (row * cellHeight)) + ((Math.random() * cellHeight )-5));
 
 		// the tree to draw
 		Tree tree = new Tree(centerX, centerY, diameter, fillColor, borderColor);
@@ -325,9 +329,9 @@ public class EstimationGrid {
 
 			Tree otherTree = trees.get(i);
 
-			// boolean hidden = otherTree.containedWithin(tree)
-			// || tree.containedWithin(otherTree);
-			//
+//			 boolean hidden = otherTree.containedWithin(tree)
+//			 || tree.containedWithin(otherTree);
+			
 			boolean overlaps = otherTree.checkOverlap(tree)
 					|| tree.checkOverlap(otherTree);
 

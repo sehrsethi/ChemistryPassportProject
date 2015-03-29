@@ -56,7 +56,6 @@ public class Passport extends JPanel implements MouseListener {
 		
 		this.user = user ;
 
-
 		// Save the child's name (will be needed for various pages)
 		this.childName = user.getFakeName();
 
@@ -169,6 +168,9 @@ public class Passport extends JPanel implements MouseListener {
 
 	}
 	
+	/**
+	 * Goes to the nest passport page
+	 */
 	public void nextPage(){
 		
 		CARD_LAYOUT.next(this);
@@ -176,6 +178,9 @@ public class Passport extends JPanel implements MouseListener {
 		repaint();
 	}
 	
+	/**
+	 * Goes to the previous passport page
+	 */
 	public void previouPage(){
 		
 		CARD_LAYOUT.previous(this);

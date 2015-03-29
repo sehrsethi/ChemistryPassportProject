@@ -95,7 +95,7 @@ public class GridView extends JPanel {
 		// top of blocked cells.
 
 		// now draw each cell with the trees in them
-		drawTrees(g);
+	//	drawTrees(g);
 
 		// paint blocked cells opaque gray if it is the blocked view. otherwise,
 		// paint the blocked cells transparent gray.

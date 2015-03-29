@@ -96,8 +96,8 @@ public class KitPage extends JPanel {
 	private ImageIcon imageIcon;
 
 	// The coordinates where the sticker actually stays
-	// private double finalX;
-	// private double finalY;
+	 private double finalX;
+	 private double finalY;
 
 	// The amount by which the coordinates of the sticker change
 	private double animationConstantX = -1;
@@ -161,9 +161,9 @@ public class KitPage extends JPanel {
 
 		imageIcon = new ImageIcon(IMAGE_FILE);
 
-		double finalX = this.getWidth() / 2 - imageIcon.getIconWidth() / 2;
+		finalX = this.getWidth() / 2 - imageIcon.getIconWidth() / 2;
 
-		double finalY = this.getHeight() / 2 - imageIcon.getIconHeight() / 2
+		finalY = this.getHeight() / 2 - imageIcon.getIconHeight() / 2
 				- 50;
 
 		currentX = finalX;
@@ -210,8 +210,12 @@ public class KitPage extends JPanel {
 	 *            The graphics object to draw on
 	 */
 	private void paintSticker(Graphics g) {
-
-		if (!showSticker) {
+		
+		if(showSticker){
+			
+			imageIcon.paintIcon(this, g, (int) finalX, (int) finalY);
+			
+		}else if (!showSticker) {
 			
 			if (!earnSticker) {
 
@@ -297,7 +301,7 @@ public class KitPage extends JPanel {
 	private void addSticker() {
 
 		// Check if we should add the sticker
-		if (showSticker) {
+		/*if (showSticker) {
 			// Show the sticker
 
 			// Create the sticker icon
@@ -312,7 +316,9 @@ public class KitPage extends JPanel {
 			// Add the sticker
 			add(stickerLabel);
 
-		} else {
+		} else*/
+		
+		if(!showSticker){
 			// Show empty sticker icon
 			// Create the sticker icon
 			// ImageIcon imageIcon = new ImageIcon(EMPTY_IMAGE_FILE);
@@ -429,8 +435,6 @@ public class KitPage extends JPanel {
 		// bounce off left
 		if (currentX <= 0) {
 
-			System.out.println("here 1");
-
 			animationConstantX = animationConstantX * -1;
 
 		}
@@ -445,8 +449,6 @@ public class KitPage extends JPanel {
 		if (currentX + imageIcon.getIconWidth() >= maxWidth) {
 
 			// timer.setDelay(DELAY - 1);
-
-			System.out.println("here 2");
 
 			animationConstantX = animationConstantX * -1;
 			animationConstantY = -0.5;
@@ -576,12 +578,12 @@ public class KitPage extends JPanel {
 
 					timer.stop();
 
-				} else if (currentTime - startTime >= ANIMATION_TIME) {
+				} /*else if (currentTime - startTime >= ANIMATION_TIME) {
 
 					System.out.println("time up");
 
 					timer.stop();
-				}
+				}*/
 
 				repaint();
 
