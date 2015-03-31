@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-public class BeetleHead implements BeetlePart {
+public class FirstBeetle implements BeetlePart {
 
 	// The beetle head image
 
@@ -35,7 +35,7 @@ public class BeetleHead implements BeetlePart {
 	 * @param y
 	 *            The y point of the beetle head
 	 */
-	public BeetleHead(JComponent component, double x, double y) {
+	public FirstBeetle(JComponent component, double x, double y) {
 		
 		this.component = component;
 		this.x = x + 4;

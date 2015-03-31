@@ -14,15 +14,15 @@ import java.awt.geom.Point2D;
  */
 //increase circle distance
 //include another beetle image at the end of the tail
-public class BeetleTailPart implements BeetlePart {
+public class BeetlePheromones implements BeetlePart {
 	
 	//public static final Color COLOR1 = new Color(153,255,255) ;
 	
 	//public static final Color COLOR2 = new Color(204,204,255) ;
 	
-	public static final Color COLOR1 = Color.red ;
+	public static final Color COLOR1 = new Color(255,0,0, 150) ;
 	
-	public static final Color COLOR2 = Color.black ;
+	public static final Color COLOR2 =  new Color(0,0,0, 175) ;
 	
 	// The ellipse2D objects that make the beetle tail
 
@@ -30,7 +30,7 @@ public class BeetleTailPart implements BeetlePart {
 
 	// The beetle tail
 
-	private BeetlePart restBeetleTail;
+	private BeetlePart restBeetlePart;
 
 	// The color of the tail
 
@@ -47,11 +47,11 @@ public class BeetleTailPart implements BeetlePart {
 	 * @param color
 	 *            the color of the tail
 	 */
-	public BeetleTailPart(Ellipse2D ellipse, BeetlePart restBeetleTail, Color color) {
+	public BeetlePheromones(Ellipse2D ellipse, BeetlePart restBeetleTail, Color color) {
 		
 		
 		this.tail = ellipse ;
-		this.restBeetleTail = restBeetleTail;
+		this.restBeetlePart = restBeetleTail;
 		this.color = color;
 		//this.beetleHead=beetleHead;
 		
@@ -69,8 +69,8 @@ public class BeetleTailPart implements BeetlePart {
 		
 		g2.fill(tail);
 		
-		if (restBeetleTail != null) {
-			restBeetleTail.paint(g);
+		if (restBeetlePart != null) {
+			restBeetlePart.paint(g);
 		}
 	
 		
@@ -95,7 +95,7 @@ public class BeetleTailPart implements BeetlePart {
 
 		tail.setFrame(newX  , newY  , tail.getWidth() , tail.getHeight() );
 		
-		restBeetleTail.moveBeetle(originalx, originaly );
+		restBeetlePart.moveBeetle(originalx, originaly );
 
 
 	}
@@ -109,7 +109,7 @@ public class BeetleTailPart implements BeetlePart {
 		tail.setFrame((tail.getX() + distanceX), tail.getY() + distanceY,
 				tail.getWidth(), tail.getHeight());
 		
-		restBeetleTail.moveBeetle(tail.getX() , tail.getY() );
+		restBeetlePart.moveBeetle(tail.getX() , tail.getY() );
 		
 		
 

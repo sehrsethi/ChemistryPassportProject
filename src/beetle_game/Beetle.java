@@ -29,11 +29,11 @@ MouseMotionListener {
 
 	private static final int DIAMETER = 25;
 
-	private static final int SCREEN_WIDTH = 600;
+	private static final int SCREEN_WIDTH = 700;
 
 	// height of the screen
 
-	private static final int SCREEN_HEIGHT = 400;
+	private static final int SCREEN_HEIGHT = 700;
 
 	// The interface beetlePart
 
@@ -41,7 +41,7 @@ MouseMotionListener {
 
 	// The beetleTailPart
 
-	private BeetleTailPart beetleTailPart;
+	private BeetlePheromones beetlePheromones;
 
 	// Checks if in drawing mode
 
@@ -147,7 +147,7 @@ MouseMotionListener {
 	 */
 	public void startChain(Point2D xandy) {
 		
-		beetlePart = new BeetleHead(this, xandy.getX(), xandy.getY() );
+		beetlePart = new FirstBeetle(this, xandy.getX(), xandy.getY() );
 	}
 
 	/**
@@ -157,7 +157,7 @@ MouseMotionListener {
 	 */
 	public void addLink(Ellipse2D ellipse) {
 		
-		beetlePart = new BeetleTailPart(ellipse, beetlePart , BeetleTailPart.COLOR1);
+		beetlePart = new BeetlePheromones(ellipse, beetlePart , BeetlePheromones.COLOR1);
 		repaint();
 
 	}
@@ -173,22 +173,6 @@ MouseMotionListener {
 		repaint() ;
 	}
 
-	/**
-	 * Runs the program
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		f.setTitle("Grab a Beetle by its tail!");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-		Beetle beetle = new Beetle();
-		Container contentPane = f.getContentPane();
-		contentPane.add(beetle, BorderLayout.CENTER);
-		f.setVisible(true);
-
-	}
 
 	/**
 	 * Draws the current frame. This consists of a rectangle for the background
@@ -212,4 +196,21 @@ MouseMotionListener {
 	}
 
 
+
+	/**
+	 * Runs the program
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		JFrame f = new JFrame();
+		f.setTitle("Follow the Beetle!");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+		Beetle beetle = new Beetle();
+		Container contentPane = f.getContentPane();
+		contentPane.add(beetle, BorderLayout.CENTER);
+		f.setVisible(true);
+
+	}
 }
