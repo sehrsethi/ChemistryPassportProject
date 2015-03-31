@@ -16,6 +16,14 @@ import java.awt.geom.Point2D;
 //include another beetle image at the end of the tail
 public class BeetleTailPart implements BeetlePart {
 	
+	//public static final Color COLOR1 = new Color(153,255,255) ;
+	
+	//public static final Color COLOR2 = new Color(204,204,255) ;
+	
+	public static final Color COLOR1 = Color.red ;
+	
+	public static final Color COLOR2 = Color.black ;
+	
 	// The ellipse2D objects that make the beetle tail
 
 	private Ellipse2D tail;
@@ -64,14 +72,15 @@ public class BeetleTailPart implements BeetlePart {
 		if (restBeetleTail != null) {
 			restBeetleTail.paint(g);
 		}
+	
 		
-		if (color == Color.red) {
+		if (color == COLOR1) {
 			
-			color = Color.BLACK;
+			color = COLOR2;
 			
-		} else if (color == Color.BLACK) {
+		} else if (color == COLOR2) {
 			
-			color = Color.red;
+			color = COLOR1;
 		}
 
 	}
@@ -80,9 +89,7 @@ public class BeetleTailPart implements BeetlePart {
 	 * Moves the entire beetle with the movement of the end point of the tail
 	 */
 	public void moveBeetle(double newX, double newY) {
-		
-		System.out.println("beetle tail part move beetle");
-		
+				
 		double originalx = tail.getX() ;
 		double originaly = tail.getY() ;
 
@@ -98,7 +105,6 @@ public class BeetleTailPart implements BeetlePart {
 	 */
 	public void moveTail(double distanceX, double distanceY) {
 		
-		System.out.println("beetle tail part move tail");
 		
 		tail.setFrame((tail.getX() + distanceX), tail.getY() + distanceY,
 				tail.getWidth(), tail.getHeight());

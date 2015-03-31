@@ -157,7 +157,7 @@ MouseMotionListener {
 	 */
 	public void addLink(Ellipse2D ellipse) {
 		
-		beetlePart = new BeetleTailPart(ellipse, beetlePart , Color.red);
+		beetlePart = new BeetleTailPart(ellipse, beetlePart , BeetleTailPart.COLOR1);
 		repaint();
 
 	}
