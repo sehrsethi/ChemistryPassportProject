@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 
 public class BeetleHead implements BeetlePart {
 
-	// The tiger head image
+	// The beetle head image
 
 	private ImageIcon beetleHeadImage = new ImageIcon("src//images//lady_wings.gif");
 
@@ -17,11 +17,11 @@ public class BeetleHead implements BeetlePart {
 
 	private JComponent component;
 
-	// The x point of the tiger head
+	// The x point of the beetle head
 
 	private double x;
 
-	// The y point of the tiger head
+	// The y point of the beetle head
 
 	private double y;
 
@@ -31,34 +31,37 @@ public class BeetleHead implements BeetlePart {
 	 * @param component
 	 *            The JComponent
 	 * @param x
-	 *            The x point of the tiger head
+	 *            The x point of the beetle head
 	 * @param y
-	 *            The y point of the tiger head
+	 *            The y point of the beetle head
 	 */
 	public BeetleHead(JComponent component, double x, double y) {
+		
 		this.component = component;
 		this.x = x + 4;
 		this.y = y + 4;
 	}
 
 	/**
-	 * Pains the tiger head image
+	 * Paints the beetle head image
 	 */
 	public void paint(Graphics g) {
+		
 		beetleHeadImage.paintIcon(component, g, (int) x + 2, (int) y + 2);
 	}
 
 	/**
-	 * Moves the entire tiger with the movement of the end point of the tail
+	 * Moves the entire beetle with the movement of the end point of the tail
 	 */
 	public void moveBeetle(double newX, double newY) {
+		
 		x = newX - beetleHeadImage.getIconWidth() / 2;
 		y = newY - beetleHeadImage.getIconHeight() / 2;
 
 	}
 
 	/**
-	 * Moves the tiger tail
+	 * Moves the beetle tail
 	 */
 	public void moveTail(double distanceX, double distanceY) {
 

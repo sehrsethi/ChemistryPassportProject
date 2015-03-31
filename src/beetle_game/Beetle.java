@@ -17,8 +17,9 @@ import javax.swing.JFrame;
 /**
  * The user interface
  * 
- * @author sethi22s
+ * @author Sehr Sethi and Humaira Orchee
  * 
+ * @version March 31, 2015
  */
 
 public class Beetle extends JComponent implements MouseListener,
@@ -26,17 +27,19 @@ MouseMotionListener {
 
 	// width of the screen
 
+	private static final int DIAMETER = 25;
+
 	private static final int SCREEN_WIDTH = 600;
 
 	// height of the screen
 
 	private static final int SCREEN_HEIGHT = 400;
 
-	// The interface tigerPart
+	// The interface beetlePart
 
 	private BeetlePart beetlePart;
 
-	// The tigerTailPart
+	// The beetleTailPart
 
 	private BeetleTailPart beetleTailPart;
 
@@ -87,6 +90,7 @@ MouseMotionListener {
 
 			isMoving = true;
 		}
+		
 		lastXandY = e.getPoint();
 		
 
@@ -94,8 +98,17 @@ MouseMotionListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		isMoving = false;
-		drawingTail = false;
+	
+		
+		if(drawingTail){
+			
+			endTail(e.getPoint());
+			
+			drawingTail = false ;
+			
+		}
+
+		isMoving = false ;
 		
 
 	}
@@ -105,11 +118,12 @@ MouseMotionListener {
 
 		if (drawingTail) {
 			Ellipse2D.Double ellipse = new Ellipse2D.Double(e.getX(), e.getY(),
-					35, 35);
+					DIAMETER, DIAMETER);
 			addLink(ellipse);
 			
 
 		} else if (isMoving) {
+			
 			beetlePart.moveTail(e.getX() - (int) lastXandY.getX(), e.getY()
 					- (int) lastXandY.getY());
 
@@ -127,23 +141,36 @@ MouseMotionListener {
 	}
 
 	/**
-	 * Constructs a new tiger head
+	 * Constructs a new beetle head
 	 * 
 	 * @param xandy
 	 */
 	public void startChain(Point2D xandy) {
+		
 		beetlePart = new BeetleHead(this, xandy.getX(), xandy.getY() );
 	}
 
 	/**
-	 * Adds the tiger tail parts
+	 * Adds the beetle tail parts
 	 * 
 	 * @param ellipse
 	 */
 	public void addLink(Ellipse2D ellipse) {
+		
 		beetlePart = new BeetleTailPart(ellipse, beetlePart , Color.red);
 		repaint();
 
+	}
+	
+
+	/**
+	 * 
+	 * @param endPoint
+	 */
+	public void endTail(Point2D endPoint){
+		
+		beetlePart = new SecondBeetle(this, endPoint.getX(), endPoint.getY(), beetlePart) ;
+		repaint() ;
 	}
 
 	/**
@@ -156,9 +183,9 @@ MouseMotionListener {
 		f.setTitle("Grab a Beetle by its tail!");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-		Beetle tiger = new Beetle();
+		Beetle beetle = new Beetle();
 		Container contentPane = f.getContentPane();
-		contentPane.add(tiger, BorderLayout.CENTER);
+		contentPane.add(beetle, BorderLayout.CENTER);
 		f.setVisible(true);
 
 	}
@@ -169,9 +196,15 @@ MouseMotionListener {
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
+		
 		Dimension rect = getSize();
-		g.setColor(Color.pink);
+		
+		//g.setColor(Color.pink);
+		
+		g.setColor(Color.white);
+		
 		g.fillRect(0, 0, (int) (rect.getWidth()), (int) rect.getHeight());
+		
 		if (beetlePart != null) {
 			beetlePart.paint(g);
 		}

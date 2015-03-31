@@ -7,7 +7,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 /**
- * The tiger tail parts
+ * The beetle tail parts
  * 
  * @author sethi22s
  * 
@@ -15,14 +15,14 @@ import java.awt.geom.Point2D;
 //increase circle distance
 //include another beetle image at the end of the tail
 public class BeetleTailPart implements BeetlePart {
-
-	// The ellipse2D objects that make the tiger tail
+	
+	// The ellipse2D objects that make the beetle tail
 
 	private Ellipse2D tail;
 
-	// The tiger tail
+	// The beetle tail
 
-	private BeetlePart beetleTail;
+	private BeetlePart restBeetleTail;
 
 	// The color of the tail
 
@@ -33,49 +33,62 @@ public class BeetleTailPart implements BeetlePart {
 	 * Initializes the instance variables
 	 * 
 	 * @param ellipse
-	 *            the ellipse objects that make up the tiger tail
-	 * @param tigerTail
-	 *            the tiger tail
+	 *            the ellipse objects that make up the beetle tail
+	 * @param restBeetleTail
+	 *            The rest of the beetle tail
 	 * @param color
 	 *            the color of the tail
 	 */
-	public BeetleTailPart(Ellipse2D ellipse, BeetlePart tigerTail, Color color) {
+	public BeetleTailPart(Ellipse2D ellipse, BeetlePart restBeetleTail, Color color) {
+		
+		
 		this.tail = ellipse ;
-		this.beetleTail = tigerTail;
+		this.restBeetleTail = restBeetleTail;
 		this.color = color;
 		//this.beetleHead=beetleHead;
 		
 	}
 
 	/**
-	 * Paints the tiger tails with alternating black and orange color
+	 * Paints the beetle tails with alternating black and orange color
 	 */
 	@Override
 	public void paint(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D) g;
+		
 		g.setColor(color);
+		
 		g2.fill(tail);
-		if (beetleTail != null) {
-			beetleTail.paint(g);
+		
+		if (restBeetleTail != null) {
+			restBeetleTail.paint(g);
 		}
+		
 		if (color == Color.red) {
+			
 			color = Color.BLACK;
+			
 		} else if (color == Color.BLACK) {
+			
 			color = Color.red;
 		}
 
 	}
 
 	/**
-	 * Moves the entire tiger with the movement of the end point of the tail
+	 * Moves the entire beetle with the movement of the end point of the tail
 	 */
 	public void moveBeetle(double newX, double newY) {
+		
+		System.out.println("beetle tail part move beetle");
+		
 		double originalx = tail.getX() ;
 		double originaly = tail.getY() ;
 
 		tail.setFrame(newX  , newY  , tail.getWidth() , tail.getHeight() );
-		beetleTail.moveBeetle(originalx, originaly );
+		
+		restBeetleTail.moveBeetle(originalx, originaly );
 
 
 	}
@@ -84,9 +97,13 @@ public class BeetleTailPart implements BeetlePart {
 	 * Moves the end point of the tail
 	 */
 	public void moveTail(double distanceX, double distanceY) {
+		
+		System.out.println("beetle tail part move tail");
+		
 		tail.setFrame((tail.getX() + distanceX), tail.getY() + distanceY,
 				tail.getWidth(), tail.getHeight());
-		beetleTail.moveBeetle(tail.getX() , tail.getY() );
+		
+		restBeetleTail.moveBeetle(tail.getX() , tail.getY() );
 		
 		
 
