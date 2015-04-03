@@ -16,13 +16,14 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -31,13 +32,14 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 	// Instance variables for Sign Up Page
+
+	// The database file that contains user information
 	private static final String FILE_NAME = "database.csv";
 	private JLabel signUpLabel = null;
 	private JLabel signUp_Grade = null;
@@ -48,41 +50,56 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	private JButton submitButton = null;
 	private JComboBox<String> signUp_GradeCombo = null;
 	private String[] grades = { "", "K", "1", "2", "3", "4", "5", "6" };
-	Insets insets;
 
+	// The main sign up panel
 	private JTabbedPane g_tabbedPane = new JTabbedPane();
-	// private JPanel root_panel = new JPanel();
+	// Panel for JButtons and Jlabels with sign up tab
 	private JPanel root_panel_inside_tabbedPane = new JPanel();
 
 	private String getUserName = null;
 	private String getFakeName = null;
-	private String[] m_grade = null;
-
 	private String gradeFromComboBox = "";
 
+	// The location of the database
+	private URL url_database;
+
+	/**
+	 * Constructs a sign up panel
+	 */
 	public SignUp() {
 
 		BoxLayout boxLayout = new BoxLayout(root_panel_inside_tabbedPane,
 				BoxLayout.Y_AXIS);
 		root_panel_inside_tabbedPane.setLayout(boxLayout);
 
+		// Set the database location
+		try {
+			url_database = new URL(
+					"http://royal.cs.mtholyoke.edu/sethi22s/database.csv");
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+
 		signUp();
+
 	}
 
+	/**
+	 * Creates labels and buttons for sign up to ask for user information
+	 */
 	public void signUp() {
 
 		BoxLayout boxLayout = new BoxLayout(root_panel_inside_tabbedPane,
 				BoxLayout.Y_AXIS);
 		root_panel_inside_tabbedPane.setLayout(boxLayout);
-
-		// root_panel_inside_tabbedPane.setLayout(new BoxLayout(
-		// root_panel_inside_tabbedPane, BoxLayout.Y_AXIS));
 		root_panel_inside_tabbedPane.setLayout(new GridLayout(7, 1));
 		root_panel_inside_tabbedPane.setBorder(BorderFactory.createLineBorder(
 				(new Color(150, 150, 150)), 3));
 
 		g_tabbedPane.add(root_panel_inside_tabbedPane);
 
+		// The panel that holds the label to ask users to sign up
 		JPanel pan11 = new JPanel();
 		signUpLabel = new JLabel("         Not A User Yet? Sign Up Below!  ");
 		signUpLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -90,6 +107,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		root_panel_inside_tabbedPane.add(new JPanel());
 		root_panel_inside_tabbedPane.add(pan11);
 
+		// The panel that requests the user to input a fake name
 		JPanel pan12 = new JPanel();
 		signup_FakeNameLabel = new JLabel("Fake Name:  ");
 		signup_FakeNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -101,6 +119,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		signup_FakeNameText.addKeyListener(this);
 		root_panel_inside_tabbedPane.add(pan12);
 
+		// The panel that asks the user to input a user name
 		JPanel pan13 = new JPanel();
 		signUp_UserNameLabel = new JLabel("User Name:  ");
 		signUp_UserNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -109,6 +128,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 		signUp_UserNameText.setFont(new Font("Monospaced", Font.BOLD, 12));
 
+		// The panel that asks the user to select a grade level
 		JPanel pan14 = new JPanel();
 		signUp_Grade = new JLabel("Grade:  ");
 		signUp_Grade.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -134,9 +154,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 		pan13.add(signUp_UserNameLabel);
 		pan13.add(signUp_UserNameText);
-		
-	
-		
+
 		pan14.add(signUp_Grade);
 		pan14.add(signUp_GradeCombo);
 		signUp_GradeCombo.setFont(new Font("Monospaced", Font.BOLD, 14));
@@ -147,8 +165,8 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		signUp_UserNameText.addKeyListener(this);
 		root_panel_inside_tabbedPane.add(pan14);
 
+		// The panel that holds the submit information button
 		JPanel pan8 = new JPanel();
-		// pan8.setLayout(null);
 		submitButton = new JButton("  Submit  ");
 		pan8.add(submitButton);
 		Insets insets2 = pan8.getInsets();
@@ -156,14 +174,8 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		root_panel_inside_tabbedPane.add(pan8);
 		submitButton.addActionListener(this);
 
+		// Add to the main sign up panel
 		g_tabbedPane.addTab("Sign Up", null, root_panel_inside_tabbedPane, "");
-
-		// root_panel_inside_tabbedPane.add(g_tabbedPane);
-		// g_tabbedPane.add(root_panel_inside_tabbedPane) ;
-
-		// JSeparator sep1 = new JSeparator();
-		// root_panel.add(sep1);
-
 		add(g_tabbedPane);
 
 	}
@@ -186,28 +198,35 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 	}
 
+	/**
+	 * Once the submit button has been pressed, get the user information and
+	 * write to the database
+	 */
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		if (evt.getSource() == submitButton)
-			
+
 			if (checkSignUp()) {
 
-				if(writeToFile(signup_FakeNameText, signUp_UserNameText,
-						gradeFromComboBox)){
+				if (writeToFile(signup_FakeNameText, signUp_UserNameText,
+						gradeFromComboBox)) {
 					JOptionPane.showMessageDialog(this, "User account for "
-							+ signup_FakeNameText.getText() + " has been created. Cheers!");
-					
+							+ signup_FakeNameText.getText()
+							+ " has been created. Cheers!");
+
 					System.exit(0);
 
-					
 				}
-				
-				
+
 			}
 
-		
-
 	}
+
+	/**
+	 * Checks if the user name and fake name already exist in the database
+	 * 
+	 * @return
+	 */
 
 	private boolean checkSignUp() {
 		getFakeName = signup_FakeNameText.getText();
@@ -239,17 +258,30 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	private boolean writeToFile(JTextField fullNameText, JTextField userNameText,
-			String grade) {
+	/**
+	 * Writes user information to the database and URL
+	 * 
+	 * @param fakeNameText
+	 *            the fake name of the user entered
+	 * @param userNameText
+	 *            the user name of the user
+	 * @param grade
+	 *            the selected grade level
+	 * @return
+	 */
+	private boolean writeToFile(JTextField fakeNameText,
+			JTextField userNameText, String grade) {
 
 		File databaseFile = new File(FILE_NAME);
 
-		String kitProgress = textKitProgress();
+		String kitProgress = testKitProgress();
 
 		try {
 
-			BufferedWriter out = new BufferedWriter(new FileWriter(
-					databaseFile, true));
+			// BufferedWriter out = new BufferedWriter(new FileWriter(
+			// databaseFile, true));
+
+			// BufferedWriter out = new BufferedWriter()
 
 			String userName = userNameText.getText();
 
@@ -257,40 +289,70 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 				JOptionPane.showMessageDialog(this,
 						"Someone already has this username: " + userName
-								+  ". Let's pick another one!");
-				
-				return false ;
-			}
-			
-			userName +=  "," ;
+								+ ". Let's pick another one!");
 
-			String fakeName = fullNameText.getText() + ",";
+				return false;
+			}
+
+			userName += ",";
+
+			String fakeName = fakeNameText.getText() + ",";
+
+			// Connect to the database on the server
+			URLConnection connection = url_database.openConnection();
+
+			connection.setDoOutput(true);
+			connection.setUseCaches(false);
+
+			// connection.
+
+			
+			
+			OutputStreamWriter out = new OutputStreamWriter(
+					connection.getOutputStream());
+			
+			
 
 			// grade = (JComboBox) grade.getSelectedItem();
 			out.write("\n" + userName + fakeName + grade + "," + kitProgress);
+			
+			
+			//out.flush();
+			
+			// System.out.println("I am here");
+			
 
+			
 			out.close();
-			
-			return true ;
-			
+			return true;
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return false ;
+
+		return false;
 	}
+	
+
+
 
 	/**
+	 * Checks the kit progress of the user and writes to database
+	 * 
 	 * @param databaseFile
 	 * @return
 	 */
-	private String textKitProgress() {
+	private String testKitProgress() {
 
 		File databaseFile = new File(FILE_NAME);
 
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(databaseFile));
+			// BufferedReader in = new BufferedReader(new
+			// FileReader(databaseFile));
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					url_database.openStream()));
 
 			String[] firstLine = in.readLine().split(",");
 
@@ -324,17 +386,20 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		return null;
 
 	}
+
 	/**
 	 * 
 	 * @return
 	 */
-	private String autogenerateUserName(){
+	private String autogenerateUserName() {
 		return null;
 	}
 
 	/**
+	 * Checks if the user name entered already exists
 	 * 
 	 * @param userName
+	 *            the user name entered
 	 * @return
 	 */
 	private boolean userNameExists(String userName) {
@@ -343,28 +408,46 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 		try {
 
-			BufferedReader in = new BufferedReader(new FileReader(databaseFile));
+			// BufferedReader in = new BufferedReader(new
+			// FileReader(databaseFile));
 
-			List<String> lines = Files.readAllLines(databaseFile.toPath(),
-					StandardCharsets.UTF_8);
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					url_database.openStream()));
 
-			for (String line : lines) {
-				
-				String[] lineArray = line.split(",") ;
-			
-				String tempUserName = lineArray[0];
-				
-				
-				if (tempUserName.trim().equals(userName.trim())) {
-
-					System.out.println("return true for " + tempUserName + "and" + userName);
+			in.readLine();
+			String line = in.readLine();
+			while (line != null) {
+				String[] userInfo = line.split(",");
+				String temp_userName = userInfo[0];
+				if (temp_userName.trim().equals(userName.trim())) {
 					return true;
+				} else {
+					line = in.readLine();
 				}
-
 			}
-
-			System.out.println("return false");
 			return false;
+
+			// //List<String> lines = Files.readAllLines(databaseFile.toPath(),
+			// // StandardCharsets.UTF_8);
+			//
+			// for (String line : lines) {
+			//
+			// String[] lineArray = line.split(",") ;
+			//
+			// String tempUserName = lineArray[0];
+			//
+			//
+			// if (tempUserName.trim().equals(userName.trim())) {
+			//
+			// System.out.println("return true for " + tempUserName + "and" +
+			// userName);
+			// return true;
+			// }
+			//
+			// }
+			//
+			// System.out.println("return false");
+			// return false;
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -377,57 +460,5 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 		return false;
 	}
-	
-	
 
-	// ChoiceDialog extends JDialog implements ActionListener {
-	//
-	// private Login owner = null;
-	// private JComboBox g_combo = null;
-	// private JButton g_ok = null;
-	//
-	// hoiceDialog(String[] users, Frame owner) {
-	// super(owner, "Choose UserName", true);
-	// this.owner = (Login) owner;
-	//
-	// JPanel pan = new JPanel();
-	// pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
-	//
-	// JLabel lab = new JLabel("Multiple Entries Found : Choose UserName");
-	// lab.setFont(new Font("Halvetica", Font.BOLD, 16));
-	// // lab.setForeground( new Color(250, 100, 100) );
-	// lab.setAlignmentX(Component.CENTER_ALIGNMENT);
-	//
-	// g_combo = new JComboBox(users);
-	// g_combo.setFont(new Font("Monospaced", Font.BOLD, 12));
-	// g_combo.setEnabled(true);
-	// g_combo.setAlignmentX(Component.CENTER_ALIGNMENT);
-	// g_combo.setBorder(new javax.swing.border.LineBorder((new Color(120,
-	// 120, 120)), 3));
-	//
-	// JSeparator sep = new JSeparator();
-	//
-	// pan.add(lab);
-	// pan.add(g_combo);
-	// pan.add(sep);
-	//
-	// g_ok = new JButton("     Login     ");
-	// g_ok.setAlignmentX(Component.CENTER_ALIGNMENT);
-	// g_ok.setFont(new Font("Halvetica", Font.BOLD, 16));
-	// pan.add(g_ok);
-	// g_ok.addActionListener(this);
-	//
-	// this.getContentPane().add(pan);
-	// this.setBounds(150, 150, 450, 150);
-	// this.setVisible(true);
-	//
-	// }
-
-	//
-	// public void actionPerformed(ActionEvent evt) {
-	// String UserName = null;
-	// USerName = (String) g_combo.getSelectedItem();
-	// this.hide();
-	// return;
-	//
 }

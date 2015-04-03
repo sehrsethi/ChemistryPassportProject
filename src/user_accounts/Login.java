@@ -23,7 +23,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.net.*;
+import java.io.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -59,6 +64,9 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	private JTabbedPane g_tabbedPane = new JTabbedPane();
 	private JPanel root_panel = null;
 	private String m_user = null;
+	
+	//The location of the database
+	private URL url_database;
 
 	/**
 	 * Constructor Constructs the GUI
@@ -69,6 +77,15 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	Login(String title) {
 
 		loginPage();
+		
+		//Set the database location
+		try {
+			url_database = new URL(
+					"http://royal.cs.mtholyoke.edu/sethi22s/database.csv");
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -158,26 +175,25 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 		File databaseFile = new File(FILE_NAME);
 
 		boolean userFound = false;
-		
 
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(databaseFile));
+			//BufferedReader in = new BufferedReader(new FileReader(databaseFile));
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(url_database.openStream()));
 			
 			// read first line
 			in.readLine();
 
 			String line = in.readLine();
 
-			while (line != null) {				
-				
-				String[] userInfo = line.split(",") ;
-			
-			
+			while (line != null) {
+
+				String[] userInfo = line.split(",");
+
 				String userName = userInfo[0];
 
 				if (userName.equals(userNameText.getText())) {
-					
-				
+
 					userFound = true;
 
 					User user = createUser(line);
@@ -185,15 +201,14 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 					// at this point, some controller should get the user so
 					// that the passport for the user is created and the chosen
 					// kit can be started.
-					
+
 					in.close();
 
 					break;
 				}
-				
+
 				line = in.readLine();
-				
-				
+
 			}
 
 			if (!userFound) {
@@ -202,10 +217,9 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 						+ userNameText.getText() + " was not found.");
 
 			}
-			
+
 			in.close();
 
-			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -218,7 +232,7 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	 * @param line
 	 */
 	private User createUser(String line) {
-		
+
 		String[] userInfo = line.split(",");
 
 		String userName = userInfo[0];
