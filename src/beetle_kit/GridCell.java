@@ -4,7 +4,7 @@ package beetle_kit;
  * cell in the grid for the Estimation Game.
  * 
  * @author Charlotte Dye, Humaira Orchee, Sehr Sethi
- * @version March 4, 2015
+ * @version April 3, 2015
  */
 public class GridCell {
 
@@ -92,7 +92,7 @@ public class GridCell {
 	 * @return Number of infested trees in this cell
 	 */
 	public int getNumInfestedTrees() {
-		return numNonInfestedTrees;
+		return numInfestedTrees;
 	}
 
 	/**
@@ -101,6 +101,53 @@ public class GridCell {
 	 * @return Number of non-infested trees in this cell
 	 */
 	public int getNumNonInfestedTrees() {
-		return numInfestedTrees;
+		return numNonInfestedTrees;
+	}
+	
+	/**
+	 * 
+	 * @return False when numInfestedTrees is already 0
+	 */
+	public boolean decrementNumInfested(){
+		
+		if(numInfestedTrees > 0){
+			
+			
+			numInfestedTrees-- ;
+			
+
+			//System.out.println("decrementing num infested. now num infested is " + numInfestedTrees);
+			
+			return true ;
+			
+		}else{
+			
+			//System.out.println("tried to decrement num infested is " + numInfestedTrees);
+			
+			return false ;
+		}
+	}
+	
+	/**
+	 * 
+	 * @return False when numNonInfestedTrees is already 0
+	 */
+	public boolean decrementNumNonInfested(){
+		
+		if(numNonInfestedTrees > 0){
+			
+			numNonInfestedTrees-- ;
+			
+			//System.out.println("decrementing num non infested. now num non infested is " + numNonInfestedTrees);
+			
+			return true ;
+			
+		}else{
+			
+			//System.out.println("tried to decrement num non infested is " + numNonInfestedTrees);
+
+			
+			return false ;
+		}
 	}
 }

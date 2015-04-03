@@ -7,13 +7,15 @@ import java.awt.geom.Ellipse2D;
  * A Tree object that is represented by a circle
  * 
  * @author Humaira Orchee, Charlotte Dye
- * @version March 4, 2015
+ * @version April 3, 2015
  *
  */
 public class Tree extends Ellipse2D.Double {
+	
+	private static final int MAX_ATTEMPT = 10 ;
 
 	// The diameter of the circular tree
-	private int diameter;
+	private double diameter;
 
 	// The fill color of the tree
 	private Color fillColor;
@@ -26,6 +28,8 @@ public class Tree extends Ellipse2D.Double {
 
 	// The y coordinate of the center of the tree
 	public int centerY;
+
+	private int attempt = 0 ;
 
 	/**
 	 * Constructs a circular tree
@@ -41,7 +45,7 @@ public class Tree extends Ellipse2D.Double {
 	 * @param borderColor
 	 *            The border color of the tree
 	 */
-	public Tree(int centerX, int centerY, int diameter, Color fillColor,
+	public Tree(int centerX, int centerY, double diameter, Color fillColor,
 			Color borderColor) {
 
 		super();
@@ -122,6 +126,9 @@ public class Tree extends Ellipse2D.Double {
 	 * @return
 	 */
 	public boolean checkOverlap(Tree otherTree) {
+		
+		//System.out.println("attempt " + attempt);
+		
 		// Compare sum of radii to distance between centers
 
 		double radiiSum = (this.diameter / 2) + (otherTree.diameter / 2);
@@ -146,10 +153,50 @@ public class Tree extends Ellipse2D.Double {
 		
 		//return (distance < (radiiSum / 1.2));
 		
-		return ((distance) < (radiiSum/2.5 ));
+		//true if this tree has unacceptable amount of overlap. Otherwise false.
+		boolean overlap = (distance) < ((2.0/3.0)*radiiSum ) ;
+		
+		
+		if( (overlap) && (attempt < MAX_ATTEMPT)){
+			
+			diameter = diameter*0.95 ;
+			attempt++ ;
+			//checkOverlap(this) ;
+			
+			if(checkOverlap(this)){
+				
+				return true ;
+				
+			}else{
+				
+				return false ;
+			}
+			
+		}
+		
+		
+		
+		//Check overlap again
+		overlap = (distance) < ((2.0/3.0)*radiiSum);
+		
+		//If it's still overlapping, then don't place this tree
+		if (overlap){
+			return true;
+		}
+		
+		//attempt = 0 ;
+		
+		//If it is no longer overlapping, return false
+		return false ;
+		
+		//boolean hidden = containedWithin(otherTree) || otherTree.containedWithin(this) ;
+		
+		//return hidden ;
+		//return overlap || hidden;
 		
 		//return false ;
 
 	}
 
+	
 }

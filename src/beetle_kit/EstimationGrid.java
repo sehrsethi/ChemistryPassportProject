@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Chemistry Passport Project. The grid data for the Estimation Game
  * 
  * @author Charlotte Dye, Humaira Orchee, Sehr Sethi
- * @version March 4, 2015
+ * @version April 3, 2015
  *
  */
 public class EstimationGrid {
@@ -23,7 +23,11 @@ public class EstimationGrid {
 	private static final double RATIO_BLOCKED = 2.0 / 3.0;
 
 	// The maximum number of trees of each color that can be placed in one cell
-	private static final int MAX_TREE_NUM = 2;
+	private static final double MAX_TREE_NUM = 15;
+
+	// maximum number of trees that can be in the entire grid
+	// private static final double MAX_TREE_NUM_IN_GRID = NUM_COLS * NUM_ROWS *
+	// 3 ;
 
 	// Color of infested trees
 	private static final Color INFESTED_COLOR = Color.RED;
@@ -74,6 +78,9 @@ public class EstimationGrid {
 	// The height of each cell
 	private int cellHeight;
 
+	// the number of tree currently in the grid
+	// private int numTrees = 0 ;
+
 	/**
 	 * Creates the grid
 	 */
@@ -101,7 +108,7 @@ public class EstimationGrid {
 
 		blockCells();
 
-		countTrees();
+		//countTrees();
 
 	}
 
@@ -146,7 +153,7 @@ public class EstimationGrid {
 	 * an array list of trees
 	 */
 	public void fillTreeArray() {
-		
+
 		// create trees initially
 		for (int r = 0; r < gridCells.length; r++) {
 			for (int c = 0; c < gridCells[r].length; c++) {
@@ -156,6 +163,10 @@ public class EstimationGrid {
 
 			}
 		}
+
+		// //system.out.println("total number of trees " + numTrees);
+		
+		countTrees();
 	}
 
 	/**
@@ -172,27 +183,7 @@ public class EstimationGrid {
 	 */
 	private void createTreeInCell(GridCell toDraw, int row, int col) {
 		
-
-		// Otherwise, we need to draw the trees.
-		// We need it to be at least 50% in this cell. I -think- this
-		// will be satisfied as long as the center is in the cell, but
-		// I'm not sure. Also, we want it to be clear enough
-		// that the tree is mostly in the cell--a tree that is 51% in
-		// this cell and 49% in another cell will be hard to figure out
-		// Also, should trees be able to overlap?
-		// What size will the trees be? All the same size or different
-		// sizes?
-		// Basically, we need to figure out what the constraints are
-		// on how the trees look/are placed in the grid and then figure
-		// out how to satisfy those constraints.
-		// Additionally, does it matter if we put all infested trees down
-		// before non-infested trees? If so, what do we do to make sure this
-		// doesn't cause issues
-
-		// randomly choose if infested or non-infested trees are drawn first.
-		// This matters because the tree drawn first gets drawn over. This
-		// increases the probability for greater number of trees that are drawn
-		// later.
+		//system.out.println("(" + row + " , " + col + " )");
 
 		if (Math.random() <= 0.5) {
 
@@ -206,9 +197,40 @@ public class EstimationGrid {
 				boolean drawn = createTree(INFESTED_COLOR,
 						INFESTED_BORDER_COLOR, row, col);
 
+				////system.out.println("drawn " + drawn);
+
 				if (drawn) {
+
+				//	//system.out.println("draw tree");
 					numInfestedTrees++;
+
+					// numTrees++ ;
+
+					// //system.out.println("numInfestedTrees "+
+					// numInfestedTrees);
 				}
+
+				// At this point, we've tried to draw a tree and failed
+				else {
+					// We need to do something here so it accepts that it can't
+					// draw
+					// a tree
+
+					////system.out.println("do not draw tree");
+
+					//numInfestedTrees++;
+					
+					//toDraw.decrementNumInfested() ;
+					
+					if(!toDraw.decrementNumInfested()){
+						
+						break ;
+					}
+					
+					
+				}
+				
+				//system.out.println("tree has " + toDraw.getNumInfestedTrees() + " infested trees");
 			}
 
 			// then draw non-infested trees
@@ -222,8 +244,26 @@ public class EstimationGrid {
 
 				if (drawn) {
 					numNonInfestedTrees++;
+
+					// numTrees++ ;
+
+					// //system.out.println("numNonInfestedTrees " +
+					// numNonInfestedTrees);
+				}else{
+					
+					//numNonInfestedTrees++;
+					
+					if(!toDraw.decrementNumNonInfested()){
+						
+						break ;
+					}
 				}
+				
+				//system.out.println("tree has " + toDraw.getNumNonInfestedTrees() + " non infested trees");
 			}
+			
+			//system.out.println("this tree has " + toDraw.getNumInfestedTrees() + " infested trees");
+			//system.out.println("this tree has " + toDraw.getNumNonInfestedTrees() + " non infested trees");
 
 		} else {
 
@@ -237,8 +277,25 @@ public class EstimationGrid {
 				boolean drawn = createTree(NON_INFESTED_COLOR,
 						NON_INFESTED_BOREDR_COLOR, row, col);
 				if (drawn) {
+
 					numNonInfestedTrees++;
+
+					// numTrees++ ;
+
+					// //system.out.println("numNonInfestedTrees " +
+					// numNonInfestedTrees);
+
+				}else{
+					
+					if(!toDraw.decrementNumNonInfested()){
+						
+						break ;
+					}
+					
+					//numNonInfestedTrees++;
 				}
+				
+				//system.out.println("tree has " + toDraw.getNumNonInfestedTrees() + " non infested trees");
 			}
 
 			// then draw infested trees
@@ -251,9 +308,29 @@ public class EstimationGrid {
 						INFESTED_BORDER_COLOR, row, col);
 
 				if (drawn) {
+
 					numInfestedTrees++;
+
+					// numTrees++ ;
+
+					// //system.out.println("numInfestedTrees "+
+					// numInfestedTrees);
+
+				}else{
+					
+					if(!toDraw.decrementNumInfested()){
+						
+						break ;
+					}
+					
+					//numInfestedTrees++;
 				}
+				
+				//system.out.println("tree has " + toDraw.getNumInfestedTrees() + " infested trees");
 			}
+			
+			//system.out.println("this tree has " + toDraw.getNumInfestedTrees() + " infested trees");
+			//system.out.println("this tree has " + toDraw.getNumNonInfestedTrees() + " non infested trees");
 
 		}
 
@@ -279,11 +356,11 @@ public class EstimationGrid {
 	 */
 	private boolean createTree(Color fillColor, Color borderColor, int row,
 			int col) {
-		
+
 		// dimensions of the tree
 		int minDimension = Math.min(cellHeight, cellWidth);
 
-		int diameter = (int) ((minDimension / 2) + Math.random()
+		double diameter = (int) ((minDimension / 2) + Math.random()
 				* (minDimension * 1.25));
 
 		// center coordinates of the tree. its best if the center is not on the
@@ -298,15 +375,26 @@ public class EstimationGrid {
 		// if the tree we are trying to draw will completely hide another
 		// existing tree or the tree itself will be completely hidden by an
 		// existing tree, then do nothing.
-		if (checkTreeOverlap(tree)) {
+		// if (checkTreeOverlap(tree) || isTreeHidden(tree)) {
+
+		if (!canDrawTree(tree)) {
+			// ////system.out.println("tree overlap so no tree drawn");
 
 			return false;
+
+		} else {
+
+			trees.add(tree);
+
+			// //system.out.println("added trees. size is " + trees.size());
+
+			////system.out.println(" tree drawn");
+
+			////system.out.println("array size " + trees.size());
+
+			// a tree was drawn so return true
+			return true;
 		}
-
-		trees.add(tree);
-
-		// a tree was drawn so return true
-		return true;
 	}
 
 	/**
@@ -315,24 +403,72 @@ public class EstimationGrid {
 	 * @param The
 	 *            tree object that might hide another tree or be hidden by
 	 *            another tree
-	 * @return True of no tree is hidden completely by another. Otherwise
-	 *         returns false.
+	 * @return True if a tree is hidden completely by another. Otherwise returns
+	 *         false.
 	 */
-	private boolean checkTreeOverlap(Tree tree) {
+	private boolean isTreeHidden(Tree tree) {
+
+		// //system.out.println("size " + trees.size() );
 
 		// look though the entire array of trees
 		for (int i = 0; i < trees.size(); i++) {
 
+			// ////system.out.println("i " + i);
+
 			Tree otherTree = trees.get(i);
 
-			// boolean hidden = otherTree.containedWithin(tree)
-			// || tree.containedWithin(otherTree);
-			//
-			boolean overlaps = otherTree.checkOverlap(tree)
-					|| tree.checkOverlap(otherTree);
+			// boolean overlaps = tree.checkOverlap(otherTree);
+
+			boolean hidden = otherTree.containedWithin(tree)
+					|| tree.containedWithin(otherTree);
 
 			// if the specified tree is hidden by another existing tree or hides
 			// an existing tree, return true.
+
+			// if ( hidden || overlaps ) {
+
+			// a tree is hidden by another tree
+			if (hidden) {
+
+				////system.out.println("tree is hidden");
+				return true;
+			}
+		}
+
+		////system.out.println("tree is not hidden");
+		// no tree is hidden by another tree
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param tree
+	 * @return
+	 */
+	private boolean checkTreeOverlap(Tree tree) {
+
+		// //system.out.println("size " + trees.size() );
+
+		// look though the entire array of trees
+		for (int i = 0; i < trees.size(); i++) {
+
+			// ////system.out.println("i " + i);
+
+			Tree otherTree = trees.get(i);
+
+			/*
+			 * boolean overlaps = otherTree.checkOverlap(tree) ||
+			 * tree.checkOverlap(otherTree);
+			 */
+
+			boolean overlaps = tree.checkOverlap(otherTree);
+
+			// boolean hidden = otherTree.containedWithin(tree)
+			// || tree.containedWithin(otherTree);
+
+			// if the specified tree is hidden by another existing tree or hides
+			// an existing tree, return true.
+
 			// if ( hidden || overlaps ) {
 
 			if (overlaps) {
@@ -369,7 +505,6 @@ public class EstimationGrid {
 	 * (Note that it does NOT actually DRAW the tree)
 	 */
 	private void addNewTrees() {
-		
 
 		for (int r = 0; r < NUM_ROWS; r++) {
 
@@ -377,9 +512,18 @@ public class EstimationGrid {
 
 				GridCell cell = gridCells[r][c];
 
-				cell.addNonInfestedTree((int) (Math.random() * MAX_TREE_NUM));
+				if (Math.random() < 0.5) {
 
-				cell.addInfestedTree((int) (Math.random() * MAX_TREE_NUM));
+					cell.addNonInfestedTree((int) (Math.random() * MAX_TREE_NUM) + 1);
+
+					cell.addInfestedTree((int) (Math.random() * MAX_TREE_NUM));
+
+				} else {
+
+					cell.addNonInfestedTree((int) (Math.random() * MAX_TREE_NUM));
+
+					cell.addInfestedTree((int) (Math.random() * MAX_TREE_NUM) + 1);
+				}
 			}
 		}
 	}
@@ -388,7 +532,6 @@ public class EstimationGrid {
 	 * Randomly chooses two-third of the cells to block
 	 */
 	private void blockCells() {
-		
 
 		// Calculate how many cells to unblock--might need to edit this
 		// 1/3rd of the cells should be blocked
@@ -422,7 +565,7 @@ public class EstimationGrid {
 	 * present in the unblocked cells and in all the cells of the full grid
 	 */
 	private void countTrees() {
-		
+
 		for (int r = 0; r < EstimationGrid.NUM_ROWS; r++) {
 
 			for (int c = 0; c < EstimationGrid.NUM_COLS; c++) {
@@ -445,6 +588,7 @@ public class EstimationGrid {
 
 			}
 		}
+
 	}
 
 	/**
@@ -487,5 +631,25 @@ public class EstimationGrid {
 	public int getTotalUnblockedNonInfested() {
 		return totalUnblockedNonInfested;
 	}
+
+	public boolean canDrawTree(Tree tree) {
+
+		if (checkTreeOverlap(tree)) {
+
+			// //system.out.println("tree overlap occurs");
+
+			// return !isTreeHidden(tree) ;
+			return false;
+
+		} else {
+
+			////system.out.println("no tree overlap occurs");
+
+			return !isTreeHidden(tree);
+
+		}
+	}
+	
+
 
 }
