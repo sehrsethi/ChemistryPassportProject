@@ -1,12 +1,15 @@
 package passport;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 public class Passport extends JPanel implements MouseListener {
 
@@ -19,10 +22,13 @@ public class Passport extends JPanel implements MouseListener {
 	private String childName;
 
 	// The width of the page of the passport
-	private static final int PAGE_WIDTH = 500;
+	public static final int PAGE_WIDTH = 500;
 
 	// The height of the page of the passport
-	private static final int PAGE_HEIGHT = 700;
+	public static final int PAGE_HEIGHT = 700;
+	
+	// set a border around it
+	public static final Border BORDER = BorderFactory.createLineBorder(Color.GRAY, 4) ;
 
 	// The layout for the passport
 	private static final CardLayout CARD_LAYOUT = new CardLayout();
@@ -54,6 +60,9 @@ public class Passport extends JPanel implements MouseListener {
 		
 		// Set the layout to the card layout we created
 		this.setLayout(CARD_LAYOUT);
+		
+		// set the border
+		this.setBorder(BORDER);
 
 		// Add a mouse listener so that when we click on the passport,
 		// it goes to the next page

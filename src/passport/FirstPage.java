@@ -12,72 +12,77 @@ import javax.swing.JTextArea;
 
 public class FirstPage extends JPanel {
 
-	//The width of this page
+	// The width of this page
 	private static final int PAGE_WIDTH = 500;
 
-	//The height of this page
+	// The height of this page
 	private static final int PAGE_HEIGHT = 700;
 
-	//The name/location of the image this page shows
-	private static final String IMAGE_FILE = "src//images//logo.png";
+	// The name/location of the image this page shows
+	// private static final String IMAGE_FILE = "images//logo.png";
 
-	//The font for the header (the part that says PASSPORT)
+	// The name/location of the image this page shows
+	private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
+
+	// The font for the header (the part that says PASSPORT)
 	private static final Font HEADER_FONT = new Font("Times New Roman",
 			Font.BOLD, 72);
 
-	//The text for the header
+	// The text for the header
 	private static final String HEADER_TEXT = "PASSPORT";
 
-	//The font for the second line
+	// The font for the second line
 	private static final Font LINE2_FONT = new Font("Times New Roman",
-			Font.ITALIC | Font.BOLD , 36);
+			Font.ITALIC | Font.BOLD, 36);
 
-	//The text of the second line
+	// The text of the second line
 	private static final String LINE2_TEXT = "to Chemistry Adventure";
 
-	//The font for the line with grades
+	// The font for the line with grades
 	private static final Font GRADE_FONT = new Font("Times New Roman",
 			Font.PLAIN, 24);
 
-	//The text for the grade range
+	// The text for the grade range
 	private static final String GRADE_TEXT = "Grades K-6";
 
-	//The font for the name of the sponsor
+	// The font for the name of the sponsor
 	private static final Font SPONSOR_FONT = new Font("Times New Roman",
-			Font.PLAIN, 18); 
+			Font.PLAIN, 18);
 
 	// The sponsor info--the space is necessary to center the text
 	private static final String SPONSOR_TEXT = "Funded by the Camille and Henry Dreyfus Foundation                         and Mount Holyoke College";
 
-	//The font for the line with the child's name
+	// The font for the line with the child's name
 	private static final Font CHILD_FONT = new Font("Times New Roman",
 			Font.PLAIN, 60);
-	
-	//The text color
+
+	// The text color
 	private static final Color TEXT_COLOR = Color.BLACK;
-	
-	//The name of the child whose passport this is
+
+	// The name of the child whose passport this is
 	private String childName;
-	
+
 	/**
 	 * Constructs the first page
-	 * @param childName The name of the child this passport belongs to
+	 * 
+	 * @param childName
+	 *            The name of the child this passport belongs to
 	 */
 	public FirstPage(String childName) {
 
-		//Store the name of the child
+		// Store the name of the child
 		this.childName = childName;
-		
-		//Set the layout to FlowLayout
+
+		// Set the layout to FlowLayout
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 25));
 
-		//Set the size
+		// Set the size
 		this.setSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
-		
-		//Make the background white
+
+		// Make the background white
 		this.setBackground(Color.WHITE);
 
-		//Add everything to the page
+		// Add everything to the page
 		addContent();
 	}
 
@@ -160,47 +165,45 @@ public class FirstPage extends JPanel {
 		grade.setHorizontalAlignment(JLabel.CENTER);
 
 		add(grade);
-		
 
 		// text - sponsor
 		JTextArea sponsor = new JTextArea(SPONSOR_TEXT, 3, 30);
-		
+
 		sponsor.setFont(SPONSOR_FONT);
 
 		sponsor.setForeground(TEXT_COLOR);
-		
+
 		sponsor.setWrapStyleWord(true);
-		
-		sponsor.setLineWrap(true);	
-		
-		sponsor.setEditable(false);  
+
+		sponsor.setLineWrap(true);
+
+		sponsor.setEditable(false);
 
 		add(sponsor);
-		
-		//Add the child's name to the bottom of the passport page
-		
-		//Create the label for the child's name
+
+		// Add the child's name to the bottom of the passport page
+
+		// Create the label for the child's name
 		JLabel childLabel = new JLabel(childName);
-		
-		//Set the font for the child's name
+
+		// Set the font for the child's name
 		childLabel.setFont(CHILD_FONT);
-		
-		//Set the text color
+
+		// Set the text color
 		childLabel.setForeground(TEXT_COLOR);
-		
-		//Center the child's name
+
+		// Center the child's name
 		childLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		//Add the child's name label to the passport
+		// Add the child's name label to the passport
 		add(childLabel);
 
 	}
 
 	public static void main(String[] args) {
 
-		//Are we going to have a main method here??
-		
-		
+		// Are we going to have a main method here??
+
 		JFrame frame = new JFrame();
 
 		frame.getContentPane().add(new FirstPage("TempFakeName"));
