@@ -39,11 +39,11 @@ public class FirstPage extends JPanel {
 	// The text for the header
 	private static final String HEADER_TEXT = "PASSPORT";
 
-	//The font for the second line
+	// The font for the second line
 	private static final Font CHEM_FONT = new Font("Times New Roman",
-			Font.ITALIC | Font.BOLD , 36);
+			Font.ITALIC | Font.BOLD, 36);
 
-	//The text of the second line
+	// The text of the second line
 	private static final String CHEM_TEXT = "to Chemistry Adventure";
 
 	// The font for the line with grades
@@ -61,41 +61,45 @@ public class FirstPage extends JPanel {
 	private static final String SPONSOR_TEXT = "Funded by the Camille and Henry Dreyfus Foundation                         and Mount Holyoke College";
 
 	// The font for the line with the child's name
-	private static final Font CHILD_FONT = new Font("Times New Roman", Font.PLAIN, 40);
-	
-	//The text color
+	private static final Font CHILD_FONT = new Font("Times New Roman",
+			Font.PLAIN, 40);
+
+	// The text color
 
 	private static final Color TEXT_COLOR = Color.BLACK;
 
-	private static Passport passport ;
-	
-	//The name of the child whose passport this is
+	private static Passport passport;
+
+	// The name of the child whose passport this is
 
 	private String childName;
 
 	/**
 	 * Constructs the first page
-
-	 * @param passport TODO
-
+	 * 
+	 * @param passport
+	 *            TODO
 	 */
 
 	public FirstPage(Passport passport) {
-		
-		this.passport = passport ;
-		
-		//Store the name of the child
-		this.childName = passport.getChildName() ;
-		
-		//Set the layout to FlowLayout
+
+		this.passport = passport;
+
+		// Store the name of the child
+		this.childName = passport.getChildName();
+
+		// Set the layout to FlowLayout
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 15));
 
-		//Set the size
-		//this.setSize(new Dimension(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT));
-		this.setPreferredSize(new Dimension(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT));
-		this.setMinimumSize(new Dimension(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT));
-		
-		//Make the background white
+		// Set the size
+		// this.setSize(new Dimension(Passport.PAGE_WIDTH,
+		// Passport.PAGE_HEIGHT));
+		this.setPreferredSize(new Dimension(Passport.PAGE_WIDTH,
+				Passport.PAGE_HEIGHT));
+		this.setMinimumSize(new Dimension(Passport.PAGE_WIDTH,
+				Passport.PAGE_HEIGHT));
+
+		// Make the background white
 
 		this.setBackground(Color.WHITE);
 
@@ -151,18 +155,18 @@ public class FirstPage extends JPanel {
 
 		// "to Chem Passprt"
 		addChemText();
-		
+
 		// grade of the child
 		addGradeText();
-		
+
 		// text - sponsor
 		addSponsorText();
-		
+
 		// name of child/user
 		addChildName();
-		
+
 		// back and fwd buttons
-		addFwdButton() ;
+		addFwdButton();
 
 	}
 
@@ -170,24 +174,25 @@ public class FirstPage extends JPanel {
 	 * 
 	 */
 	private void addChildName() {
-		
+
 		System.out.println("add child name " + childName);
-		
-		// child name can have max 20 characters or the entire name will not be displayed
-		
-		//Create the label for the child's name
+
+		// child name can have max 20 characters or the entire name will not be
+		// displayed
+
+		// Create the label for the child's name
 		JLabel childLabel = new JLabel(childName);
-		
-		//Set the font for the child's name
+
+		// Set the font for the child's name
 		childLabel.setFont(CHILD_FONT);
-		
-		//Set the text color
+
+		// Set the text color
 		childLabel.setForeground(TEXT_COLOR);
-		
-		//Center the child's name
+
+		// Center the child's name
 		childLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		//Add the child's name label to the passport
+		// Add the child's name label to the passport
 		add(childLabel);
 	}
 
@@ -208,34 +213,34 @@ public class FirstPage extends JPanel {
 		sponsor.setEditable(false);
 
 		add(sponsor);
-//<<<<<<< HEAD
-//
-//		// Add the child's name to the bottom of the passport page
-//
-//		// Create the label for the child's name
-//		JLabel childLabel = new JLabel(childName);
-//
-//		// Set the font for the child's name
-//		childLabel.setFont(CHILD_FONT);
-//
-//		// Set the text color
-//		childLabel.setForeground(TEXT_COLOR);
-//
-//		// Center the child's name
-//		childLabel.setHorizontalAlignment(JLabel.CENTER);
-//
-//		// Add the child's name label to the passport
-//		add(childLabel);
-//
-//=======
-//>>>>>>> refs/heads/humaira_animateSticker
+		// <<<<<<< HEAD
+		//
+		// // Add the child's name to the bottom of the passport page
+		//
+		// // Create the label for the child's name
+		// JLabel childLabel = new JLabel(childName);
+		//
+		// // Set the font for the child's name
+		// childLabel.setFont(CHILD_FONT);
+		//
+		// // Set the text color
+		// childLabel.setForeground(TEXT_COLOR);
+		//
+		// // Center the child's name
+		// childLabel.setHorizontalAlignment(JLabel.CENTER);
+		//
+		// // Add the child's name label to the passport
+		// add(childLabel);
+		//
+		// =======
+		// >>>>>>> refs/heads/humaira_animateSticker
 	}
 
 	/**
 	 * 
 	 */
 	private void addChemText() {
-		
+
 		// text - to Chem adventure
 		JLabel chemText = new JLabel(CHEM_TEXT);
 
@@ -247,7 +252,6 @@ public class FirstPage extends JPanel {
 
 		add(chemText);
 
-		
 	}
 
 	/**
@@ -292,63 +296,63 @@ public class FirstPage extends JPanel {
 		add(header);
 	}
 
-	
-
-	
 	/**
 	 * Creates the forward button
 	 */
-	private void addFwdButton(){
-		
-		JPanel buttonPanel = new JPanel(new BorderLayout()) ;
+	private void addFwdButton() {
+
+		JPanel buttonPanel = new JPanel(new BorderLayout());
 		buttonPanel.setBackground(Color.white);
-		
-		// So that the button is on the right. Otherwise the button is added to the center
-		buttonPanel.setPreferredSize(new Dimension(Passport.PAGE_WIDTH - 50, 50));
+
+		// So that the button is on the right. Otherwise the button is added to
+		// the center
+		buttonPanel
+				.setPreferredSize(new Dimension(Passport.PAGE_WIDTH - 50, 50));
 		buttonPanel.setMinimumSize(new Dimension(Passport.PAGE_WIDTH - 50, 50));
-		
-		Font font = new Font("Verdana", Font.PLAIN, 18) ;
-	
+
+		Font font = new Font("Verdana", Font.PLAIN, 18);
+
 		// forward button
-		JButton forwardButton = new JButton("---->") ;
+		JButton forwardButton = new JButton("---->");
 		forwardButton.setFont(font);
-		
+
 		forwardButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					
+
 				passport.nextPage();
-				
+
 			}
 		});
-	
+
 		buttonPanel.add(forwardButton, BorderLayout.EAST);
-		
-		add(buttonPanel) ;
+
+		add(buttonPanel);
 	}
-	
+
 	/**
 	 * For testing
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
 
 		JFrame frame = new JFrame();
 
-		 ArrayList<Integer> kitProgress = new ArrayList<Integer>() ;
-		 kitProgress.add(5) ;
-		
-		User user = new User("user name", "long Fake Name Fake name", "K",kitProgress) ;
-		
+		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
+		kitProgress.add(5);
+
+		User user = new User("user name", "long Fake Name Fake name", "K",
+				kitProgress);
+
 		frame.getContentPane().add(new FirstPage(new Passport(user)));
 
 		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
 
 		frame.setVisible(true);
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }
-

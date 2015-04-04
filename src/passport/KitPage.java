@@ -46,7 +46,12 @@ public class KitPage extends JPanel {
 	// NOTE: THIS WILL CHANGE TO GET THE APPROPRIATE STICKER
 	// We should either have the image file name be some sort of parameter
 	// or we could have standardized file names (e.g., sticker_[KIT NAME].png)
-	private static final String IMAGE_FILE = "src//images//logo.png";
+
+	// The name/location of the image this page shows
+	// private static final String IMAGE_FILE = "images//logo.png";
+
+	// The name/location of the image this page shows
+	private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
 
 	// The icon that displays when the user hasn't earned this sticker
 	private static final String EMPTY_IMAGE_FILE = "src//images//nosticker.png";
@@ -96,8 +101,8 @@ public class KitPage extends JPanel {
 	private ImageIcon imageIcon;
 
 	// The coordinates where the sticker actually stays
-	 private double finalX;
-	 private double finalY;
+	private double finalX;
+	private double finalY;
 
 	// The amount by which the coordinates of the sticker change
 	private double animationConstantX = -1;
@@ -163,8 +168,7 @@ public class KitPage extends JPanel {
 
 		finalX = this.getWidth() / 2 - imageIcon.getIconWidth() / 2;
 
-		finalY = this.getHeight() / 2 - imageIcon.getIconHeight() / 2
-				- 50;
+		finalY = this.getHeight() / 2 - imageIcon.getIconHeight() / 2 - 50;
 
 		currentX = finalX;
 
@@ -210,13 +214,13 @@ public class KitPage extends JPanel {
 	 *            The graphics object to draw on
 	 */
 	private void paintSticker(Graphics g) {
-		
-		if(showSticker){
-			
+
+		if (showSticker) {
+
 			imageIcon.paintIcon(this, g, (int) finalX, (int) finalY);
-			
-		}else if (!showSticker) {
-			
+
+		} else if (!showSticker) {
+
 			if (!earnSticker) {
 
 				g.setColor(Color.LIGHT_GRAY);
@@ -301,24 +305,24 @@ public class KitPage extends JPanel {
 	private void addSticker() {
 
 		// Check if we should add the sticker
-		/*if (showSticker) {
-			// Show the sticker
+		/*
+		 * if (showSticker) { // Show the sticker
+		 * 
+		 * // Create the sticker icon // ImageIcon imageIcon = new
+		 * ImageIcon(IMAGE_FILE);
+		 * 
+		 * // Create a label for the sticker JLabel stickerLabel = new
+		 * JLabel(imageIcon);
+		 * 
+		 * // Center the label
+		 * stickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		 * 
+		 * // Add the sticker add(stickerLabel);
+		 * 
+		 * } else
+		 */
 
-			// Create the sticker icon
-			// ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
-
-			// Create a label for the sticker
-			JLabel stickerLabel = new JLabel(imageIcon);
-
-			// Center the label
-			stickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-			// Add the sticker
-			add(stickerLabel);
-
-		} else*/
-		
-		if(!showSticker){
+		if (!showSticker) {
 			// Show empty sticker icon
 			// Create the sticker icon
 			// ImageIcon imageIcon = new ImageIcon(EMPTY_IMAGE_FILE);
@@ -342,7 +346,7 @@ public class KitPage extends JPanel {
 					// something needs to happen here so that the database knows
 					// that a sticker has been added
 
-					//showNoSticker = false;
+					// showNoSticker = false;
 
 					// start animation
 					startTime = System.currentTimeMillis();
@@ -578,12 +582,13 @@ public class KitPage extends JPanel {
 
 					timer.stop();
 
-				} /*else if (currentTime - startTime >= ANIMATION_TIME) {
-
-					System.out.println("time up");
-
-					timer.stop();
-				}*/
+				} /*
+				 * else if (currentTime - startTime >= ANIMATION_TIME) {
+				 * 
+				 * System.out.println("time up");
+				 * 
+				 * timer.stop(); }
+				 */
 
 				repaint();
 
