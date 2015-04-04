@@ -27,7 +27,7 @@ import javax.swing.Timer;
 import user.User;
 
 /**
- * 
+ * The passport page relevant to each kit
  * @author Humaira Orchee, Charlotte Dye
  * @version March 25, 2015
  */
@@ -148,7 +148,7 @@ public class KitPage extends JPanel {
 		this.passport = passport;
 
 		// Save the name of the child
-		this.childName = passport.getChildName();
+		this.childName = passport.getUserName();
 
 		// Set the layout to BoxLayout
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));

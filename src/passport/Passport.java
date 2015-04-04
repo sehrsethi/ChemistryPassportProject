@@ -7,45 +7,66 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import user.User;
 
+/**
+ * A Chemistry Passport that keeps track of the user's progress for each kit
+ * 
+ * @author Humaira Orchee, Charlotte Dye
+ * @version April 4, 2015
+ *
+ */
 public class Passport extends JPanel implements MouseListener {
 
 	// Passport should take in fake name, (maybe grade?)
 	// Every page should take title of kit
 	// Page could need add sticker method
 	// Use logo.png as sticker for now, or get beetle thing
-	
-	// The user (child) that the passport belongs to  
-	private User user ;
-	
+
+	// The user (child) that the passport belongs to
+	private User user;
+
 	// The name of the child whose passport this is
-	private String childName;
+	private String userName;
 
 	// The width of the page of the passport
 	public static final int PAGE_WIDTH = 500;
 
 	// The height of the page of the passport
-	public static final int PAGE_HEIGHT = 700;
+	public static final int PAGE_HEIGHT = 650;
 
-	
 	// set a border around it
-	public static final Border BORDER = BorderFactory.createLineBorder(Color.GRAY, 4) ;
-
+	public static final Border BORDER = BorderFactory.createLineBorder(
+			Color.GRAY, 4);
 
 	// The layout for the passport
 	private static final CardLayout CARD_LAYOUT = new CardLayout();
 
-	// The name of the first page
-	private static final String FIRST_PAGE_NAME = "First Page";
+	// The name of the intro page
+	private static final String INTRO_PAGE_NAME = "Intro Page";
 
-	// The first page of the passport
-	private FirstPage firstPage;
-	// private static final FirstPage firstPage = new FirstPage();
+	// The name of the KitSelectionPage
+	private static final String KIT_SELECTION_NAME = "Kit Selection";
+
+	// The name of the intro page
+	private static final int INTRO_PAGE_INDEX = 0;
+
+	// The index of the KitSelectionPage
+	private static final int KIT_SELECTION_INDEX = 1;
+
+	// the index of the first kit page, i.e. the first page after the Intro Page
+	// and KitSelectionPage
+	private static final int FIRST_KIT_INDEX = 2;
+
+	// The intro page of the passport
+	private IntroductionPage introductionPage;
+
+	// The kit selection page
+	private KitSelectionPage kitSelectionPage;
+	// private static final FirstPage Page = new FirstPage();
 
 	// The list of page names
 	private ArrayList<String> pageNames = new ArrayList<String>();
@@ -54,22 +75,24 @@ public class Passport extends JPanel implements MouseListener {
 	private ArrayList<KitPage> kitPages = new ArrayList<KitPage>();
 
 	// The currently displayed page
-	private int currentPage = 0;
+	private int currentPage = INTRO_PAGE_INDEX;
 
 	/**
 	 * Create a new passport
-	 * @param user TODO
+	 * 
+	 * @param user
+	 *            TODO The user for whom this passport is being created
 	 */
 	public Passport(User user) {
-		
-		this.user = user ;
+
+		this.user = user;
 
 		// Save the child's name (will be needed for various pages)
-		this.childName = user.getFakeName();
+		this.userName = user.getFakeName();
 
 		// Set the layout to the card layout we created
 		this.setLayout(CARD_LAYOUT);
-		
+
 		// set the border
 		this.setBorder(BORDER);
 
@@ -77,23 +100,33 @@ public class Passport extends JPanel implements MouseListener {
 		// it goes to the next page
 		this.addMouseListener(this);
 
-		firstPage = new FirstPage(this);
+		introductionPage = new IntroductionPage(this);
 
-		// Add the name of the first page
-		pageNames.add(FIRST_PAGE_NAME);
+		kitSelectionPage = new KitSelectionPage(this);
 
-		// Add the first page to the panel
-		this.add(firstPage, FIRST_PAGE_NAME);
+		// Add the name of the intro page
+		pageNames.add(INTRO_PAGE_NAME);
+
+		pageNames.add(KIT_SELECTION_NAME);
+
+		// Add the intro page to the panel
+		this.add(introductionPage, INTRO_PAGE_NAME);
+
+		// add the kit selection age to the panel
+		this.add(kitSelectionPage, KIT_SELECTION_NAME);
 
 		// Display the first page
-		CARD_LAYOUT.show(this, FIRST_PAGE_NAME);
+		CARD_LAYOUT.show(this, INTRO_PAGE_NAME);
 
-		// Add the bark beetle page to the passport
-		// NOTE: At some point we need to find whether we should show the
-		// sticker
+		// TODO : sth needs to happen here so that when the passport is created,
+		// it automatically adds the pages for all the existing kits. For now,
+		// add them manually as examples
+
 		addPage("Bark Beetle", false);
-		
+
 		addPage("Example", true);
+
+		addPage("Example 2", false);
 
 	}
 
@@ -113,7 +146,7 @@ public class Passport extends JPanel implements MouseListener {
 
 		// not applicable if there are no previous kit pages
 		if (!kitPages.isEmpty()) {
-			
+
 			// the previous last kit page is no longer the last page
 			kitPages.get(kitPages.size() - 1).setLastPage(false);
 		}
@@ -129,30 +162,31 @@ public class Passport extends JPanel implements MouseListener {
 
 		// Add to the card layout
 		this.add(page, pageName);
-		
+
+		// add the button for the new kit in the Kit Selection Page
+		kitSelectionPage.addKitButton(pageName);
+
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
-		//CARD_LAYOUT.next(this);
 
-		/*// If we have more pages to show, prepare to show the next page
-		if (currentPage + 1 < pageNames.size()) {
-			// Note that we're going to the next page
-			currentPage++;
-		}
+		// CARD_LAYOUT.next(this);
 
-		// Otherwise, prepare to show the first page again
-		else {
-			currentPage = 0;
-		}
-
-		// Show which page we are going to show
-		// System.out.println(currentPage);
-
-		// Show the next page
-		CARD_LAYOUT.show(this, pageNames.get(currentPage));*/
+		/*
+		 * // If we have more pages to show, prepare to show the next page if
+		 * (currentPage + 1 < pageNames.size()) { // Note that we're going to
+		 * the next page currentPage++; }
+		 * 
+		 * // Otherwise, prepare to show the page again else { currentPage = 0;
+		 * }
+		 * 
+		 * // Show which page we are going to show //
+		 * System.out.println(currentPage);
+		 * 
+		 * // Show the next page CARD_LAYOUT.show(this,
+		 * pageNames.get(currentPage));
+		 */
 	}
 
 	@Override
@@ -178,57 +212,151 @@ public class Passport extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	/**
 	 * Goes to the nest passport page
 	 */
-	public void nextPage(){
-		
-		CARD_LAYOUT.next(this);
-		
+	public void nextPage() {
+
+		// go from the first page to the kit Selection page
+		if (currentPage == INTRO_PAGE_INDEX) {
+
+			currentPage = KIT_SELECTION_INDEX;
+
+			CARD_LAYOUT.show(this, pageNames.get(currentPage));
+
+		}
+		// go from the Kit Selection Page to the first kit page. Initially it is
+		// probably the Beetle Kit Page
+		else if (currentPage == KIT_SELECTION_INDEX) {
+
+			currentPage = FIRST_KIT_INDEX;
+
+			CARD_LAYOUT.show(this, pageNames.get(currentPage));
+
+		}
+		// otherwise just progress normally
+		else {
+
+			// update current page
+			currentPage = (currentPage + 1) % pageNames.size();
+
+			CARD_LAYOUT.next(this);
+		}
+
 		repaint();
 	}
-	
+
 	/**
 	 * Goes to the previous passport page
 	 */
-	public void previouPage(){
-		
-		CARD_LAYOUT.previous(this);
-		
+	public void previouPage() {
+
+		// go from Kit Selection Page to Intro Page
+		if (currentPage == KIT_SELECTION_INDEX) {
+
+			currentPage = INTRO_PAGE_INDEX;
+
+			CARD_LAYOUT.show(this, pageNames.get(currentPage));
+
+		}
+		// go from first kit page (probably Beetle kit page) to the Kit
+		// Selection Page
+		else if (currentPage == FIRST_KIT_INDEX) {
+
+			currentPage = KIT_SELECTION_INDEX;
+
+			CARD_LAYOUT.show(this, pageNames.get(currentPage));
+
+		}
+		// otherwise progress normally
+		else {
+
+			// update current page
+			if (currentPage > 0) {
+
+				currentPage--;
+
+			} else {
+
+				currentPage = 0;
+			}
+
+			CARD_LAYOUT.previous(this);
+		}
+
 		repaint();
 	}
-	
-	
+
 	/**
+	 * Returns name of the user
 	 * 
-	 * @return
+	 * @return The name of the user
 	 */
-	public String getChildName() {
-		return childName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public static void main(String[] args) {
-
-		// Create the frame
-		JFrame frame = new JFrame();
-
-		 ArrayList<Integer> kitProgress = new ArrayList<Integer>() ;
-		 kitProgress.add(5) ;
-		
-		User user = new User("user name", "long Fake Name Fake", "K", kitProgress) ;
-		
-		// Add the passport to the frame--will need to figure out
-		// how to do the name getting part
-		frame.getContentPane().add(new Passport(user));
-
-		// Set the size to the specified page size
-		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
-
-		// Make visible
-		frame.setVisible(true);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	/**
+	 * Returns the list of page names
+	 * 
+	 * @return The list of page names
+	 */
+	public ArrayList<String> getPageNames() {
+		return pageNames;
 	}
+
+	/**
+	 * Removes the kit page associated with the given page name from the
+	 * passport
+	 * 
+	 * TODO Test if this method works
+	 * 
+	 * @param pageName
+	 *            The name of the kit page to be removed from the passport
+	 */
+	public void removeKitPage(String pageName) {
+
+		pageNames.remove(pageName);
+
+		for (int i = 0; i < kitPages.size(); i++) {
+
+			String kitName = kitPages.get(i).getName();
+
+			if (kitName.equals(pageName)) {
+
+				kitPages.remove(i);
+			}
+		}
+
+		kitSelectionPage.removeKitButton(pageName);
+
+		revalidate();
+		repaint();
+	}
+
+	// public static void main(String[] args) {
+	//
+	// // Create the frame
+	// JFrame frame = new JFrame();
+	//
+	// ArrayList<Integer> kitProgress = new ArrayList<Integer>() ;
+	// kitProgress.add(5) ;
+	//
+	// User user = new User("user name", "long Fake Name Fake", "K",
+	// kitProgress) ;
+	//
+	// // Add the passport to the frame--will need to figure out
+	// // how to do the name getting part
+	// frame.getContentPane().add(new Passport(user));
+	//
+	// // Set the size to the specified page size
+	// frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
+	//
+	// // Make visible
+	// frame.setVisible(true);
+	//
+	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	// }
 
 }

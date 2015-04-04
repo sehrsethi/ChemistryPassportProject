@@ -6,6 +6,11 @@ import javax.swing.JApplet;
 
 import user.User;
 
+/**
+ * 
+ * @version April 4, 2015
+ *
+ */
 public class PassportApplet extends JApplet{
 	
 	public void init(){

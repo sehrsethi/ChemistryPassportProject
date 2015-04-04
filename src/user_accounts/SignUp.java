@@ -317,6 +317,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 			out.write("\n" + userName + fakeName + grade + "," + kitProgress);
 			
 			
+			
 			//out.flush();
 			
 			// System.out.println("I am here");

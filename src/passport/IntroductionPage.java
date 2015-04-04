@@ -18,7 +18,7 @@ import javax.swing.JTextArea;
 
 import user.User;
 
-public class FirstPage extends JPanel {
+public class IntroductionPage extends JPanel {
 
 	// The width of this page
 	private static final int PAGE_WIDTH = 500;
@@ -81,12 +81,12 @@ public class FirstPage extends JPanel {
 	 *            TODO
 	 */
 
-	public FirstPage(Passport passport) {
+	public IntroductionPage(Passport passport) {
 
 		this.passport = passport;
 
 		// Store the name of the child
-		this.childName = passport.getChildName();
+		this.childName = passport.getUserName();
 
 		// Set the layout to FlowLayout
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 15));
@@ -175,7 +175,7 @@ public class FirstPage extends JPanel {
 	 */
 	private void addChildName() {
 
-		System.out.println("add child name " + childName);
+		//System.out.println("add child name " + childName);
 
 		// child name can have max 20 characters or the entire name will not be
 		// displayed
@@ -346,7 +346,7 @@ public class FirstPage extends JPanel {
 		User user = new User("user name", "long Fake Name Fake name", "K",
 				kitProgress);
 
-		frame.getContentPane().add(new FirstPage(new Passport(user)));
+		frame.getContentPane().add(new IntroductionPage(new Passport(user)));
 
 		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
 
