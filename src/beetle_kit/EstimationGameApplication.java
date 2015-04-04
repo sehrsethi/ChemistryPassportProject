@@ -10,7 +10,7 @@ import javax.swing.JPanel;
  * Chemistry Passport Project Runs the Estimation Game
  * 
  * @author Charlotte Dye, Sehr Sethi, Humaira Orchee
- * @version March 4, 2015
+ * @version April 3, 2015
  *
  */
 public class EstimationGameApplication extends JPanel {
@@ -35,13 +35,13 @@ public class EstimationGameApplication extends JPanel {
 	 */
 	private void createNewGrid() {
 
-		// if the user has actually completed 3 rounds, no more grids should be
-		// created.
+		// if the user has actually completed 3  rounds, no more grids should be created.
 		if (currentGridNum > MAX_NUM_ROUNDS) {
 
 			JOptionPane
 					.showMessageDialog(this,
 							"Great! You have completed the Estimation Game! You now get a sticker!!!");
+	
 
 			return;
 		}
@@ -68,6 +68,7 @@ public class EstimationGameApplication extends JPanel {
 
 		repaint();
 		revalidate();
+		
 
 	}
 

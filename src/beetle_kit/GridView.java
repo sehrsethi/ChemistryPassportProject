@@ -14,7 +14,7 @@ import javax.swing.border.Border;
  * Represents the view for the grid
  * 
  * @author Charlotte Dye, Humaira Orchee, Sehr Sethi
- * @version March 4, 2015
+ * @version April 3, 2015
  */
 public class GridView extends JPanel {
 
@@ -197,20 +197,16 @@ public class GridView extends JPanel {
 	 */
 	private void drawTrees(Graphics g) {
 
-		//System.out.println("drawing trees in GridView");
-
 		// fill/draw the tree
 		Graphics2D g2d = (Graphics2D) g;
 
 		for (int i = 0; i < trees.size(); i++) {
 
 			Tree tree = trees.get(i);
-
 			g2d.setColor(tree.getFillColor());
 			g2d.fill(tree);
 			g2d.setColor(tree.getBorderColor());
 			g2d.draw(tree);
-
 		}
 	}
 
