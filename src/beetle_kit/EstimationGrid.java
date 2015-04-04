@@ -24,7 +24,7 @@ public class EstimationGrid {
 
 	// The maximum number of trees of each color that can be placed in one cell
 
-	private static final double MAX_TREE_NUM = 15;
+	private static final double MAX_TREE_NUM = 15; 
 
 	// Color of infested trees
 	private static final Color INFESTED_COLOR = Color.RED;

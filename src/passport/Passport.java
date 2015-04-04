@@ -20,7 +20,7 @@ public class Passport extends JPanel implements MouseListener {
 	// Page could need add sticker method
 	// Use logo.png as sticker for now, or get beetle thing
 	
-	// The user (child) that the passport belongs to 
+	// The user (child) that the passport belongs to  
 	private User user ;
 	
 	// The name of the child whose passport this is

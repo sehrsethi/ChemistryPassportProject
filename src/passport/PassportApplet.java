@@ -12,7 +12,7 @@ public class PassportApplet extends JApplet{
 		
 		
 		this.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
-		
+		 
 		 ArrayList<Integer> kitProgress = new ArrayList<Integer>() ;
 		 kitProgress.add(5) ;
 		
