@@ -11,13 +11,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import user.User;
+
 public class Passport extends JPanel implements MouseListener {
 
 	// Passport should take in fake name, (maybe grade?)
 	// Every page should take title of kit
 	// Page could need add sticker method
 	// Use logo.png as sticker for now, or get beetle thing
-
+	
+	// The user (child) that the passport belongs to 
+	private User user ;
+	
 	// The name of the child whose passport this is
 	private String childName;
 
@@ -26,9 +31,11 @@ public class Passport extends JPanel implements MouseListener {
 
 	// The height of the page of the passport
 	public static final int PAGE_HEIGHT = 700;
+
 	
 	// set a border around it
 	public static final Border BORDER = BorderFactory.createLineBorder(Color.GRAY, 4) ;
+
 
 	// The layout for the passport
 	private static final CardLayout CARD_LAYOUT = new CardLayout();
@@ -38,26 +45,28 @@ public class Passport extends JPanel implements MouseListener {
 
 	// The first page of the passport
 	private FirstPage firstPage;
-	//private static final FirstPage firstPage = new FirstPage();
+	// private static final FirstPage firstPage = new FirstPage();
 
 	// The list of page names
 	private ArrayList<String> pageNames = new ArrayList<String>();
+
+	// The list of pages
+	private ArrayList<KitPage> kitPages = new ArrayList<KitPage>();
 
 	// The currently displayed page
 	private int currentPage = 0;
 
 	/**
 	 * Create a new passport
-	 * 
-	 * @param childName
-	 *            The name of the child
+	 * @param user TODO
 	 */
-	public Passport(String childName) {
-		firstPage = new FirstPage(childName);
+	public Passport(User user) {
 		
+		this.user = user ;
+
 		// Save the child's name (will be needed for various pages)
-		this.childName = childName;
-		
+		this.childName = user.getFakeName();
+
 		// Set the layout to the card layout we created
 		this.setLayout(CARD_LAYOUT);
 		
@@ -68,18 +77,23 @@ public class Passport extends JPanel implements MouseListener {
 		// it goes to the next page
 		this.addMouseListener(this);
 
-		//Add the name of the first page
+		firstPage = new FirstPage(this);
+
+		// Add the name of the first page
 		pageNames.add(FIRST_PAGE_NAME);
-		
+
 		// Add the first page to the panel
 		this.add(firstPage, FIRST_PAGE_NAME);
 
 		// Display the first page
 		CARD_LAYOUT.show(this, FIRST_PAGE_NAME);
 
-		// Add the bark beetle page to the passport 
-		//NOTE: At some point we need to find whether we should show the sticker
+		// Add the bark beetle page to the passport
+		// NOTE: At some point we need to find whether we should show the
+		// sticker
 		addPage("Bark Beetle", false);
+		
+		addPage("Example", true);
 
 	}
 
@@ -88,41 +102,57 @@ public class Passport extends JPanel implements MouseListener {
 	 * 
 	 * @param pageName
 	 *            The name of the page to add
-	 *            
-	 * @param hasSticker Whether the sticker should be displayed for this page
+	 * 
+	 * @param hasSticker
+	 *            Whether the sticker should be displayed for this page
 	 */
 	public void addPage(String pageName, boolean hasSticker) {
 
-		//Add the page name
+		// Add the page name
 		pageNames.add(pageName);
-		
-		//Create the page
-		KitPage page = new KitPage(pageName, childName, hasSticker);
-		
-		//Add to the card layout
+
+		// not applicable if there are no previous kit pages
+		if (!kitPages.isEmpty()) {
+			
+			// the previous last kit page is no longer the last page
+			kitPages.get(kitPages.size() - 1).setLastPage(false);
+		}
+
+		// Create the page
+		KitPage page = new KitPage(pageName, this, hasSticker);
+
+		// add the kit page to the list of Kit Pages
+		kitPages.add(page);
+
+		// this new page is now the last page
+		page.setLastPage(true);
+
+		// Add to the card layout
 		this.add(page, pageName);
 		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
+		//CARD_LAYOUT.next(this);
 
-		//If we have more pages to show, prepare to show the next page
-		if (currentPage + 1 < pageNames.size()){
+		/*// If we have more pages to show, prepare to show the next page
+		if (currentPage + 1 < pageNames.size()) {
 			// Note that we're going to the next page
 			currentPage++;
 		}
-		
-		//Otherwise, prepare to show the first page again
+
+		// Otherwise, prepare to show the first page again
 		else {
 			currentPage = 0;
 		}
 
 		// Show which page we are going to show
-		//System.out.println(currentPage);
+		// System.out.println(currentPage);
 
 		// Show the next page
-		CARD_LAYOUT.show(this, pageNames.get(currentPage));
+		CARD_LAYOUT.show(this, pageNames.get(currentPage));*/
 	}
 
 	@Override
@@ -148,22 +178,56 @@ public class Passport extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
+	
+	/**
+	 * Goes to the nest passport page
+	 */
+	public void nextPage(){
+		
+		CARD_LAYOUT.next(this);
+		
+		repaint();
+	}
+	
+	/**
+	 * Goes to the previous passport page
+	 */
+	public void previouPage(){
+		
+		CARD_LAYOUT.previous(this);
+		
+		repaint();
+	}
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getChildName() {
+		return childName;
+	}
 
 	public static void main(String[] args) {
 
 		// Create the frame
 		JFrame frame = new JFrame();
 
+		 ArrayList<Integer> kitProgress = new ArrayList<Integer>() ;
+		 kitProgress.add(5) ;
+		
+		User user = new User("user name", "long Fake Name Fake", "K", kitProgress) ;
+		
 		// Add the passport to the frame--will need to figure out
 		// how to do the name getting part
-		frame.getContentPane().add(new Passport("Pretend child"));
+		frame.getContentPane().add(new Passport(user));
 
 		// Set the size to the specified page size
 		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
 
 		// Make visible
 		frame.setVisible(true);
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 

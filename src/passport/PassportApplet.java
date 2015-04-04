@@ -1,6 +1,10 @@
 package passport;
 
+import java.util.ArrayList;
+
 import javax.swing.JApplet;
+
+import user.User;
 
 public class PassportApplet extends JApplet{
 	
@@ -9,7 +13,12 @@ public class PassportApplet extends JApplet{
 		
 		this.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
 		
-		this.add(new Passport("Pretend child")) ;
+		 ArrayList<Integer> kitProgress = new ArrayList<Integer>() ;
+		 kitProgress.add(5) ;
+		
+		User user = new User("user name", "long Fake Name Fake", "K", kitProgress) ;
+		
+		this.add(new Passport(user)) ;
 	}
 
 }

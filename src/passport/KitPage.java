@@ -4,24 +4,34 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
+import user.User;
+
+/**
+ * 
+ * @author Humaira Orchee, Charlotte Dye
+ * @version March 25, 2015
+ */
 public class KitPage extends JPanel {
-
-	// The width of the page for the kit
-	private static final int PAGE_WIDTH = 500;
-
-	// The height of the page for the kit
-	private static final int PAGE_HEIGHT = 700;
 
 	// The name of the page
 	private String pageName;
@@ -30,7 +40,7 @@ public class KitPage extends JPanel {
 	private String childName;
 
 	// The label for empty sticker
-	private StickerPanel emptyStickerPanel = new StickerPanel();
+	// private StickerPanel emptyStickerPanel = new StickerPanel();
 
 	// The name/location of the image this page shows:
 	// NOTE: THIS WILL CHANGE TO GET THE APPROPRIATE STICKER
@@ -47,13 +57,20 @@ public class KitPage extends JPanel {
 
 	// The font for the line with the child's name
 	private static final Font CHILD_FONT = new Font("Times New Roman",
-			Font.PLAIN, 60);
+			Font.PLAIN, 40);
 
 	// The text color
 	private static final Color TEXT_COLOR = Color.BLACK;
 
 	// The background color
 	private static final Color BACKGROUND_COLOR = Color.WHITE;
+
+	// The coordinates of the sticker are updated every DELAY milliseconds
+	private static final int DELAY = 4;
+
+	// If the sticker never reaches its final destination, then stop the
+	// animation after a certain period of time has passed
+	private static final long ANIMATION_TIME = 2600;
 
 	// Whether the sticker should be displayed
 	// ONLY SHOW THE STICKER AFTER THEY CLICK
@@ -64,6 +81,48 @@ public class KitPage extends JPanel {
 	// page
 	private boolean earnSticker = false;
 
+	// False if they have not previously completed this kit and earned a sticker
+	// for it. True otherwise.
+	// private boolean showNoSticker = true;
+
+	// the current coordinates of the sticker
+	private double currentX;
+	private double currentY;
+
+	// The timer used for the animation
+	private Timer timer;
+
+	// The sticker
+	private ImageIcon imageIcon;
+
+	// The coordinates where the sticker actually stays
+	 private double finalX;
+	 private double finalY;
+
+	// The amount by which the coordinates of the sticker change
+	private double animationConstantX = -1;
+	private double animationConstantY = 1.5;
+
+	// allows a little flexibility so that when the image is near the center of
+	// the screen (and not necessarily at the very center) the animation stops
+	private Rectangle2D rectangle;
+
+	// Keeps track of when the animation starts
+	private long startTime;
+
+	// Keep track of the time elapsed since the animation started
+	private long currentTime;
+
+	// Whether or not this kit page is the last page of the passport. Need to
+	// know this to add the appropriate buttons.
+	private boolean isLastPage = true;
+
+	// forward button
+	private JButton fwdButton;
+
+	// The passport this KitPage belongs to
+	private Passport passport;
+
 	/**
 	 * Creates a new page for the kit
 	 * 
@@ -73,7 +132,7 @@ public class KitPage extends JPanel {
 	 * @param showSticker
 	 *            Whether the sticker should be displayed
 	 */
-	public KitPage(String pageName, String childName, boolean showSticker) {
+	public KitPage(String pageName, Passport passport, boolean showSticker) {
 
 		// Note whether we should show the sticker
 		this.showSticker = showSticker;
@@ -81,23 +140,46 @@ public class KitPage extends JPanel {
 		// Set the page name
 		this.pageName = pageName.toUpperCase();
 
+		this.passport = passport;
+
 		// Save the name of the child
-		this.childName = childName;
+		this.childName = passport.getChildName();
 
 		// Set the layout to BoxLayout
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		// Set the size
-		this.setSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
+		this.setSize(new Dimension(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT));
+
+		// this.setPreferredSize(new Dimension(Passport.PAGE_WIDTH,
+		// Passport.PAGE_HEIGHT));
+		// this.setMinimumSize(new Dimension(Passport.PAGE_WIDTH,
+		// Passport.PAGE_HEIGHT));
 
 		// Set the background color
 		this.setBackground(BACKGROUND_COLOR);
+
+		imageIcon = new ImageIcon(IMAGE_FILE);
+
+		finalX = this.getWidth() / 2 - imageIcon.getIconWidth() / 2;
+
+		finalY = this.getHeight() / 2 - imageIcon.getIconHeight() / 2
+				- 50;
+
+		currentX = finalX;
+
+		createTimer();
+
+		// the dimensions will change depending on panel size and image size and
+		// speed of animation
+		rectangle = new Rectangle2D.Double(finalX - 15, finalY - 10, 5, 5);
 
 		// Add everything to the page
 		addContent();
 
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
@@ -105,7 +187,64 @@ public class KitPage extends JPanel {
 
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		emptyStickerPanel.repaint();
+		paintSticker(g);
+
+		// for debugging
+		/*
+		 * g.setColor(Color.RED);
+		 * 
+		 * g.fillRect((int) rectangle.getX(), (int) rectangle.getY(), (int)
+		 * rectangle.getWidth(), (int) rectangle.getHeight());
+		 * 
+		 * g.setColor(Color.BLUE);
+		 * 
+		 * g.drawRect((int) currentX, (int) currentY, imageIcon.getIconWidth(),
+		 * imageIcon.getIconHeight());
+		 */
+	}
+
+	/**
+	 * Draws either a placeholder for the sticker or the sticker itself
+	 * 
+	 * @param g
+	 *            The graphics object to draw on
+	 */
+	private void paintSticker(Graphics g) {
+		
+		if(showSticker){
+			
+			imageIcon.paintIcon(this, g, (int) finalX, (int) finalY);
+			
+		}else if (!showSticker) {
+			
+			if (!earnSticker) {
+
+				g.setColor(Color.LIGHT_GRAY);
+
+				int circleDiameter = 150;
+
+				g.fillOval(getWidth() / 2 - circleDiameter / 2, getHeight() / 2
+						- circleDiameter / 2 - 50, circleDiameter,
+						circleDiameter);
+
+				g.setColor(Color.BLACK);
+
+				g.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+
+				g.drawString("You haven't earned", getWidth() / 2
+						- circleDiameter / 2 + 15, getHeight() / 2
+						- circleDiameter / 2 + 20);
+
+				g.drawString("this sticker yet!", getWidth() / 2
+						- circleDiameter / 2 + 25, getHeight() / 2
+						- circleDiameter / 2 + 40);
+
+			} else if (earnSticker) {
+
+				imageIcon.paintIcon(this, g, (int) currentX, (int) currentY);
+
+			}
+		}
 
 	}
 
@@ -115,34 +254,58 @@ public class KitPage extends JPanel {
 	private void addContent() {
 
 		// Create and add rigid area for spacing
-		this.add(Box.createRigidArea(new Dimension(20, 20)));
+		this.add(Box.createRigidArea(new Dimension(20, 10)));
 
-		// Add the kit name label
-		// Kit name label
-		JLabel kitNameLabel = new JLabel(pageName);
-
-		// Set the font of the child's name
-		kitNameLabel.setFont(KIT_NAME_FONT);
-
-		// Set the font color
-		kitNameLabel.setForeground(TEXT_COLOR);
-
-		// Center the kit name
-		// kitNameLabel.setXAlignment(Component.CENTER_ALIGNMENT);
-		kitNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		// Add to the page
-		add(kitNameLabel);
+		addKitName();
 
 		// Create and add rigid area for spacing
-		this.add(Box.createRigidArea(new Dimension(20, 100)));
+		this.add(Box.createRigidArea(new Dimension(20, 75)));
+
+		addSticker();
+
+		// Create and add rigid area for spacing
+		this.add(Box.createRigidArea(new Dimension(50, 300)));
+
+		// Add the child's name
+		addChildName();
+
+		this.add(Box.createRigidArea(new Dimension(10, 50)));
+
+		addButtons();
+
+	}
+
+	/**
+	 * 
+	 */
+	private void addChildName() {
+		// Child's name label
+		JLabel childNameLabel = new JLabel(childName);
+
+		// Set the font of the child's name
+		childNameLabel.setFont(CHILD_FONT);
+
+		// Set the font color
+		childNameLabel.setForeground(TEXT_COLOR);
+
+		// Center the child's name
+		childNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		// Add to the page
+		add(childNameLabel);
+	}
+
+	/**
+	 * 
+	 */
+	private void addSticker() {
 
 		// Check if we should add the sticker
-		if (showSticker) {
+		/*if (showSticker) {
 			// Show the sticker
 
 			// Create the sticker icon
-			ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
+			// ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
 
 			// Create a label for the sticker
 			JLabel stickerLabel = new JLabel(imageIcon);
@@ -152,7 +315,10 @@ public class KitPage extends JPanel {
 
 			// Add the sticker
 			add(stickerLabel);
-		} else {
+
+		} else*/
+		
+		if(!showSticker){
 			// Show empty sticker icon
 			// Create the sticker icon
 			// ImageIcon imageIcon = new ImageIcon(EMPTY_IMAGE_FILE);
@@ -164,7 +330,7 @@ public class KitPage extends JPanel {
 			// Center the label
 			// emptyStickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-			emptyStickerPanel.addMouseListener(new MouseListener() {
+			this.addMouseListener(new MouseListener() {
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -173,9 +339,15 @@ public class KitPage extends JPanel {
 
 					earnSticker = true;
 
-					emptyStickerPanel.showNoSticker = false;
+					// something needs to happen here so that the database knows
+					// that a sticker has been added
 
-					repaint();
+					//showNoSticker = false;
+
+					// start animation
+					startTime = System.currentTimeMillis();
+
+					timer.start();
 
 				}
 
@@ -205,200 +377,243 @@ public class KitPage extends JPanel {
 
 			});
 
-			// Add the sticker
-			add(emptyStickerPanel);
 		}
+	}
 
-		// Create and add rigid area for spacing
-		this.add(Box.createRigidArea(new Dimension(50, 179)));
-
-		// Add the child's name
-		// Child's name label
-		JLabel childNameLabel = new JLabel(childName);
+	/**
+	 * 
+	 */
+	private void addKitName() {
+		// Add the kit name label
+		// Kit name label
+		JLabel kitNameLabel = new JLabel(pageName);
 
 		// Set the font of the child's name
-		childNameLabel.setFont(CHILD_FONT);
+		kitNameLabel.setFont(KIT_NAME_FONT);
 
 		// Set the font color
-		childNameLabel.setForeground(TEXT_COLOR);
+		kitNameLabel.setForeground(TEXT_COLOR);
 
-		// Center the child's name
-		childNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		// Center the kit name
+		// kitNameLabel.setXAlignment(Component.CENTER_ALIGNMENT);
+		kitNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		// Add to the page
-		add(childNameLabel);
+		add(kitNameLabel);
+	}
+
+	/**
+	 * Creates and returns and empty panel to create space between components
+	 * 
+	 * @return An empty panel to create space between components
+	 */
+	private JPanel createSpacing() {
+
+		JPanel panel = new JPanel();
+
+		// make this background transparent
+		panel.setBackground(new Color(0, 0, 0, 0));
+
+		return panel;
 
 	}
 
-	private class StickerPanel extends JPanel implements Runnable{
+	/**
+	 * Animates the sticker
+	 * 
+	 * @param maxWidth
+	 *            The x coordinate beyond which the sticker cannot go
+	 * @param maxHeight
+	 *            The y coordinate beyond which the sticker cannot go
+	 */
+	private void animate(int maxWidth, int maxHeight) {
 
-		private boolean showNoSticker = true;
+		// updates sticker coordinates
+		currentX += animationConstantX;
+		currentY += animationConstantY;
 
-		private int currentX;
+		// bounce off left
+		if (currentX <= 0) {
 
-		private int currentY;
-		
-		private Thread animationThread ;
+			animationConstantX = animationConstantX * -1;
 
-		public StickerPanel() {
-			setLayout(new BorderLayout());
-			setSize(new Dimension(200, 200));
-			
-			animationThread = new Thread(this) ;
-			
-			start();
 		}
 
-		public void paintComponent(Graphics g) {
+		// bounce of bottom
+		if (currentY + imageIcon.getIconHeight() >= maxHeight) {
 
-			super.paintComponent(g);
+			animationConstantY = -1;
+		}
 
-			g.setColor(BACKGROUND_COLOR);
+		// bounce off right
+		if (currentX + imageIcon.getIconWidth() >= maxWidth) {
 
-			g.fillRect(0, 0, getWidth(), getHeight());
+			// timer.setDelay(DELAY - 1);
 
-			if (showNoSticker) {
+			animationConstantX = animationConstantX * -1;
+			animationConstantY = -0.5;
+		}
 
-				g.setColor(Color.LIGHT_GRAY);
+		// bounce off top
+		if (currentY <= 0) {
 
-				g.fillOval(175, getHeight() / 2 - 50, 150, 150);
+			animationConstantY = 1.5;
+		}
 
-				g.setColor(Color.BLACK);
+	}
 
-				g.drawString("You haven't earned", 190, 140);
+	/**
+	 * Returns true if this page is the last page of the kit. Returns false
+	 * otherwise.
+	 * 
+	 * @return True if this page is the last page of the kit and false
+	 *         otherwise.
+	 */
+	public boolean isLastPage() {
+		return isLastPage;
+	}
 
-				g.drawString("this sticker yet!", 200, 160);
-			} else if (earnSticker) {
+	/**
+	 * Sets this page to be last page or not depending on the value of the
+	 * parameter
+	 * 
+	 * @param isLastPage
+	 *            True if this is the last page of the passport. False if this
+	 *            is not the last page of the passport.
+	 */
+	public void setLastPage(boolean isLastPage) {
+		this.isLastPage = isLastPage;
 
-				//
-				// // Show the sticker
-				//
-				// // Create the sticker icon
-				// ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
-				//
-				// // Create a label for the sticker
-				// JLabel stickerLabel = new JLabel(imageIcon);
-				//
-				// // Center the label
-				// stickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-				//
-				// // Add the sticker
-				// add(stickerLabel);
-				//
-				// Create the sticker icon
+		// If this kit page is the last page then the forward button should not
+		// be working. If it is not the last page then the forward button should
+		// be working.
+		if (isLastPage) {
 
-				// emptyStickerLabel.setVisible(false);
+			fwdButton.setEnabled(false);
 
-				// this.remove(emptyStickerLabel);
-				// revalidate();
-				
-				
-				
-			 ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
-			 
+		} else {
 
-				final int finalX = StickerPanel.this.getWidth() / 2
-						- imageIcon.getIconWidth() / 2;
-				final int finalY = StickerPanel.this.getHeight() / 2
-						- imageIcon.getIconHeight() / 2;
-				
+			fwdButton.setEnabled(true);
+		}
+	}
 
-				if ((currentX == finalX) || (currentY == finalY)) {
-					
-					animationThread = null;
-					
-					//imageIcon.paintIcon(StickerPanel.this, g, currentX,	currentY);
-					imageIcon.paintIcon(StickerPanel.this, g, finalX, finalY);
-					
-					return ;
-				}
-				//drawMovingImage(g, imageIcon);
-				
-				imageIcon.paintIcon(StickerPanel.this, g, currentX,	currentY);
+	/**
+	 * Creates the back and forward buttons
+	 */
+	private void addButtons() {
 
-				
+		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 160,
+				15));
+		buttonPanel.setBackground(Color.white);
+
+		Font font = new Font("Verdana", Font.PLAIN, 18);
+
+		// backButton
+		JButton backButton = new JButton("<----");
+		backButton.setFont(font);
+
+		backButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				passport.previouPage();
+
 			}
+		});
 
-		}
+		// forward button
+		JButton forwardButton = new JButton("---->");
+		forwardButton.setFont(font);
 
-		public void start(){
-			if (animationThread != null){
-				animationThread.start();
+		forwardButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				passport.nextPage();
+
 			}
+		});
+
+		// the forward button does not work for the last kitpage
+		if (isLastPage) {
+
+			forwardButton.setEnabled(false);
 		}
 
-		@Override
-		public void run() {
-			
-			while (Thread.currentThread() == animationThread){
-				currentX++;
-				currentY++;
-				
-				System.out.println("Current x is " + currentX);
-				System.out.println("Current y is " + currentY);
+		this.fwdButton = forwardButton;
 
-				repaint() ;
-				try {
-					Thread.sleep(300);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		buttonPanel.add(backButton);
+		buttonPanel.add(forwardButton);
+
+		add(buttonPanel);
+	}
+
+	/**
+	 * 
+	 */
+	private void createTimer() {
+		timer = new Timer(DELAY, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				// update the coordinates of the sticker
+				animate(KitPage.this.getWidth(), KitPage.this.getHeight() - 110);
+
+				currentTime = System.currentTimeMillis();
+
+				// If the sticker has roughly reached the middle of the screen
+				// or if the
+				// animation has happened for a certain period of time, then
+				// stop the
+				// animation
+
+				// if(currentX == finalX && currentY == finalY){
+
+				if (rectangle.contains(currentX, currentY)) {
+
+					System.out.println("collison");
+
+					timer.stop();
+
+				} /*else if (currentTime - startTime >= ANIMATION_TIME) {
+
+					System.out.println("time up");
+
+					timer.stop();
+				}*/
+
+				repaint();
+
 			}
-			
-			
-		}
-		
-		
+		});
+	}
 
-		// /**
-		// * @param g
-		// * @param imageIcon
-		// */
-		// private void drawMovingImage(final Graphics g, final ImageIcon
-		// imageIcon) {
-		//
-		//
-		// Timer timer = new Timer(500, new ActionListener() {
-		//
-		// @Override
-		// public void actionPerformed(ActionEvent e) {
-		//
-		// System.out.println("Current x is "+currentX);
-		// System.out.println("Current y is "+currentY);
-		// currentX++;
-		// currentY++;
-		//
-		// int finalX = StickerPanel.this.getWidth() / 2 -
-		// imageIcon.getIconWidth()
-		// / 2;
-		// int finalY = StickerPanel.this.getHeight() / 2
-		// - imageIcon.getIconHeight() / 2;
-		//
-		// System.out.println("Final x is "+finalX);
-		// System.out.println("Final y is "+finalY);
-		//
-		// if ((currentX <= finalX)
-		// && (currentY <= finalY)){
-		// System.out.println("This is here");
-		//
-		//
-		// //return ;
-		//
-		//
-		// imageIcon.paintIcon(StickerPanel.this, g, currentX,
-		// currentY);
-		// }
-		//
-		// }
-		// });
-		//
-		// timer.start();
-		//
-		// // getWidth() / 2 - imageIcon.getIconWidth() / 2,
-		// // getHeight() / 2 - imageIcon.getIconHeight() / 2);
-		// }
+	public static void main(String[] args) {
 
+		// Create the frame
+		JFrame frame = new JFrame();
+
+		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
+		kitProgress.add(5);
+
+		User user = new User("user name", "long Fake Name Fake name Fake Name",
+				"K", kitProgress);
+
+		// Add the passport to the frame--will need to figure out
+		// how to do the name getting part
+		frame.getContentPane().add(
+				new KitPage("Bark Beetle", new Passport(user), false));
+
+		// Set the size to the specified page size
+		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
+
+		// Make visible
+		frame.setVisible(true);
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }
