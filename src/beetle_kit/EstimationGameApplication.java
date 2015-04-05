@@ -46,7 +46,7 @@ public class EstimationGameApplication extends JPanel {
 			return;
 		}
 
-		EstimationGrid grid = new EstimationGrid();
+		EstimationGrid grid = new EstimationGrid("K");
 
 		grid.fillTreeArray();
 

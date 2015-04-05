@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class EstimationGrid {
 
 	// The number of rows in the grid
-	public static final int NUM_ROWS = 7;
+	private static int numRows ;
 
 	// The number of columns in the grid
-	public static final int NUM_COLS = 7;
+	private static int numCols ;
 
 	// 2/3 rd of the trees are blocked. Note 2/3 truncates to 0. That is why
 	// write 2.0/3.0
@@ -80,21 +80,24 @@ public class EstimationGrid {
 
 	/**
 	 * Creates the grid
+	 * @param grade TODO
 	 */
-	public EstimationGrid() {
+	public EstimationGrid(String grade) {
+		
+		setGridSize(grade);
 
 		trees = new ArrayList<Tree>();
 
-		cellWidth = GRID_WIDTH / NUM_COLS;
-		cellHeight = GRID_HEIGHT / NUM_ROWS;
+		cellWidth = GRID_WIDTH / numCols;
+		cellHeight = GRID_HEIGHT / numRows;
 
 		// First, we create the GridCell
 		// objects and the data for this grid
-		gridCells = new GridCell[NUM_ROWS][NUM_COLS];
+		gridCells = new GridCell[numRows][numCols];
 
 		// Create the cells
-		for (int i = 0; i < NUM_ROWS; i++) {
-			for (int j = 0; j < NUM_COLS; j++) {
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
 
 				gridCells[i][j] = new GridCell(i, j);
 			}
@@ -508,9 +511,9 @@ public class EstimationGrid {
 	 */
 	private void addNewTrees() {
 
-		for (int r = 0; r < NUM_ROWS; r++) {
+		for (int r = 0; r < numRows; r++) {
 
-			for (int c = 0; c < NUM_COLS; c++) {
+			for (int c = 0; c < numCols; c++) {
 
 				GridCell cell = gridCells[r][c];
 
@@ -537,7 +540,7 @@ public class EstimationGrid {
 
 		// Calculate how many cells to unblock--might need to edit this
 		// 1/3rd of the cells should be blocked
-		double numToBlock = (NUM_ROWS * NUM_COLS * RATIO_BLOCKED);
+		double numToBlock = (numRows * numCols * RATIO_BLOCKED);
 
 		// Keep track of how many unblocked cells we've created
 		int numBlocked = 0;
@@ -546,8 +549,8 @@ public class EstimationGrid {
 		while (numBlocked < numToBlock) {
 
 			// Pick randomly which cell to unblock (and add trees to)
-			int rowNum = (int) (Math.random() * NUM_ROWS);
-			int colNum = (int) (Math.random() * NUM_COLS);
+			int rowNum = (int) (Math.random() * numRows);
+			int colNum = (int) (Math.random() * numCols);
 
 			// If this is an unblocked cell, we block it
 			if (!gridCells[rowNum][colNum].isBlocked()) {
@@ -568,9 +571,9 @@ public class EstimationGrid {
 	 */
 	private void countTrees() {
 
-		for (int r = 0; r < EstimationGrid.NUM_ROWS; r++) {
+		for (int r = 0; r < EstimationGrid.numRows; r++) {
 
-			for (int c = 0; c < EstimationGrid.NUM_COLS; c++) {
+			for (int c = 0; c < EstimationGrid.numCols; c++) {
 
 				GridCell cell = gridCells[r][c];
 
@@ -649,6 +652,48 @@ public class EstimationGrid {
 
 			return !isTreeHidden(tree);
 
+		}
+	}
+	
+	private void setGridSize(String grade){
+		
+		if(grade.equals("K")){
+			
+			numCols = 3 ;
+			
+			numRows = 3 ;
+			
+		}else if(grade.equals("1") || grade.equals("2")){
+			
+
+			numCols = 4 ;
+			
+			numRows = 4 ;
+			
+		}else if(grade.equals("3") || grade.equals("4")){
+			
+
+			numCols = 5 ;
+			
+			numRows = 5 ;
+			
+		}else if(grade.equals("5") ){
+			
+
+			numCols = 6 ;
+			
+			numRows = 6 ;
+			
+		}else if(grade.equals("6")){
+			
+
+			numCols = 7 ;
+			
+			numRows = 7 ;
+			
+		}else{
+			
+			throw new AssertionError("Grrade can only be k - 6. But grade is " + grade + "." ) ;
 		}
 	}
 	
