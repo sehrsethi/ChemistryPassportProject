@@ -1,8 +1,13 @@
 package beetle_kit;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -35,18 +40,21 @@ public class EstimationGameApplication extends JPanel {
 	 */
 	private void createNewGrid() {
 
-		// if the user has actually completed 3  rounds, no more grids should be created.
+		// if the user has actually completed 3 rounds, no more grids should be
+		// created.
 		if (currentGridNum > MAX_NUM_ROUNDS) {
 
 			JOptionPane
 					.showMessageDialog(this,
 							"Great! You have completed the Estimation Game! You now get a sticker!!!");
-	
 
 			return;
 		}
 
-		EstimationGrid grid = new EstimationGrid("K");
+		EstimationStartPage startPage = new EstimationStartPage();
+
+		EstimationGrid grid = new EstimationGrid("5",
+				startPage.getInfestedColor(), startPage.getNonInfestedColor());
 
 		grid.fillTreeArray();
 
@@ -62,13 +70,14 @@ public class EstimationGameApplication extends JPanel {
 
 		add(currentGridView, BorderLayout.CENTER);
 
+		createKeyPanel();
+
 		currentAnswerPanel = new AnswerPanel(grid, currentGridView, this);
 		add(currentAnswerPanel, BorderLayout.SOUTH);
 		currentGridNum++;
 
 		repaint();
 		revalidate();
-		
 
 	}
 
@@ -94,12 +103,133 @@ public class EstimationGameApplication extends JPanel {
 
 	}
 
+	private void createKeyPanel() {
+
+		JPanel panel = new JPanel();
+
+		BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+
+		panel.setLayout(boxLayout);
+
+		panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 5));
+
+		panel.add(createInfestedKey());
+
+		panel.add(new JPanel());
+
+		panel.add(createNonInfestedKey());
+
+		add(panel, BorderLayout.NORTH);
+	}
+
+	// private JPanel createInfestedKey(){
+	//
+	// //JPanel panel = new JPanel(new BorderLayout()) ;
+	//
+	// JPanel panel = new JPanel(new GridLayout(1,7)) ;
+	//
+	// panel.add(new JPanel()) ;
+	// panel.add(new JPanel()) ;
+	//
+	// JLabel label = new JLabel("Infested Trees") ;
+	//
+	// //panel.add(label, BorderLayout.CENTER) ;
+	//
+	// panel.add(label) ;
+	//
+	// panel.add(new JPanel()) ;
+	//
+	// JPanel colorSquare = new JPanel() ;
+	// colorSquare.setBorder(BorderFactory.createLineBorder(EstimationGrid.getInfestedColor(),
+	// 5));
+	// colorSquare.setBackground(EstimationGrid.getInfestedColor());
+	//
+	// //panel.add(colorSquare , BorderLayout.EAST) ;
+	//
+	// panel.add(colorSquare) ;
+	//
+	// panel.add(new JPanel()) ;
+	// panel.add(new JPanel()) ;
+	//
+	// return panel ;
+	// }
+
+	private JPanel createInfestedKey() {
+
+		// JPanel panel = new JPanel(new BorderLayout()) ;
+
+		JPanel panel = new JPanel();
+
+		BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.X_AXIS);
+
+		panel.setLayout(boxLayout);
+
+		JLabel label = new JLabel("Infested Trees");
+
+		// panel.add(label, BorderLayout.CENTER) ;
+
+		panel.add(new JPanel(new BorderLayout()));
+
+		panel.add(label);
+
+		panel.add(new JPanel());
+		panel.add(new JPanel());
+		panel.add(new JPanel());
+		panel.add(new JPanel());
+		panel.add(new JPanel());
+
+		JPanel colorSquare = new JPanel(new BorderLayout());
+		colorSquare.setBorder(BorderFactory.createLineBorder(
+				EstimationGrid.getInfestedColor(), 5));
+		colorSquare.setBackground(EstimationGrid.getInfestedColor());
+
+		// panel.add(colorSquare , BorderLayout.EAST) ;
+
+		panel.add(colorSquare);
+
+		return panel;
+	}
+
+	private JPanel createNonInfestedKey() {
+
+		JPanel panel = new JPanel();
+
+		BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.X_AXIS);
+
+		panel.setLayout(boxLayout);
+
+		JLabel label = new JLabel("Non Infested Trees");
+
+		// panel.add(label, BorderLayout.CENTER) ;
+
+		panel.add(new JPanel(new BorderLayout()));
+
+		panel.add(label);
+
+		panel.add(new JPanel());
+		panel.add(new JPanel());
+		panel.add(new JPanel());
+		panel.add(new JPanel());
+		panel.add(new JPanel());
+
+		JPanel colorSquare = new JPanel(new BorderLayout());
+		colorSquare.setBorder(BorderFactory.createMatteBorder(5, 30, 5, 5,
+				EstimationGrid.getNonInfestedColor()));
+		colorSquare.setBackground(EstimationGrid.getNonInfestedColor());
+
+		// panel.add(colorSquare , BorderLayout.EAST) ;
+
+		panel.add(colorSquare);
+
+		return panel;
+	}
+
 	public static void main(String[] args) {
 
 		// Create a JFrame for the application and give it a size and close
 		// operation
 		JFrame frame = new JFrame("Estimation game");
-		frame.setSize(605, 671);
+		frame.setSize(605, 723);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.getContentPane().add(new EstimationGameApplication());

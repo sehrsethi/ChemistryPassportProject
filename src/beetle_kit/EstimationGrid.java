@@ -27,16 +27,16 @@ public class EstimationGrid {
 	private static final double MAX_TREE_NUM = 15; 
 
 	// Color of infested trees
-	private static final Color INFESTED_COLOR = Color.RED;
+	private static Color infestedColor ;
 
-	// Border Color of infested trees
-	private static final Color INFESTED_BORDER_COLOR = new Color(153, 0, 0);
+	// Border Color of trees
+	private static final Color BORDER_COLOR = Color.BLACK;
 
 	// Color of non-infested trees
-	private static final Color NON_INFESTED_COLOR = Color.GREEN;
+	private static Color nonInfestedColor ;
 
 	// Border color of non-infested trees
-	private static final Color NON_INFESTED_BOREDR_COLOR = new Color(0, 51, 0);
+	//private static final Color NON_INFESTED_BOREDR_COLOR = new Color(0, 51, 0);
 
 	// The height of the grid
 	public static final int GRID_HEIGHT = 600;
@@ -81,8 +81,13 @@ public class EstimationGrid {
 	/**
 	 * Creates the grid
 	 * @param grade TODO
+	 * @param infestedColor TODO
+	 * @param nonInfestedColor TODO
 	 */
-	public EstimationGrid(String grade) {
+	public EstimationGrid(String grade, Color infestedColor, Color nonInfestedColor) {
+		
+		this.infestedColor = infestedColor ;
+		this.nonInfestedColor = nonInfestedColor ;
 		
 		setGridSize(grade);
 
@@ -194,8 +199,8 @@ public class EstimationGrid {
 			while (toDraw.getNumInfestedTrees() > numInfestedTrees) {
 
 				// check if the tree was actually drawn
-				boolean drawn = createTree(INFESTED_COLOR,
-						INFESTED_BORDER_COLOR, row, col);
+				boolean drawn = createTree(infestedColor,
+						BORDER_COLOR, row, col);
 
 				////system.out.println("drawn " + drawn);
 
@@ -239,8 +244,8 @@ public class EstimationGrid {
 			while (toDraw.getNumNonInfestedTrees() > numNonInfestedTrees) {
 
 				// check if the tree was actually drawn
-				boolean drawn = createTree(NON_INFESTED_COLOR,
-						NON_INFESTED_BOREDR_COLOR, row, col);
+				boolean drawn = createTree(nonInfestedColor,
+						BORDER_COLOR, row, col);
 
 				if (drawn) {
 					numNonInfestedTrees++;
@@ -274,8 +279,8 @@ public class EstimationGrid {
 			while (toDraw.getNumNonInfestedTrees() > numNonInfestedTrees) {
 
 				// check if the tree was actually drawn
-				boolean drawn = createTree(NON_INFESTED_COLOR,
-						NON_INFESTED_BOREDR_COLOR, row, col);
+				boolean drawn = createTree(nonInfestedColor,
+						BORDER_COLOR, row, col);
 				if (drawn) {
 
 					numNonInfestedTrees++;
@@ -304,8 +309,8 @@ public class EstimationGrid {
 			while (toDraw.getNumInfestedTrees() > numInfestedTrees) {
 
 				// check if the tree was actually drawn
-				boolean drawn = createTree(INFESTED_COLOR,
-						INFESTED_BORDER_COLOR, row, col);
+				boolean drawn = createTree(infestedColor,
+						BORDER_COLOR, row, col);
 
 				if (drawn) {
 
@@ -695,6 +700,16 @@ public class EstimationGrid {
 			
 			throw new AssertionError("Grrade can only be k - 6. But grade is " + grade + "." ) ;
 		}
+	}
+	
+	public static Color getInfestedColor(){
+		
+		return infestedColor ;
+	}
+	
+	public static Color getNonInfestedColor(){
+		
+		return nonInfestedColor ;
 	}
 	
 

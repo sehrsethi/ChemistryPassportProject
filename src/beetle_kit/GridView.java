@@ -1,11 +1,14 @@
 package beetle_kit;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -61,6 +64,7 @@ public class GridView extends JPanel {
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 5);
 
 		this.setBorder(border);
+
 
 	}
 
@@ -220,5 +224,6 @@ public class GridView extends JPanel {
 	public void setHasBlockedCells(boolean hasBlockedCells) {
 		this.hasBlockedCells = hasBlockedCells;
 	}
-
+	
+	
 }
