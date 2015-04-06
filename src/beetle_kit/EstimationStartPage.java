@@ -17,32 +17,33 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+/**
+ * The page that lets the user choose the defaul mode or one of the three
+ * color-blind modes and allows them to start playing the game
+ * 
+ * @author Humaira Orchee, Sharlotte Dye, Sehr Sethi
+ * @version April 6, 2015
+ */
 public class EstimationStartPage extends JPanel {
 
-	// private static final int DEFAULT = 0 ;
-	//
-	// private static final int PROTANOPIA = 1 ;
-	//
-	// // red-green color blindness
-	// private static final int DEUTERANOPIA = 2 ;
-	//
-	// private static final int TRITANOPTIA = 3 ;
+	private static final String DEFAULT_TEXT = "Default (Non- colorblind)";
 
-	public static final String DEFAULT_TEXT = "Default (Non- colorblind)";
+	private static final String PROTANOPIA_TEXT = "Protanopia (Red-Blue-Green Colorblindness)";
 
-	public static final String PROTANOPIA_TEXT = "Protanopia (Red-Blue-Green Colorblindness)";
+	private static final String DEUTERANOPIA_TEXT = "Deuteranopia (Red-Green Colorblindness)";
 
-	public static final String DEUTERANOPIA_TEXT = "Deuteranopia (Red-Green Colorblindness)";
-
-	public static final String TRITANOPTIA_TEXT = "Tritanopia (Blue-Yellow Colorblindness)";
+	private static final String TRITANOPTIA_TEXT = "Tritanopia (Blue-Yellow Colorblindness)";
 
 	private String mode = DEFAULT_TEXT;
-	
+
 	// colors in default mode
 	private Color infestedColor = Color.RED;
-	
+
 	private Color nonInfestedColor = Color.GREEN;
 
+	/**
+	 * Creates the Start Page
+	 */
 	public EstimationStartPage() {
 
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
@@ -60,7 +61,7 @@ public class EstimationStartPage extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Asks the user to choose a mode
 	 */
 	private void addText() {
 
@@ -76,7 +77,7 @@ public class EstimationStartPage extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Lets the user choose a mode from a JComboBox
 	 */
 	private void addComboBox() {
 
@@ -105,10 +106,10 @@ public class EstimationStartPage extends JPanel {
 				mode = (String) comboBox.getSelectedItem();
 
 				System.out.println("mode " + mode);
-				
-				infestedColor = selectInfestedColor(mode) ;
-				
-				nonInfestedColor = selectNonInfestedColor(mode) ;
+
+				infestedColor = selectInfestedColor(mode);
+
+				nonInfestedColor = selectNonInfestedColor(mode);
 
 			}
 		});
@@ -120,6 +121,10 @@ public class EstimationStartPage extends JPanel {
 		add(panel);
 	}
 
+	/**
+	 * Adds a "Sttart" button. Clicking on this button lets the user resume the
+	 * game.
+	 */
 	private void addStartButton() {
 
 		JButton startButton = new JButton("Start");
@@ -139,8 +144,13 @@ public class EstimationStartPage extends JPanel {
 		add(startButton);
 	}
 
-
-
+	/**
+	 * Sets the color of the infested trees according to the mode the user chose
+	 * 
+	 * @param mode
+	 *            The default mode or one of the colorblind modes
+	 * @return The color of the infested trees according to the mode
+	 */
 	private Color selectInfestedColor(String mode) {
 
 		if (mode.equals(DEFAULT_TEXT)) {
@@ -169,6 +179,14 @@ public class EstimationStartPage extends JPanel {
 
 	}
 
+	/**
+	 * Sets the color of the non-infested trees according to the mode the user
+	 * chose
+	 * 
+	 * @param mode
+	 *            The default mode or one of the colorblind modes
+	 * @return The color of the non-infested trees according to the mode
+	 */
 	private Color selectNonInfestedColor(String mode) {
 
 		if (mode.equals(DEFAULT_TEXT)) {
@@ -195,9 +213,7 @@ public class EstimationStartPage extends JPanel {
 			throw new AssertionError("There should only be 4 modes. Mode is "
 					+ mode);
 	}
-	
-	
-	
+
 	public Color getInfestedColor() {
 		return infestedColor;
 	}
@@ -205,8 +221,6 @@ public class EstimationStartPage extends JPanel {
 	public Color getNonInfestedColor() {
 		return nonInfestedColor;
 	}
-	
-
 
 	public static void main(String[] args) {
 

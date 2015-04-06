@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * Chemistry Passport Project Runs the Estimation Game
  * 
  * @author Charlotte Dye, Sehr Sethi, Humaira Orchee
- * @version April 3, 2015
+ * @version April 6, 2015
  *
  */
 public class EstimationGameApplication extends JPanel {
@@ -70,7 +70,7 @@ public class EstimationGameApplication extends JPanel {
 
 		add(currentGridView, BorderLayout.CENTER);
 
-		createKeyPanel();
+		createLegendPanel();
 
 		currentAnswerPanel = new AnswerPanel(grid, currentGridView, this);
 		add(currentAnswerPanel, BorderLayout.SOUTH);
@@ -103,7 +103,10 @@ public class EstimationGameApplication extends JPanel {
 
 	}
 
-	private void createKeyPanel() {
+	/**
+	 * Creates a legend that indicates the color associated with infested trees and non-infested trees
+	 */
+	private void createLegendPanel() {
 
 		JPanel panel = new JPanel();
 
@@ -113,48 +116,27 @@ public class EstimationGameApplication extends JPanel {
 
 		panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 5));
 
-		panel.add(createInfestedKey());
+		// the spacing of the text is important
+		panel.add(createKey("          Infested Trees         " , EstimationGrid.getInfestedColor()));
 
 		panel.add(new JPanel());
+		
+		panel.add(createKey("          Non-infested Trees " , EstimationGrid.getNonInfestedColor()));
 
-		panel.add(createNonInfestedKey());
+		//panel.add(createNonInfestedKey());
 
 		add(panel, BorderLayout.NORTH);
 	}
 
-	// private JPanel createInfestedKey(){
-	//
-	// //JPanel panel = new JPanel(new BorderLayout()) ;
-	//
-	// JPanel panel = new JPanel(new GridLayout(1,7)) ;
-	//
-	// panel.add(new JPanel()) ;
-	// panel.add(new JPanel()) ;
-	//
-	// JLabel label = new JLabel("Infested Trees") ;
-	//
-	// //panel.add(label, BorderLayout.CENTER) ;
-	//
-	// panel.add(label) ;
-	//
-	// panel.add(new JPanel()) ;
-	//
-	// JPanel colorSquare = new JPanel() ;
-	// colorSquare.setBorder(BorderFactory.createLineBorder(EstimationGrid.getInfestedColor(),
-	// 5));
-	// colorSquare.setBackground(EstimationGrid.getInfestedColor());
-	//
-	// //panel.add(colorSquare , BorderLayout.EAST) ;
-	//
-	// panel.add(colorSquare) ;
-	//
-	// panel.add(new JPanel()) ;
-	// panel.add(new JPanel()) ;
-	//
-	// return panel ;
-	// }
+	
 
-	private JPanel createInfestedKey() {
+	/**
+	 * Creates a JLabel indicating the kind of tree and and a little panel of the color corresponding to the kid of tree
+	 * @param text The kind of tree
+	 * @param color The color of the given kind of tree
+	 * @return The panel containing the text and the color
+	 */
+	private JPanel createKey(String text, Color color) {
 
 		// JPanel panel = new JPanel(new BorderLayout()) ;
 
@@ -164,7 +146,7 @@ public class EstimationGameApplication extends JPanel {
 
 		panel.setLayout(boxLayout);
 
-		JLabel label = new JLabel("Infested Trees");
+		JLabel label = new JLabel(text);
 
 		// panel.add(label, BorderLayout.CENTER) ;
 
@@ -179,9 +161,11 @@ public class EstimationGameApplication extends JPanel {
 		panel.add(new JPanel());
 
 		JPanel colorSquare = new JPanel(new BorderLayout());
+		
 		colorSquare.setBorder(BorderFactory.createLineBorder(
-				EstimationGrid.getInfestedColor(), 5));
-		colorSquare.setBackground(EstimationGrid.getInfestedColor());
+				color, 5));
+		
+		colorSquare.setBackground(color);
 
 		// panel.add(colorSquare , BorderLayout.EAST) ;
 
@@ -190,39 +174,6 @@ public class EstimationGameApplication extends JPanel {
 		return panel;
 	}
 
-	private JPanel createNonInfestedKey() {
-
-		JPanel panel = new JPanel();
-
-		BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.X_AXIS);
-
-		panel.setLayout(boxLayout);
-
-		JLabel label = new JLabel("Non Infested Trees");
-
-		// panel.add(label, BorderLayout.CENTER) ;
-
-		panel.add(new JPanel(new BorderLayout()));
-
-		panel.add(label);
-
-		panel.add(new JPanel());
-		panel.add(new JPanel());
-		panel.add(new JPanel());
-		panel.add(new JPanel());
-		panel.add(new JPanel());
-
-		JPanel colorSquare = new JPanel(new BorderLayout());
-		colorSquare.setBorder(BorderFactory.createMatteBorder(5, 30, 5, 5,
-				EstimationGrid.getNonInfestedColor()));
-		colorSquare.setBackground(EstimationGrid.getNonInfestedColor());
-
-		// panel.add(colorSquare , BorderLayout.EAST) ;
-
-		panel.add(colorSquare);
-
-		return panel;
-	}
 
 	public static void main(String[] args) {
 
