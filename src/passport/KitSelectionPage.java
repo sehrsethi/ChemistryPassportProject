@@ -23,6 +23,8 @@ import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
+import main.ChemistryPassportGUI;
+import beetle_kit.BeetleKitApplication;
 import user.User;
 
 /**
@@ -34,6 +36,8 @@ import user.User;
 public class KitSelectionPage extends JPanel {
 
 	// TODO There is a weird grey border around the kitButtonPanel. Look into that
+	
+	private ChemistryPassportGUI mainGUI;
 	
 	// The font for the name of the kit on each button
 	private static final Font BUTTON_FONT = new Font("Times New Roman",
@@ -64,6 +68,8 @@ public class KitSelectionPage extends JPanel {
 				Passport.PAGE_HEIGHT));
 		this.setMinimumSize(new Dimension(Passport.PAGE_WIDTH,
 				Passport.PAGE_HEIGHT));
+		
+		mainGUI = passort.getChemGUI();
 
 		kitButtonsList = new ArrayList<JButton>();
 
@@ -206,6 +212,12 @@ public class KitSelectionPage extends JPanel {
 				// TODO : Something needs to happen when a kit button is added
 				
 				System.out.println(kitButton.getText());
+				
+				//Will need to make this more generic
+				//if ()
+				//new BeetleKitApplication();
+				
+				mainGUI.goToCard(ChemistryPassportGUI.BEETLE_KIT_TEXT);
 
 			}
 		});
@@ -294,7 +306,7 @@ public class KitSelectionPage extends JPanel {
 
 		// Add the passport to the frame--will need to figure out
 		// how to do the name getting part
-		frame.getContentPane().add(new KitSelectionPage(new Passport(user)));
+//		frame.getContentPane().add(new KitSelectionPage(new Passport(user, this)));
 
 		// Set the size to the specified page size
 		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);

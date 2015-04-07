@@ -48,10 +48,10 @@ public class KitPage extends JPanel {
 	// or we could have standardized file names (e.g., sticker_[KIT NAME].png)
 
 	// The name/location of the image this page shows
-	// private static final String IMAGE_FILE = "images//logo.png";
+	 private static final String IMAGE_FILE = "images//logo.png";
 
 	// The name/location of the image this page shows
-	private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
+	//private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
 
 	// The icon that displays when the user hasn't earned this sticker
 	private static final String EMPTY_IMAGE_FILE = "src//images//nosticker.png";
@@ -609,8 +609,8 @@ public class KitPage extends JPanel {
 
 		// Add the passport to the frame--will need to figure out
 		// how to do the name getting part
-		frame.getContentPane().add(
-				new KitPage("Bark Beetle", new Passport(user), false));
+//		frame.getContentPane().add(
+//				new KitPage("Bark Beetle", new Passport(user, this), false));
 
 		// Set the size to the specified page size
 		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);

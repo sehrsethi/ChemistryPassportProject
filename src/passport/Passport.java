@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import main.ChemistryPassportGUI;
 import user.User;
 
 /**
@@ -25,6 +26,8 @@ public class Passport extends JPanel implements MouseListener {
 	// Every page should take title of kit
 	// Page could need add sticker method
 	// Use logo.png as sticker for now, or get beetle thing
+	
+	private ChemistryPassportGUI chemGUI;
 
 	// The user (child) that the passport belongs to
 	private User user;
@@ -33,7 +36,7 @@ public class Passport extends JPanel implements MouseListener {
 	private String userName;
 
 	// The width of the page of the passport
-	public static final int PAGE_WIDTH = 500;
+	public static final int PAGE_WIDTH = 550;
 
 	// The height of the page of the passport
 	public static final int PAGE_HEIGHT = 650;
@@ -82,9 +85,12 @@ public class Passport extends JPanel implements MouseListener {
 	 * 
 	 * @param user
 	 *            TODO The user for whom this passport is being created
+	 * @param passportGUI TODO
 	 */
-	public Passport(User user) {
+	public Passport(User user, ChemistryPassportGUI chemGUI) {
 
+		this.chemGUI = chemGUI;
+		
 		this.user = user;
 
 		// Save the child's name (will be needed for various pages)
@@ -130,6 +136,10 @@ public class Passport extends JPanel implements MouseListener {
 
 	}
 
+	public ChemistryPassportGUI getChemGUI(){
+		return chemGUI;
+	}
+	
 	/**
 	 * Add the page with the specified name to the list of page names
 	 * 

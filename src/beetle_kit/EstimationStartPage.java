@@ -28,11 +28,11 @@ public class EstimationStartPage extends JPanel {
 
 	private static final String DEFAULT_TEXT = "Default (Non- colorblind)";
 
-	private static final String PROTANOPIA_TEXT = "Protanopia (Red-Blue-Green Colorblindness)";
+	private static final String RED_BLUE_GREEN_TEXT = "Red-Blue-Green Colorblindness";
 
-	private static final String DEUTERANOPIA_TEXT = "Deuteranopia (Red-Green Colorblindness)";
+	private static final String RED_GREEN_TEXT = "Red-Green Colorblindness";
 
-	private static final String TRITANOPTIA_TEXT = "Tritanopia (Blue-Yellow Colorblindness)";
+	private static final String BLUE_YELLOW_TEXT = "Blue-Yellow Colorblindness";
 
 	private String mode = DEFAULT_TEXT;
 	
@@ -90,8 +90,8 @@ public class EstimationStartPage extends JPanel {
 
 		JPanel panel = new JPanel(new BorderLayout());
 
-		String[] comboChoices = { DEFAULT_TEXT, PROTANOPIA_TEXT,
-				DEUTERANOPIA_TEXT, TRITANOPTIA_TEXT };
+		String[] comboChoices = { DEFAULT_TEXT, RED_BLUE_GREEN_TEXT,
+				RED_GREEN_TEXT, BLUE_YELLOW_TEXT };
 
 		final JComboBox<String> comboBox = new JComboBox<String>(comboChoices);
 
@@ -195,17 +195,17 @@ public class EstimationStartPage extends JPanel {
 
 			return Color.RED;
 
-		} else if (mode.equals(PROTANOPIA_TEXT)) {
+		} else if (mode.equals(RED_BLUE_GREEN_TEXT)) {
 
 			// hex value : 6094ff
 			return new Color(96, 148, 255);
 
-		} else if (mode.equals(DEUTERANOPIA_TEXT)) {
+		} else if (mode.equals(RED_GREEN_TEXT)) {
 
 			// hex value : 008ce2
 			return new Color(0, 140, 226);
 
-		} else if (mode.equals(TRITANOPTIA_TEXT)) {
+		} else if (mode.equals(BLUE_YELLOW_TEXT)) {
 
 			// hex value : fe1c00
 			return new Color(254, 28, 0);
@@ -231,17 +231,17 @@ public class EstimationStartPage extends JPanel {
 
 			return Color.GREEN;
 
-		} else if (mode.equals(PROTANOPIA_TEXT)) {
+		} else if (mode.equals(RED_BLUE_GREEN_TEXT)) {
 
 			// hex value : ffe41c
 			return new Color(255, 228, 28);
 
-		} else if (mode.equals(DEUTERANOPIA_TEXT)) {
+		} else if (mode.equals(RED_GREEN_TEXT)) {
 
 			// hex value : f6c600
 			return new Color(246, 198, 0);
 
-		} else if (mode.equals(TRITANOPTIA_TEXT)) {
+		} else if (mode.equals(BLUE_YELLOW_TEXT)) {
 
 			// hex value : 7aedff
 			return new Color(122, 237, 255);

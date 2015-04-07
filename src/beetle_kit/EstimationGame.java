@@ -49,11 +49,15 @@ public class EstimationGame extends JPanel {
 							"Great! You have completed the Estimation Game! You now get a sticker!!!");
 
 			return;
+			
+			
+			//Go to passport Card
+			//Then go to page we want
 		}
 
 		//EstimationStartPage startPage = new EstimationStartPage();
 
-		EstimationGrid grid = new EstimationGrid("5",
+		EstimationGrid grid = new EstimationGrid("2",
 				BeetleKitApplication.getStartPage().getInfestedColor(), BeetleKitApplication.getStartPage().getNonInfestedColor());
 
 		grid.fillTreeArray();

@@ -23,7 +23,7 @@ public class PassportApplet extends JApplet{
 		
 		User user = new User("user name", "long Fake Name Fake", "K", kitProgress) ;
 		
-		this.add(new Passport(user)) ;
+//		this.add(new Passport(user, this)) ;
 	}
 
 }
