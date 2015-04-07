@@ -35,6 +35,8 @@ public class EstimationStartPage extends JPanel {
 	private static final String TRITANOPTIA_TEXT = "Tritanopia (Blue-Yellow Colorblindness)";
 
 	private String mode = DEFAULT_TEXT;
+	
+	private BeetleKitApplication beetleKitApplication ;
 
 	// colors in default mode
 	private Color infestedColor = Color.RED;
@@ -43,8 +45,11 @@ public class EstimationStartPage extends JPanel {
 
 	/**
 	 * Creates the Start Page
+	 * @param beetleKitApplication TODO
 	 */
-	public EstimationStartPage() {
+	public EstimationStartPage(BeetleKitApplication beetleKitApplication) {
+		
+		this.beetleKitApplication = beetleKitApplication ;
 
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
 
@@ -57,6 +62,8 @@ public class EstimationStartPage extends JPanel {
 		addComboBox();
 
 		addStartButton();
+		
+		addResumeButton();
 
 	}
 
@@ -122,7 +129,7 @@ public class EstimationStartPage extends JPanel {
 	}
 
 	/**
-	 * Adds a "Sttart" button. Clicking on this button lets the user resume the
+	 * Adds a "Start" button. Clicking on this button lets the user resume the
 	 * game.
 	 */
 	private void addStartButton() {
@@ -135,6 +142,11 @@ public class EstimationStartPage extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				System.out.println("Should be starting now");
+				
+				// create the game only when the user wants to start playing. otherwise the colors are not chosen properly
+				beetleKitApplication.createEstimationGame();
+				
+				beetleKitApplication.nextPage();
 
 			}
 		});
@@ -142,6 +154,32 @@ public class EstimationStartPage extends JPanel {
 		// add(startButton, BorderLayout.SOUTH);
 
 		add(startButton);
+	}
+	
+	/**
+	 * Adds a "Resume" button. Clicking on this button lets the user resume the
+	 * game. 
+	 * 
+	 * TODO : Might need to read from database whether or not the user can resume. Changes in other classes will have to be made if we decide to add this feature
+	 */
+	private void addResumeButton() {
+
+		JButton resumeButton = new JButton("Resume");
+
+		resumeButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				System.out.println("Resume");
+				
+			
+			}
+		});
+
+
+
+		add(resumeButton);
 	}
 
 	/**
@@ -230,7 +268,7 @@ public class EstimationStartPage extends JPanel {
 		frame.setSize(605, 671);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.getContentPane().add(new EstimationStartPage());
+//		frame.getContentPane().add(new EstimationStartPage(this));
 
 		// Make the frame visible
 		frame.setVisible(true);

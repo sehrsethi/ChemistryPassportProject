@@ -18,14 +18,14 @@ import javax.swing.JPanel;
  * @version April 6, 2015
  *
  */
-public class EstimationGameApplication extends JPanel {
+public class EstimationGame extends JPanel {
 
 	private static final int MAX_NUM_ROUNDS = 3;
 	private int currentGridNum;
 	private GridView currentGridView;
 	private AnswerPanel currentAnswerPanel;
 
-	public EstimationGameApplication() {
+	public EstimationGame() {
 
 		currentGridNum = 1;
 
@@ -51,10 +51,10 @@ public class EstimationGameApplication extends JPanel {
 			return;
 		}
 
-		EstimationStartPage startPage = new EstimationStartPage();
+		//EstimationStartPage startPage = new EstimationStartPage();
 
 		EstimationGrid grid = new EstimationGrid("5",
-				startPage.getInfestedColor(), startPage.getNonInfestedColor());
+				BeetleKitApplication.getStartPage().getInfestedColor(), BeetleKitApplication.getStartPage().getNonInfestedColor());
 
 		grid.fillTreeArray();
 
@@ -174,25 +174,25 @@ public class EstimationGameApplication extends JPanel {
 		return panel;
 	}
 
-
-	public static void main(String[] args) {
-
-		// Create a JFrame for the application and give it a size and close
-		// operation
-		JFrame frame = new JFrame("Estimation game");
-		frame.setSize(605, 723);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		frame.getContentPane().add(new EstimationGameApplication());
-
-		// Make the frame visible
-		frame.setVisible(true);
-
-		frame.setResizable(false);
-
-		// close operation
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	}
+//
+//	public static void main(String[] args) {
+//
+//		// Create a JFrame for the application and give it a size and close
+//		// operation
+//		JFrame frame = new JFrame("Estimation game");
+//		frame.setSize(605, 723);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//		frame.getContentPane().add(new EstimationGameApplication());
+//
+//		// Make the frame visible
+//		frame.setVisible(true);
+//
+//		frame.setResizable(false);
+//
+//		// close operation
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//	}
 
 }

@@ -15,7 +15,7 @@ public class EstimationApplet extends JApplet {
 	
 		this.setSize(598, 680);
 		
-		this.getContentPane().add(new EstimationGameApplication() ) ;
+		this.getContentPane().add(new EstimationGame() ) ;
 		
 		this.setVisible(true);
 		

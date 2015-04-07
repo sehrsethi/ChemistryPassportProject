@@ -56,7 +56,7 @@ public class AnswerPanel extends JPanel {
 	// Whether they have correctly guessed the number of infested trees
 	private boolean infCorrect;
 	
-	private final EstimationGameApplication controller;
+	private final EstimationGame controller;
 
 	/**
 	 * Constructs a panel that lets user's input their answers, checks their
@@ -68,7 +68,7 @@ public class AnswerPanel extends JPanel {
 	 *            The Visual representation of the Estimation Grid
 	 * @param controller TODO
 	 */
-	public AnswerPanel(EstimationGrid grid, GridView gridView, EstimationGameApplication controller) {
+	public AnswerPanel(EstimationGrid grid, GridView gridView, EstimationGame controller) {
 
 		this.controller = controller;
 		// Initially, the user hasn't guessed anything correctly
