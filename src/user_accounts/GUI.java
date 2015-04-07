@@ -13,6 +13,8 @@ import javax.swing.JSeparator;
 
 public class GUI extends JPanel {
 	
+	//Still need to fix issue with royal and writing to file
+	//as well as automatically changing file permissions
 	
 	public GUI(){
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

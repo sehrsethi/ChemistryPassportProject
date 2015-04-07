@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 /**
  * This class start the Beetle Kit
- * @author Humaira Orchee, Charlotte Dye, Seh Sethis
+ * @author Humaira Orchee, Charlotte Dye, Sehr Sethi
  * @version April 7, 2015
  */
 public class BeetleKitApplication extends JPanel {

@@ -29,7 +29,7 @@ public class IntroductionPage extends JPanel {
 	// The name/location of the image this page shows
 	// private static final String IMAGE_FILE = "images//logo.png"; 
 
-	// The name/location of the image this page shows
+	// The name/location of the image this page shows--we need to change this
 	private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
 
 	// The font for the header (the part that says PASSPORT)
