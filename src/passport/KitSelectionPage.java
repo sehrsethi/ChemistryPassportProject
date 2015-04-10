@@ -23,8 +23,10 @@ import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
+import main.ChemGetPropertyValues;
 import main.ChemistryPassportGUI;
-import beetle_kit.BeetleKitApplication;
+import main.Kit;
+import beetle_kit.BeetleKit;
 import user.User;
 
 /**
@@ -51,6 +53,10 @@ public class KitSelectionPage extends JPanel {
 
 	// The list of buttons corresponding to the kits in this project
 	private ArrayList<JButton> kitButtonsList;
+	
+	// name of all the kits in the Chemistry Passport Project
+	private String[] kitNames ;
+	
 
 	/**
 	 * Creates a passport page allows the user to select the kit they want to work on 
@@ -72,6 +78,8 @@ public class KitSelectionPage extends JPanel {
 		mainGUI = passort.getChemGUI();
 
 		kitButtonsList = new ArrayList<JButton>();
+		
+		kitNames = ChemGetPropertyValues.getKitNames() ;
 
 		// adds the text "Choose Your Kit!"
 		addHeader();
@@ -208,22 +216,62 @@ public class KitSelectionPage extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+				for(int i = 0 ; i < kitNames.length ; i++){
+					
+					if(kitButton.getText().equals(kitNames[i])){
+						
+						activateKit(kitNames[i]);
+					}
+				}
 
-				// TODO : Something needs to happen when a kit button is added
 				
-				System.out.println(kitButton.getText());
-				
-				//Will need to make this more generic
-				//if ()
-				//new BeetleKitApplication();
-				
-				mainGUI.goToCard(ChemistryPassportGUI.BEETLE_KIT_TEXT);
 
 			}
 		});
 
 	}
 
+	/**
+	 * Called by the action listener of the kit buttons to start the kit
+	 */
+	private void activateKit(String kitName){
+		
+		try {
+			
+			System.out.println(kitName);
+			
+			//System.out.println(Class.forName("Passport"));
+			
+			//Temporary
+			//System.out.println(Class.forName("BeetleKit"));
+			
+			//Get an instance of the kit corresponding to kitName
+			Kit kit = (Kit) Class.forName(kitName).newInstance() ;
+			
+			//Start the kit!
+			kit.startKit();
+			
+			//Add to CardLayout
+			mainGUI.add(kit,kitName);
+			
+			//Load in CardLayout
+			mainGUI.goToCard(kitName);
+			
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Removes the button corresponding to the kit that is to be removed
 	 * @param kitName The name of the kit to be removed

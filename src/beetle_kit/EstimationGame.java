@@ -58,7 +58,7 @@ public class EstimationGame extends JPanel {
 		//EstimationStartPage startPage = new EstimationStartPage();
 
 		EstimationGrid grid = new EstimationGrid("2",
-				BeetleKitApplication.getStartPage().getInfestedColor(), BeetleKitApplication.getStartPage().getNonInfestedColor());
+				BeetleKit.getStartPage().getInfestedColor(), BeetleKit.getStartPage().getNonInfestedColor());
 
 		grid.fillTreeArray();
 

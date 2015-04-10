@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import beetle_kit.BeetleKitApplication;
+import beetle_kit.BeetleKit;
 import passport.Passport;
 import user.User;
 
@@ -16,8 +16,10 @@ public class ChemistryPassportGUI extends JPanel{
 	
 	private static final String PASSPORT_TEXT = "Passport";
 	
-	public static final String BEETLE_KIT_TEXT = "Beetle Kit";
-
+	//public static final String BEETLE_KIT_TEXT = "Beetle Kit";
+	
+	
+	
 	public ChemistryPassportGUI(){
 		this.setLayout(CARD_LAYOUT);
 		
@@ -32,7 +34,7 @@ public class ChemistryPassportGUI extends JPanel{
 		this.add(new Passport(user, this), PASSPORT_TEXT) ;
 		
 		//Add the beetle kit
-		this.add(new BeetleKitApplication(), BEETLE_KIT_TEXT);
+		//this.add(new BeetleKitApplication(), BEETLE_KIT_TEXT);
 	}
 	
 	public void nextCard(){

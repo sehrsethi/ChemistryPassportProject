@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import main.ChemGetPropertyValues;
 import main.ChemistryPassportGUI;
 import user.User;
 
@@ -128,12 +129,24 @@ public class Passport extends JPanel implements MouseListener {
 		// it automatically adds the pages for all the existing kits. For now,
 		// add them manually as examples
 
-		addPage("Bark Beetle", false);
+		//addPage("Bark Beetle", false);
 
-		addPage("Example", true);
+		//addPage("Example", true);
 
-		addPage("Example 2", false);
+		//addPage("Example 2", false);
+		
+		addExistingKitPages();
 
+	}
+	
+	private void addExistingKitPages(){
+		String[] kitNames = ChemGetPropertyValues.getKitNames();
+		
+		for (int i = 0; i < kitNames.length; i++){
+			
+			//Will have to change the false
+			addPage(kitNames[i],false);
+		}
 	}
 
 	public ChemistryPassportGUI getChemGUI(){

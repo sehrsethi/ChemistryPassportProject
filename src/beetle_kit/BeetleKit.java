@@ -5,12 +5,15 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import main.Kit;
+
 /**
  * This class start the Beetle Kit
+ * 
  * @author Humaira Orchee, Charlotte Dye, Sehr Sethi
  * @version April 7, 2015
  */
-public class BeetleKitApplication extends JPanel {
+public class BeetleKit extends Kit {
 
 	// The layout for the kit
 	public static final CardLayout CARD_LAYOUT = new CardLayout();
@@ -19,41 +22,32 @@ public class BeetleKitApplication extends JPanel {
 
 	private static final String ESTIMATION_PAGE = "Estimation Page";
 
-	private static EstimationStartPage startPage ;
+	private static EstimationStartPage startPage;
 
-	public BeetleKitApplication() {
-		
-		startPage = new EstimationStartPage(this);
-
+	public BeetleKit() {
 		this.setLayout(CARD_LAYOUT);
 
-		// EstimationStartPage startPage = new EstimationStartPage();
-
-		EstimationGame app = new EstimationGame();
-
-		add(startPage, START_PAGE_NAME);
-
-		//add(app, ESTIMATION_PAGE);
+		// add(app, ESTIMATION_PAGE);
 	}
-	
-	public void nextPage(){
-		
+
+	public void nextPage() {
+
 		CARD_LAYOUT.next(this);
-		
-		repaint() ;
+
+		repaint();
 	}
-	
-	public void prevPage(){
-		
+
+	public void prevPage() {
+
 		CARD_LAYOUT.previous(this);
-		
-		repaint() ;
+
+		repaint();
 	}
-	
-	public void createEstimationGame(){
-		
+
+	public void createEstimationGame() {
+
 		EstimationGame app = new EstimationGame();
-		
+
 		add(app, ESTIMATION_PAGE);
 
 	}
@@ -70,7 +64,7 @@ public class BeetleKitApplication extends JPanel {
 		frame.setSize(605, 723);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.getContentPane().add(new BeetleKitApplication());
+		frame.getContentPane().add(new BeetleKit());
 
 		// Make the frame visible
 		frame.setVisible(true);
@@ -79,6 +73,23 @@ public class BeetleKitApplication extends JPanel {
 
 		// close operation
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	}
+
+	@Override
+	public String getKitName() {
+
+		return "Beetle Kit";
+	}
+
+	@Override
+	public void startKit() {
+		
+		//Create the start page
+		startPage = new EstimationStartPage(this);
+
+		//Add the start page to the CardLayout
+		add(startPage, START_PAGE_NAME);
 
 	}
 

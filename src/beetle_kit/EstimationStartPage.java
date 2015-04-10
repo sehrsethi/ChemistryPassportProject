@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 /**
- * The page that lets the user choose the defaul mode or one of the three
+ * The page that lets the user choose the default mode or one of the three
  * color-blind modes and allows them to start playing the game
  * 
  * @author Humaira Orchee, Sharlotte Dye, Sehr Sethi
@@ -36,7 +36,7 @@ public class EstimationStartPage extends JPanel {
 
 	private String mode = DEFAULT_TEXT;
 	
-	private BeetleKitApplication beetleKitApplication ;
+	private BeetleKit beetleKit ;
 
 	// colors in default mode
 	private Color infestedColor = Color.RED;
@@ -45,11 +45,11 @@ public class EstimationStartPage extends JPanel {
 
 	/**
 	 * Creates the Start Page
-	 * @param beetleKitApplication TODO
+	 * @param beetleKit TODO
 	 */
-	public EstimationStartPage(BeetleKitApplication beetleKitApplication) {
+	public EstimationStartPage(BeetleKit beetleKit) {
 		
-		this.beetleKitApplication = beetleKitApplication ;
+		this.beetleKit = beetleKit ;
 
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
 
@@ -144,9 +144,9 @@ public class EstimationStartPage extends JPanel {
 				System.out.println("Should be starting now");
 				
 				// create the game only when the user wants to start playing. otherwise the colors are not chosen properly
-				beetleKitApplication.createEstimationGame();
+				beetleKit.createEstimationGame();
 				
-				beetleKitApplication.nextPage();
+				beetleKit.nextPage();
 
 			}
 		});
