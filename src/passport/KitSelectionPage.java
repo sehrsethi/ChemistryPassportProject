@@ -31,16 +31,18 @@ import user.User;
 
 /**
  * This passport page allows the user to select the kit they want to work on
+ * 
  * @author Humaira Orchee
- * @version April 4, 2015 
+ * @version April 4, 2015
  *
  */
 public class KitSelectionPage extends JPanel {
 
-	// TODO There is a weird grey border around the kitButtonPanel. Look into that
-	
+	// TODO There is a weird grey border around the kitButtonPanel. Look into
+	// that
+
 	private ChemistryPassportGUI mainGUI;
-	
+
 	// The font for the name of the kit on each button
 	private static final Font BUTTON_FONT = new Font("Times New Roman",
 			Font.BOLD, 24);
@@ -48,19 +50,22 @@ public class KitSelectionPage extends JPanel {
 	// The passport that this page is associated with
 	private Passport passport;
 
-	// The panel that contains the buttons corresponding to the kits in this project
+	// The panel that contains the buttons corresponding to the kits in this
+	// project
 	private JPanel kitButtonPanel;
 
 	// The list of buttons corresponding to the kits in this project
 	private ArrayList<JButton> kitButtonsList;
-	
+
 	// name of all the kits in the Chemistry Passport Project
-	private String[] kitNames ;
-	
+	private String[] kitNames;
 
 	/**
-	 * Creates a passport page allows the user to select the kit they want to work on 
-	 * @param passort The passport that this page is associated with
+	 * Creates a passport page allows the user to select the kit they want to
+	 * work on
+	 * 
+	 * @param passort
+	 *            The passport that this page is associated with
 	 */
 	public KitSelectionPage(Passport passort) {
 
@@ -74,12 +79,12 @@ public class KitSelectionPage extends JPanel {
 				Passport.PAGE_HEIGHT));
 		this.setMinimumSize(new Dimension(Passport.PAGE_WIDTH,
 				Passport.PAGE_HEIGHT));
-		
+
 		mainGUI = passort.getChemGUI();
 
 		kitButtonsList = new ArrayList<JButton>();
-		
-		kitNames = ChemGetPropertyValues.getKitNames() ;
+
+		kitNames = ChemGetPropertyValues.getKitNames();
 
 		// adds the text "Choose Your Kit!"
 		addHeader();
@@ -90,14 +95,15 @@ public class KitSelectionPage extends JPanel {
 		// adds the fwd and back buttons
 		addFwdAndBackButtons();
 
-		//addExistingKitButtons();
+		// addExistingKitButtons();
 
 	}
 
 	/**
 	 * Adds buttons for pages that already exist in the passport.
 	 * 
-	 * TODO Will most probably not need this method since the Passport class should take care of this 
+	 * TODO Will most probably not need this method since the Passport class
+	 * should take care of this
 	 */
 	private void addExistingKitButtons() {
 
@@ -112,7 +118,8 @@ public class KitSelectionPage extends JPanel {
 	}
 
 	/**
-	 * Creates the panel where the button corresponding to kits are and enables scrolling
+	 * Creates the panel where the button corresponding to kits are and enables
+	 * scrolling
 	 */
 	private void initKitButtonPanel() {
 
@@ -192,21 +199,29 @@ public class KitSelectionPage extends JPanel {
 
 	/**
 	 * Adds a button corresponding to the kit just added
-	 * @param kitName The name of the kit added to the passport
+	 * 
+	 * @param kitName
+	 *            The name of the kit added to the passport
 	 */
 	public void addKitButton(String kitName) {
 
 		// create vertical spacing between buttons
 		kitButtonPanel.add(Box.createRigidArea(new Dimension(3, 10)));
 
+		// the kitName also includes the package name and we do not want the
+		// name of the package on the button. So we get rid of the first part of
+		// the text (before the ".") to get just the kit name to put on the
+		// button
+		String buttonName = kitName.substring(kitName.indexOf(".") + 1);
+
 		// create and format button
-		final JButton kitButton = new JButton(kitName);
-		
+		final JButton kitButton = new JButton(buttonName);
+
 		kitButton.setFont(BUTTON_FONT);
 
 		// center button in the BoxLayout
 		kitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
+
 		kitButtonPanel.add(kitButton);
 
 		kitButtonsList.add(kitButton);
@@ -216,18 +231,19 @@ public class KitSelectionPage extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
-				
-				for(int i = 0 ; i < kitNames.length ; i++){
-					
-					if(kitButton.getText().equals(kitNames[i])){
-						
+
+				// go through the kit names available in the program currently
+				// and match the name of the kit with the name of the button to
+				// start the appropriate kit
+				for (int i = 0; i < kitNames.length; i++) {
+
+					if (kitNames[i].contains(kitButton.getText())) {
+
+						System.out.println("activating kit " + kitNames[i]);
+
 						activateKit(kitNames[i]);
 					}
 				}
-
-				
 
 			}
 		});
@@ -237,29 +253,22 @@ public class KitSelectionPage extends JPanel {
 	/**
 	 * Called by the action listener of the kit buttons to start the kit
 	 */
-	private void activateKit(String kitName){
-		
+	private void activateKit(String kitName) {
+
 		try {
-			
-			System.out.println(kitName);
-			
-			//System.out.println(Class.forName("Passport"));
-			
-			//Temporary
-			//System.out.println(Class.forName("BeetleKit"));
-			
-			//Get an instance of the kit corresponding to kitName
-			Kit kit = (Kit) Class.forName(kitName).newInstance() ;
-			
-			//Start the kit!
+
+			// Get an instance of the kit corresponding to kitName
+			Kit kit = (Kit) Class.forName(kitName).newInstance();
+
+			// Start the kit!
 			kit.startKit();
-			
-			//Add to CardLayout
-			mainGUI.add(kit,kitName);
-			
-			//Load in CardLayout
+
+			// Add to CardLayout
+			mainGUI.add(kit, kitName);
+
+			// Load in CardLayout
 			mainGUI.goToCard(kitName);
-			
+
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -271,10 +280,12 @@ public class KitSelectionPage extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Removes the button corresponding to the kit that is to be removed
-	 * @param kitName The name of the kit to be removed
+	 * 
+	 * @param kitName
+	 *            The name of the kit to be removed
 	 */
 	public void removeKitButton(String kitName) {
 
@@ -328,7 +339,6 @@ public class KitSelectionPage extends JPanel {
 			}
 		});
 
-
 		// now add the buttons to the screen
 		buttonPanel.add(backButton);
 		buttonPanel.add(forwardButton);
@@ -337,8 +347,8 @@ public class KitSelectionPage extends JPanel {
 	}
 
 	/**
-	 * Main method for testing
-	 * TODO : remove later
+	 * Main method for testing TODO : remove later
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -354,7 +364,8 @@ public class KitSelectionPage extends JPanel {
 
 		// Add the passport to the frame--will need to figure out
 		// how to do the name getting part
-//		frame.getContentPane().add(new KitSelectionPage(new Passport(user, this)));
+		// frame.getContentPane().add(new KitSelectionPage(new Passport(user,
+		// this)));
 
 		// Set the size to the specified page size
 		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);

@@ -10,12 +10,6 @@ import javax.swing.JPanel;
 public abstract class Kit extends JPanel{
 	
 	/**
-	 * Returns the name of this kit
-	 * @return Name of this kit
-	 */
-	public abstract String getKitName();
-	
-	/**
 	 * Starts the kit
 	 */
 	public abstract void startKit();

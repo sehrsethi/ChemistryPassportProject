@@ -77,12 +77,6 @@ public class BeetleKit extends Kit {
 	}
 
 	@Override
-	public String getKitName() {
-
-		return "Beetle Kit";
-	}
-
-	@Override
 	public void startKit() {
 		
 		//Create the start page
