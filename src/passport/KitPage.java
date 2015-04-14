@@ -388,9 +388,12 @@ public class KitPage extends JPanel {
 	 * 
 	 */
 	private void addKitName() {
+		
+		String pageHeading = pageName.substring(pageName.indexOf(".")+1);
+		
 		// Add the kit name label
 		// Kit name label
-		JLabel kitNameLabel = new JLabel(pageName);
+		JLabel kitNameLabel = new JLabel(pageHeading);
 
 		// Set the font of the child's name
 		kitNameLabel.setFont(KIT_NAME_FONT);

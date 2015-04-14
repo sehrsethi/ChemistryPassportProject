@@ -20,4 +20,10 @@ public class AppleKit extends Kit{
 		
 	}
 
+	@Override
+	public String getButtonName() {
+		// TODO Auto-generated method stub
+		return "Apple Kit";
+	}
+
 }

@@ -7,9 +7,12 @@ import java.util.Properties;
 
 
 public class ChemGetPropertyValues {
-
-	public static String[] getKitNames() {
-
+	
+	private String[] kitClassNames;
+	
+	private String[] kitButtonNames;
+	
+	public ChemGetPropertyValues(){
 		Properties property = new Properties();
 		String propertyFileName = "config/config.properties";
 
@@ -22,19 +25,32 @@ public class ChemGetPropertyValues {
 
 			// Get the property values
 			int numKits = Integer.parseInt(property.getProperty("numKits"));
-
-			String kitNames[] = new String[numKits];
+			
+			kitClassNames = new String[numKits];
+			kitButtonNames = new String[numKits];
 
 			for (int i = 0; i < numKits; i++) {
-				kitNames[i] = property.getProperty("kit" + (i + 1));
+				kitClassNames[i] = property.getProperty("kit" + (i + 1));
+			}
+			for (int j = 0; j < numKits; j++){
+				kitButtonNames[j] = property.getProperty("kit" + (j+1) + "Name");
 			}
 
-			return kitNames;
+			//return kitClassNames;
 		} catch (IOException e) {
 			// TODO Generate proper error message
 			e.printStackTrace();
-			return null;
+			//return null;
 		}
 	}
+	
+	public String[] getKitNames(){
+		return kitClassNames;
+	}
+	
+	public String[] getKitButtonNames(){
+		return kitButtonNames;
+	}
+
 
 }

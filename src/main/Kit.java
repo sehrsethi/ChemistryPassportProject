@@ -13,4 +13,6 @@ public abstract class Kit extends JPanel{
 	 * Starts the kit
 	 */
 	public abstract void startKit();
+	
+	public abstract String getButtonName() ;
 }

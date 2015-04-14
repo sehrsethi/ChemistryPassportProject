@@ -80,6 +80,11 @@ public class Passport extends JPanel implements MouseListener {
 
 	// The currently displayed page
 	private int currentPage = INTRO_PAGE_INDEX;
+	
+	//The ChemGetPropertyValues instance
+	private ChemGetPropertyValues propVals;
+	
+	
 
 	/**
 	 * Create a new passport
@@ -89,6 +94,9 @@ public class Passport extends JPanel implements MouseListener {
 	 * @param passportGUI TODO
 	 */
 	public Passport(User user, ChemistryPassportGUI chemGUI) {
+		
+		//Create the property values
+		propVals = new ChemGetPropertyValues();
 
 		this.chemGUI = chemGUI;
 		
@@ -139,13 +147,22 @@ public class Passport extends JPanel implements MouseListener {
 
 	}
 	
+	/**
+	 * Returns an instance of ChemGetPropertyValues
+	 * @return
+	 */
+	public ChemGetPropertyValues getPropVals(){
+		return propVals;
+	}
+	
 	private void addExistingKitPages(){
-		String[] kitNames = ChemGetPropertyValues.getKitNames();
+		//String[] kitClassNames = propVals.getKitNames();
+		String[] kitButtonNames = propVals.getKitButtonNames();
 		
-		for (int i = 0; i < kitNames.length; i++){
+		for (int i = 0; i < kitButtonNames.length; i++){
 			
 			//Will have to change the false
-			addPage(kitNames[i],false);
+			addPage(kitButtonNames[i],false);
 		}
 	}
 

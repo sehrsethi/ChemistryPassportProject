@@ -87,4 +87,10 @@ public class BeetleKit extends Kit {
 
 	}
 
+	@Override
+	public String getButtonName() {
+		
+		return "Bark Beetle Kit" ;
+	}
+
 }
