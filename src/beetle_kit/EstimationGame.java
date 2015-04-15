@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import main.ChemistryPassportGUI;
+
 /**
  * Chemistry Passport Project Runs the Estimation Game
  * 
@@ -20,12 +22,16 @@ import javax.swing.JPanel;
  */
 public class EstimationGame extends JPanel {
 
-	private static final int MAX_NUM_ROUNDS = 3;
+	private static final int MAX_NUM_ROUNDS = 1;
 	private int currentGridNum;
 	private GridView currentGridView;
 	private AnswerPanel currentAnswerPanel;
+	private BeetleKit beetleKit ;
+	
 
-	public EstimationGame() {
+	public EstimationGame(BeetleKit beetleKit) {
+		
+		this.beetleKit = beetleKit ;
 
 		currentGridNum = 1;
 
@@ -48,6 +54,8 @@ public class EstimationGame extends JPanel {
 					.showMessageDialog(this,
 							"Great! You have completed the Estimation Game! You now get a sticker!!!");
 
+			beetleKit.earnReward();
+			
 			return;
 			
 			
@@ -57,7 +65,7 @@ public class EstimationGame extends JPanel {
 
 		//EstimationStartPage startPage = new EstimationStartPage();
 
-		EstimationGrid grid = new EstimationGrid("5",
+		EstimationGrid grid = new EstimationGrid("K",
 				BeetleKit.getStartPage().getInfestedColor(), BeetleKit.getStartPage().getNonInfestedColor());
 
 		grid.fillTreeArray();

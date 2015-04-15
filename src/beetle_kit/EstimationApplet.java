@@ -11,19 +11,19 @@ import javax.swing.JApplet;
  */
 public class EstimationApplet extends JApplet {
 	
-	public void init(){		
-	
-		this.setSize(598, 680);
-		
-		this.getContentPane().add(new EstimationGame() ) ;
-		
-		this.setVisible(true);
-		
-		this.setMaximumSize(new Dimension(598, 680));
-		
-		this.setMinimumSize(new Dimension(598, 680));
-
-		
-	}
+//	public void init(){		
+//	
+//		this.setSize(598, 680);
+//		
+//		this.getContentPane().add(new EstimationGame(this) ) ;
+//		
+//		this.setVisible(true);
+//		
+//		this.setMaximumSize(new Dimension(598, 680));
+//		
+//		this.setMinimumSize(new Dimension(598, 680));
+//
+//		
+//	}
 
 }

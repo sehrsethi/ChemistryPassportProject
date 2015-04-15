@@ -21,7 +21,7 @@ import javax.swing.JTextArea;
  * The page that lets the user choose the default mode or one of the three
  * color-blind modes and allows them to start playing the game
  * 
- * @author Humaira Orchee, Sharlotte Dye, Sehr Sethi
+ * @author Humaira Orchee, Charlotte Dye, Sehr Sethi
  * @version April 6, 2015
  */
 public class EstimationStartPage extends JPanel {

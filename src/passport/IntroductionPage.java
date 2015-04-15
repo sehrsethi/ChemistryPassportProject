@@ -27,10 +27,10 @@ public class IntroductionPage extends JPanel {
 	private static final int PAGE_HEIGHT = 700;
 
 	// The name/location of the image this page shows
-	 private static final String IMAGE_FILE = "images//logo.png"; 
+	// private static final String IMAGE_FILE = "images//logo.png"; 
 
 	// The name/location of the image this page shows--we need to change this
-	//private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
+	private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
 
 	// The font for the header (the part that says PASSPORT)
 	private static final Font HEADER_FONT = new Font("Times New Roman",
@@ -89,7 +89,7 @@ public class IntroductionPage extends JPanel {
 		this.childName = passport.getUserName();
 
 		// Set the layout to FlowLayout
-		this.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 15));
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 15));
 
 		// Set the size
 		// this.setSize(new Dimension(Passport.PAGE_WIDTH,
@@ -331,28 +331,28 @@ public class IntroductionPage extends JPanel {
 		add(buttonPanel);
 	}
 
-	/**
-	 * For testing
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		JFrame frame = new JFrame();
-
-		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
-		kitProgress.add(5);
-
-		User user = new User("user name", "long Fake Name Fake name", "K",
-				kitProgress);
-
-//		frame.getContentPane().add(new IntroductionPage(new Passport(user, this)));
-
-		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
-
-		frame.setVisible(true);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+//	/**
+//	 * For testing
+//	 * 
+//	 * @param args
+//	 */
+//	public static void main(String[] args) {
+//
+//		JFrame frame = new JFrame();
+//
+//		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
+//		kitProgress.add(5);
+//
+//		User user = new User("user name", "long Fake Name Fake name", "K",
+//				kitProgress);
+//
+////		frame.getContentPane().add(new IntroductionPage(new Passport(user, this)));
+//
+//		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
+//
+//		frame.setVisible(true);
+//
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	}
 
 }

@@ -9,6 +9,24 @@ import javax.swing.JPanel;
  */
 public abstract class Kit extends JPanel{
 	
+	protected ChemistryPassportGUI mainGUI ;
+	
+	public Kit(ChemistryPassportGUI mainGUI) {
+	
+		this.mainGUI = mainGUI ;
+	}
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public ChemistryPassportGUI getMainGUI(){
+		
+		return mainGUI ;
+	}
+
+	
 	/**
 	 * Starts the kit
 	 */

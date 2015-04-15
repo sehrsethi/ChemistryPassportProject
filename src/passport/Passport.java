@@ -37,10 +37,10 @@ public class Passport extends JPanel implements MouseListener {
 	private String userName;
 
 	// The width of the page of the passport
-	public static final int PAGE_WIDTH = 550;
+	public static final int PAGE_WIDTH = 622;
 
 	// The height of the page of the passport
-	public static final int PAGE_HEIGHT = 650;
+	public static final int PAGE_HEIGHT = 738;
 
 	// set a border around it
 	public static final Border BORDER = BorderFactory.createLineBorder(
@@ -374,6 +374,28 @@ public class Passport extends JPanel implements MouseListener {
 		revalidate();
 		repaint();
 	}
+	
+	/**
+	 * 
+	 * @param pageName
+	 * @return
+	 */
+	public KitPage getKitPage(String pageName){
+		
+		for(int i = 0 ; i < kitPages.size() ; i++){
+			
+			System.out.println("name " + pageName + "***");
+			
+			if(kitPages.get(i).getPageName().equalsIgnoreCase(pageName)){
+				
+				return kitPages.get(i) ;
+			}
+		}
+		
+		// TODO : catch for null pointer exception later
+		return null ;
+	}
+	
 
 	// public static void main(String[] args) {
 	//

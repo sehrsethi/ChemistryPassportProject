@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -58,12 +59,13 @@ public class KitSelectionPage extends JPanel {
 	private ArrayList<JButton> kitButtonsList;
 
 	// name of all the kits in the Chemistry Passport Project
-	//private String[] kitNames;
-	
-	//Names of the classes of all the kits in the Chemistry Passport Project
+	// private String[] kitNames;
+
+	// Names of the classes of all the kits in the Chemistry Passport Project
 	private String[] kitClassNames;
-	
-	//Names of the buttons for all of the kits in the Chemistry Passport Project
+
+	// Names of the buttons for all of the kits in the Chemistry Passport
+	// Project
 	private String[] kitButtonNames;
 
 	/**
@@ -90,19 +92,19 @@ public class KitSelectionPage extends JPanel {
 
 		kitButtonsList = new ArrayList<JButton>();
 
-		//kitNames = passort.getPropVals().getKitNames();
+		// kitNames = passort.getPropVals().getKitNames();
 
-		//Get the names of the kit classes
+		// Get the names of the kit classes
 		kitClassNames = passort.getPropVals().getKitNames();
-		
-		//Get the titles of the kits (the text displayed on the buttons)
+
+		// Get the titles of the kits (the text displayed on the buttons)
 		kitButtonNames = passort.getPropVals().getKitButtonNames();
-		
-		//Temp
-		//for (int i = 0; i < kitButtonNames.length; i++){
-		//	System.out.println(kitButtonNames[i]);
-		//}
-		
+
+		// Temp
+		// for (int i = 0; i < kitButtonNames.length; i++){
+		// System.out.println(kitButtonNames[i]);
+		// }
+
 		// adds the text "Choose Your Kit!"
 		addHeader();
 
@@ -128,11 +130,11 @@ public class KitSelectionPage extends JPanel {
 
 		// start at index 2 because index 0 contains name of first page and
 		// index 1 contains the name of the kit selection page
-		//for (int i = 2; i < kitNames.size(); i++) {
-		for (int i = 0; i < kitButtonNames.length; i++){
-		
-			//addKitButton(kitNames.get(i));
-			
+		// for (int i = 2; i < kitNames.size(); i++) {
+		for (int i = 0; i < kitButtonNames.length; i++) {
+
+			// addKitButton(kitNames.get(i));
+
 			addKitButton(kitButtonNames[i]);
 		}
 	}
@@ -232,12 +234,12 @@ public class KitSelectionPage extends JPanel {
 		// name of the package on the button. So we get rid of the first part of
 		// the text (before the ".") to get just the kit name to put on the
 		// button
-		//String buttonName = kitName.substring(kitName.indexOf(".") + 1);
+		// String buttonName = kitName.substring(kitName.indexOf(".") + 1);
 
 		// create and format button
-		//final JButton kitButton = new JButton(buttonName);
+		// final JButton kitButton = new JButton(buttonName);
 		final JButton kitButton = new JButton(kitButtonName);
-		
+
 		kitButton.setFont(BUTTON_FONT);
 
 		// center button in the BoxLayout
@@ -256,15 +258,16 @@ public class KitSelectionPage extends JPanel {
 				// go through the kit names available in the program currently
 				// and match the name of the kit with the name of the button to
 				// start the appropriate kit
-				//for (int i = 0; i < kitNames.length; i++) {
+				// for (int i = 0; i < kitNames.length; i++) {
 
-				for (int i = 0; i < kitButtonNames.length; i++){
-					//if (kitNames[i].contains(kitButton.getText())) {
+				for (int i = 0; i < kitButtonNames.length; i++) {
+					// if (kitNames[i].contains(kitButton.getText())) {
 
-					if(kitButtonNames[i].contains(kitButton.getText())){
-						//System.out.println("activating kit " + kitNames[i]);
-						System.out.println("activating kit "+kitButtonNames[i]);
-						
+					if (kitButtonNames[i].contains(kitButton.getText())) {
+						// System.out.println("activating kit " + kitNames[i]);
+						System.out.println("activating kit "
+								+ kitButtonNames[i]);
+
 						activateKit(kitClassNames[i]);
 					}
 				}
@@ -282,7 +285,11 @@ public class KitSelectionPage extends JPanel {
 		try {
 
 			// Get an instance of the kit corresponding to kitName
-			Kit kit = (Kit) Class.forName(kitName).newInstance();
+			// Kit kit = (Kit) Class.forName(kitName).newInstance();
+
+			Kit kit = (Kit) Class.forName(kitName)
+					.getDeclaredConstructor(ChemistryPassportGUI.class)
+					.newInstance(mainGUI);
 
 			// Start the kit!
 			kit.startKit();
@@ -293,7 +300,19 @@ public class KitSelectionPage extends JPanel {
 			// Load in CardLayout
 			mainGUI.goToCard(kitName);
 
-		} catch (InstantiationException e) {
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

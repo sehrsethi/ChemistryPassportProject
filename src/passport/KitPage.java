@@ -48,10 +48,10 @@ public class KitPage extends JPanel {
 	// or we could have standardized file names (e.g., sticker_[KIT NAME].png)
 
 	// The name/location of the image this page shows
-	 private static final String IMAGE_FILE = "images//logo.png";
+	// private static final String IMAGE_FILE = "images//logo.png";
 
 	// The name/location of the image this page shows
-	//private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
+	private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
 
 	// The icon that displays when the user hasn't earned this sticker
 	private static final String EMPTY_IMAGE_FILE = "src//images//nosticker.png";
@@ -71,7 +71,7 @@ public class KitPage extends JPanel {
 	private static final Color BACKGROUND_COLOR = Color.WHITE;
 
 	// The coordinates of the sticker are updated every DELAY milliseconds
-	private static final int DELAY = 4;
+	private static final int DELAY = 2;
 
 	// If the sticker never reaches its final destination, then stop the
 	// animation after a certain period of time has passed
@@ -105,8 +105,8 @@ public class KitPage extends JPanel {
 	private double finalY;
 
 	// The amount by which the coordinates of the sticker change
-	private double animationConstantX = -1;
-	private double animationConstantY = 1.5;
+	private double animationConstantX = -3;
+	private double animationConstantY = 5;
 
 	// allows a little flexibility so that when the image is near the center of
 	// the screen (and not necessarily at the very center) the animation stops
@@ -127,6 +127,9 @@ public class KitPage extends JPanel {
 
 	// The passport this KitPage belongs to
 	private Passport passport;
+	
+	// button to play reward game
+	private JButton rewardButton = new JButton("Play Reward Game") ; ;
 
 	/**
 	 * Creates a new page for the kit
@@ -138,6 +141,8 @@ public class KitPage extends JPanel {
 	 *            Whether the sticker should be displayed
 	 */
 	public KitPage(String pageName, Passport passport, boolean showSticker) {
+		
+		System.out.println("page Name " + pageName);
 
 		// Note whether we should show the sticker
 		this.showSticker = showSticker;
@@ -218,6 +223,8 @@ public class KitPage extends JPanel {
 		if (showSticker) {
 
 			imageIcon.paintIcon(this, g, (int) finalX, (int) finalY);
+			
+			enableRewardButton();
 
 		} else if (!showSticker) {
 
@@ -273,10 +280,14 @@ public class KitPage extends JPanel {
 		// Add the child's name
 		addChildName();
 
+		this.add(Box.createRigidArea(new Dimension(1, 50)));
+
+		addRewardButton();
+		
 		this.add(Box.createRigidArea(new Dimension(10, 50)));
-
-		addButtons();
-
+		
+		addFwdAndBackButtons();
+		
 	}
 
 	/**
@@ -302,25 +313,10 @@ public class KitPage extends JPanel {
 	/**
 	 * 
 	 */
-	private void addSticker() {
+	public void addSticker() {
 
 		// Check if we should add the sticker
-		/*
-		 * if (showSticker) { // Show the sticker
-		 * 
-		 * // Create the sticker icon // ImageIcon imageIcon = new
-		 * ImageIcon(IMAGE_FILE);
-		 * 
-		 * // Create a label for the sticker JLabel stickerLabel = new
-		 * JLabel(imageIcon);
-		 * 
-		 * // Center the label
-		 * stickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		 * 
-		 * // Add the sticker add(stickerLabel);
-		 * 
-		 * } else
-		 */
+		
 
 		if (!showSticker) {
 			// Show empty sticker icon
@@ -389,12 +385,14 @@ public class KitPage extends JPanel {
 	 */
 	private void addKitName() {
 		
-		String pageHeading = pageName.substring(pageName.indexOf(".")+1);
+		//String pageHeading = pageName.substring(pageName.indexOf(".")+1);
 		
 		// Add the kit name label
 		// Kit name label
-		JLabel kitNameLabel = new JLabel(pageHeading);
+		//JLabel kitNameLabel = new JLabel(pageHeading);
 
+		JLabel kitNameLabel = new JLabel(pageName);
+		
 		// Set the font of the child's name
 		kitNameLabel.setFont(KIT_NAME_FONT);
 
@@ -449,7 +447,7 @@ public class KitPage extends JPanel {
 		// bounce of bottom
 		if (currentY + imageIcon.getIconHeight() >= maxHeight) {
 
-			animationConstantY = -1;
+			animationConstantY = animationConstantY*-1;
 		}
 
 		// bounce off right
@@ -458,7 +456,7 @@ public class KitPage extends JPanel {
 			// timer.setDelay(DELAY - 1);
 
 			animationConstantX = animationConstantX * -1;
-			animationConstantY = -0.5;
+			animationConstantY = -1.5;
 		}
 
 		// bounce off top
@@ -507,9 +505,9 @@ public class KitPage extends JPanel {
 	/**
 	 * Creates the back and forward buttons
 	 */
-	private void addButtons() {
+	private void addFwdAndBackButtons() {
 
-		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 160,
+		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 200,
 				15));
 		buttonPanel.setBackground(Color.white);
 
@@ -598,30 +596,61 @@ public class KitPage extends JPanel {
 			}
 		});
 	}
-
-	public static void main(String[] args) {
-
-		// Create the frame
-		JFrame frame = new JFrame();
-
-		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
-		kitProgress.add(5);
-
-		User user = new User("user name", "long Fake Name Fake name Fake Name",
-				"K", kitProgress);
-
-		// Add the passport to the frame--will need to figure out
-		// how to do the name getting part
-//		frame.getContentPane().add(
-//				new KitPage("Bark Beetle", new Passport(user, this), false));
-
-		// Set the size to the specified page size
-		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
-
-		// Make visible
-		frame.setVisible(true);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+	private void addRewardButton(){
+		
+		rewardButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		rewardButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		rewardButton.setEnabled(false);
+		
+		add(rewardButton) ;
+		
+		
 	}
+
+	public void enableRewardButton(){
+		
+		rewardButton.setEnabled(true);
+	}
+	
+	public String getPageName(){
+		
+		System.out.println("kit page name " + pageName + "----");
+		
+		return pageName ;
+	}
+//	public static void main(String[] args) {
+//
+//		// Create the frame
+//		JFrame frame = new JFrame();
+//
+//		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
+//		kitProgress.add(5);
+//
+//		User user = new User("user name", "long Fake Name Fake name Fake Name",
+//				"K", kitProgress);
+//
+//		// Add the passport to the frame--will need to figure out
+//		// how to do the name getting part
+////		frame.getContentPane().add(
+////				new KitPage("Bark Beetle", new Passport(user, this), false));
+//
+//		// Set the size to the specified page size
+//		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
+//
+//		// Make visible
+//		frame.setVisible(true);
+//
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	}
 
 }

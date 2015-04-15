@@ -14,7 +14,9 @@ public class ChemistryPassportGUI extends JPanel{
 	//The layout
 	private static final CardLayout CARD_LAYOUT = new CardLayout();
 	
-	private static final String PASSPORT_TEXT = "Passport";
+	public static final String PASSPORT_TEXT = "Passport";
+	
+	private Passport passport ;
 	
 	//public static final String BEETLE_KIT_TEXT = "Beetle Kit";
 	
@@ -31,7 +33,9 @@ public class ChemistryPassportGUI extends JPanel{
 		
 		User user = new User("user name", "long Fake Name Fake", "K", kitProgress) ;
 		
-		this.add(new Passport(user, this), PASSPORT_TEXT) ;
+		passport = new Passport(user, this) ;
+		
+		this.add(passport, PASSPORT_TEXT) ;
 		
 		//Add the beetle kit
 		//this.add(new BeetleKitApplication(), BEETLE_KIT_TEXT);
@@ -49,6 +53,13 @@ public class ChemistryPassportGUI extends JPanel{
 	
 	public void goToCard(String pageName){
 		CARD_LAYOUT.show(this, pageName);
+		repaint() ;
 	}
 
+	public Passport getPassport() {
+		return passport;
+	}
+
+	
+	
 }
