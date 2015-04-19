@@ -24,6 +24,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import beetle_game.Beetle;
+import beetle_kit.EstimationStartPage;
 import user.User;
 
 /**
@@ -129,7 +131,7 @@ public class KitPage extends JPanel {
 	private Passport passport;
 	
 	// button to play reward game
-	private JButton rewardButton = new JButton("Play Reward Game") ; ;
+	private JButton rewardButton = new JButton("Play Reward Game") ; 
 
 	/**
 	 * Creates a new page for the kit
@@ -605,7 +607,19 @@ public class KitPage extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				
+				// Start the beetle game
+				Beetle beetle = new Beetle();
+
+				
+				// Add to CardLayout
+				passport.getChemGUI().add(beetle, "Beetle Reward Game");
+
+				// Load in CardLayout
+				passport.getChemGUI().goToCard("Beetle Reward Game");
+				
+				
 				
 			}
 		});

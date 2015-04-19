@@ -104,7 +104,17 @@ public class BeetleKit extends Kit {
 		
 		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
 		
+		//mainGUI.nextCard();
+		
+		//mainGUI.goToCard(ChemistryPasspo);
+		
+		//CARD_LAYOUT.show(this, pageNames.get(currentPage));
+		
 		Passport passport = mainGUI.getPassport() ;
+		
+		
+		//Testing
+		passport.nextPage();
 		
 		KitPage kitPage = passport.getKitPage(getButtonName());
 		

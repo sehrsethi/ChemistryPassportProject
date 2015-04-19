@@ -252,9 +252,10 @@ public class Passport extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
+	
 
 	/**
-	 * Goes to the nest passport page
+	 * Goes to the next passport page
 	 */
 	public void nextPage() {
 
