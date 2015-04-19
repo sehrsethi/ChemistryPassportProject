@@ -619,6 +619,8 @@ public class KitPage extends JPanel {
 				// Load in CardLayout
 				passport.getChemGUI().goToCard("Beetle Reward Game");
 				
+				repaint();
+				
 				
 				
 			}
