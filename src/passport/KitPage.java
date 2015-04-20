@@ -7,13 +7,17 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -55,11 +59,11 @@ public class KitPage extends JPanel {
 
 	// The name/location of the image this page shows
 	//private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
-	private static final String IMAGE_FILE = "src//images//logo.png";
+	private static final String IMAGE_FILE = "images/logo.png";
 	
 	
 	// The icon that displays when the user hasn't earned this sticker
-	private static final String EMPTY_IMAGE_FILE = "src//images//nosticker.png";
+	//private static final String EMPTY_IMAGE_FILE = "src//images//nosticker.png";
 
 	// The font for the kit name
 	private static final Font KIT_NAME_FONT = new Font("Times New Roman",
@@ -135,6 +139,8 @@ public class KitPage extends JPanel {
 	
 	// button to play reward game
 	private JButton rewardButton = new JButton("Play Reward Game") ; 
+	
+	private Image logo ;
 
 	/**
 	 * Creates a new page for the kit
@@ -173,8 +179,22 @@ public class KitPage extends JPanel {
 
 		// Set the background color
 		this.setBackground(BACKGROUND_COLOR);
+		
+		try {
+			ClassLoader classLoader = Thread.currentThread()
+					.getContextClassLoader();
+			InputStream input = classLoader.getResourceAsStream(IMAGE_FILE);
 
-		imageIcon = new ImageIcon(IMAGE_FILE);
+			logo = ImageIO.read(input);
+			
+			imageIcon = new ImageIcon(logo);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 
 		finalX = this.getWidth() / 2 - imageIcon.getIconWidth() / 2;
 

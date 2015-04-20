@@ -2,16 +2,22 @@ package beetle_game ;
 
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.geom.Point2D;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 public class FirstBeetle implements BeetlePart {
 
 	// The beetle head image
+	
+	private static final String IMAGE_FILE = "images/lady_wings.gif" ;
 
-	private ImageIcon beetleHeadImage = new ImageIcon("src//images//lady_wings.gif");
+	private ImageIcon beetleHeadImage ;
 
 	// The component
 
@@ -24,6 +30,8 @@ public class FirstBeetle implements BeetlePart {
 	// The y point of the beetle head
 
 	private double y;
+	
+	private Image image ;
 
 	/**
 	 * Initializes the instance variables
@@ -40,6 +48,22 @@ public class FirstBeetle implements BeetlePart {
 		this.component = component;
 		this.x = x + 4;
 		this.y = y + 4;
+		
+		try {
+			ClassLoader classLoader = Thread.currentThread()
+					.getContextClassLoader();
+			InputStream input = classLoader.getResourceAsStream(IMAGE_FILE);
+
+			System.out.println("input " + input);
+
+			image = ImageIO.read(input);
+			
+			beetleHeadImage = new ImageIcon(image) ;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

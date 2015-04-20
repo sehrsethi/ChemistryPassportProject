@@ -5,10 +5,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,13 +31,13 @@ public class IntroductionPage extends JPanel {
 	private static final int PAGE_HEIGHT = 700;
 
 	// The name/location of the image this page shows
-	// private static final String IMAGE_FILE = "images//logo.png"; 
+	// private static final String IMAGE_FILE = "images//logo.png";
 
 	// The name/location of the image this page shows--we need to change this
-	//private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
-	private static final String IMAGE_FILE = "src//images//logo.png";
-	
-	
+	// private static final String IMAGE_FILE =
+	// "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
+	private static final String IMAGE_FILE = "images/logo.png";
+
 	// The font for the header (the part that says PASSPORT)
 	private static final Font HEADER_FONT = new Font("Times New Roman",
 			Font.BOLD, 72);
@@ -76,6 +80,8 @@ public class IntroductionPage extends JPanel {
 
 	private String childName;
 
+	private Image logo;
+
 	/**
 	 * Constructs the first page
 	 * 
@@ -104,6 +110,20 @@ public class IntroductionPage extends JPanel {
 		// Make the background white
 
 		this.setBackground(Color.WHITE);
+
+		// Do the following so that the images are in the path and hence can run a jar file on any computer
+		try {
+			ClassLoader classLoader = Thread.currentThread()
+					.getContextClassLoader();
+			InputStream input = classLoader.getResourceAsStream(IMAGE_FILE);
+
+			System.out.println("input " + input);
+
+			logo = ImageIO.read(input);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// Add everything to the page
 		addContent();
@@ -177,7 +197,7 @@ public class IntroductionPage extends JPanel {
 	 */
 	private void addChildName() {
 
-		//System.out.println("add child name " + childName);
+		// System.out.println("add child name " + childName);
 
 		// child name can have max 20 characters or the entire name will not be
 		// displayed
@@ -276,9 +296,11 @@ public class IntroductionPage extends JPanel {
 	 * 
 	 */
 	private void addLogo() {
-		ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
+		// ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
+		//
+		// JLabel image = new JLabel(imageIcon);
 
-		JLabel image = new JLabel(imageIcon);
+		JLabel image = new JLabel(new ImageIcon(logo));
 
 		add(image);
 	}
@@ -333,28 +355,29 @@ public class IntroductionPage extends JPanel {
 		add(buttonPanel);
 	}
 
-//	/**
-//	 * For testing
-//	 * 
-//	 * @param args
-//	 */
-//	public static void main(String[] args) {
-//
-//		JFrame frame = new JFrame();
-//
-//		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
-//		kitProgress.add(5);
-//
-//		User user = new User("user name", "long Fake Name Fake name", "K",
-//				kitProgress);
-//
-////		frame.getContentPane().add(new IntroductionPage(new Passport(user, this)));
-//
-//		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
-//
-//		frame.setVisible(true);
-//
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	}
+	// /**
+	// * For testing
+	// *
+	// * @param args
+	// */
+	// public static void main(String[] args) {
+	//
+	// JFrame frame = new JFrame();
+	//
+	// ArrayList<Integer> kitProgress = new ArrayList<Integer>();
+	// kitProgress.add(5);
+	//
+	// User user = new User("user name", "long Fake Name Fake name", "K",
+	// kitProgress);
+	//
+	// // frame.getContentPane().add(new IntroductionPage(new Passport(user,
+	// this)));
+	//
+	// frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
+	//
+	// frame.setVisible(true);
+	//
+	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	// }
 
 }
