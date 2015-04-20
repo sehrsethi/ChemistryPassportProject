@@ -2,9 +2,11 @@ package beetle_kit;
 
 import java.awt.CardLayout;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import beetle_game.Beetle;
 import passport.KitPage;
 import passport.Passport;
 import main.ChemistryPassportGUI;
@@ -28,9 +30,9 @@ public class BeetleKit extends Kit {
 	private static EstimationStartPage startPage;
 
 	public BeetleKit(ChemistryPassportGUI mainGUI) {
-		
-		super(mainGUI) ;
-		
+
+		super(mainGUI);
+
 		this.setLayout(CARD_LAYOUT);
 
 		// add(app, ESTIMATION_PAGE);
@@ -61,73 +63,95 @@ public class BeetleKit extends Kit {
 	public static EstimationStartPage getStartPage() {
 		return startPage;
 	}
-//
-//	public static void main(String[] args) {
-//
-//		// Create a JFrame for the application and give it a size and close
-//		// operation
-//		JFrame frame = new JFrame("Beetle Kit");
-//		frame.setSize(605, 723);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//		frame.getContentPane().add(new BeetleKit());
-//
-//		// Make the frame visible
-//		frame.setVisible(true);
-//
-//		frame.setResizable(false);
-//
-//		// close operation
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//	}
+
+	//
+	// public static void main(String[] args) {
+	//
+	// // Create a JFrame for the application and give it a size and close
+	// // operation
+	// JFrame frame = new JFrame("Beetle Kit");
+	// frame.setSize(605, 723);
+	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//
+	// frame.getContentPane().add(new BeetleKit());
+	//
+	// // Make the frame visible
+	// frame.setVisible(true);
+	//
+	// frame.setResizable(false);
+	//
+	// // close operation
+	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//
+	// }
 
 	@Override
 	public void startKit() {
-		
-		//Create the start page
+
+		// Create the start page
 		startPage = new EstimationStartPage(this);
 
-		//Add the start page to the CardLayout
+		// Add the start page to the CardLayout
 		add(startPage, START_PAGE_NAME);
 
 	}
 
 	@Override
 	public String getButtonName() {
-	
-		
-		return "Beetle Kit" ;
+
+		return "Beetle Kit";
 	}
 
-	public void earnReward(){
-		
+	/**
+	 * Adds the sticker, enables the reward button, and returns to the
+	 * appropriate page of the passport
+	 */
+	public void earnReward() {
+
 		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
-		
-		//mainGUI.nextCard();
-		
-		//mainGUI.goToCard(ChemistryPasspo);
-		
-		//CARD_LAYOUT.show(this, pageNames.get(currentPage));
-		
-		Passport passport = mainGUI.getPassport() ;
-		
-		
-		//Testing
-		passport.nextPage();
-		
+
+		// mainGUI.nextCard();
+
+		// mainGUI.goToCard(ChemistryPasspo);
+
+		// CARD_LAYOUT.show(this, pageNames.get(currentPage));
+
+		// Get the passport
+		Passport passport = mainGUI.getPassport();
+
+		// Go to the corresponding page of the passport
+		passport.goToPage(getButtonName());
+
+		// Testing
+		// passport.nextPage();
+
+		// Get the kit page for this kit
 		KitPage kitPage = passport.getKitPage(getButtonName());
+
+		// System.out.println("kitPage " + kitPage);
 		
-		System.out.println("kitPage " + kitPage);
+		//Notify the kit page that the sticker can now be shown
+		//kitPage.setShowSticker(true);
+
+		// Add the reward sticker
+		//kitPage.addSticker();
 		
-		kitPage.addSticker();
-		
+		kitPage.startStickerAnimation();
+
+		// Enable the reward button
 		kitPage.enableRewardButton();
-		
-		
-		
-		
-		
-		repaint() ;
+
+		repaint();
+	}
+
+	@Override
+	public String getRewardName() {
+		return "Beetle Reward Game";
+	}
+
+	@Override
+	public JComponent createRewardGame() {
+		Beetle beetle = new Beetle();
+		return beetle;
 	}
 }

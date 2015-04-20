@@ -291,8 +291,14 @@ public class KitSelectionPage extends JPanel {
 					.getDeclaredConstructor(ChemistryPassportGUI.class)
 					.newInstance(mainGUI);
 
+			
+			//Inform the passport that this is the current kit
+			passport.setCurrentKit(kit);
+			
 			// Start the kit!
 			kit.startKit();
+			
+			
 
 			// Add to CardLayout
 			mainGUI.add(kit, kitName);

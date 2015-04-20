@@ -12,6 +12,7 @@ import javax.swing.border.Border;
 
 import main.ChemGetPropertyValues;
 import main.ChemistryPassportGUI;
+import main.Kit;
 import user.User;
 
 /**
@@ -55,7 +56,7 @@ public class Passport extends JPanel implements MouseListener {
 	// The name of the KitSelectionPage
 	private static final String KIT_SELECTION_NAME = "Kit Selection";
 
-	// The name of the intro page
+	// The index of the intro page
 	private static final int INTRO_PAGE_INDEX = 0;
 
 	// The index of the KitSelectionPage
@@ -78,12 +79,14 @@ public class Passport extends JPanel implements MouseListener {
 	// The list of pages
 	private ArrayList<KitPage> kitPages = new ArrayList<KitPage>();
 
-	// The currently displayed page
-	private int currentPage = INTRO_PAGE_INDEX;
+	// The index of the currently displayed page
+	private int currentPageIndex = INTRO_PAGE_INDEX;
 	
 	//The ChemGetPropertyValues instance
 	private ChemGetPropertyValues propVals;
 	
+	//The kit currently running
+	private Kit currentKit;
 	
 
 	/**
@@ -168,6 +171,22 @@ public class Passport extends JPanel implements MouseListener {
 
 	public ChemistryPassportGUI getChemGUI(){
 		return chemGUI;
+	}
+	
+	/**
+	 * Sets the kit that is currently being played
+	 * @param currentKit The current kit
+	 */
+	public void setCurrentKit (Kit currentKit){
+		this.currentKit = currentKit;
+	}
+	
+	/**
+	 * Returns the current kit
+	 * @return The kit that is currently being played
+	 */
+	public Kit getCurrentKit(){
+		return currentKit;
 	}
 	
 	/**
@@ -260,27 +279,27 @@ public class Passport extends JPanel implements MouseListener {
 	public void nextPage() {
 
 		// go from the first page to the kit Selection page
-		if (currentPage == INTRO_PAGE_INDEX) {
+		if (currentPageIndex == INTRO_PAGE_INDEX) {
 
-			currentPage = KIT_SELECTION_INDEX;
+			currentPageIndex = KIT_SELECTION_INDEX;
 
-			CARD_LAYOUT.show(this, pageNames.get(currentPage));
+			CARD_LAYOUT.show(this, pageNames.get(currentPageIndex));
 
 		}
 		// go from the Kit Selection Page to the first kit page. Initially it is
 		// probably the Beetle Kit Page
-		else if (currentPage == KIT_SELECTION_INDEX) {
+		else if (currentPageIndex == KIT_SELECTION_INDEX) {
 
-			currentPage = FIRST_KIT_INDEX;
+			currentPageIndex = FIRST_KIT_INDEX;
 
-			CARD_LAYOUT.show(this, pageNames.get(currentPage));
+			CARD_LAYOUT.show(this, pageNames.get(currentPageIndex));
 
 		}
 		// otherwise just progress normally
 		else {
 
 			// update current page
-			currentPage = (currentPage + 1) % pageNames.size();
+			currentPageIndex = (currentPageIndex + 1) % pageNames.size();
 
 			CARD_LAYOUT.next(this);
 		}
@@ -289,38 +308,60 @@ public class Passport extends JPanel implements MouseListener {
 	}
 
 	/**
+	 * Goes to the specified page of the passport
+	 * @param pageName The name of the passport page
+	 */
+	public void goToPage(String pageName){
+		
+		//Iterate through the list of page names
+		for (int i = 0; i < pageNames.size(); i++){
+			
+			//Once we find this page, set its index as our current index
+			if (pageNames.get(i).equals(pageName)){
+				currentPageIndex = i;
+				break;
+			}
+		}
+		
+		//Go to the specified page
+		CARD_LAYOUT.show(this,pageNames.get(currentPageIndex));
+		
+		repaint();
+	}
+	
+	/**
 	 * Goes to the previous passport page
 	 */
 	public void previouPage() {
 
 		// go from Kit Selection Page to Intro Page
-		if (currentPage == KIT_SELECTION_INDEX) {
+		if (currentPageIndex == KIT_SELECTION_INDEX) {
 
-			currentPage = INTRO_PAGE_INDEX;
+			currentPageIndex = INTRO_PAGE_INDEX;
 
-			CARD_LAYOUT.show(this, pageNames.get(currentPage));
+			CARD_LAYOUT.show(this, pageNames.get(currentPageIndex));
 
 		}
 		// go from first kit page (probably Beetle kit page) to the Kit
 		// Selection Page
-		else if (currentPage == FIRST_KIT_INDEX) {
+		else if (currentPageIndex == FIRST_KIT_INDEX) {
 
-			currentPage = KIT_SELECTION_INDEX;
+			currentPageIndex = KIT_SELECTION_INDEX;
 
-			CARD_LAYOUT.show(this, pageNames.get(currentPage));
+			CARD_LAYOUT.show(this, pageNames.get(currentPageIndex));
 
 		}
 		// otherwise progress normally
 		else {
 
 			// update current page
-			if (currentPage > 0) {
+			if (currentPageIndex > 0) {
 
-				currentPage--;
+				currentPageIndex--;
 
 			} else {
 
-				currentPage = 0;
+				currentPageIndex = 0;
 			}
 
 			CARD_LAYOUT.previous(this);

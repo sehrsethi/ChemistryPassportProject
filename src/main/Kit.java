@@ -1,5 +1,6 @@
 package main;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 /**
@@ -32,5 +33,22 @@ public abstract class Kit extends JPanel{
 	 */
 	public abstract void startKit();
 	
+	/**
+	 * Returns the name of the button for this kit
+	 * @return Button name
+	 */
 	public abstract String getButtonName() ;
+
+
+	/**
+	 * Starts the reward game and returns the reward component
+	 * @return Reward component to display
+	 */
+	public abstract JComponent createRewardGame();
+	
+	/**
+	 * Returns the name associated with the reward component
+	 * @return The name associated with the reward component
+	 */
+	public abstract String getRewardName();
 }

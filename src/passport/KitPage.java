@@ -19,6 +19,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -53,8 +54,10 @@ public class KitPage extends JPanel {
 	// private static final String IMAGE_FILE = "images//logo.png";
 
 	// The name/location of the image this page shows
-	private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
-
+	//private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
+	private static final String IMAGE_FILE = "src//images//logo.png";
+	
+	
 	// The icon that displays when the user hasn't earned this sticker
 	private static final String EMPTY_IMAGE_FILE = "src//images//nosticker.png";
 
@@ -313,13 +316,11 @@ public class KitPage extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Add the sticker and start the sticker animation
 	 */
 	public void addSticker() {
 
 		// Check if we should add the sticker
-		
-
 		if (!showSticker) {
 			// Show empty sticker icon
 			// Create the sticker icon
@@ -339,19 +340,14 @@ public class KitPage extends JPanel {
 					// TODO Auto-generated method stub
 					// Add the sticker
 
-					earnSticker = true;
-
-					// something needs to happen here so that the database knows
-					// that a sticker has been added
-
-					// showNoSticker = false;
-
-					// start animation
-					startTime = System.currentTimeMillis();
-
-					timer.start();
+					startStickerAnimation();
 
 				}
+
+				/**
+				 * 
+				 */
+				
 
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -380,6 +376,28 @@ public class KitPage extends JPanel {
 			});
 
 		}
+	}
+	
+	public void startStickerAnimation() {
+		earnSticker = true;
+
+		// something needs to happen here so that the database knows
+		// that a sticker has been added
+
+		// showNoSticker = false;
+
+		// start animation
+		startTime = System.currentTimeMillis();
+
+		timer.start();
+	}
+
+	/**
+	 * Set whether the sticker should be shown
+	 * @param showSticker True if the sticker should be shown, or false otherwise
+	 */
+	public void setShowSticker(boolean showSticker) {
+		this.showSticker = showSticker;
 	}
 
 	/**
@@ -608,16 +626,20 @@ public class KitPage extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				
-				// Start the beetle game
-				Beetle beetle = new Beetle();
+				//The reward game to add
+				JComponent reward = passport.getCurrentKit().createRewardGame();
+				 
+				//The name of the reward game to add (necessary for CardLayout)
+				String rewardName = passport.getCurrentKit().getRewardName();
 
 				
 				// Add to CardLayout
-				passport.getChemGUI().add(beetle, "Beetle Reward Game");
-
+				//passport.getChemGUI().add(beetle, "Beetle Reward Game");
+				passport.getChemGUI().add(reward, rewardName);
+				
 				// Load in CardLayout
-				passport.getChemGUI().goToCard("Beetle Reward Game");
+				//passport.getChemGUI().goToCard("Beetle Reward Game");
+				passport.getChemGUI().goToCard(rewardName);
 				
 				repaint();
 				
