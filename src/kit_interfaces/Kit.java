@@ -1,7 +1,9 @@
-package main;
+package kit_interfaces;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
+import main.ChemistryPassportGUI;
 
 /**
  * Represents a kit in the Chemistry Passport Program

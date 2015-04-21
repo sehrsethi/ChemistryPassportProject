@@ -13,25 +13,24 @@ import javax.swing.JComponent;
 
 public class FirstBeetle implements BeetlePart {
 
-	// The beetle head image
-	
+	// The location of the first beetle image
 	private static final String IMAGE_FILE = "images/lady_wings.gif" ;
 
-	private ImageIcon beetleHeadImage ;
+	// Image icon of the beetle
+	private ImageIcon firstBeetleImage ;
+	
+	// The image of the beetle
+	private Image beeleImage ;
 
 	// The component
-
 	private JComponent component;
 
 	// The x point of the beetle head
-
 	private double x;
 
 	// The y point of the beetle head
-
 	private double y;
-	
-	private Image image ;
+
 
 	/**
 	 * Initializes the instance variables
@@ -49,16 +48,16 @@ public class FirstBeetle implements BeetlePart {
 		this.x = x + 4;
 		this.y = y + 4;
 		
+
+		// get the beetle image from the build path
 		try {
 			ClassLoader classLoader = Thread.currentThread()
 					.getContextClassLoader();
 			InputStream input = classLoader.getResourceAsStream(IMAGE_FILE);
 
-			System.out.println("input " + input);
-
-			image = ImageIO.read(input);
+			beeleImage = ImageIO.read(input);
 			
-			beetleHeadImage = new ImageIcon(image) ;
+			firstBeetleImage = new ImageIcon(beeleImage) ;
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -71,7 +70,7 @@ public class FirstBeetle implements BeetlePart {
 	 */
 	public void paint(Graphics g) {
 		
-		beetleHeadImage.paintIcon(component, g, (int) x + 2, (int) y + 2);
+		firstBeetleImage.paintIcon(component, g, (int) x + 2, (int) y + 2);
 	}
 
 	/**
@@ -79,8 +78,8 @@ public class FirstBeetle implements BeetlePart {
 	 */
 	public void moveBeetle(double newX, double newY) {
 		
-		x = newX - beetleHeadImage.getIconWidth() / 2;
-		y = newY - beetleHeadImage.getIconHeight() / 2;
+		x = newX - firstBeetleImage.getIconWidth() / 2;
+		y = newY - firstBeetleImage.getIconHeight() / 2;
 
 	}
 

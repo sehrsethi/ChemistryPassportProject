@@ -25,15 +25,11 @@ import javax.swing.JFrame;
 public class Beetle extends JComponent implements MouseListener,
 MouseMotionListener {
 
-	// width of the screen
+
 
 	private static final int DIAMETER = 25;
 
-	private static final int SCREEN_WIDTH = 700;
 
-	// height of the screen
-
-	private static final int SCREEN_HEIGHT = 700;
 
 	// The interface beetlePart
 
@@ -197,20 +193,5 @@ MouseMotionListener {
 
 
 
-	/**
-	 * Runs the program
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		f.setTitle("Follow the Beetle!");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-		Beetle beetle = new Beetle();
-		Container contentPane = f.getContentPane();
-		contentPane.add(beetle, BorderLayout.CENTER);
-		f.setVisible(true);
-
-	}
+	
 }

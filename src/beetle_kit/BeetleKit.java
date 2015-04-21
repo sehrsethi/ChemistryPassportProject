@@ -6,11 +6,12 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import kit_interfaces.Kit;
 import beetle_game.Beetle;
+import beetle_game.BeetleGame;
 import passport.KitPage;
 import passport.Passport;
 import main.ChemistryPassportGUI;
-import main.Kit;
 
 /**
  * This class start the Beetle Kit
@@ -118,6 +119,9 @@ public class BeetleKit extends Kit {
 
 		// Get the passport
 		Passport passport = mainGUI.getPassport();
+		
+		// go to the passport card
+		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
 
 		// Go to the corresponding page of the passport
 		passport.goToPage(getButtonName());
@@ -151,7 +155,7 @@ public class BeetleKit extends Kit {
 
 	@Override
 	public JComponent createRewardGame() {
-		Beetle beetle = new Beetle();
-		return beetle;
+		BeetleGame beetleGame = new BeetleGame(mainGUI);
+		return beetleGame;
 	}
 }

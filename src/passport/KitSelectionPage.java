@@ -24,9 +24,9 @@ import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
+import kit_interfaces.Kit;
 import main.ChemGetPropertyValues;
 import main.ChemistryPassportGUI;
-import main.Kit;
 import beetle_kit.BeetleKit;
 import user.User;
 

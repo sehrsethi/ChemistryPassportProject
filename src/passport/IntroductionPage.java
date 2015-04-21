@@ -71,15 +71,14 @@ public class IntroductionPage extends JPanel {
 			Font.PLAIN, 40);
 
 	// The text color
-
 	private static final Color TEXT_COLOR = Color.BLACK;
 
 	private static Passport passport;
 
 	// The name of the child whose passport this is
-
 	private String childName;
 
+	// The image of the logo
 	private Image logo;
 
 	/**
@@ -129,41 +128,7 @@ public class IntroductionPage extends JPanel {
 		addContent();
 	}
 
-	// public void paintComponent(Graphics g){
-	//
-	// Graphics2D g2d = (Graphics2D) g ;
-	//
-	// g2d.setColor(Color.WHITE);
-	//
-	// g2d.fillRect(0, 0, PAGE_WIDTH, PAGE_HEIGHT);
-	//
-	// g2d.setColor(TEXT_COLOR);
-	//
-	// g2d.setFont(HEADER_FONT);
-	//
-	// g2d.drawString(HEADER_TEXT, 100, 100);
-	//
-	// ImageIcon imageIcon = new ImageIcon(IMAGE_FILE) ;
-	//
-	// imageIcon.paintIcon(this, g2d, 100, 150);
-	//
-	// g2d.setFont(LINE2_FONT);
-	//
-	// g2d.drawString(LINE2_TEXT, 100, 400);
-	//
-	// g2d.setFont(GRADE_FONT);
-	//
-	// g2d.drawString(GRADE_TEXT, 100, 450);
-	//
-	// g2d.setFont(SPONSOR_FONT);
-	//
-	// g2d.drawString(SPONSOR_TEXT, 100, 500);
-	//
-	//
-	//
-	//
-	// }
-
+	
 	/**
 	 * Adds the content to the first page
 	 */
@@ -235,27 +200,7 @@ public class IntroductionPage extends JPanel {
 		sponsor.setEditable(false);
 
 		add(sponsor);
-		// <<<<<<< HEAD
-		//
-		// // Add the child's name to the bottom of the passport page
-		//
-		// // Create the label for the child's name
-		// JLabel childLabel = new JLabel(childName);
-		//
-		// // Set the font for the child's name
-		// childLabel.setFont(CHILD_FONT);
-		//
-		// // Set the text color
-		// childLabel.setForeground(TEXT_COLOR);
-		//
-		// // Center the child's name
-		// childLabel.setHorizontalAlignment(JLabel.CENTER);
-		//
-		// // Add the child's name label to the passport
-		// add(childLabel);
-		//
-		// =======
-		// >>>>>>> refs/heads/humaira_animateSticker
+		
 	}
 
 	/**
@@ -354,30 +299,5 @@ public class IntroductionPage extends JPanel {
 
 		add(buttonPanel);
 	}
-
-	// /**
-	// * For testing
-	// *
-	// * @param args
-	// */
-	// public static void main(String[] args) {
-	//
-	// JFrame frame = new JFrame();
-	//
-	// ArrayList<Integer> kitProgress = new ArrayList<Integer>();
-	// kitProgress.add(5);
-	//
-	// User user = new User("user name", "long Fake Name Fake name", "K",
-	// kitProgress);
-	//
-	// // frame.getContentPane().add(new IntroductionPage(new Passport(user,
-	// this)));
-	//
-	// frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
-	//
-	// frame.setVisible(true);
-	//
-	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	// }
 
 }

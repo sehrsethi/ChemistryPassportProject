@@ -10,9 +10,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import kit_interfaces.Kit;
 import main.ChemGetPropertyValues;
 import main.ChemistryPassportGUI;
-import main.Kit;
 import user.User;
 
 /**
@@ -28,14 +28,6 @@ public class Passport extends JPanel implements MouseListener {
 	// Every page should take title of kit
 	// Page could need add sticker method
 	// Use logo.png as sticker for now, or get beetle thing
-	
-	private ChemistryPassportGUI chemGUI;
-
-	// The user (child) that the passport belongs to
-	private User user;
-
-	// The name of the child whose passport this is
-	private String userName;
 
 	// The width of the page of the passport
 	public static final int PAGE_WIDTH = 622;
@@ -51,10 +43,10 @@ public class Passport extends JPanel implements MouseListener {
 	private static final CardLayout CARD_LAYOUT = new CardLayout();
 
 	// The name of the intro page
-	private static final String INTRO_PAGE_NAME = "Intro Page";
+	public static final String INTRO_PAGE_NAME = "Intro Page";
 
 	// The name of the KitSelectionPage
-	private static final String KIT_SELECTION_NAME = "Kit Selection";
+	public static final String KIT_SELECTION_NAME = "Kit Selection";
 
 	// The index of the intro page
 	private static final int INTRO_PAGE_INDEX = 0;
@@ -65,6 +57,16 @@ public class Passport extends JPanel implements MouseListener {
 	// the index of the first kit page, i.e. the first page after the Intro Page
 	// and KitSelectionPage
 	private static final int FIRST_KIT_INDEX = 2;
+	
+	
+	private ChemistryPassportGUI chemGUI;
+
+	// The user (child) that the passport belongs to
+	private User user;
+
+	// The name of the child whose passport this is
+	private String userName;
+
 
 	// The intro page of the passport
 	private IntroductionPage introductionPage;
@@ -312,6 +314,8 @@ public class Passport extends JPanel implements MouseListener {
 	 * @param pageName The name of the passport page
 	 */
 	public void goToPage(String pageName){
+		
+		System.out.println("passport go to " + pageName);
 		
 		//Iterate through the list of page names
 		for (int i = 0; i < pageNames.size(); i++){

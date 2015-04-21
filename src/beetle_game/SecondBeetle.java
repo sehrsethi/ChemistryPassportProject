@@ -17,29 +17,26 @@ import com.sun.org.apache.xml.internal.resolver.readers.XCatalogReader;
 
 public class SecondBeetle implements BeetlePart {
 
-	// The beetle head image
-	
-	
+
+	// The location of the second beetle image 
 	private static final String IMAGE_FILE = "images/lady_wings.gif" ;
 
+	// The image icon of the second beetle  
 	private ImageIcon beetleImage ;
 	
+	// The image of the second beetle  
 	private Image image ;
 
 	// The component
-
 	private JComponent component;
 
 	// The x point of the beetle head
-
 	private double xPoint;
 
 	// The y point of the beetle head
-
 	private double yPoint;
 
 	// The beetle tail
-
 	private BeetlePart restBeetleTail;
 
 
@@ -50,6 +47,7 @@ public class SecondBeetle implements BeetlePart {
 		this.yPoint = y - 20;
 		this.restBeetleTail = restBeetleTail ;
 		
+		// get the beetle image from the build path
 		try {
 			ClassLoader classLoader = Thread.currentThread()
 					.getContextClassLoader();
