@@ -132,14 +132,6 @@ public class BeetleKit extends Kit {
 		// Get the kit page for this kit
 		KitPage kitPage = passport.getKitPage(getButtonName());
 
-		// System.out.println("kitPage " + kitPage);
-		
-		//Notify the kit page that the sticker can now be shown
-		//kitPage.setShowSticker(true);
-
-		// Add the reward sticker
-		//kitPage.addSticker();
-		
 		kitPage.startStickerAnimation();
 
 		// Enable the reward button

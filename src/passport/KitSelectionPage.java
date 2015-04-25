@@ -100,11 +100,6 @@ public class KitSelectionPage extends JPanel {
 		// Get the titles of the kits (the text displayed on the buttons)
 		kitButtonNames = passort.getPropVals().getKitButtonNames();
 
-		// Temp
-		// for (int i = 0; i < kitButtonNames.length; i++){
-		// System.out.println(kitButtonNames[i]);
-		// }
-
 		// adds the text "Choose Your Kit!"
 		addHeader();
 
@@ -192,8 +187,6 @@ public class KitSelectionPage extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 
-				System.out.println("mouse pressed");
-
 				KitSelectionPage.this.addKitButton("Temp Kit");
 				KitSelectionPage.this.repaint();
 
@@ -264,10 +257,7 @@ public class KitSelectionPage extends JPanel {
 					// if (kitNames[i].contains(kitButton.getText())) {
 
 					if (kitButtonNames[i].contains(kitButton.getText())) {
-						// System.out.println("activating kit " + kitNames[i]);
-						System.out.println("activating kit "
-								+ kitButtonNames[i]);
-
+						
 						activateKit(kitClassNames[i]);
 					}
 				}

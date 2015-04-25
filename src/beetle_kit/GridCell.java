@@ -111,18 +111,12 @@ public class GridCell {
 	public boolean decrementNumInfested(){
 		
 		if(numInfestedTrees > 0){
-			
-			
-			numInfestedTrees-- ;
-			
 
-			//System.out.println("decrementing num infested. now num infested is " + numInfestedTrees);
-			
+			numInfestedTrees-- ;
+
 			return true ;
 			
 		}else{
-			
-			//System.out.println("tried to decrement num infested is " + numInfestedTrees);
 			
 			return false ;
 		}
@@ -137,16 +131,11 @@ public class GridCell {
 		if(numNonInfestedTrees > 0){
 			
 			numNonInfestedTrees-- ;
-			
-			//System.out.println("decrementing num non infested. now num non infested is " + numNonInfestedTrees);
-			
+						
 			return true ;
 			
 		}else{
-			
-			//System.out.println("tried to decrement num non infested is " + numNonInfestedTrees);
-
-			
+						
 			return false ;
 		}
 	}

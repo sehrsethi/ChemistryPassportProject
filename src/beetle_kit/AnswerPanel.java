@@ -2,17 +2,20 @@ package beetle_kit;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -502,11 +505,17 @@ public class AnswerPanel extends JPanel {
 						// going
 						// to note that fact
 						if (infCorrect && nonInfCorrect) {
+							
+							removeJOptionPanes();
+							
 							JOptionPane
 									.showMessageDialog(
 											panel,
 											"You got the number of infested and non-infested"
 													+ " trees correct!  Good job!  Time to try the next round.");
+							
+							
+							
 							controller.displayNewGrid();
 						}
 
@@ -538,147 +547,7 @@ public class AnswerPanel extends JPanel {
 		});
 	}
 
-	// Not sure if we need the following two methods. Should ask Professor Gomez
-	// how she wants the answers
-
-	// /**
-	// * Adds JLabel, JTextField and JBUtton pertaining to user's answer about
-	// * infested trees
-	// */
-	// private void addNonInfestedText() {
-	//
-	// final JPanel panel = new JPanel();
-	// panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JLabel("Enter number of non-infested trees : "));
-	//
-	// panel.add(new JPanel());
-	//
-	// nonInfestedText = new JTextField();
-	// panel.add(nonInfestedText);
-	//
-	// JButton checkButton = new JButton("Check My Answer!");
-	//
-	// checkButton.addActionListener(new ActionListener() {
-	//
-	// @Override
-	// public void actionPerformed(ActionEvent arg0) {
-	//
-	// try {
-	// int userAnswer = Integer.parseInt(nonInfestedText.getText());
-	//
-	// int actualAnswer = estimationGrid
-	// .getTotalUnblockedNonInfested() * 3;
-	//
-	// boolean rightAnswer = calculateRightAnswer(userAnswer,
-	// actualAnswer);
-	//
-	// if (rightAnswer) {
-	//
-	// // OptionPane.showMessageDialog(panel,
-	// // "Good job! You got the correct answer! "
-	// }
-	//
-	// JOptionPane.showMessageDialog(panel, "You said there are "
-	// + userAnswer + " non infested trees." + "\n"
-	// + "There are actually " + actualAnswer
-	// + " non-infested trees in total." + "");
-	//
-	// gridView.repaint();
-	// /*
-	// * System.out.println("You said there are " +
-	// * nonInfestedText.getText() + " non infested trees");
-	// */
-	//
-	// } catch (NumberFormatException e) {
-	//
-	// JOptionPane.showMessageDialog(gridView,
-	// "Please enter a number");
-	// }
-	//
-	// }
-	//
-	// });
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(checkButton);
-	//
-	// panel.add(new JPanel());
-	//
-	// add(panel);
-	// }
-
-	// /**
-	// * Adds JLabel, JTextField and JBUtton pertaining to user's answer about
-	// * infested trees
-	// */
-	// private void addInfestedText() {
-	//
-	// final JPanel panel = new JPanel();
-	//
-	// panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JLabel("Enter number of infested trees :   "));
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(new JPanel());
-	//
-	// infestedText = new JTextField();
-	// panel.add(infestedText);
-	//
-	// JButton checkButton = new JButton("Check My Answer!");
-	//
-	// checkButton.addActionListener(new ActionListener() {
-	//
-	// @Override
-	// public void actionPerformed(ActionEvent arg0) {
-	//
-	// try {
-	// int numInfested = Integer.parseInt(infestedText.getText());
-	//
-	// JOptionPane.showMessageDialog(panel, "You said there are "
-	// + numInfested
-	// + "  infested trees. There are actually "
-	// + estimationGrid.getTotalUnblockedInfested()
-	// + " infested trees that are visible");
-	//
-	// gridView.repaint();
-	//
-	// /*
-	// * System.out.println("You said there are " +
-	// * infestedText.getText() + " non infested trees");
-	// */
-	//
-	// } catch (NumberFormatException e) {
-	//
-	// JOptionPane.showMessageDialog(gridView,
-	// "Please enter a number");
-	// }
-	//
-	// }
-	// });
-	//
-	// panel.add(new JPanel());
-	//
-	// panel.add(checkButton);
-	//
-	// panel.add(new JPanel());
-	//
-	// add(panel);
-	//
-	// }
+	
 
 	/**
 	 * Creates a button that creates a pop-up that lets users see the full grid.
@@ -726,15 +595,27 @@ public class AnswerPanel extends JPanel {
 				// add text to panel
 				fullGridPanel.add(treeInfo, BorderLayout.SOUTH);
 
-				// add the panel to a frame. will need to change this prt.
-				JFrame frame = new JFrame();
-				frame.setSize(EstimationGrid.GRID_WIDTH, EstimationGrid.GRID_HEIGHT + 72);
-				frame.setTitle("Showing Full Grid");
-				frame.add(fullGridPanel);
-				frame.setResizable(false);
-				frame.setVisible(true);
+				// TODO : fix the value 50
+				fullGridPanel.setPreferredSize(new Dimension(EstimationGrid.GRID_WIDTH, EstimationGrid.GRID_HEIGHT + 50 ));
+				fullGridPanel.setMinimumSize(new Dimension(EstimationGrid.GRID_WIDTH, EstimationGrid.GRID_HEIGHT + 50 ));
 
+				
+				
+//				// add the panel to a frame. will need to change this part.
+//				JFrame frame = new JFrame();
+//				frame.setSize(EstimationGrid.GRID_WIDTH, EstimationGrid.GRID_HEIGHT + 72);
+//				frame.setTitle("Showing Full Grid");
+//				frame.add(fullGridPanel);
+//				frame.setResizable(false);
+//				frame.setVisible(true);
+
+				JOptionPane.showOptionDialog(gridView, fullGridPanel, "Full Grid",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+						new Object[] {}, null);
+				
 				gridView.repaint();
+				
+				
 			}
 		});
 
@@ -761,6 +642,31 @@ public class AnswerPanel extends JPanel {
 
 		return ((actualAnswer >= userAnswerMin) && (actualAnswer <= userAnswer
 				+ ERROR_BARS));
+	}
+	
+	/**
+	 * Removes a JOptionPAne and its children
+	 * 
+	 * http://stackoverflow.com/questions/18105598/closing-a-joptionpane-programatically
+	 */
+	private void removeJOptionPanes(){
+		
+		Window[] windows = Window.getWindows();
+		
+        for (Window window : windows) {
+        	
+            if (window instanceof JDialog) {
+            	
+                JDialog dialog = (JDialog) window;
+                
+                if (dialog.getContentPane().getComponentCount() == 1
+                    && dialog.getContentPane().getComponent(0) instanceof JOptionPane){
+                	
+                    dialog.dispose();
+                }
+            }
+        }
+		
 	}
 
 }

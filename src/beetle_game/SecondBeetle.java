@@ -53,8 +53,6 @@ public class SecondBeetle implements BeetlePart {
 					.getContextClassLoader();
 			InputStream input = classLoader.getResourceAsStream(IMAGE_FILE);
 
-			System.out.println("input " + input);
-
 			image = ImageIO.read(input);
 			
 			beetleImage = new ImageIcon(image) ;

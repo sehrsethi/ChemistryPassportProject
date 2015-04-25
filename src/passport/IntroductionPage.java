@@ -116,9 +116,8 @@ public class IntroductionPage extends JPanel {
 					.getContextClassLoader();
 			InputStream input = classLoader.getResourceAsStream(IMAGE_FILE);
 
-			System.out.println("input " + input);
-
 			logo = ImageIO.read(input);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -161,8 +160,6 @@ public class IntroductionPage extends JPanel {
 	 * 
 	 */
 	private void addChildName() {
-
-		// System.out.println("add child name " + childName);
 
 		// child name can have max 20 characters or the entire name will not be
 		// displayed

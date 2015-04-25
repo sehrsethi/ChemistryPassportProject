@@ -52,9 +52,7 @@ public class ChemistryPassportGUI extends JPanel{
 	}
 	
 	public void goToCard(String pageName){
-		
-		System.out.println("main gui go to " + pageName);
-		
+
 		CARD_LAYOUT.show(this, pageName);
 		repaint() ;
 	}

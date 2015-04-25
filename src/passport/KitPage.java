@@ -7,7 +7,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -152,8 +154,6 @@ public class KitPage extends JPanel {
 	 *            Whether the sticker should be displayed
 	 */
 	public KitPage(String pageName, Passport passport, boolean showSticker) {
-		
-		System.out.println("page Name " + pageName);
 
 		// Note whether we should show the sticker
 		this.showSticker = showSticker;
@@ -254,6 +254,9 @@ public class KitPage extends JPanel {
 		} else if (!showSticker) {
 
 			if (!earnSticker) {
+				
+				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON);
 
 				g.setColor(Color.LIGHT_GRAY);
 
@@ -619,18 +622,10 @@ public class KitPage extends JPanel {
 
 				if (rectangle.contains(currentX, currentY)) {
 
-					System.out.println("collison");
-
 					timer.stop();
 
-				} /*
-				 * else if (currentTime - startTime >= ANIMATION_TIME) {
-				 * 
-				 * System.out.println("time up");
-				 * 
-				 * timer.stop(); }
-				 */
-
+				} 
+				
 				repaint();
 
 			}
@@ -682,33 +677,7 @@ public class KitPage extends JPanel {
 	
 	public String getPageName(){
 		
-		System.out.println("kit page name " + pageName + "----");
-		
 		return pageName ;
 	}
-//	public static void main(String[] args) {
-//
-//		// Create the frame
-//		JFrame frame = new JFrame();
-//
-//		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
-//		kitProgress.add(5);
-//
-//		User user = new User("user name", "long Fake Name Fake name Fake Name",
-//				"K", kitProgress);
-//
-//		// Add the passport to the frame--will need to figure out
-//		// how to do the name getting part
-////		frame.getContentPane().add(
-////				new KitPage("Bark Beetle", new Passport(user, this), false));
-//
-//		// Set the size to the specified page size
-//		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
-//
-//		// Make visible
-//		frame.setVisible(true);
-//
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	}
 
 }

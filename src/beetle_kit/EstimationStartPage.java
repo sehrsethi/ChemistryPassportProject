@@ -142,6 +142,9 @@ public class EstimationStartPage extends JPanel {
 		//Create a text area for the instructions text
 		JTextArea instructionsArea = new JTextArea( instructionsText, 775, 700);
 		
+		instructionsArea.setLineWrap(true);
+		instructionsArea.setWrapStyleWord(true);
+		
 		//Users cannot modify the instructions
 		instructionsArea.setEditable(false);
 		instructionsArea.setFocusable(false);
@@ -186,11 +189,7 @@ public class EstimationStartPage extends JPanel {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 
-				System.out.println("item changed");
-
 				mode = (String) comboBox.getSelectedItem();
-
-				System.out.println("mode " + mode);
 
 				infestedColor = selectInfestedColor(mode);
 
@@ -213,13 +212,13 @@ public class EstimationStartPage extends JPanel {
 	private void addStartButton() {
 
 		JButton startButton = new JButton("Start");
+		
+		startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		startButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				System.out.println("Should be starting now");
 				
 				// create the game only when the user wants to start playing. otherwise the colors are not chosen properly
 				beetleKit.createEstimationGame();
@@ -243,6 +242,8 @@ public class EstimationStartPage extends JPanel {
 	private void addResumeButton() {
 
 		JButton resumeButton = new JButton("Resume");
+		
+		resumeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		resumeButton.addActionListener(new ActionListener() {
 

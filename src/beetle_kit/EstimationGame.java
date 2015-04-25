@@ -27,6 +27,7 @@ public class EstimationGame extends JPanel {
 	private GridView currentGridView;
 	private AnswerPanel currentAnswerPanel;
 	private BeetleKit beetleKit ;
+	private JPanel legendPanel ;
 	
 
 	public EstimationGame(BeetleKit beetleKit) {
@@ -110,6 +111,7 @@ public class EstimationGame extends JPanel {
 	private void removeGrid() {
 		remove(currentGridView);
 		remove(currentAnswerPanel);
+		remove(legendPanel) ;
 		repaint();
 		revalidate();
 
@@ -120,24 +122,24 @@ public class EstimationGame extends JPanel {
 	 */
 	private void createLegendPanel() {
 
-		JPanel panel = new JPanel();
+		legendPanel = new JPanel();
 
-		BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+		BoxLayout boxLayout = new BoxLayout(legendPanel, BoxLayout.Y_AXIS);
 
-		panel.setLayout(boxLayout);
+		legendPanel.setLayout(boxLayout);
 
-		panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 5));
+		legendPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 5));
 
 		// the spacing of the text is important
-		panel.add(createKey("          Infested Trees         " , EstimationGrid.getInfestedColor()));
+		legendPanel.add(createKey("          Infested Trees         " , EstimationGrid.getInfestedColor()));
 
-		panel.add(new JPanel());
+		legendPanel.add(new JPanel());
 		
-		panel.add(createKey("          Non-infested Trees " , EstimationGrid.getNonInfestedColor()));
+		legendPanel.add(createKey("          Non-infested Trees " , EstimationGrid.getNonInfestedColor()));
 
 		//panel.add(createNonInfestedKey());
 
-		add(panel, BorderLayout.NORTH);
+		add(legendPanel, BorderLayout.NORTH);
 	}
 
 	

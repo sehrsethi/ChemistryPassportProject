@@ -2,8 +2,10 @@ package beetle_kit;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -56,6 +58,10 @@ public class GridView extends JPanel {
 		this.gridCells = gridCells;
 		this.cellWidth = cellWidth;
 		this.cellHeight = cellHeight;
+		
+		this.setPreferredSize(new Dimension(EstimationGrid.GRID_WIDTH, EstimationGrid.GRID_HEIGHT));
+		this.setMinimumSize(new Dimension(EstimationGrid.GRID_WIDTH, EstimationGrid.GRID_HEIGHT));
+
 
 		// trees = new ArrayList<Tree>();
 
@@ -89,6 +95,10 @@ public class GridView extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		
+		// to smooth drawings, especially the ovals
+		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 
 		// background of grid
 		g.setColor(BACKGROUND_COLOR);

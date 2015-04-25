@@ -232,22 +232,6 @@ public class Passport extends JPanel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
-		// CARD_LAYOUT.next(this);
-
-		/*
-		 * // If we have more pages to show, prepare to show the next page if
-		 * (currentPage + 1 < pageNames.size()) { // Note that we're going to
-		 * the next page currentPage++; }
-		 * 
-		 * // Otherwise, prepare to show the page again else { currentPage = 0;
-		 * }
-		 * 
-		 * // Show which page we are going to show //
-		 * System.out.println(currentPage);
-		 * 
-		 * // Show the next page CARD_LAYOUT.show(this,
-		 * pageNames.get(currentPage));
-		 */
 	}
 
 	@Override
@@ -314,9 +298,7 @@ public class Passport extends JPanel implements MouseListener {
 	 * @param pageName The name of the passport page
 	 */
 	public void goToPage(String pageName){
-		
-		System.out.println("passport go to " + pageName);
-		
+
 		//Iterate through the list of page names
 		for (int i = 0; i < pageNames.size(); i++){
 			
@@ -430,8 +412,6 @@ public class Passport extends JPanel implements MouseListener {
 		
 		for(int i = 0 ; i < kitPages.size() ; i++){
 			
-			System.out.println("name " + pageName + "***");
-			
 			if(kitPages.get(i).getPageName().equalsIgnoreCase(pageName)){
 				
 				return kitPages.get(i) ;
@@ -441,30 +421,6 @@ public class Passport extends JPanel implements MouseListener {
 		// TODO : catch for null pointer exception later
 		return null ;
 	}
-	
 
-	// public static void main(String[] args) {
-	//
-	// // Create the frame
-	// JFrame frame = new JFrame();
-	//
-	// ArrayList<Integer> kitProgress = new ArrayList<Integer>() ;
-	// kitProgress.add(5) ;
-	//
-	// User user = new User("user name", "long Fake Name Fake", "K",
-	// kitProgress) ;
-	//
-	// // Add the passport to the frame--will need to figure out
-	// // how to do the name getting part
-	// frame.getContentPane().add(new Passport(user));
-	//
-	// // Set the size to the specified page size
-	// frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
-	//
-	// // Make visible
-	// frame.setVisible(true);
-	//
-	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	// }
 
 }
