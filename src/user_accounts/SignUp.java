@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -75,7 +76,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		// Set the database location
 		try {
 			url_database = new URL(
-					"http://royal.cs.mtholyoke.edu/sethi22s/database.csv");
+					"http://royal.cs.mtholyoke.edu/orche22h/database.csv");
 
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -305,6 +306,8 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 			connection.setUseCaches(false);
 
 			// connection.
+			
+			//DataOutputStream dos = new DataOutputStream(connection.getOutputStream()) ;
 
 			
 			
@@ -316,9 +319,13 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 			// grade = (JComboBox) grade.getSelectedItem();
 			out.write("\n" + userName + fakeName + grade + "," + kitProgress);
 			
+			String message = "\n" + userName + fakeName + grade + "," + kitProgress ;
 			
+			//dos.writeBytes(message);
+			//dos.flush() ;
+			//dos.close() ;
 			
-			//out.flush();
+			out.flush();
 			
 			// System.out.println("I am here");
 			
