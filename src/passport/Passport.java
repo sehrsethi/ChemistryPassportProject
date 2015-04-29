@@ -85,7 +85,7 @@ public class Passport extends JPanel implements MouseListener {
 	private int currentPageIndex = INTRO_PAGE_INDEX;
 	
 	//The ChemGetPropertyValues instance
-	private ChemGetPropertyValues propVals;
+	private ChemGetPropertyValues propValues;
 	
 	//The kit currently running
 	private Kit currentKit;
@@ -100,15 +100,15 @@ public class Passport extends JPanel implements MouseListener {
 	 */
 	public Passport(User user, ChemistryPassportGUI chemGUI) {
 		
-		//Create the property values
-		propVals = new ChemGetPropertyValues();
 
 		this.chemGUI = chemGUI;
+		
+		propValues = chemGUI.getPropValues() ;
 		
 		this.user = user;
 
 		// Save the child's name (will be needed for various pages)
-		this.userName = user.getFakeName();
+		this.userName = user.getAdventureName();
 
 		// Set the layout to the card layout we created
 		this.setLayout(CARD_LAYOUT);
@@ -157,12 +157,12 @@ public class Passport extends JPanel implements MouseListener {
 	 * @return
 	 */
 	public ChemGetPropertyValues getPropVals(){
-		return propVals;
+		return propValues;
 	}
 	
 	private void addExistingKitPages(){
 		//String[] kitClassNames = propVals.getKitNames();
-		String[] kitButtonNames = propVals.getKitButtonNames();
+		String[] kitButtonNames = propValues.getKitButtonNames();
 		
 		for (int i = 0; i < kitButtonNames.length; i++){
 			

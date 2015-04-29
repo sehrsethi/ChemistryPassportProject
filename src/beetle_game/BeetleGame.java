@@ -95,21 +95,6 @@ public class BeetleGame extends JPanel{
 	}
 
 	
-	/**
-	 * Runs the program
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		f.setTitle("Follow the Beetle!");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-		BeetleGame beetleGame = new BeetleGame(new ChemistryPassportGUI());
-		Container contentPane = f.getContentPane();
-		contentPane.add(beetleGame, BorderLayout.CENTER);
-		f.setVisible(true);
-
-	}
+	
 
 }

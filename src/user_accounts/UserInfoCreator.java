@@ -13,7 +13,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import main.ChemGetPropertyValues;
 
-public class UserInfoController {
+public class UserInfoCreator {
 
 	// The directory to put the file in
 	private static final String DIRECTORY_NAME = "Chemistry Passport";
@@ -33,7 +33,7 @@ public class UserInfoController {
 	/**
 	 * 
 	 */
-	public UserInfoController(ChemGetPropertyValues propValues) {
+	public UserInfoCreator(ChemGetPropertyValues propValues) {
 		
 		this.propValues = propValues;
 
@@ -190,7 +190,7 @@ public class UserInfoController {
 		
 		
 
-		new UserInfoController(new ChemGetPropertyValues());
+		new UserInfoCreator(new ChemGetPropertyValues());
 	}
 
 }

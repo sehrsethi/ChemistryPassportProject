@@ -10,7 +10,10 @@ import passport.Passport;
 public class ChemistryPassport {
 	
 	public static void main(String args[]) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
-		ChemistryPassportGUI gui = new ChemistryPassportGUI();
+		
+		ChemGetPropertyValues propValues = new ChemGetPropertyValues() ;
+		
+		ChemistryPassportGUI gui = new ChemistryPassportGUI(propValues);
 		
 		 //Create the frame
 		 JFrame frame = new JFrame();
@@ -23,10 +26,7 @@ public class ChemistryPassport {
 		 // Make visible
 		 frame.setVisible(true);
 		
-		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 
-	
-			 
+		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	 
 
 		//ChemGetPropertyValues c = (ChemGetPropertyValues) Class.forName("ChemGetPropertyValues").newInstance() ;
 

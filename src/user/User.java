@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class User {
 
-	private final String fakeName ;
+	private final String adventureName ;
 	
 	private final String grade ;
 	
@@ -12,9 +12,8 @@ public class User {
 	
 	
 	public User(String adventureName , String grade, ArrayList<Integer> kitProgress){
-
 		
-		this.fakeName = adventureName ;
+		this.adventureName = adventureName ;
 		
 		this.grade = grade ;
 		
@@ -22,11 +21,27 @@ public class User {
 		
 		
 	}
+	
+	public User(String adventureName , String grade, String kitProgressString){
+		
+		this.adventureName = adventureName ;
+		
+		this.grade = grade ;
+		
+		kitProgress = new ArrayList<Integer>() ;
+		
+		String[] kitProgressArray = kitProgressString.split(",") ;
+		
+		for(int i = 0 ; i < kitProgressArray.length ; i++){
+			
+			kitProgress.add(Integer.parseInt(kitProgressArray[i])) ;
+		}
+		
+	}
+	
 
-
-
-	public String getFakeName() {
-		return fakeName;
+	public String getAdventureName() {
+		return adventureName;
 	}
 
 	public ArrayList<Integer> getKitProgress() {
@@ -36,7 +51,5 @@ public class User {
 	public String getGrade() {
 		return grade;
 	}
-	
-	
 
 }

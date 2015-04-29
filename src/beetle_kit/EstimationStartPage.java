@@ -67,7 +67,7 @@ public class EstimationStartPage extends JPanel {
 
 		addStartButton();
 		
-		addResumeButton();
+		
 
 	}
 
@@ -206,7 +206,7 @@ public class EstimationStartPage extends JPanel {
 	}
 
 	/**
-	 * Adds a "Start" button. Clicking on this button lets the user resume the
+	 * Adds a "Start" button. Clicking on this button lets the user start the
 	 * game.
 	 */
 	private void addStartButton() {
@@ -232,34 +232,7 @@ public class EstimationStartPage extends JPanel {
 
 		add(startButton);
 	}
-	
-	/**
-	 * Adds a "Resume" button. Clicking on this button lets the user resume the
-	 * game. 
-	 * 
-	 * TODO : Might need to read from database whether or not the user can resume. Changes in other classes will have to be made if we decide to add this feature
-	 */
-	private void addResumeButton() {
 
-		JButton resumeButton = new JButton("Resume");
-		
-		resumeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		resumeButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				System.out.println("Resume");
-				
-			
-			}
-		});
-
-
-
-		add(resumeButton);
-	}
 
 	/**
 	 * Sets the color of the infested trees according to the mode the user chose

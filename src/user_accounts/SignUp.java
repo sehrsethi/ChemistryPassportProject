@@ -36,6 +36,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import user.User;
+
 public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 	// Instance variables for Sign Up Page
@@ -52,40 +54,30 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 	// The main sign up panel
 	private JTabbedPane g_tabbedPane = new JTabbedPane();
-	// Panel for JButtons and Jlabels with sign up tab
+	// Panel for JButtons and Jlabel with sign up tab
 	private JPanel root_panel_inside_tabbedPane = new JPanel();
 
-	//private String getUserName = null;
-	//private String getAdventureName = null;
-	//private String gradeFromComboBox = "";
-
-	// The location of the database
-	private URL url_database;
-
 	//
-	private UserInfoController userInfoController;
-
+	private UserInfoCreator userInfoCreator;
+	
+	private UserAccountGUI userAccountGUI ;
+	
+	private User user ;
+	
 	/**
 	 * 
-	 * @param userInfoController
+	 * @param userInfoCreator
+	 * @param userAccountGUI TODO
 	 */
-	public SignUp(UserInfoController userInfoController) {
+	public SignUp(UserInfoCreator userInfoCreator, UserAccountGUI userAccountGUI) {
 
-		this.userInfoController = userInfoController;
+		this.userInfoCreator = userInfoCreator;
+		
+		this.userAccountGUI = userAccountGUI ;
 
 		BoxLayout boxLayout = new BoxLayout(root_panel_inside_tabbedPane,
 				BoxLayout.Y_AXIS);
 		root_panel_inside_tabbedPane.setLayout(boxLayout);
-
-		// Set the database location
-		try {
-			url_database = new URL(
-					"http://royal.cs.mtholyoke.edu/sethi22s/database.csv");
-
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-
 		signUp();
 
 	}
@@ -216,11 +208,15 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 			if (checkSignUp()) {
 
 				if (writeToFile(adventureNameTextField, userGrade)) {
+					
 					JOptionPane.showMessageDialog(this, "User account for "
 							+ adventureNameTextField.getText()
 							+ " has been created. Cheers!");
+					
+					
+					userAccountGUI.createPassport(user);
+					
 
-					System.exit(0);
 
 				}
 
@@ -268,9 +264,9 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	 */
 	private boolean writeToFile(JTextField adventureNameText, String grade) {
 
-		File databaseFile = new File(userInfoController.getFilePath());
+		File databaseFile = new File(userInfoCreator.getFilePath());
 
-		String kitProgress = testKitProgress();
+		String kitProgress = createKitProgressString();
 
 		try {
 
@@ -288,14 +284,19 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 				return false;
 			}
 
-			adventureName += ",";
+
+			
+			//adventureName += ",";
 
 			// grade = (JComboBox) grade.getSelectedItem();
-			out.write("\n" + adventureName + grade + "," + kitProgress);
+			out.write("\n" + adventureName + "," + grade + "," + kitProgress);
 
 			out.flush();
 
 			out.close();
+	
+			user = new User(adventureName, grade, kitProgress) ;
+			
 			return true;
 
 		} catch (IOException e) {
@@ -306,15 +307,14 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		return false;
 	}
 
+
 	/**
-	 * Checks the kit progress of the user and writes to database
-	 * 
-	 * @param databaseFile
+	 * For each kit in the program, it sets the user's progress to 0.
 	 * @return
 	 */
-	private String testKitProgress() {
+	private String createKitProgressString() {
 
-		File databaseFile = new File(userInfoController.getFilePath());
+		File databaseFile = new File(userInfoCreator.getFilePath());
 
 		try {
 			
@@ -372,7 +372,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	 */
 	private boolean adventureNameExists(String adventureName) {
 
-		File databaseFile = new File(userInfoController.getFilePath());
+		File databaseFile = new File(userInfoCreator.getFilePath());
 
 		try {
 

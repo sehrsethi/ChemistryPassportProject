@@ -62,32 +62,27 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	private Insets insets;
 	private JTabbedPane g_tabbedPane = new JTabbedPane();
 	private JPanel root_panel = null;
-	private String m_user = null;
+	private String m_user = null;	
+	private UserInfoCreator userInfoCreator ;
 	
-	//The location of the database
-	private URL url_database;
+	private User user ;
 	
-	private UserInfoController userInfoController ;
+	private UserAccountGUI userAccountGUI ;
 
 	/**
 	 * 
-	 * @param title
-	 * @param userInfoController
+	 * @param userInfoCreator
+	 * @param userAccountGUI TODO
 	 */
-	public Login(String title, UserInfoController userInfoController) {
+	public Login(UserInfoCreator userInfoCreator, UserAccountGUI userAccountGUI) {
 
-		this.userInfoController = userInfoController ;
+		this.userInfoCreator = userInfoCreator ;
+		
+		this.userAccountGUI = userAccountGUI ;
 		
 		loginPage();
 		
-		//Set the database location
-		try {
-			url_database = new URL(
-					"http://royal.cs.mtholyoke.edu/sethi22s/database.csv");
-
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		
 
 	}
 
@@ -174,7 +169,7 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 	private void readFromFile(JTextField adventureNameText) {
 
-		File databaseFile = new File(userInfoController.getFilePath());
+		File databaseFile = new File(userInfoCreator.getFilePath());
 
 		boolean userFound = false;
 
@@ -197,13 +192,17 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 					userFound = true;
 
-					User user = createUser(line);
+					user = createUser(line);
 
 					// at this point, some controller should get the user so
 					// that the passport for the user is created and the chosen
 					// kit can be started.
+					
+					userAccountGUI.createPassport(user);
 
 					in.close();
+					
+					
 
 					break;
 				}
@@ -249,10 +248,18 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 			kitProgress.add(Integer.parseInt(userInfo[i]));
 		}
 
-		User user = new User(adventureName, grade, kitProgress);
+		User tempUser= new User(adventureName, grade, kitProgress);
 
-		return user;
+		return tempUser ;
 
 	}
+
+	public User getUser() {
+		return user;
+	}
+	
+	
+	
+	
 
 }
