@@ -39,24 +39,9 @@ public class KitPage extends JPanel {
 	// The name of the child
 	private String childName;
 
-	// The label for empty sticker
-	// private StickerPanel emptyStickerPanel = new StickerPanel();
-
-	// The name/location of the image this page shows:
-	// NOTE: THIS WILL CHANGE TO GET THE APPROPRIATE STICKER
-	// We should either have the image file name be some sort of parameter
-	// or we could have standardized file names (e.g., sticker_[KIT NAME].png)
-
-	// The name/location of the image this page shows
-	// private static final String IMAGE_FILE = "images//logo.png";
-
 	// The name/location of the image this page shows
 	//private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
 	private static final String IMAGE_FILE = "images/logo.png";
-	
-	
-	// The icon that displays when the user hasn't earned this sticker
-	//private static final String EMPTY_IMAGE_FILE = "src//images//nosticker.png";
 
 	// The font for the kit name
 	private static final Font KIT_NAME_FONT = new Font("Times New Roman",
@@ -80,17 +65,12 @@ public class KitPage extends JPanel {
 	private static final long ANIMATION_TIME = 2600;
 
 	// Whether the sticker should be displayed
-	// ONLY SHOW THE STICKER AFTER THEY CLICK
 	private boolean showSticker;
 
 	// True if they have just earned the sticker:
 	// If earnSticker is true, show an animation of the sticker being put on the
 	// page
 	private boolean earnSticker = false;
-
-	// False if they have not previously completed this kit and earned a sticker
-	// for it. True otherwise.
-	// private boolean showNoSticker = true;
 
 	// the current coordinates of the sticker
 	private double currentX;
@@ -171,6 +151,8 @@ public class KitPage extends JPanel {
 		// Set the background color
 		this.setBackground(BACKGROUND_COLOR);
 		
+		
+		//Create the ImageIcon from the file to create the sticker
 		try {
 			ClassLoader classLoader = Thread.currentThread()
 					.getContextClassLoader();
@@ -186,7 +168,7 @@ public class KitPage extends JPanel {
 		}
 
 		
-
+		
 		finalX = this.getWidth() / 2 - imageIcon.getIconWidth() / 2;
 
 		finalY = this.getHeight() / 2 - imageIcon.getIconHeight() / 2 - 50;
@@ -419,12 +401,7 @@ public class KitPage extends JPanel {
 	 */
 	private void addKitName() {
 		
-		//String pageHeading = pageName.substring(pageName.indexOf(".")+1);
-		
 		// Add the kit name label
-		// Kit name label
-		//JLabel kitNameLabel = new JLabel(pageHeading);
-
 		JLabel kitNameLabel = new JLabel(pageName);
 		
 		// Set the font of the child's name
@@ -637,7 +614,6 @@ public class KitPage extends JPanel {
 				 
 				//The name of the reward game to add (necessary for CardLayout)
 				String rewardName = passport.getCurrentKit().getRewardName();
-
 				
 				// Add to CardLayout
 				//passport.getChemGUI().add(beetle, "Beetle Reward Game");
@@ -649,15 +625,12 @@ public class KitPage extends JPanel {
 				
 				repaint();
 				
-				
-				
 			}
 		});
 		
 		rewardButton.setEnabled(false);
 		
 		add(rewardButton) ;
-		
 		
 	}
 
