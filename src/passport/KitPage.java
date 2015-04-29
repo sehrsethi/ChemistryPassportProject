@@ -213,19 +213,6 @@ public class KitPage extends JPanel {
 
 		paintSticker(g);
 
-		// for debugging
-		
-		 g.setColor(Color.RED);
-		 
-		 g.fillRect((int) rectangle.getX(), (int) rectangle.getY(), (int)
-		 rectangle.getWidth(), (int) rectangle.getHeight());
-		 
-		 g.setColor(Color.BLUE);
-		 
-		 g.drawRect((int) currentX, (int) currentY, imageIcon.getIconWidth(),
-		 imageIcon.getIconHeight());
-		 
-		 g.setColor(Color.cyan);
 		
 	}
 
@@ -296,8 +283,6 @@ public class KitPage extends JPanel {
 		// Create and add rigid area for spacing
 		this.add(Box.createRigidArea(new Dimension(20, 75)));
 
-		addSticker();
-
 		// Create and add rigid area for spacing
 		this.add(Box.createRigidArea(new Dimension(50, 300)));
 
@@ -334,77 +319,11 @@ public class KitPage extends JPanel {
 		add(childNameLabel);
 	}
 
-	/**
-	 * Add the sticker and start the sticker animation
-	 */
-	public void addSticker() {
 
-		// Check if we should add the sticker
-		if (!showSticker) {
-			// Show empty sticker icon
-			// Create the sticker icon
-			// ImageIcon imageIcon = new ImageIcon(EMPTY_IMAGE_FILE);
-
-			// imageIcon.
-			// Create a label for the sticker
-			// emptyStickerLabel = new JLabel(imageIcon);
-
-			// Center the label
-			// emptyStickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-			this.addMouseListener(new MouseListener() {
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
-					// Add the sticker
-
-					startStickerAnimation();
-
-				}
-
-				/**
-				 * 
-				 */
-				
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-			});
-
-		}
-	}
 	
 	public void startStickerAnimation() {
 		earnSticker = true;
-
-		// something needs to happen here so that the database knows
-		// that a sticker has been added
-
-		// showNoSticker = false;
-
+		
 		// start animation
 		startTime = System.currentTimeMillis();
 
@@ -601,29 +520,26 @@ public class KitPage extends JPanel {
 				// update the coordinates of the sticker
 				animate(KitPage.this.getWidth(), KitPage.this.getHeight() - 110);
 
-				//currentTime = System.currentTimeMillis();
-
 				// If the sticker has roughly reached the middle of the screen
 				// or if the
 				// animation has happened for a certain period of time, then
 				// stop the
 				// animation
 
-				// if(currentX == finalX && currentY == finalY){
-
-			//	if (rectangle.contains(currentX, currentY)) {
 				
 				long timeElapsed = System.currentTimeMillis() - startTime;
 				
 				
 				if (rectangle.intersects(currentX, currentY, imageIcon.getIconWidth()/5, imageIcon.getIconHeight()/5) && (timeElapsed > ANIMATION_MIN_RUNTIME) ) {
-					
-					System.out.println("stop");
+
 					timer.stop();
 
 				} else if(timeElapsed > ANIMATION_MAX_RUNTIME){
 					
-					System.out.println("too long");
+					
+					currentX = finalX ;
+					
+					currentY = finalY ;
 					
 					timer.stop();
 					
