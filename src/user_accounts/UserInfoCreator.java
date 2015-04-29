@@ -16,7 +16,7 @@ import main.ChemGetPropertyValues;
 public class UserInfoCreator {
 
 	// The directory to put the file in
-	private static final String DIRECTORY_NAME = "ChemistryPassport";
+	private static final String DIRECTORY_NAME = "Chemistry Passport";
 
 	// The name of the csv file that stores the user's information. Add a "." before the file name to hide the file
 	private static final String FILE_NAME = ".userInfo.csv";
@@ -128,28 +128,28 @@ public class UserInfoCreator {
 
 		
 		System.out.println("hidden " + userInfoFile.isHidden());
-
-		// Do the following to hide files on Windows
-		try {
-			
-			Path path = FileSystems.getDefault().getPath(
-					userInfoFile.getAbsolutePath());
-			
-			 DosFileAttributes attr =
-				        Files.readAttributes(path, DosFileAttributes.class);
-			 
-				    System.out.println("isReadOnly is " + attr.isReadOnly());
-			
-			Files.setAttribute(path, "dos:hidden", true);
-			
-			
-		} catch (UnsupportedOperationException x) {
-			
-			// This exception is thrown on any Operating System that is not Windows. If the OS is not windows, don't do anything.
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//
+//		// Do the following to hide files on Windows
+//		try {
+//			
+//			Path path = FileSystems.getDefault().getPath(
+//					userInfoFile.getAbsolutePath());
+//			
+//			 DosFileAttributes attr =
+//				        Files.readAttributes(path, DosFileAttributes.class);
+//			 
+//				    System.out.println("isReadOnly is " + attr.isReadOnly());
+//			
+//			Files.setAttribute(path, "dos:hidden", true);
+//			
+//			
+//		} catch (UnsupportedOperationException x) {
+//			
+//			// This exception is thrown on any Operating System that is not Windows. If the OS is not windows, don't do anything.
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		System.out.println("hidden " + userInfoFile.isHidden());
 	}
@@ -186,6 +186,27 @@ public class UserInfoCreator {
 
 	public static String getFilePath() {
 		return filePath;
+	}
+	
+	/**
+	 * 
+	 * @param userInfoFile
+	 * @param hide If hide is true, then the file will be hidden. If hide is false then the file will be not hidden
+	 * @throws IOException
+	 */
+	public static void setHideFile(File userInfoFile, boolean hide) {
+		
+		Path path = FileSystems.getDefault().getPath(
+				userInfoFile.getAbsolutePath());
+		
+		try {
+			
+			Files.setAttribute(path, "dos:hidden", hide);
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 	/**

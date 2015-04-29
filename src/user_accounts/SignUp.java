@@ -19,12 +19,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -268,6 +262,9 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		String kitProgress = createKitProgressString();
 
 		try {
+			
+			// the file should be un-hidden before writing to file
+			UserInfoCreator.setHideFile(databaseFile, false);
 
 			BufferedWriter out = new BufferedWriter(new FileWriter(
 					databaseFile, true));
@@ -279,6 +276,13 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 				JOptionPane.showMessageDialog(this,
 						"Someone already has this username: " + adventureName
 								+ ". Let's pick another one!");
+				
+				out.flush();
+
+				out.close();
+				
+				// the file should be hidden after writing to file
+				UserInfoCreator.setHideFile(databaseFile, true);
 
 				return false;
 			}
@@ -294,6 +298,9 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 			out.close();
 	
+			// the file should be hidden after writing to file
+			UserInfoCreator.setHideFile(databaseFile, true);
+			
 			user = new User(adventureName, grade, kitProgress) ;
 			
 			return true;

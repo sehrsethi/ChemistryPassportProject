@@ -126,22 +126,7 @@ public class EstimationGame extends JPanel {
 	private void updateKitProgressInFile() {
 
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(new File(
-					UserInfoCreator.getFilePath())));
-
-			StringBuilder stringBuilder = new StringBuilder();
-
-			String line = br.readLine();
-
-			while (line != null) {
-
-				stringBuilder.append(line + "\n");
-
-				line = br.readLine();
-
-			}
-
-			br.close();
+			StringBuilder stringBuilder = readFromFile();
 
 			// at this point, all the text in the file is stored in
 			// stringBuilder
@@ -176,9 +161,7 @@ public class EstimationGame extends JPanel {
 						.getUserName())) {
 					
 					System.out.println("I am here:");
-					
-					
-					
+
 
 					// if we found the current user, change their kitProgress for
 					// the beetleKit (which is at index 2)
@@ -191,9 +174,6 @@ public class EstimationGame extends JPanel {
 					System.out.println("Kit progress: " + beetleKit.getKitProgress());
 					
 					System.out.println("User Info at 2: " + userInfo[2]);
-
-					
-					
 
 					// for the beetleKit, kitProgress can be at most
 					// MAX_NUM_ROUNDS
@@ -233,19 +213,9 @@ public class EstimationGame extends JPanel {
 			}
 
 			// write the string back to the file
+			
 
-			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(
-					UserInfoCreator.getFilePath())));
-
-			System.out.println("****************************");
-
-			System.out.println("toWrite " + toWrite);
-
-			bw.write(toWrite);
-
-			bw.flush();
-
-			bw.close();
+			writeToFile(toWrite);
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -255,6 +225,55 @@ public class EstimationGame extends JPanel {
 			e.printStackTrace();
 		}
 
+	}
+
+	/**
+	 * @param toWrite
+	 * @throws IOException
+	 */
+	public void writeToFile(String toWrite) throws IOException {
+		File fileToWrite = new File(UserInfoCreator.getFilePath());
+		
+		// the file should be un-hidden before writing to file
+		UserInfoCreator.setHideFile(fileToWrite, false);
+
+		BufferedWriter bw = new BufferedWriter(new FileWriter(fileToWrite));
+
+		bw.write(toWrite);
+
+		bw.flush();
+
+		bw.close();
+		
+
+		// the file should be hidden after writing to file
+		UserInfoCreator.setHideFile(fileToWrite, true);
+	}
+
+	/**
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	public StringBuilder readFromFile() throws FileNotFoundException,
+			IOException {
+		BufferedReader br = new BufferedReader(new FileReader(new File(
+				UserInfoCreator.getFilePath())));
+
+		StringBuilder stringBuilder = new StringBuilder();
+
+		String line = br.readLine();
+
+		while (line != null) {
+
+			stringBuilder.append(line + "\n");
+
+			line = br.readLine();
+
+		}
+
+		br.close();
+		return stringBuilder;
 	}
 
 	/**
@@ -411,6 +430,10 @@ public class EstimationGame extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				removeJOptionPanes();
+				
+				// before going back to passport, write the user's progress to the file
+				
+				updateKitProgressInFile();
 
 				beetleKit.earnReward();
 
