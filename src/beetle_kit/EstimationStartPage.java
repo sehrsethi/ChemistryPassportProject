@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -12,9 +14,13 @@ import java.awt.event.ItemListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 /**
  * The page that lets the user choose the default mode or one of the three
@@ -34,7 +40,7 @@ public class EstimationStartPage extends JPanel {
 	private static final String BLUE_YELLOW_TEXT = "Blue-Yellow Colorblindness";
 
 	// The main instructions for the Beetle game
-	private String instructionsText;
+	//private String instructionsText;
 
 	// The colorblindness mode (by default, non-colorblind mode)
 	private String mode = DEFAULT_TEXT;
@@ -56,6 +62,7 @@ public class EstimationStartPage extends JPanel {
 
 		this.beetleKit = beetleKit;
 
+		//this.setLayout(new BorderLayout());
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
 
 		this.setLayout(boxLayout);
@@ -76,109 +83,113 @@ public class EstimationStartPage extends JPanel {
 	private void addText() {
 
 		// The instructions for the game
-		instructionsText = "Introduction to the game:"
+
+		JPanel textPanel = new JPanel();
+
+		//BoxLayout boxLayout = new BoxLayout(textPanel, BoxLayout.Y_AXIS);
+		//textPanel.setLayout(boxLayout);
+
+		String instructionsText = "INTRODUCTION TO THE GAME:"
 				+ "\n"
 				+ "\n"
 				+ "Bark beetles are a natural predator of trees and form an important part of the cycle of life."
-				// + "\n"
-				+ "Sometimes, when the number of bark beetles is too large, they are a threat to wildlife, trees, and homes."
-				// + "\n"
+
+				+ " Sometimes, when there are too many bark beetles, they are a threat to wildlife, trees, and homes."
+
 				+ "When too many trees are infected with bark beetles, forest animals lose their homes and food."
-				// + "\n"
-				+ "Further, the risk of forest fires increases."
+
+				+ "Furthermore, the risk of forest fires increases."
 				+ " Knowing how many trees are infected is important to understanding"
-				// + "\n"
+
 				+ "whether the number of bark beetle larvae is growing or shrinking."
-				// + "\n"
+
+				+ "\n"
+
 				+ "In this kit, you'll learn how to estimate how many trees are infected and how many are healthy."
-				// + "\n"
-				+ "You'll also learn about how beetles use pheromones to attract each other and how these could be used to trap them. "
 
-				 + "\n"
-				+
+				+ "You'll also learn about how beetles use pheromones to attract each other. "
 
-				"1.Estimating the size of the problem: "
+				+ "\n"
+				+ "\n"
+				+ "Estimating the size of the problem"
+				+"\n"
+				+ "\n"
 				+ "Scientists can't always measure everything exactly in the time given."
-				// + "\n"
+
 				+ "When they can't, they will often use estimation to get a good answer."
-				// + "\n"
-				+ "In this game, we need to count the \"red crowns\" before the bark beetle infected trees lose their needles."
-				// + "\n" +
-				+ "We could take a picture of an infected forest and count the number of trees with \"red\" "
-				+ "crowns and \"green\" crowns"
-				// + "\n"
+
+				+ "In this game, we need to count the \"infested crowns\" before the bark beetle infected trees lose their needles."
+
+				+ "We could take a picture of an infected forest and count the number of trees with \"infested\" "
+				+ "crowns and \"non-infested\" crowns"
+
 				+ "to get an exact number of dying and healthy trees."
-				// + "\n"
+
 				+ "However, for a large forest, this would take a while."
-				// + "\n"
+
 				+ "Instead, we will estimate using this grid. "
-				// + "\n"
+
 				+ "To make the grid, we started with a picture of a section of infected and healthy trees,"
-				// + "\n"
+
 				+ " put a grid on top of it and covered 2 out of every 3 squares of the picture to help speed the counting."
-				// + "\n"
+
+				+ "\n"
 				+ "\n"
 				+ "Instructions on how to play the game:"
-				// + "\n"
-				// + "\n"
+				+ "\n"
+
 				+ "To play the bark beetle infestation game, we need to set up rules that tell us what to count and how to count."
-				// + "\n"
+
+				+ "\n"
 				+ "Rule 1: What to count: "
-				+ "Red crowns and green crowns in each picture."
-				// + "\n"
+				+ "Infested crowns and non-infested crowns in each picture."
+
 				+ "Rule 2: How to count:"
 				+ " If a block contains the center of a tree crown, add one to the count. "
-				// + "\n"
+
 				+ "If it has less than the center of a tree crown, don't add one to the count."
-				// + "\n"
+
 				+ "Sometimes the picture in the block isn't clear. Just make a your best guess!"
-				// + "\n"
-				+ "Write the number of red and green crowns you counted in your notebook. "
-				// + "\n"
+
+				+ "Write the number of infested and non-infested crowns you counted in the appropriate answer area. "
+
 				+ "Since only two out of every threesquares is visible, you are only seeing one third of the area. "
-				// + "\n"
+
 				+ "To estimate how many red crowns are in the whole grid, add the number you got for a third of the picture three times. "
-				// + "\n"
+
 				+ "Do the same to get an estimate of the number of green crowns in the grid."
-				// + "\n"
+
 				+ "Try getting the estimate by clicking on the check estimate button."
-				// + "\n"
 				+ "Your estimates will be different but similar. "
-				// + "\n"
 				+ "The differences highlight that estimation is approximate.";
 
-		// Create a text area for the instructions text
-		// JTextArea instructionsArea = new JTextArea( instructionsText, 775,
-		// 700);
-		// TODO See if this works
-		JTextArea instructionsArea = new JTextArea(instructionsText, 700, 650);
+		//JEditorPane instructionsArea = new JEditorPane("text/html", "");
+		//instructionsArea.setText(instructionsText);
+		JTextArea instructionsArea = new JTextArea(instructionsText, 50, 40);
 
 		instructionsArea.setLineWrap(true);
 		instructionsArea.setWrapStyleWord(true);
 
-		// Setting a maximum size for the instructions area so it makes itself
-		// fit in the allocated space
-		// TODO See if this works.
-		// instructionsArea.setMaximumSize(new Dimension(750,650));
-		// instructionsArea.
-
 		// Users cannot modify the instructions
 		instructionsArea.setEditable(false);
 		instructionsArea.setFocusable(false);
+		
+		instructionsArea.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 
 		// Add the instructions text area
-		add(instructionsArea);
+		textPanel.add(instructionsArea);
+		
+		textPanel.setBackground(Color.WHITE);
 
-		// The color-blindness settings
-		JTextArea label = new JTextArea(
-				"Are you colorblind? If so, select the type of colorblindness you have.");
 
-		label.setEditable(false);
-		label.setFocusable(false);
+		// add the scroll pane
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(textPanel);
 
-		// add(label, BorderLayout.NORTH) ;
+		scrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		this.add(scrollPane);
 
-		add(label);
 	}
 
 	/**
@@ -187,6 +198,14 @@ public class EstimationStartPage extends JPanel {
 	private void addComboBox() {
 
 		JPanel panel = new JPanel(new BorderLayout());
+
+		// The color-blindness settings
+		JTextArea label = new JTextArea(
+				"Are you colorblind? If so, select the type of colorblindness you have.");
+
+		label.setFocusable(false);
+
+		panel.add(label, BorderLayout.NORTH);
 
 		String[] comboChoices = { DEFAULT_TEXT, RED_BLUE_GREEN_TEXT,
 				RED_GREEN_TEXT, BLUE_YELLOW_TEXT };
@@ -217,7 +236,7 @@ public class EstimationStartPage extends JPanel {
 
 		// add(comboBox, BorderLayout.CENTER) ;
 
-		panel.add(comboBox);
+		panel.add(comboBox, BorderLayout.CENTER);
 
 		add(panel);
 	}
