@@ -329,47 +329,47 @@ public class KitPage extends JPanel {
 			// Center the label
 			// emptyStickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-			this.addMouseListener(new MouseListener() {
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
-					// Add the sticker
-
-					startStickerAnimation();
-
-				}
-
-				/**
-				 * 
-				 */
-				
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-			});
+//			this.addMouseListener(new MouseListener() {
+//
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//					// Add the sticker
+//
+//					startStickerAnimation();
+//
+//				}
+//
+//				/**
+//				 * 
+//				 */
+//				
+//
+//				@Override
+//				public void mousePressed(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//
+//				}
+//
+//				@Override
+//				public void mouseReleased(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//
+//				}
+//
+//				@Override
+//				public void mouseEntered(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//
+//				}
+//
+//				@Override
+//				public void mouseExited(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//
+//				}
+//
+//			});
 
 		}
 	}
