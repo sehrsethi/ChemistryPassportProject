@@ -46,7 +46,6 @@ public class KitPage extends JPanel {
 	private String childName;
 
 	// The name/location of the image this page shows
-	//private static final String IMAGE_FILE = "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
 	private static final String IMAGE_FILE = "images/logo.png";
 
 	// The font for the kit name
@@ -68,7 +67,10 @@ public class KitPage extends JPanel {
 
 	// If the sticker never reaches its final destination, then stop the
 	// animation after a certain period of time has passed
-	private static final long ANIMATION_TIME = 2600;
+	private static final long ANIMATION_MAX_RUNTIME = 7000 ;
+	
+	// The animation will continue for at least this long
+	private static final long ANIMATION_MIN_RUNTIME = 3000;
 
 	// Whether the sticker should be displayed
 	private boolean showSticker;
@@ -104,7 +106,7 @@ public class KitPage extends JPanel {
 	private long startTime;
 
 	// Keep track of the time elapsed since the animation started
-	private long currentTime;
+	//private long currentTime;
 
 	// Whether or not this kit page is the last page of the passport. Need to
 	// know this to add the appropriate buttons.
@@ -133,12 +135,9 @@ public class KitPage extends JPanel {
 	public KitPage(String pageName, Passport passport, boolean showSticker) {
 		
 		
-		System.out.println("Kit Page Constructor");
-		
 		// Note whether we should show the sticker
 		this.showSticker = showSticker;
 
-		System.out.println("showSticker " + showSticker);
 		
 		// Set the page name
 		this.pageName = pageName.toUpperCase();
@@ -191,50 +190,14 @@ public class KitPage extends JPanel {
 		// the dimensions will change depending on panel size and image size and
 		// speed of animation
 		rectangle = new Rectangle2D.Double(finalX - 15, finalY - 10, 20, 20);
-
+		
 		// Add everything to the page
 		addContent();
 		
 	
+				
 		
-		System.out.println("******************************************************************************");
 		
-		this.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {
-				
-				
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-
-				System.out.println("Here ###########################");
-				
-			}
-		});
-		
-		this.addMouseMotionListener(new MouseMotionListener() {
-			
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				System.out.println("( " + e.getX() + " , " + e.getY() + " )");
-				
-			}
-			
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 		
 		this.setFocusable(true);
 
@@ -243,8 +206,6 @@ public class KitPage extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		
-		System.out.println("kit page paint component");
-
 		super.paintComponent(g);
 		g.setColor(BACKGROUND_COLOR);
 
@@ -276,13 +237,9 @@ public class KitPage extends JPanel {
 	 */
 	private void paintSticker(Graphics g) {
 		
-		System.out.println("kit page paintSticker()");
 		
-		System.out.println("showSticker " + showSticker);
-
 		if (showSticker) {
 
-			System.out.println("Should show sticker");
 			
 			imageIcon.paintIcon(this, g, (int) finalX, (int) finalY);
 			
@@ -644,7 +601,7 @@ public class KitPage extends JPanel {
 				// update the coordinates of the sticker
 				animate(KitPage.this.getWidth(), KitPage.this.getHeight() - 110);
 
-				currentTime = System.currentTimeMillis();
+				//currentTime = System.currentTimeMillis();
 
 				// If the sticker has roughly reached the middle of the screen
 				// or if the
@@ -654,11 +611,23 @@ public class KitPage extends JPanel {
 
 				// if(currentX == finalX && currentY == finalY){
 
-				if (rectangle.contains(currentX, currentY)) {
-
+			//	if (rectangle.contains(currentX, currentY)) {
+				
+				long timeElapsed = System.currentTimeMillis() - startTime;
+				
+				
+				if (rectangle.intersects(currentX, currentY, imageIcon.getIconWidth()/5, imageIcon.getIconHeight()/5) && (timeElapsed > ANIMATION_MIN_RUNTIME) ) {
+					
+					System.out.println("stop");
 					timer.stop();
 
-				} 
+				} else if(timeElapsed > ANIMATION_MAX_RUNTIME){
+					
+					System.out.println("too long");
+					
+					timer.stop();
+					
+				}
 				
 				repaint();
 
