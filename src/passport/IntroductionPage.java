@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,13 +18,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import main.ChemistryPassport;
+
 public class IntroductionPage extends JPanel {
 
 	// The width of this page
-	private static final int PAGE_WIDTH = 500;
+	//private static final int PAGE_WIDTH = 500;
 
 	// The height of this page
-	private static final int PAGE_HEIGHT = 700;
+	//private static final int PAGE_HEIGHT = 700;
 
 	// The name/location of the image this page shows
 	// private static final String IMAGE_FILE = "images//logo.png";
@@ -96,10 +99,10 @@ public class IntroductionPage extends JPanel {
 		// Set the size
 		// this.setSize(new Dimension(Passport.PAGE_WIDTH,
 		// Passport.PAGE_HEIGHT));
-		this.setPreferredSize(new Dimension(Passport.PAGE_WIDTH,
-				Passport.PAGE_HEIGHT));
-		this.setMinimumSize(new Dimension(Passport.PAGE_WIDTH,
-				Passport.PAGE_HEIGHT));
+		this.setPreferredSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
+				ChemistryPassport.PAGE_HEIGHT));
+		this.setMinimumSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
+				ChemistryPassport.PAGE_HEIGHT));
 
 		// Make the background white
 
@@ -268,8 +271,8 @@ public class IntroductionPage extends JPanel {
 		// So that the button is on the right. Otherwise the button is added to
 		// the center
 		buttonPanel
-				.setPreferredSize(new Dimension(Passport.PAGE_WIDTH - 50, 50));
-		buttonPanel.setMinimumSize(new Dimension(Passport.PAGE_WIDTH - 50, 50));
+				.setPreferredSize(new Dimension(ChemistryPassport.PAGE_WIDTH - 50, 50));
+		buttonPanel.setMinimumSize(new Dimension(ChemistryPassport.PAGE_WIDTH - 50, 50));
 
 		Font font = new Font("Verdana", Font.PLAIN, 18);
 

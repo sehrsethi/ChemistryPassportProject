@@ -209,13 +209,4 @@ public class UserInfoCreator {
 
 	}
 
-	/**
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		new UserInfoCreator(new ChemGetPropertyValues());
-	}
-
 }

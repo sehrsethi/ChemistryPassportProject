@@ -16,6 +16,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.InputStream;
+
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -25,6 +26,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import main.ChemistryPassport;
 
 /**
  * The passport page relevant to each kit
@@ -125,10 +128,15 @@ public class KitPage extends JPanel {
 	 *            Whether the sticker should be displayed
 	 */
 	public KitPage(String pageName, Passport passport, boolean showSticker) {
-
+		
+		
+		System.out.println("Kit Page Constructor");
+		
 		// Note whether we should show the sticker
 		this.showSticker = showSticker;
 
+		System.out.println("showSticker " + showSticker);
+		
 		// Set the page name
 		this.pageName = pageName.toUpperCase();
 
@@ -141,7 +149,7 @@ public class KitPage extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		// Set the size
-		this.setSize(new Dimension(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT));
+		this.setSize(new Dimension(ChemistryPassport.PAGE_WIDTH, ChemistryPassport.PAGE_HEIGHT));
 
 		// this.setPreferredSize(new Dimension(Passport.PAGE_WIDTH,
 		// Passport.PAGE_HEIGHT));
@@ -188,6 +196,8 @@ public class KitPage extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		
+		System.out.println("kit page paint component");
 
 		super.paintComponent(g);
 		g.setColor(BACKGROUND_COLOR);
@@ -217,12 +227,20 @@ public class KitPage extends JPanel {
 	 *            The graphics object to draw on
 	 */
 	private void paintSticker(Graphics g) {
+		
+		System.out.println("kit page paintSticker()");
+		
+		System.out.println("showSticker " + showSticker);
 
 		if (showSticker) {
 
+			System.out.println("Should show sticker");
+			
 			imageIcon.paintIcon(this, g, (int) finalX, (int) finalY);
 			
 			enableRewardButton();
+			
+			//repaint() ;
 
 		} else if (!showSticker) {
 

@@ -41,16 +41,5 @@ public class UserAccountGUI extends JPanel {
 		
 		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
 	}
-	
-	
-	
-//	public static void main(String[] args) {
-//
-//		JFrame frame = new JFrame();
-//		frame.setSize(new Dimension(550,550));
-//		frame.getContentPane().add(new UserAccountGUI(new UserInfoCreator(new ChemGetPropertyValues()), this));
-//		frame.setVisible(true);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//	}
+
 }

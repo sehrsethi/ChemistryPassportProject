@@ -233,7 +233,17 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 			return false;
 
-		} else if ((userGrade == null)
+		}else if(adventureNameTextField.getText().contains(",")){
+			
+			JOptionPane.showMessageDialog(this, "Adventure Name cannot have a ','. Try again!", "Error",
+					JOptionPane.ERROR_MESSAGE);
+
+			return false;
+
+		}
+		
+		
+		else if ((userGrade == null)
 				|| (userGrade.equals(""))) {
 			JOptionPane.showMessageDialog(this, "Enter the Grade", "Error",
 					JOptionPane.ERROR_MESSAGE);

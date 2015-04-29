@@ -21,7 +21,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 import kit_interfaces.Kit;
+import main.ChemistryPassport;
 import main.ChemistryPassportGUI;
 import user.User;
 
@@ -78,10 +80,10 @@ public class KitSelectionPage extends JPanel {
 
 		this.setLayout(new BorderLayout());
 
-		this.setPreferredSize(new Dimension(Passport.PAGE_WIDTH,
-				Passport.PAGE_HEIGHT));
-		this.setMinimumSize(new Dimension(Passport.PAGE_WIDTH,
-				Passport.PAGE_HEIGHT));
+		this.setPreferredSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
+				ChemistryPassport.PAGE_HEIGHT));
+		this.setMinimumSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
+				ChemistryPassport.PAGE_HEIGHT));
 
 		mainGUI = passort.getChemGUI();
 
@@ -286,18 +288,17 @@ public class KitSelectionPage extends JPanel {
 //					.getDeclaredConstructor(ChemistryPassportGUI.class, Integer.class)
 //					.newInstance(mainGUI, kitNumber);
 			
+			
 			Kit kit = (Kit) Class.forName(kitName)
-					.getDeclaredConstructor(ChemistryPassportGUI.class, Integer.class)
-					.newInstance(mainGUI, kitProgress);
+					.getDeclaredConstructor(ChemistryPassportGUI.class, Integer.class, Integer.class)
+					.newInstance(mainGUI, kitProgress, (Integer) kitNumber );
 
 			
 			//Inform the passport that this is the current kit
 			passport.setCurrentKit(kit);
 			
 			// Start the kit!
-			kit.startKit();
-			
-			
+			kit.startKit();			
 
 			// Add to CardLayout
 			mainGUI.add(kit, kitName);
@@ -394,33 +395,5 @@ public class KitSelectionPage extends JPanel {
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	/**
-	 * Main method for testing TODO : remove later
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		// Create the frame
-		JFrame frame = new JFrame();
-
-		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
-		kitProgress.add(5);
-
-		User user = new User("long Fake Name Fake", "K", kitProgress);
-
-		// Add the passport to the frame--will need to figure out
-		// how to do the name getting part
-		// frame.getContentPane().add(new KitSelectionPage(new Passport(user,
-		// this)));
-
-		// Set the size to the specified page size
-		frame.setSize(Passport.PAGE_WIDTH, Passport.PAGE_HEIGHT);
-
-		// Make visible
-		frame.setVisible(true);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
+	
 }

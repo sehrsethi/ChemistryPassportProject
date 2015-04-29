@@ -180,6 +180,7 @@ public class EstimationGame extends JPanel {
 						userInfo[2] = String.valueOf(MAX_NUM_ROUNDS);
 
 					}
+					
 
 					// convert the array of userInfo to a String
 
@@ -281,6 +282,7 @@ public class EstimationGame extends JPanel {
 
 		removeGrid();
 		beetleKit.setKitProgress(beetleKit.getKitProgress() + 1);
+		beetleKit.setUserKitProgress(beetleKit.getKitProgress());
 		createNextRound();
 
 	}

@@ -12,16 +12,27 @@ import main.ChemistryPassportGUI;
  */
 public abstract class Kit extends JPanel{
 	
+	protected Integer kitIndex ;
+	
 	protected ChemistryPassportGUI mainGUI ;
 	
 	//The user's progress on current kit
 	protected int kitProgress;
 	
-	public Kit(ChemistryPassportGUI mainGUI, Integer kitProgress) {
+	public Kit(ChemistryPassportGUI mainGUI) {
+		
+		this.mainGUI = mainGUI ;
+
+	}
+	
+	
+	public Kit(ChemistryPassportGUI mainGUI, Integer kitProgress, Integer kitIndex) {
 	
 		this.mainGUI = mainGUI ;
 		
 		this.kitProgress = kitProgress;
+		
+		this.kitIndex = kitIndex;
 	}
 	
 	
@@ -46,6 +57,8 @@ public abstract class Kit extends JPanel{
 		
 		return kitProgress;
 	}
+	
+	protected abstract void setUserKitProgress(int progress) ;
 	
 	/**
 	 * 

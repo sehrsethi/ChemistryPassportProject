@@ -47,6 +47,11 @@ public class User {
 	public ArrayList<Integer> getKitProgress() {
 		return kitProgress;
 	}
+	
+	public void setKitProgress(int kitNumber, int progress){
+		
+		kitProgress.set(kitNumber, progress);
+	}
 
 	public String getGrade() {
 		return grade;

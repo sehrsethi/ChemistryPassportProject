@@ -4,12 +4,15 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import beetle_game.BeetleGame;
+import beetle_kit.BeetleKit;
 import kit_interfaces.Kit;
 import main.ChemGetPropertyValues;
 import main.ChemistryPassportGUI;
@@ -30,10 +33,10 @@ public class Passport extends JPanel implements MouseListener {
 	// Use logo.png as sticker for now, or get beetle thing
 
 	// The width of the page of the passport
-	public static final int PAGE_WIDTH = 622;
+	//public static final int PAGE_WIDTH = 622;
 
 	// The height of the page of the passport
-	public static final int PAGE_HEIGHT = 738;
+	//public static final int PAGE_HEIGHT = 738;
 
 	// set a border around it
 	public static final Border BORDER = BorderFactory.createLineBorder(
@@ -165,8 +168,29 @@ public class Passport extends JPanel implements MouseListener {
 		
 		for (int i = 0; i < kitButtonNames.length; i++){
 			
-			//TODO : Will have to change the boolean to true if the kit was completed
-			addPage(kitButtonNames[i],false);
+			int userKitProgress = user.getKitProgress().get(i) ;
+			
+			int kitCompletionCriteria = propValues.getKitCompletionCriteria()[i] ;
+			
+			System.out.println("kit name " + kitButtonNames[i] );
+			
+			System.out.println("user progress " + userKitProgress);
+			
+			System.out.println("kitCompletionCriteria " + kitCompletionCriteria);
+			
+			// User has completed this kit so display the sticker. Otherwise don't show sticker
+			if(userKitProgress >= kitCompletionCriteria){
+				
+				System.out.println("user completed this kit");
+				
+				addPage(kitButtonNames[i],true);
+				
+			}else{
+				
+				System.out.println("user did not complete this kit");
+			
+				addPage(kitButtonNames[i],false);
+			}
 		}
 	}
 
@@ -276,6 +300,8 @@ public class Passport extends JPanel implements MouseListener {
 		else if (currentPageIndex == KIT_SELECTION_INDEX) {
 
 			currentPageIndex = FIRST_KIT_INDEX;
+			
+			createKit();
 
 			CARD_LAYOUT.show(this, pageNames.get(currentPageIndex));
 
@@ -285,6 +311,8 @@ public class Passport extends JPanel implements MouseListener {
 
 			// update current page
 			currentPageIndex = (currentPageIndex + 1) % pageNames.size();
+			
+			createKit();
 
 			CARD_LAYOUT.next(this);
 		}
@@ -348,11 +376,55 @@ public class Passport extends JPanel implements MouseListener {
 
 				currentPageIndex = 0;
 			}
+			
+			createKit();
 
 			CARD_LAYOUT.previous(this);
 		}
 
 		repaint();
+	}
+
+	/**
+	 * 
+	 */
+	private void createKit() {
+		try {
+			
+			
+			Kit kit = (Kit) Class.forName(propValues.getKitNames()[currentPageIndex-2])
+					.getDeclaredConstructor(ChemistryPassportGUI.class)
+					.newInstance(chemGUI);
+			
+			currentKit = kit ;
+			
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(ArrayIndexOutOfBoundsException e){
+			
+				Kit kit = new BeetleKit(chemGUI) ;
+			
+			currentKit = kit ;
+		}
 	}
 
 	/**

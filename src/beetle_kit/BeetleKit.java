@@ -3,6 +3,7 @@ package beetle_kit;
 import java.awt.CardLayout;
 
 import javax.swing.JComponent;
+
 import kit_interfaces.Kit;
 import beetle_game.BeetleGame;
 import passport.KitPage;
@@ -27,10 +28,15 @@ public class BeetleKit extends Kit {
 	private static EstimationStartPage startPage;
 	
 	private Passport passport;
+	
+	public BeetleKit(ChemistryPassportGUI mainGUI) {
+		
+		super(mainGUI) ;
+	}
 
-	public BeetleKit(ChemistryPassportGUI mainGUI, Integer kitProgress) {
+	public BeetleKit(ChemistryPassportGUI mainGUI, Integer kitProgress, Integer kitIndex) {
 
-		super(mainGUI, kitProgress);
+		super(mainGUI, kitProgress,kitIndex);
 
 		this.setLayout(CARD_LAYOUT);
 		
@@ -66,26 +72,6 @@ public class BeetleKit extends Kit {
 		return startPage;
 	}
 
-	//
-	// public static void main(String[] args) {
-	//
-	// // Create a JFrame for the application and give it a size and close
-	// // operation
-	// JFrame frame = new JFrame("Beetle Kit");
-	// frame.setSize(605, 723);
-	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	//
-	// frame.getContentPane().add(new BeetleKit());
-	//
-	// // Make the frame visible
-	// frame.setVisible(true);
-	//
-	// frame.setResizable(false);
-	//
-	// // close operation
-	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	//
-	// }
 
 	@Override
 	public void startKit() {
@@ -147,5 +133,12 @@ public class BeetleKit extends Kit {
 	
 	public Passport getPassport(){
 		return passport;
+	}
+
+	@Override
+	protected void setUserKitProgress(int progress) {
+			
+		passport.getUser().setKitProgress(kitIndex, progress);
+		
 	}
 }
