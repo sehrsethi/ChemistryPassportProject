@@ -50,10 +50,7 @@ public abstract class Kit extends JPanel{
 	 * @return The kit progress 
 	 */	
 	public int getKitProgress(){
-		
-		System.out.println("Kit : getKitProgress");
-		
-		System.out.println("kit progress " + kitProgress);
+
 		
 		return kitProgress;
 	}
@@ -65,8 +62,6 @@ public abstract class Kit extends JPanel{
 	 * @param kitProgress
 	 */
 	public void setKitProgress(int kitProgress) {
-		
-		System.out.println("set kit progress to " + kitProgress);
 		
 		this.kitProgress = kitProgress;
 	}

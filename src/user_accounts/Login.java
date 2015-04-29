@@ -115,8 +115,9 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 
-		if (evt.getSource() == loginCancelButton)
+		if (evt.getSource() == loginCancelButton){
 			System.exit(0);
+		}
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -214,16 +215,12 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	 * @param line
 	 */
 	private User createUser(String line) {
-		
-		System.out.println("Login : Create user");
 
 		String[] userInfo = line.split(",");
 
 		String adventureName = userInfo[0];
 
 		String grade = userInfo[1];
-
-		System.out.println("grade is:" + grade + ".");
 
 		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
 		
@@ -233,13 +230,9 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 		// i = 1 : grade
 		// so to look for kit progress we start looking at i = 2
 		for (int i = 2; i < userInfo.length; i++) {
-			
-			System.out.println("user info at " + i + " is " + userInfo[i]);
 
 			kitProgress.add(Integer.parseInt(userInfo[i]));
-			
-			System.out.println("kit progress for kit " + index + " is " + kitProgress.get(index));
-			
+
 			index++ ;
 		}
 

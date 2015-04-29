@@ -23,10 +23,6 @@ public class ChemistryPassportGUI extends JPanel{
 	
 	private ChemGetPropertyValues propValues ;
 	
-	//public static final String BEETLE_KIT_TEXT = "Beetle Kit";
-	
-	
-	
 	public ChemistryPassportGUI(ChemGetPropertyValues propValues){
 		
 		this.propValues = propValues ;

@@ -37,8 +37,6 @@ public class UserInfoCreator {
 
 		this.propValues = propValues;
 
-		System.out.println("os " + System.getProperty("os.name"));
-
 		String directoryPath = getRootDirectoryPath();
 
 		filePath = getFilePath(directoryPath);
@@ -124,32 +122,6 @@ public class UserInfoCreator {
 			e.printStackTrace();
 		}
 
-		System.out.println("hidden " + userInfoFile.isHidden());
-		//
-		// // Do the following to hide files on Windows
-		// try {
-		//
-		// Path path = FileSystems.getDefault().getPath(
-		// userInfoFile.getAbsolutePath());
-		//
-		// DosFileAttributes attr =
-		// Files.readAttributes(path, DosFileAttributes.class);
-		//
-		// System.out.println("isReadOnly is " + attr.isReadOnly());
-		//
-		// Files.setAttribute(path, "dos:hidden", true);
-		//
-		//
-		// } catch (UnsupportedOperationException x) {
-		//
-		// // This exception is thrown on any Operating System that is not
-		// Windows. If the OS is not windows, don't do anything.
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
-		System.out.println("hidden " + userInfoFile.isHidden());
 	}
 
 	/**
@@ -173,7 +145,6 @@ public class UserInfoCreator {
 
 			} catch (NullPointerException e) {
 
-				System.out.println(prevFile.getAbsolutePath());
 				return prevFile.getAbsolutePath();
 			}
 		}

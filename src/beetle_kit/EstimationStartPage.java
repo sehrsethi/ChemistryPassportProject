@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.text.StyledEditorKit;
 
 /**
  * The page that lets the user choose the default mode or one of the three
@@ -31,16 +33,13 @@ import javax.swing.ScrollPaneConstants;
  */
 public class EstimationStartPage extends JPanel {
 
-	private static final String DEFAULT_TEXT = "Default (Non- colorblind)";
+	private static final String DEFAULT_TEXT = "Default (Non-colorblind)";
 
 	private static final String RED_BLUE_GREEN_TEXT = "Red-Blue-Green Colorblindness";
 
 	private static final String RED_GREEN_TEXT = "Red-Green Colorblindness";
 
 	private static final String BLUE_YELLOW_TEXT = "Blue-Yellow Colorblindness";
-
-	// The main instructions for the Beetle game
-	//private String instructionsText;
 
 	// The colorblindness mode (by default, non-colorblind mode)
 	private String mode = DEFAULT_TEXT;
@@ -71,7 +70,14 @@ public class EstimationStartPage extends JPanel {
 
 		addText();
 
+		
+		add(new JPanel()) ;
+
+
 		addComboBox();
+		
+		add(new JPanel()) ;
+		add(new JPanel()) ;
 
 		addStartButton();
 
@@ -96,72 +102,84 @@ public class EstimationStartPage extends JPanel {
 
 				+ " Sometimes, when there are too many bark beetles, they are a threat to wildlife, trees, and homes."
 
-				+ "When too many trees are infected with bark beetles, forest animals lose their homes and food."
+				+ " When too many trees are infected with bark beetles, forest animals lose their homes and food."
 
-				+ "Furthermore, the risk of forest fires increases."
+				+ " Furthermore, the risk of forest fires increases."
 				+ " Knowing how many trees are infected is important to understanding"
 
-				+ "whether the number of bark beetle larvae is growing or shrinking."
+				+ " whether the number of bark beetle larvae is growing or shrinking."
 
 				+ "\n"
-
+				+ "\n"
 				+ "In this kit, you'll learn how to estimate how many trees are infected and how many are healthy."
 
-				+ "You'll also learn about how beetles use pheromones to attract each other. "
+				+ " You'll also learn about how beetles use pheromones to attract each other. "
 
 				+ "\n"
 				+ "\n"
-				+ "Estimating the size of the problem"
+				+ "\n"
+				+ "ESTIMATING THE SIZE OF THE PROBLEM"
 				+"\n"
 				+ "\n"
 				+ "Scientists can't always measure everything exactly in the time given."
 
-				+ "When they can't, they will often use estimation to get a good answer."
+				+ " When they can't, they will often use estimation to get a good answer."
 
-				+ "In this game, we need to count the \"infested crowns\" before the bark beetle infected trees lose their needles."
+				+ " In this game, we need to count the \"infested crowns\" before the bark beetle infected trees lose their needles."
 
-				+ "We could take a picture of an infected forest and count the number of trees with \"infested\" "
-				+ "crowns and \"non-infested\" crowns"
+				+ " We could take a picture of an infected forest and count the number of trees with \"infested\" "
+				+ " crowns and \"non-infested\" crowns"
 
-				+ "to get an exact number of dying and healthy trees."
+				+ " to get an exact number of dying and healthy trees."
 
-				+ "However, for a large forest, this would take a while."
+				+ " However, for a large forest, this would take a while."
 
-				+ "Instead, we will estimate using this grid. "
+				+ " Instead, we will estimate using this grid. "
 
-				+ "To make the grid, we started with a picture of a section of infected and healthy trees,"
+				+ " To make the grid, we started with a picture of a section of infected and healthy trees,"
 
 				+ " put a grid on top of it and covered 2 out of every 3 squares of the picture to help speed the counting."
 
 				+ "\n"
 				+ "\n"
-				+ "Instructions on how to play the game:"
 				+ "\n"
-
+				+ "INSTRUCTIONS ON HOW TO PLAY THE GAME:"
+				+ "\n"
+				+ "\n"
 				+ "To play the bark beetle infestation game, we need to set up rules that tell us what to count and how to count."
 
 				+ "\n"
-				+ "Rule 1: What to count: "
+				+ "\n"
+				+ "Rule 1: What to count "
+				+ "\n"
 				+ "Infested crowns and non-infested crowns in each picture."
-
-				+ "Rule 2: How to count:"
-				+ " If a block contains the center of a tree crown, add one to the count. "
+				+ "\n"
+				+ "\n"
+				+ "Rule 2: How to count"
+				+ "\n"
+				+ "If a block contains the center of a tree crown, add one to the count. "
 
 				+ "If it has less than the center of a tree crown, don't add one to the count."
 
-				+ "Sometimes the picture in the block isn't clear. Just make a your best guess!"
+				+ " Sometimes the picture in the block isn't clear. Just make a your best guess!"
 
-				+ "Write the number of infested and non-infested crowns you counted in the appropriate answer area. "
-
+				+ " Write the number of infested and non-infested crowns you counted in the appropriate answer area. "
+				
+				+ "\n"
+				+ "\n"
+				+ "Rule 3: How to Estimate"
+				+ "\n"
 				+ "Since only two out of every threesquares is visible, you are only seeing one third of the area. "
 
-				+ "To estimate how many red crowns are in the whole grid, add the number you got for a third of the picture three times. "
+				+ "To estimate how many infested crowns are in the whole grid, add the number you got for a third of the picture three times. "
 
-				+ "Do the same to get an estimate of the number of green crowns in the grid."
+				+ "Do the same to get an estimate of the number of non-infested crowns in the grid."
 
-				+ "Try getting the estimate by clicking on the check estimate button."
-				+ "Your estimates will be different but similar. "
-				+ "The differences highlight that estimation is approximate.";
+				+ " Try getting the estimate by clicking on the check estimate button."
+				+ " Your estimates will be different but similar. "
+				+ " The differences highlight that estimation is approximate."
+				+ "\n"
+				+ "\n" ;
 
 		//JEditorPane instructionsArea = new JEditorPane("text/html", "");
 		//instructionsArea.setText(instructionsText);
@@ -174,7 +192,7 @@ public class EstimationStartPage extends JPanel {
 		instructionsArea.setEditable(false);
 		instructionsArea.setFocusable(false);
 		
-		instructionsArea.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		instructionsArea.setFont(new Font("Calisto MT", Font.PLAIN, 17));
 
 		// Add the instructions text area
 		textPanel.add(instructionsArea);
@@ -202,6 +220,10 @@ public class EstimationStartPage extends JPanel {
 		// The color-blindness settings
 		JTextArea label = new JTextArea(
 				"Are you colorblind? If so, select the type of colorblindness you have.");
+		
+		label.setFont(new Font("Calisto MT", Font.BOLD | Font.ITALIC, 17));
+		
+		label.setBackground(new Color(0,0,0,0));
 
 		label.setFocusable(false);
 
@@ -214,6 +236,8 @@ public class EstimationStartPage extends JPanel {
 
 		comboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		comboBox.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
+		comboBox.setFont(new Font("Calisto MT", Font.PLAIN, 14));
 
 		panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -248,6 +272,8 @@ public class EstimationStartPage extends JPanel {
 	private void addStartButton() {
 
 		JButton startButton = new JButton("Start");
+		
+		startButton.setFont(new Font("Calisto MT", Font.BOLD, 18));
 
 		startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 

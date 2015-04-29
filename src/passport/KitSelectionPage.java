@@ -270,25 +270,13 @@ public class KitSelectionPage extends JPanel {
 	 */
 	private void activateKit(String kitName, int kitNumber) {
 
-		System.out.println("Kit Selection Page : activateKit");
-		
+	
 		try {
-			
-			System.out.println("kitNumber " + kitNumber);
+
 			
 			//The progress of the user for the kit to be activated
 			Integer kitProgress = passport.getUser().getKitProgress().get(kitNumber);
 
-			System.out.println("kitProgress " + kitProgress);
-			
-			// Get an instance of the kit corresponding to kitName
-			// Kit kit = (Kit) Class.forName(kitName).newInstance();
-
-//			Kit kit = (Kit) Class.forName(kitName)
-//					.getDeclaredConstructor(ChemistryPassportGUI.class, Integer.class)
-//					.newInstance(mainGUI, kitNumber);
-			
-			
 			Kit kit = (Kit) Class.forName(kitName)
 					.getDeclaredConstructor(ChemistryPassportGUI.class, Integer.class, Integer.class)
 					.newInstance(mainGUI, kitProgress, (Integer) kitNumber );

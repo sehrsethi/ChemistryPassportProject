@@ -172,23 +172,14 @@ public class Passport extends JPanel implements MouseListener {
 			
 			int kitCompletionCriteria = propValues.getKitCompletionCriteria()[i] ;
 			
-			System.out.println("kit name " + kitButtonNames[i] );
-			
-			System.out.println("user progress " + userKitProgress);
-			
-			System.out.println("kitCompletionCriteria " + kitCompletionCriteria);
-			
 			// User has completed this kit so display the sticker. Otherwise don't show sticker
 			if(userKitProgress >= kitCompletionCriteria){
-				
-				System.out.println("user completed this kit");
-				
+
 				addPage(kitButtonNames[i],true);
 				
 			}else{
 				
-				System.out.println("user did not complete this kit");
-			
+
 				addPage(kitButtonNames[i],false);
 			}
 		}
