@@ -21,13 +21,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-
 import kit_interfaces.Kit;
-import main.ChemGetPropertyValues;
 import main.ChemistryPassportGUI;
-import beetle_kit.BeetleKit;
 import user.User;
 
 /**

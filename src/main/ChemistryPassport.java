@@ -1,8 +1,6 @@
 package main;
 
 
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
 
 import passport.Passport;

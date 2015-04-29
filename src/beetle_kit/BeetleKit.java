@@ -3,11 +3,7 @@ package beetle_kit;
 import java.awt.CardLayout;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import kit_interfaces.Kit;
-import beetle_game.Beetle;
 import beetle_game.BeetleGame;
 import passport.KitPage;
 import passport.Passport;

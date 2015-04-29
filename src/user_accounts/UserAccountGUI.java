@@ -1,19 +1,10 @@
 package user_accounts;
-import user.User;
-import user_accounts.Login;
-import user_accounts.SignUp;
-
-import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.BoxLayout;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import main.ChemGetPropertyValues;
 import main.ChemistryPassportGUI;
+import user.User;
 
 public class UserAccountGUI extends JPanel {
 		

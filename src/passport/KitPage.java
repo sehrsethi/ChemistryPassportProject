@@ -1,6 +1,5 @@
 package passport;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -17,23 +16,15 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
-import beetle_game.Beetle;
-import beetle_kit.EstimationStartPage;
-import user.User;
 
 /**
  * The passport page relevant to each kit

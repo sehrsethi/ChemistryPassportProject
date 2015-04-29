@@ -1,7 +1,5 @@
 package beetle_game ;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -11,7 +9,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 
 
 /**

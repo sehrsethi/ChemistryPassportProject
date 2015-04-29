@@ -1,6 +1,4 @@
 package beetle_kit;
-import java.awt.Dimension;
-
 import javax.swing.JApplet;
 
 /**

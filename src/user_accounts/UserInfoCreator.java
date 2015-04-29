@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.attribute.DosFileAttributes;
-
 import javax.swing.filechooser.FileSystemView;
 
 import main.ChemGetPropertyValues;

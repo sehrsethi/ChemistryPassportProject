@@ -2,20 +2,16 @@ package beetle_game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import passport.Passport;
 import main.ChemistryPassportGUI;
+import passport.Passport;
 
 /**
  * This is the Reward Game for the Bark Beetle Infestation Kit. It allows the user to draw two beetles on the screen with a trail of pheromones connecting them and then lets the user drag the second beetle around so that the first beetle follows it.

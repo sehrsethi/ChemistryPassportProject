@@ -1,8 +1,6 @@
 package beetle_game;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -12,8 +10,6 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-
-import com.sun.org.apache.xml.internal.resolver.readers.XCatalogReader;
 
 public class SecondBeetle implements BeetlePart {
 

@@ -1,11 +1,8 @@
 package main;
 
 import java.awt.CardLayout;
-import java.util.ArrayList;
-
 import javax.swing.JPanel;
 
-import beetle_kit.BeetleKit;
 import passport.Passport;
 import user.User;
 import user_accounts.UserAccountGUI;
