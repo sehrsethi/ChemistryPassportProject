@@ -141,25 +141,13 @@ public class EstimationGame extends JPanel {
 
 			for (int i = 0; i < lines.length; i++) {
 				
-				System.out.println("line at i" + lines[i]);
-				
-				System.out.println("user name is :" + (beetleKit.getPassport()
-						.getUserName()));
-
-
-				System.out.println("user name 2 is :" + (beetleKit.getPassport().getUser().getAdventureName()));
-
-				
 				if (i == 0) {
 
 					toWrite += lines[i] + "\n";
 
 				}else if (lines[i].contains(beetleKit.getPassport()
 						.getUserName())) {
-					
-					System.out.println("I am here:");
-
-
+	
 					// if we found the current user, change their kitProgress for
 					// the beetleKit (which is at index 2)
 
@@ -167,10 +155,7 @@ public class EstimationGame extends JPanel {
 					String[] userInfo = lines[i].split(",");
 
 					userInfo[2] = String.valueOf(beetleKit.getKitProgress());
-					
-					System.out.println("Kit progress: " + beetleKit.getKitProgress());
-					
-					System.out.println("User Info at 2: " + userInfo[2]);
+
 
 					// for the beetleKit, kitProgress can be at most
 					// MAX_NUM_ROUNDS
@@ -186,15 +171,11 @@ public class EstimationGame extends JPanel {
 
 					for (int j = 0; j < userInfo.length; j++) {
 						
-						System.out.println("user info at j: " + userInfo[j]);
-
 						toWrite += userInfo[j];
 						
 						if(j < userInfo.length - 1){
 							toWrite += ",";
 						}
-						
-						System.out.println("to write is : " + toWrite);
 
 					}
 

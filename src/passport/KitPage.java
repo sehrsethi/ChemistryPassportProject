@@ -11,8 +11,11 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,7 +64,7 @@ public class KitPage extends JPanel {
 	private static final Color BACKGROUND_COLOR = Color.WHITE;
 
 	// The coordinates of the sticker are updated every DELAY milliseconds
-	private static final int DELAY = 2;
+	private static final int DELAY = 10;
 
 	// If the sticker never reaches its final destination, then stop the
 	// animation after a certain period of time has passed
@@ -187,10 +190,53 @@ public class KitPage extends JPanel {
 
 		// the dimensions will change depending on panel size and image size and
 		// speed of animation
-		rectangle = new Rectangle2D.Double(finalX - 15, finalY - 10, 5, 5);
+		rectangle = new Rectangle2D.Double(finalX - 15, finalY - 10, 20, 20);
 
 		// Add everything to the page
 		addContent();
+		
+	
+		
+		System.out.println("******************************************************************************");
+		
+		this.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				System.out.println("Here ###########################");
+				
+			}
+		});
+		
+		this.addMouseMotionListener(new MouseMotionListener() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				System.out.println("( " + e.getX() + " , " + e.getY() + " )");
+				
+			}
+			
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		this.setFocusable(true);
 
 	}
 
@@ -207,17 +253,19 @@ public class KitPage extends JPanel {
 		paintSticker(g);
 
 		// for debugging
-		/*
-		 * g.setColor(Color.RED);
-		 * 
-		 * g.fillRect((int) rectangle.getX(), (int) rectangle.getY(), (int)
-		 * rectangle.getWidth(), (int) rectangle.getHeight());
-		 * 
-		 * g.setColor(Color.BLUE);
-		 * 
-		 * g.drawRect((int) currentX, (int) currentY, imageIcon.getIconWidth(),
-		 * imageIcon.getIconHeight());
-		 */
+		
+		 g.setColor(Color.RED);
+		 
+		 g.fillRect((int) rectangle.getX(), (int) rectangle.getY(), (int)
+		 rectangle.getWidth(), (int) rectangle.getHeight());
+		 
+		 g.setColor(Color.BLUE);
+		 
+		 g.drawRect((int) currentX, (int) currentY, imageIcon.getIconWidth(),
+		 imageIcon.getIconHeight());
+		 
+		 g.setColor(Color.cyan);
+		
 	}
 
 	/**
@@ -347,47 +395,47 @@ public class KitPage extends JPanel {
 			// Center the label
 			// emptyStickerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-//			this.addMouseListener(new MouseListener() {
-//
-//				@Override
-//				public void mouseClicked(MouseEvent e) {
-//					// TODO Auto-generated method stub
-//					// Add the sticker
-//
-//					startStickerAnimation();
-//
-//				}
-//
-//				/**
-//				 * 
-//				 */
-//				
-//
-//				@Override
-//				public void mousePressed(MouseEvent e) {
-//					// TODO Auto-generated method stub
-//
-//				}
-//
-//				@Override
-//				public void mouseReleased(MouseEvent e) {
-//					// TODO Auto-generated method stub
-//
-//				}
-//
-//				@Override
-//				public void mouseEntered(MouseEvent e) {
-//					// TODO Auto-generated method stub
-//
-//				}
-//
-//				@Override
-//				public void mouseExited(MouseEvent e) {
-//					// TODO Auto-generated method stub
-//
-//				}
-//
-//			});
+			this.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					// Add the sticker
+
+					startStickerAnimation();
+
+				}
+
+				/**
+				 * 
+				 */
+				
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+			});
 
 		}
 	}
