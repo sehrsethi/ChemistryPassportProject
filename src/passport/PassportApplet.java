@@ -21,7 +21,7 @@ public class PassportApplet extends JApplet{
 		 ArrayList<Integer> kitProgress = new ArrayList<Integer>() ;
 		 kitProgress.add(5) ;
 		
-		User user = new User("user name", "long Fake Name Fake", "K", kitProgress) ;
+		User user = new User("long Fake Name Fake", "K", kitProgress) ;
 		
 //		this.add(new Passport(user, this)) ;
 	}

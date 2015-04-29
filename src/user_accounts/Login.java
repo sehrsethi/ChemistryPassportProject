@@ -55,9 +55,8 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 	// Instance variables for Login Page
 
-	private static final String FILE_NAME = "database.csv";
-	private JLabel login_userNameLabel = null;
-	private JTextField login_userNameText = null;
+	private JLabel adventureNameLabel = null;
+	private JTextField adventureNameTextField = null;
 	private JButton loginButton = null;
 	private JButton loginCancelButton = null;
 	private Insets insets;
@@ -67,15 +66,18 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	
 	//The location of the database
 	private URL url_database;
+	
+	private UserInfoController userInfoController ;
 
 	/**
-	 * Constructor Constructs the GUI
 	 * 
 	 * @param title
-	 *            The title of the page
+	 * @param userInfoController
 	 */
-	Login(String title) {
+	public Login(String title, UserInfoController userInfoController) {
 
+		this.userInfoController = userInfoController ;
+		
 		loginPage();
 		
 		//Set the database location
@@ -100,13 +102,13 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 				150, 150)), 2));
 
 		JPanel pan2 = new JPanel();
-		login_userNameLabel = new JLabel("User Name:  ");
-		login_userNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		login_userNameText = new JTextField(40);
-		login_userNameText.setFont(new Font("Monospaced", Font.BOLD, 12));
-		pan2.add(login_userNameLabel);
-		pan2.add(login_userNameText);
-		login_userNameText.addKeyListener(this);
+		adventureNameLabel = new JLabel("Adventure Name:  ");
+		adventureNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		adventureNameTextField = new JTextField(40);
+		adventureNameTextField.setFont(new Font("Monospaced", Font.BOLD, 12));
+		pan2.add(adventureNameLabel);
+		pan2.add(adventureNameTextField);
+		adventureNameTextField.addKeyListener(this);
 		root_panel.add(pan2);
 
 		JPanel pan5 = new JPanel();
@@ -132,7 +134,7 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 		if (evt.getSource() == loginButton) {
 
 			if (userNameEntered()) {
-				this.readFromFile(login_userNameText);
+				this.readFromFile(adventureNameTextField);
 			}
 		}
 
@@ -151,14 +153,14 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 			if (userNameEntered()) {
 
-				this.readFromFile(login_userNameText);
+				this.readFromFile(adventureNameTextField);
 
 			}
 		}
 	}
 
 	private boolean userNameEntered() {
-		m_user = login_userNameText.getText();
+		m_user = adventureNameTextField.getText();
 
 		if ((m_user == null) || (m_user.equals(""))) {
 			JOptionPane.showMessageDialog(this, "Enter the User Name", "Error",
@@ -170,29 +172,28 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 		return true;
 	}
 
-	private void readFromFile(JTextField userNameText) {
+	private void readFromFile(JTextField adventureNameText) {
 
-		File databaseFile = new File(FILE_NAME);
+		File databaseFile = new File(userInfoController.getFilePath());
 
 		boolean userFound = false;
 
 		try {
-			//BufferedReader in = new BufferedReader(new FileReader(databaseFile));
-			
-			BufferedReader in = new BufferedReader(new InputStreamReader(url_database.openStream()));
+			BufferedReader in = new BufferedReader(new FileReader(databaseFile));
 			
 			// read first line
 			in.readLine();
-
+			
+			// start reading the file to look for the adventure name
 			String line = in.readLine();
 
 			while (line != null) {
 
 				String[] userInfo = line.split(",");
 
-				String userName = userInfo[0];
+				String adventureName = userInfo[0];
 
-				if (userName.equals(userNameText.getText())) {
+				if (adventureName.equals(adventureNameText.getText())) {
 
 					userFound = true;
 
@@ -214,7 +215,7 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 			if (!userFound) {
 
 				JOptionPane.showMessageDialog(this, "Sorry but the username "
-						+ userNameText.getText() + " was not found.");
+						+ adventureNameText.getText() + " was not found.");
 
 			}
 
@@ -235,11 +236,9 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 		String[] userInfo = line.split(",");
 
-		String userName = userInfo[0];
+		String adventureName = userInfo[0];
 
-		String fakeName = userInfo[1];
-
-		String grade = userInfo[2];
+		String grade = userInfo[1];
 
 		System.out.println(grade);
 
@@ -250,7 +249,7 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 			kitProgress.add(Integer.parseInt(userInfo[i]));
 		}
 
-		User user = new User(userName, fakeName, grade, kitProgress);
+		User user = new User(adventureName, grade, kitProgress);
 
 		return user;
 

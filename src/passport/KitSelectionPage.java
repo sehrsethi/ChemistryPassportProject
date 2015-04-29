@@ -398,8 +398,7 @@ public class KitSelectionPage extends JPanel {
 		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
 		kitProgress.add(5);
 
-		User user = new User("user name", "long Fake Name Fake", "K",
-				kitProgress);
+		User user = new User("long Fake Name Fake", "K", kitProgress);
 
 		// Add the passport to the frame--will need to figure out
 		// how to do the name getting part

@@ -3,9 +3,7 @@ package user;
 import java.util.ArrayList;
 
 public class User {
-	
-	private final String userName ;
-	
+
 	private final String fakeName ;
 	
 	private final String grade ;
@@ -13,11 +11,10 @@ public class User {
 	private ArrayList<Integer> kitProgress ;
 	
 	
-	public User(String userName , String fakeName, String grade, ArrayList<Integer> kitProgress){
+	public User(String adventureName , String grade, ArrayList<Integer> kitProgress){
+
 		
-		this.userName = userName ;
-		
-		this.fakeName = fakeName ;
+		this.fakeName = adventureName ;
 		
 		this.grade = grade ;
 		
@@ -26,9 +23,7 @@ public class User {
 		
 	}
 
-	public String getUserName() {
-		return userName;
-	}
+
 
 	public String getFakeName() {
 		return fakeName;

@@ -31,7 +31,7 @@ public class ChemistryPassportGUI extends JPanel{
 		 ArrayList<Integer> kitProgress = new ArrayList<Integer>() ;
 		 kitProgress.add(5) ;
 		
-		User user = new User("user name", "long Fake Name Fake", "K", kitProgress) ;
+		User user = new User("long Fake Name Fake", "K", kitProgress) ;
 		
 		passport = new Passport(user, this) ;
 		
