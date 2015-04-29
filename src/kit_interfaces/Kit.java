@@ -14,22 +14,51 @@ public abstract class Kit extends JPanel{
 	
 	protected ChemistryPassportGUI mainGUI ;
 	
-	public Kit(ChemistryPassportGUI mainGUI) {
+	//The user's progress on current kit
+	protected int kitProgress;
+	
+	public Kit(ChemistryPassportGUI mainGUI, Integer kitProgress) {
 	
 		this.mainGUI = mainGUI ;
+		
+		this.kitProgress = kitProgress;
 	}
 	
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the main ChemistryPassort GUI 
+	 * @return the main GUI of the program
 	 */
 	public ChemistryPassportGUI getMainGUI(){
 		
 		return mainGUI ;
 	}
-
 	
+	/**
+	 * Gets the kit progress of the user for this kit
+	 * @return The kit progress 
+	 */	
+	public int getKitProgress(){
+		
+		System.out.println("Kit : getKitProgress");
+		
+		System.out.println("kit progress " + kitProgress);
+		
+		return kitProgress;
+	}
+	
+	/**
+	 * 
+	 * @param kitProgress
+	 */
+	public void setKitProgress(int kitProgress) {
+		
+		System.out.println("set kit progress to " + kitProgress);
+		
+		this.kitProgress = kitProgress;
+	}
+
+
 	/**
 	 * Starts the kit
 	 */

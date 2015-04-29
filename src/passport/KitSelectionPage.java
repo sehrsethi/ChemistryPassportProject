@@ -251,14 +251,13 @@ public class KitSelectionPage extends JPanel {
 				// go through the kit names available in the program currently
 				// and match the name of the kit with the name of the button to
 				// start the appropriate kit
-				// for (int i = 0; i < kitNames.length; i++) {
 
 				for (int i = 0; i < kitButtonNames.length; i++) {
 					// if (kitNames[i].contains(kitButton.getText())) {
 
 					if (kitButtonNames[i].contains(kitButton.getText())) {
 						
-						activateKit(kitClassNames[i]);
+						activateKit(kitClassNames[i], i);
 					}
 				}
 
@@ -269,17 +268,32 @@ public class KitSelectionPage extends JPanel {
 
 	/**
 	 * Called by the action listener of the kit buttons to start the kit
+	 * @param kitName the name of the kit to activate
+	 * @param kitNumber the kit number 
 	 */
-	private void activateKit(String kitName) {
+	private void activateKit(String kitName, int kitNumber) {
 
+		System.out.println("Kit Selection Page : activateKit");
+		
 		try {
+			
+			System.out.println("kitNumber " + kitNumber);
+			
+			//The progress of the user for the kit to be activated
+			Integer kitProgress = passport.getUser().getKitProgress().get(kitNumber);
 
+			System.out.println("kitProgress " + kitProgress);
+			
 			// Get an instance of the kit corresponding to kitName
 			// Kit kit = (Kit) Class.forName(kitName).newInstance();
 
+//			Kit kit = (Kit) Class.forName(kitName)
+//					.getDeclaredConstructor(ChemistryPassportGUI.class, Integer.class)
+//					.newInstance(mainGUI, kitNumber);
+			
 			Kit kit = (Kit) Class.forName(kitName)
-					.getDeclaredConstructor(ChemistryPassportGUI.class)
-					.newInstance(mainGUI);
+					.getDeclaredConstructor(ChemistryPassportGUI.class, Integer.class)
+					.newInstance(mainGUI, kitProgress);
 
 			
 			//Inform the passport that this is the current kit

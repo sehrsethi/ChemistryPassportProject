@@ -63,7 +63,7 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	private JTabbedPane g_tabbedPane = new JTabbedPane();
 	private JPanel root_panel = null;
 	private String m_user = null;	
-	private UserInfoCreator userInfoCreator ;
+	//private UserInfoCreator userInfoCreator ;
 	
 	private User user ;
 	
@@ -71,12 +71,11 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 	/**
 	 * 
-	 * @param userInfoCreator
 	 * @param userAccountGUI TODO
 	 */
-	public Login(UserInfoCreator userInfoCreator, UserAccountGUI userAccountGUI) {
+	public Login(UserAccountGUI userAccountGUI) {
 
-		this.userInfoCreator = userInfoCreator ;
+		//this.userInfoCreator = userInfoCreator ;
 		
 		this.userAccountGUI = userAccountGUI ;
 		
@@ -169,7 +168,7 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 	private void readFromFile(JTextField adventureNameText) {
 
-		File databaseFile = new File(userInfoCreator.getFilePath());
+		File databaseFile = new File(UserInfoCreator.getFilePath());
 
 		boolean userFound = false;
 
@@ -202,8 +201,6 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 					in.close();
 					
-					
-
 					break;
 				}
 
@@ -232,6 +229,8 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	 * @param line
 	 */
 	private User createUser(String line) {
+		
+		System.out.println("Login : Create user");
 
 		String[] userInfo = line.split(",");
 
@@ -239,16 +238,27 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 		String grade = userInfo[1];
 
-		System.out.println(grade);
+		System.out.println("grade is:" + grade + ".");
 
 		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
-
-		for (int i = 3; i < userInfo.length; i++) {
+		
+		int index = 0 ;
+		
+		// i = 0 : adventure name
+		// i = 1 : grade
+		// so to look for kit progress we start looking at i = 2
+		for (int i = 2; i < userInfo.length; i++) {
+			
+			System.out.println("user info at " + i + " is " + userInfo[i]);
 
 			kitProgress.add(Integer.parseInt(userInfo[i]));
+			
+			System.out.println("kit progress for kit " + index + " is " + kitProgress.get(index));
+			
+			index++ ;
 		}
 
-		User tempUser= new User(adventureName, grade, kitProgress);
+		User tempUser = new User(adventureName, grade, kitProgress);
 
 		return tempUser ;
 

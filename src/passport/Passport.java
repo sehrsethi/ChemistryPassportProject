@@ -100,7 +100,6 @@ public class Passport extends JPanel implements MouseListener {
 	 */
 	public Passport(User user, ChemistryPassportGUI chemGUI) {
 		
-
 		this.chemGUI = chemGUI;
 		
 		propValues = chemGUI.getPropValues() ;
@@ -166,7 +165,7 @@ public class Passport extends JPanel implements MouseListener {
 		
 		for (int i = 0; i < kitButtonNames.length; i++){
 			
-			//Will have to change the false
+			//TODO : Will have to change the boolean to true if the kit was completed
 			addPage(kitButtonNames[i],false);
 		}
 	}
@@ -404,8 +403,8 @@ public class Passport extends JPanel implements MouseListener {
 	}
 	
 	/**
-	 * 
-	 * @param pageName
+	 * Returns the kit page
+	 * @param pageName The name of the kit page
 	 * @return
 	 */
 	public KitPage getKitPage(String pageName){
@@ -421,6 +420,12 @@ public class Passport extends JPanel implements MouseListener {
 		// TODO : catch for null pointer exception later
 		return null ;
 	}
-
-
+	
+	/**
+	 * Returns the user
+	 * @return the user
+	 */
+	public User getUser(){
+		return user;
+	}
 }

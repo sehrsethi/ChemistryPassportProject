@@ -58,7 +58,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	private JPanel root_panel_inside_tabbedPane = new JPanel();
 
 	//
-	private UserInfoCreator userInfoCreator;
+	//private UserInfoCreator userInfoCreator;
 	
 	private UserAccountGUI userAccountGUI ;
 	
@@ -66,12 +66,11 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	
 	/**
 	 * 
-	 * @param userInfoCreator
 	 * @param userAccountGUI TODO
 	 */
-	public SignUp(UserInfoCreator userInfoCreator, UserAccountGUI userAccountGUI) {
+	public SignUp(UserAccountGUI userAccountGUI) {
 
-		this.userInfoCreator = userInfoCreator;
+		//this.userInfoCreator = userInfoCreator;
 		
 		this.userAccountGUI = userAccountGUI ;
 
@@ -264,7 +263,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	 */
 	private boolean writeToFile(JTextField adventureNameText, String grade) {
 
-		File databaseFile = new File(userInfoCreator.getFilePath());
+		File databaseFile = new File(UserInfoCreator.getFilePath());
 
 		String kitProgress = createKitProgressString();
 
@@ -314,7 +313,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	 */
 	private String createKitProgressString() {
 
-		File databaseFile = new File(userInfoCreator.getFilePath());
+		File databaseFile = new File(UserInfoCreator.getFilePath());
 
 		try {
 			
@@ -372,7 +371,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	 */
 	private boolean adventureNameExists(String adventureName) {
 
-		File databaseFile = new File(userInfoCreator.getFilePath());
+		File databaseFile = new File(UserInfoCreator.getFilePath());
 
 		try {
 

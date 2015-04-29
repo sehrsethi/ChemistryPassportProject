@@ -29,12 +29,17 @@ public class BeetleKit extends Kit {
 	private static final String ESTIMATION_PAGE = "Estimation Page";
 
 	private static EstimationStartPage startPage;
+	
+	private Passport passport;
 
-	public BeetleKit(ChemistryPassportGUI mainGUI) {
+	public BeetleKit(ChemistryPassportGUI mainGUI, Integer kitProgress) {
 
-		super(mainGUI);
+		super(mainGUI, kitProgress);
 
 		this.setLayout(CARD_LAYOUT);
+		
+		// Get the passport
+		passport = mainGUI.getPassport();
 
 		// add(app, ESTIMATION_PAGE);
 	}
@@ -111,14 +116,7 @@ public class BeetleKit extends Kit {
 
 		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
 
-		// mainGUI.nextCard();
-
-		// mainGUI.goToCard(ChemistryPasspo);
-
-		// CARD_LAYOUT.show(this, pageNames.get(currentPage));
-
-		// Get the passport
-		Passport passport = mainGUI.getPassport();
+	
 		
 		// go to the passport card
 		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
@@ -149,5 +147,9 @@ public class BeetleKit extends Kit {
 	public JComponent createRewardGame() {
 		BeetleGame beetleGame = new BeetleGame(mainGUI);
 		return beetleGame;
+	}
+	
+	public Passport getPassport(){
+		return passport;
 	}
 }

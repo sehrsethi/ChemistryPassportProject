@@ -16,13 +16,13 @@ import main.ChemGetPropertyValues;
 public class UserInfoCreator {
 
 	// The directory to put the file in
-	private static final String DIRECTORY_NAME = "Chemistry Passport";
+	private static final String DIRECTORY_NAME = "ChemistryPassport";
 
 	// The name of the csv file that stores the user's information. Add a "." before the file name to hide the file
 	private static final String FILE_NAME = ".userInfo.csv";
 	
 	// The path of the csv file that stores the user's information
-	private String filePath;
+	private static String filePath;
 	
 	// True if the userInfo files exists, i.e. the user has already used the program. Otherwise, false.
 	private boolean exists = false ;
@@ -135,7 +135,13 @@ public class UserInfoCreator {
 			Path path = FileSystems.getDefault().getPath(
 					userInfoFile.getAbsolutePath());
 			
+			 DosFileAttributes attr =
+				        Files.readAttributes(path, DosFileAttributes.class);
+			 
+				    System.out.println("isReadOnly is " + attr.isReadOnly());
+			
 			Files.setAttribute(path, "dos:hidden", true);
+			
 			
 		} catch (UnsupportedOperationException x) {
 			
@@ -178,7 +184,7 @@ public class UserInfoCreator {
 	
 	
 
-	public String getFilePath() {
+	public static String getFilePath() {
 		return filePath;
 	}
 

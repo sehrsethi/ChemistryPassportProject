@@ -31,7 +31,7 @@ public class UserAccountGUI extends JPanel {
 		
 		this.mainGUI = mainGUI ;
 		
-		login = new Login(userInfoCreator , this) ;
+		login = new Login(this) ;
 		
 		add(login);
 		
@@ -39,11 +39,12 @@ public class UserAccountGUI extends JPanel {
 		
 		add(sep1);
 		
-		add(new SignUp(userInfoCreator, this));
+		add(new SignUp(this));
 	}
 
 	
 	public void createPassport(User user){
+	
 		
 		mainGUI.createPassport(user);
 		

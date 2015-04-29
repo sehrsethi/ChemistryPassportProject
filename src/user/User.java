@@ -19,8 +19,8 @@ public class User {
 		
 		this.kitProgress = kitProgress ;
 		
-		
 	}
+
 	
 	public User(String adventureName , String grade, String kitProgressString){
 		
