@@ -41,10 +41,6 @@ public class AnswerPanel extends JPanel {
 	// multiplied
 	private static final int MULTIPLY = 3;
 
-	// private JTextField infestedText;
-
-	// private JTextField nonInfestedText;
-
 	// Information about the estimation grid
 	private final EstimationGrid estimationGrid;
 
@@ -59,6 +55,7 @@ public class AnswerPanel extends JPanel {
 	private boolean infCorrect;
 	
 	private final EstimationGame controller;
+
 
 	/**
 	 * Constructs a panel that lets user's input their answers, checks their
@@ -86,15 +83,6 @@ public class AnswerPanel extends JPanel {
 		Border border = BorderFactory.createEmptyBorder(7, 7, 7, 7);
 		setBorder(border);
 
-		// this.add(new JPanel());
-
-		/*
-		 * addInfestedText();
-		 * 
-		 * this.add(new JPanel());
-		 * 
-		 * addNonInfestedtest();
-		 */
 
 		// panel for users' answer
 		estimatePanel();
@@ -329,7 +317,10 @@ public class AnswerPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
+				
+				controller.setViewedAnswerToTrue(); 
+				
 				// depending on the treeType, how many trees are actually
 				// visible in the grid?
 
@@ -667,5 +658,8 @@ public class AnswerPanel extends JPanel {
         }
 		
 	}
+
+
+	
 
 }

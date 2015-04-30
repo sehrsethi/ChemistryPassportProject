@@ -41,12 +41,14 @@ public class EstimationGame extends JPanel {
 	private AnswerPanel currentAnswerPanel;
 	private BeetleKit beetleKit;
 	private JPanel legendPanel;
+	
+	private boolean hasViewedAnswer = false ;
 
 	public EstimationGame(BeetleKit beetleKit) {
 
 		this.beetleKit = beetleKit;
 
-		currentGridNum = 1 + beetleKit.getKitProgress();
+		currentGridNum = 0 + beetleKit.getKitProgress();
 
 		setLayout(new BorderLayout());
 
@@ -58,10 +60,14 @@ public class EstimationGame extends JPanel {
 	 * Creates a new grid and a new grid view.
 	 */
 	private void createNextRound() {
+		
+		System.out.println("create next round");
+		
+		System.out.println("current grid num is " + currentGridNum);
 
 		// if the user has actually completed 3 rounds, no more grids should be
 		// created.
-		if (currentGridNum > MAX_NUM_ROUNDS) {
+		if (currentGridNum >= MAX_NUM_ROUNDS) {
 
 			JPanel panel = createEndGamePanel();
 
@@ -85,20 +91,15 @@ public class EstimationGame extends JPanel {
 	 * 
 	 */
 	private void createNewGrid() {
+		
 		String userGrade = beetleKit.getPassport().getUser().getGrade();
+		
 		EstimationGrid grid = new EstimationGrid(userGrade, BeetleKit
 				.getStartPage().getInfestedColor(), BeetleKit.getStartPage()
 				.getNonInfestedColor());
 
 		grid.fillTreeArray();
-
-		// Create three different gridViews and get rid of and swap
-		// when switching rounds
-
-		// Need a control class--could be this one
-
-		// Could take checking answer stuff and put here or in separate class
-
+		
 		currentGridView = new GridView(grid.getGridCells(), grid.getTrees(),
 				grid.getCellWidth(), grid.getCellHeight());
 
@@ -108,7 +109,20 @@ public class EstimationGame extends JPanel {
 
 		currentAnswerPanel = new AnswerPanel(grid, currentGridView, this);
 		add(currentAnswerPanel, BorderLayout.SOUTH);
-		currentGridNum++;
+		
+		System.out.println("hasViewedAnswer " + hasViewedAnswer);
+//		// if the user has viewed the answer, then do not give them credit for that round
+//		if(!hasViewedAnswer){
+//			
+//			currentGridNum++;
+//	
+//		}
+//		
+//		System.out.println("current grid num " + currentGridNum);
+//		
+//		hasViewedAnswer = false ;
+
+		
 
 		// TODO : update the file with the new kit progress
 		updateKitProgressInFile();
@@ -264,6 +278,18 @@ public class EstimationGame extends JPanel {
 		removeGrid();
 		beetleKit.setKitProgress(beetleKit.getKitProgress() + 1);
 		beetleKit.setUserKitProgress(beetleKit.getKitProgress());
+		
+		// if the user has viewed the answer, then do not give them credit for that round
+				if(!hasViewedAnswer){
+					
+					currentGridNum++;
+			
+				}
+				
+				System.out.println("current grid num " + currentGridNum);
+				
+				hasViewedAnswer = false ;
+
 		createNextRound();
 
 	}
@@ -452,6 +478,11 @@ public class EstimationGame extends JPanel {
 		}
 
 	}
-
+	
+	public void setViewedAnswerToTrue(){
+		
+		hasViewedAnswer = true ;
+	}
+	
 
 }
