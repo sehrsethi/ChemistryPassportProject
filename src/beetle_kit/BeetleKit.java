@@ -11,41 +11,70 @@ import passport.Passport;
 import main.ChemistryPassportGUI;
 
 /**
- * This class start the Beetle Kit
+ * This class starts the Beetle Kit
  * 
  * @author Humaira Orchee, Charlotte Dye, Sehr Sethi
- * @version April 7, 2015
+ * @version April 30, 2015
  */
 public class BeetleKit extends Kit {
 
 	// The layout for the kit
 	public static final CardLayout CARD_LAYOUT = new CardLayout();
 
+	// The name of the first page to load for the Beetle Kit (i.e., the
+	// instructions page)
 	private static final String START_PAGE_NAME = "Start Page";
 
+	// The name of the page with the actual estimation game
 	private static final String ESTIMATION_PAGE = "Estimation Page";
 
+	// The page with the instructions for the Beetle Kit
 	private static EstimationStartPage startPage;
-	
+
+	// The current passport
 	private Passport passport;
-	
+
+	/**
+	 * Creates a new BeetleKit object with a reference to the
+	 * ChemistryPassportGUI. NOTE: This constructor is used to start the reward
+	 * game when users play the reward game before playing the Estimation Game.
+	 * When setting up the Estimation Game itself, use the other constructor.
+	 * 
+	 * @param mainGUI
+	 *            The main GUI for the Chemistry Passport application.
+	 */
 	public BeetleKit(ChemistryPassportGUI mainGUI) {
-		
-		super(mainGUI) ;
+
+		super(mainGUI);
 	}
 
-	public BeetleKit(ChemistryPassportGUI mainGUI, Integer kitProgress, Integer kitIndex) {
+	/**
+	 * Creates a new BeetleKit object, sets the information necessary to load
+	 * the game, and sets the layout.
+	 * 
+	 * @param mainGUI
+	 *            The main GUI for the Chemistry Passport application.
+	 * @param kitProgress
+	 *            An integer representing the user's progress in the Beetle Kit.
+	 * @param kitIndex
+	 *            The index of this kit.
+	 */
+	public BeetleKit(ChemistryPassportGUI mainGUI, Integer kitProgress,
+			Integer kitIndex) {
 
-		super(mainGUI, kitProgress,kitIndex);
+		super(mainGUI, kitProgress, kitIndex);
 
+		// Set the layout to a card layout
 		this.setLayout(CARD_LAYOUT);
-		
+
 		// Get the passport
 		passport = mainGUI.getPassport();
 
-		// add(app, ESTIMATION_PAGE);
 	}
 
+	/**
+	 * Flips to the next page of the beetle kit.
+	 */
 	public void nextPage() {
 
 		CARD_LAYOUT.next(this);
@@ -53,6 +82,9 @@ public class BeetleKit extends Kit {
 		repaint();
 	}
 
+	/**
+	 * Flips to the previous page of the beetle kit
+	 */
 	public void prevPage() {
 
 		CARD_LAYOUT.previous(this);
@@ -60,18 +92,25 @@ public class BeetleKit extends Kit {
 		repaint();
 	}
 
+	/**
+	 * Creates the EstimationGame for this kit and adds it to the layout
+	 */
 	public void createEstimationGame() {
 
+		//Create the EstimationGame
 		EstimationGame app = new EstimationGame(this);
 
+		//Add it to the BeetleKit's card layout with the name specified by ESTIMATION_PAGE
 		add(app, ESTIMATION_PAGE);
-
 	}
 
+	/**
+	 * Returns the starting page of the BeetleKit (i.e., the instructions page)
+	 * @return The EstimationStartPage for this kit.
+	 */
 	public static EstimationStartPage getStartPage() {
 		return startPage;
 	}
-
 
 	@Override
 	public void startKit() {
@@ -97,7 +136,7 @@ public class BeetleKit extends Kit {
 	public void earnReward() {
 
 		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
-	
+
 		// go to the passport card
 		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
 
@@ -128,15 +167,15 @@ public class BeetleKit extends Kit {
 		BeetleGame beetleGame = new BeetleGame(mainGUI);
 		return beetleGame;
 	}
-	
-	public Passport getPassport(){
+
+	public Passport getPassport() {
 		return passport;
 	}
 
 	@Override
 	protected void setUserKitProgress(int progress) {
-			
+
 		passport.getUser().setKitProgress(kitIndex, progress);
-		
+
 	}
 }
