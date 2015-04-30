@@ -97,9 +97,7 @@ public class BeetleKit extends Kit {
 	public void earnReward() {
 
 		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
-
 	
-		
 		// go to the passport card
 		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
 
