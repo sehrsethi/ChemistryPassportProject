@@ -97,15 +97,17 @@ public class BeetleKit extends Kit {
 	 */
 	public void createEstimationGame() {
 
-		//Create the EstimationGame
+		// Create the EstimationGame
 		EstimationGame app = new EstimationGame(this);
 
-		//Add it to the BeetleKit's card layout with the name specified by ESTIMATION_PAGE
+		// Add it to the BeetleKit's card layout with the name specified by
+		// ESTIMATION_PAGE
 		add(app, ESTIMATION_PAGE);
 	}
 
 	/**
 	 * Returns the starting page of the BeetleKit (i.e., the instructions page)
+	 * 
 	 * @return The EstimationStartPage for this kit.
 	 */
 	public static EstimationStartPage getStartPage() {
@@ -135,20 +137,16 @@ public class BeetleKit extends Kit {
 	 */
 	public void earnReward() {
 
-		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
-
-		// go to the passport card
+		// go to the passport card in the main GUI
 		mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
 
 		// Go to the corresponding page of the passport
 		passport.goToPage(getButtonName());
 
-		// Testing
-		// passport.nextPage();
-
 		// Get the kit page for this kit
 		KitPage kitPage = passport.getKitPage(getButtonName());
 
+		// Start the animation that shows the sticker
 		kitPage.startStickerAnimation();
 
 		// Enable the reward button
@@ -168,6 +166,11 @@ public class BeetleKit extends Kit {
 		return beetleGame;
 	}
 
+	/**
+	 * Get the passport that this BeetleKit belongs to
+	 * 
+	 * @return The user's passport
+	 */
 	public Passport getPassport() {
 		return passport;
 	}

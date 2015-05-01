@@ -98,7 +98,7 @@ public class AnswerPanel extends JPanel {
 	}
 
 	/**
-	 * Creates and adds abutton that allows the users to input answers in a
+	 * Creates and adds a button that allows the users to input answers in a
 	 * pop-up. The pop-up also tells them how to calculate answers.
 	 */
 	private void estimatePanel() {
