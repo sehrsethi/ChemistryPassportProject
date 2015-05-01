@@ -2,14 +2,17 @@ package beetle_game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import main.ChemGetPropertyValues;
 import main.ChemistryPassportGUI;
 import passport.Passport;
 
@@ -82,12 +85,21 @@ public class BeetleGame extends JPanel{
 		String instruction = "Press and drag your mouse to see a beetle and a trail of pheromones appear. When you relase your mouse you will see a second beetle appear at the end of the trail. Now press on the second beetle and drag it around and see the first beetle follow it around." ;
 
 		JTextArea instructionArea = new JTextArea(instruction) ;
+		instructionArea.setFont(new Font("Calisto MT", Font.PLAIN, 17));
 		instructionArea.setFocusable(false);
 		instructionArea.setLineWrap(true);
 		instructionArea.setWrapStyleWord(true);
 		instructionArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		
 		return instructionArea ;
+	}
+	
+	public static void main(String[] args){
+		
+		JFrame f = new JFrame() ;
+		f.getContentPane().add(new BeetleGame(new ChemistryPassportGUI(new ChemGetPropertyValues()))) ;
+		f.setVisible(true);
+		f.setSize(600, 600);
 	}
 
 	
