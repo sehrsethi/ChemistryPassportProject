@@ -9,11 +9,10 @@ import java.awt.geom.Point2D;
 /**
  * The beetle tail parts
  * 
- * @author sethi22s
+ * @author Sehr Sethi, Charlotte Dye and Humaira Orchee
  * 
  */
-//increase circle distance
-//include another beetle image at the end of the tail
+
 public class BeetlePheromones implements BeetlePart {
 	
 	//public static final Color COLOR1 = new Color(153,255,255) ;

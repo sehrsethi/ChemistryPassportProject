@@ -1,4 +1,5 @@
-package beetle_game ;
+package beetle_game;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,23 +11,18 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JComponent;
 
-
 /**
- * The user interface
+ * The user interface for the Beetle reward game
  * 
- * @author Sehr Sethi and Humaira Orchee
+ * @author Sehr Sethi, Charlotte Dye and Humaira Orchee
  * 
- * @version March 31, 2015
+ * @version April 30th, 2015
  */
 
 public class Beetle extends JComponent implements MouseListener,
-MouseMotionListener {
-
-
+		MouseMotionListener {
 
 	private static final int DIAMETER = 25;
-
-
 
 	// The interface beetlePart
 
@@ -83,26 +79,23 @@ MouseMotionListener {
 
 			isMoving = true;
 		}
-		
+
 		lastXandY = e.getPoint();
-		
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-	
-		
-		if(drawingTail){
-			
+
+		if (drawingTail) {
+
 			endTail(e.getPoint());
-			
-			drawingTail = false ;
-			
+
+			drawingTail = false;
+
 		}
 
-		isMoving = false ;
-		
+		isMoving = false;
 
 	}
 
@@ -113,16 +106,14 @@ MouseMotionListener {
 			Ellipse2D.Double ellipse = new Ellipse2D.Double(e.getX(), e.getY(),
 					DIAMETER, DIAMETER);
 			addLink(ellipse);
-			
 
 		} else if (isMoving) {
-			
+
 			beetlePart.moveTail(e.getX() - (int) lastXandY.getX(), e.getY()
 					- (int) lastXandY.getY());
 
 			repaint();
-			
-			
+
 		}
 
 		lastXandY = e.getPoint();
@@ -139,8 +130,8 @@ MouseMotionListener {
 	 * @param xandy
 	 */
 	public void startChain(Point2D xandy) {
-		
-		beetlePart = new FirstBeetle(this, xandy.getX(), xandy.getY() );
+
+		beetlePart = new FirstBeetle(this, xandy.getX(), xandy.getY());
 	}
 
 	/**
@@ -149,23 +140,24 @@ MouseMotionListener {
 	 * @param ellipse
 	 */
 	public void addLink(Ellipse2D ellipse) {
-		
-		beetlePart = new BeetlePheromones(ellipse, beetlePart , BeetlePheromones.COLOR1);
+
+		beetlePart = new BeetlePheromones(ellipse, beetlePart,
+				BeetlePheromones.COLOR1);
 		repaint();
 
 	}
-	
 
 	/**
 	 * 
 	 * @param endPoint
+	 *            of the tail
 	 */
-	public void endTail(Point2D endPoint){
-		
-		beetlePart = new SecondBeetle(this, endPoint.getX(), endPoint.getY(), beetlePart) ;
-		repaint() ;
-	}
+	public void endTail(Point2D endPoint) {
 
+		beetlePart = new SecondBeetle(this, endPoint.getX(), endPoint.getY(),
+				beetlePart);
+		repaint();
+	}
 
 	/**
 	 * Draws the current frame. This consists of a rectangle for the background
@@ -173,22 +165,17 @@ MouseMotionListener {
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-		
+
 		Dimension rect = getSize();
-		
-		//g.setColor(Color.pink);
-		
+
 		g.setColor(Color.white);
-		
+
 		g.fillRect(0, 0, (int) (rect.getWidth()), (int) rect.getHeight());
-		
+
 		if (beetlePart != null) {
 			beetlePart.paint(g);
 		}
 
 	}
 
-
-
-	
 }

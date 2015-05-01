@@ -31,22 +31,28 @@ import user.User;
 /**
  * GUI for constructing the Login and Sign Up Page
  * 
- * @author sethi22s, dye22c, orch22h
+ * @author Sehr Sethi, Humaira Orchee and Charlotte Dye
+ * @version April 30th, 2015
  *
  */
 public class Login extends JPanel implements ActionListener, KeyListener {
 
-	// Instance variables for Login Page
 
 	private JLabel adventureNameLabel = null;
+	
 	private JTextField adventureNameTextField = null;
+	
 	private JButton loginButton = null;
+	
 	private JButton loginCancelButton = null;
+	
 	private Insets insets;
+	
 	private JTabbedPane g_tabbedPane = new JTabbedPane();
+	
 	private JPanel root_panel = null;
+	
 	private String m_user = null;	
-	//private UserInfoCreator userInfoCreator ;
 	
 	private User user ;
 	

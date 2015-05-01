@@ -1,12 +1,13 @@
-package beetle_game ;
+package beetle_game;
 
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
 /**
- * The interface
+ * The interface for the Beetle Reward Game
  * 
- * @author sethi22s
+ * @author Sehr Sethi, Charlotte Dye and Humaira Orchee
+ * @version April 30th, 2015
  * 
  */
 
@@ -16,7 +17,7 @@ public interface BeetlePart {
 
 	public void moveTail(double distanceX, double distanceY);
 
-	public void moveBeetle(double newX , double newY);
+	public void moveBeetle(double newX, double newY);
 
 	public boolean startsAt(Point2D xAndy);
 }

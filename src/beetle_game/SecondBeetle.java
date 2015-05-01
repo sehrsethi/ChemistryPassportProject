@@ -11,17 +11,22 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
+/**
+ * 
+ * @author Sehr Sethi, Charlotte Dye and Humaira Orchee
+ * @version April 30th, 2015
+ *
+ */
 public class SecondBeetle implements BeetlePart {
 
+	// The location of the second beetle image
+	private static final String IMAGE_FILE = "images/lady_wings.gif";
 
-	// The location of the second beetle image 
-	private static final String IMAGE_FILE = "images/lady_wings.gif" ;
+	// The image icon of the second beetle
+	private ImageIcon beetleImage;
 
-	// The image icon of the second beetle  
-	private ImageIcon beetleImage ;
-	
-	// The image of the second beetle  
-	private Image image ;
+	// The image of the second beetle
+	private Image image;
 
 	// The component
 	private JComponent component;
@@ -35,14 +40,14 @@ public class SecondBeetle implements BeetlePart {
 	// The beetle tail
 	private BeetlePart restBeetleTail;
 
-
-	public SecondBeetle(JComponent component, double x, double y, BeetlePart restBeetleTail) {
+	public SecondBeetle(JComponent component, double x, double y,
+			BeetlePart restBeetleTail) {
 
 		this.component = component;
 		this.xPoint = x - 20;
 		this.yPoint = y - 20;
-		this.restBeetleTail = restBeetleTail ;
-		
+		this.restBeetleTail = restBeetleTail;
+
 		// get the beetle image from the build path
 		try {
 			ClassLoader classLoader = Thread.currentThread()
@@ -50,9 +55,9 @@ public class SecondBeetle implements BeetlePart {
 			InputStream input = classLoader.getResourceAsStream(IMAGE_FILE);
 
 			image = ImageIO.read(input);
-			
-			beetleImage = new ImageIcon(image) ;
-			
+
+			beetleImage = new ImageIcon(image);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,7 +67,7 @@ public class SecondBeetle implements BeetlePart {
 
 	@Override
 	public void paint(Graphics g) {
-		
+
 		restBeetleTail.paint(g);
 
 		beetleImage.paintIcon(component, g, (int) xPoint, (int) yPoint);
@@ -72,15 +77,13 @@ public class SecondBeetle implements BeetlePart {
 	@Override
 	public void moveTail(double distanceX, double distanceY) {
 
-		
-		xPoint += distanceX ;
-		
-		yPoint += distanceY ;
-		
-		component.repaint();
-		
-		restBeetleTail.moveTail(distanceX, distanceY);
+		xPoint += distanceX;
 
+		yPoint += distanceY;
+
+		component.repaint();
+
+		restBeetleTail.moveTail(distanceX, distanceY);
 
 	}
 
@@ -91,23 +94,22 @@ public class SecondBeetle implements BeetlePart {
 
 	@Override
 	public boolean startsAt(Point2D xAndy) {
-		
-		double diameter = 75 ;
 
-		Ellipse2D circle = new Ellipse2D.Double() ;
-		
-		double centerX = xPoint + beetleImage.getIconWidth()/2 ;
-		
-		double centerY = yPoint + beetleImage.getIconHeight()/2 ;
-		
-		double x = centerX - diameter/2 ;
-		
-		double y = centerY - diameter/2 ;
-		
-		circle.setFrame(x,y, diameter, diameter);
+		double diameter = 75;
 
-		
-		return (circle.intersects(xAndy.getX(), xAndy.getY(), 10, 10)) ;
+		Ellipse2D circle = new Ellipse2D.Double();
+
+		double centerX = xPoint + beetleImage.getIconWidth() / 2;
+
+		double centerY = yPoint + beetleImage.getIconHeight() / 2;
+
+		double x = centerX - diameter / 2;
+
+		double y = centerY - diameter / 2;
+
+		circle.setFrame(x, y, diameter, diameter);
+
+		return (circle.intersects(xAndy.getX(), xAndy.getY(), 10, 10));
 	}
 
 }
