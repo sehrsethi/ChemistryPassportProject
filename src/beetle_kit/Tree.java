@@ -6,13 +6,14 @@ import java.awt.geom.Ellipse2D;
 /**
  * A Tree object that is represented by a circle
  * 
- * @author Humaira Orchee, Charlotte Dye
- * @version April 3, 2015
+ * @author Humaira Orchee, Charlotte Dye, and Sehr Sethi
+ * @version April 30, 2015
  *
  */
 public class Tree extends Ellipse2D.Double {
-	
-	private static final int MAX_ATTEMPT = 10 ;
+
+	// The maximum number of times we should try to draw a tree before giving up
+	private static final int MAX_ATTEMPT = 10;
 
 	// The diameter of the circular tree
 	private double diameter;
@@ -29,7 +30,8 @@ public class Tree extends Ellipse2D.Double {
 	// The y coordinate of the center of the tree
 	public int centerY;
 
-	private int attempt = 0 ;
+	// How many attempts we've made to draw this tree so far
+	private int attempt = 0;
 
 	/**
 	 * Constructs a circular tree
@@ -51,24 +53,19 @@ public class Tree extends Ellipse2D.Double {
 		super();
 
 		this.centerX = centerX;
-
 		this.centerY = centerY;
-
 		this.diameter = diameter;
 
 		// Since the tree is circular, its height = width = diameter
 		this.height = diameter;
-
 		this.width = diameter;
 
 		// Since tree extends Ellipse2D.Double, calculate top x and y
 		// coordinates with the provided center coordinates and diameter
 		this.x = centerX - diameter / 2;
-
 		this.y = centerY - diameter / 2;
 
 		this.fillColor = fillColor;
-
 		this.borderColor = borderColor;
 
 	}
@@ -92,10 +89,6 @@ public class Tree extends Ellipse2D.Double {
 	}
 
 	/**
-	 * 
-	 * I DONT THINK WE NEED THIS METHOD ANYMORE BECAUSE THE CHECKOVERLAPP METHOD
-	 * SHOULD TAKE CARE OF THIS ALREAY
-	 * 
 	 * Returns true if this tree is contained within another tree. Otherwise
 	 * returns false.
 	 * 
@@ -106,10 +99,8 @@ public class Tree extends Ellipse2D.Double {
 	 */
 	public boolean containedWithin(Tree otherTree) {
 
-		/**
-		 * Let outer parentheses be other tree. Let inner parentheses be this
-		 * tree . (()) - in this situation, returns true
-		 */
+		// Returns true when one tree is contained entirely within another tree
+		// and will thus be invisible
 		return ((this.x >= otherTree.x)
 				&& (this.x + this.diameter <= otherTree.x + otherTree.diameter)
 				&& (this.y >= otherTree.y) && (this.y + this.diameter <= otherTree.y
@@ -123,11 +114,10 @@ public class Tree extends Ellipse2D.Double {
 	 * 
 	 * @param otherTree
 	 *            The other Tree object that could be overlapping too much
-	 * @return
+	 * @return True if there's an unacceptable overlap, or false otherwise
 	 */
 	public boolean checkOverlap(Tree otherTree) {
 
-		
 		// Compare sum of radii to distance between centers
 
 		double radiiSum = (this.diameter / 2) + (otherTree.diameter / 2);
@@ -136,50 +126,40 @@ public class Tree extends Ellipse2D.Double {
 
 		double diffY = Math.pow(otherTree.centerY - this.centerY, 2);
 
-
 		double distance = Math.sqrt(diffX + diffY);
 
-		
-		// Compare sum of radii to distance between centers
-		
-		
-		//true if this tree has unacceptable amount of overlap. Otherwise false.
-		boolean overlap = (distance) < ((2.0/3.0)*radiiSum ) ;
-		
-		
-		if( (overlap) && (attempt < MAX_ATTEMPT)){
-			
-			diameter = diameter*0.95 ;
-			attempt++ ;
-			//checkOverlap(this) ;
-			
-			if(checkOverlap(this)){
-				
-				return true ;
-				
-			}else{
-				
-				return false ;
+		// true if this tree has unacceptable amount of overlap. Otherwise
+		// false.
+		boolean overlap = (distance) < ((2.0 / 3.0) * radiiSum);
+
+		// If there's an overlap and we have more attempts left, try again
+		if ((overlap) && (attempt < MAX_ATTEMPT)) {
+
+			// Make it smaller and try again
+			diameter = diameter * 0.95;
+			attempt++;
+
+			// Return true if there's an overlap, or false otherwise
+			if (checkOverlap(this)) {
+				return true;
+
+			} else {
+
+				return false;
 			}
-			
+
 		}
-		
-		
-		
-		//Check overlap again
-		overlap = (distance) < ((2.0/3.0)*radiiSum);
-		
-		//If it's still overlapping, then don't place this tree
-		if (overlap){
+
+		// Check overlap again, just in case we made adjustments
+		overlap = (distance) < ((2.0 / 3.0) * radiiSum);
+
+		// If it's still overlapping, then don't place this tree (give up)
+		if (overlap) {
 			return true;
 		}
 
-		
-		//If it is no longer overlapping, return false
-		return false ;
-
-
+		// If it is no longer overlapping, return false
+		return false;
 	}
 
-	
 }

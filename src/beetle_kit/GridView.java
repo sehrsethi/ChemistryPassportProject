@@ -15,11 +15,12 @@ import javax.swing.border.Border;
  * 
  * Represents the view for the grid
  * 
- * @author Charlotte Dye, Humaira Orchee, Sehr Sethi
- * @version April 3, 2015
+ * @author Charlotte Dye, Humaira Orchee, and Sehr Sethi
+ * @version April 30, 2015
  */
 public class GridView extends JPanel {
 
+	// The background color of the grid
 	private static final Color BACKGROUND_COLOR = Color.WHITE;
 
 	// The array of cell data
@@ -55,19 +56,17 @@ public class GridView extends JPanel {
 		this.gridCells = gridCells;
 		this.cellWidth = cellWidth;
 		this.cellHeight = cellHeight;
-		
-		this.setPreferredSize(new Dimension(EstimationGrid.GRID_WIDTH, EstimationGrid.GRID_HEIGHT));
-		this.setMinimumSize(new Dimension(EstimationGrid.GRID_WIDTH, EstimationGrid.GRID_HEIGHT));
-
-
-		// trees = new ArrayList<Tree>();
-
 		this.trees = trees;
 
+		// Set the size of the view
+		this.setPreferredSize(new Dimension(EstimationGrid.GRID_WIDTH,
+				EstimationGrid.GRID_HEIGHT));
+		this.setMinimumSize(new Dimension(EstimationGrid.GRID_WIDTH,
+				EstimationGrid.GRID_HEIGHT));
+
+		// Set the border
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 5);
-
 		this.setBorder(border);
-
 
 	}
 
@@ -92,7 +91,7 @@ public class GridView extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		
+
 		// to smooth drawings, especially the ovals
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
@@ -108,9 +107,11 @@ public class GridView extends JPanel {
 		// now draw each cell with the trees in them
 		drawTrees(g);
 
-		// paint blocked cells opaque gray if it is the blocked view. otherwise,
-		// paint the blocked cells transparent gray.
+		// paint blocked cells opaque gray if it is the blocked view (the normal
+		// view). otherwise, paint the blocked cells transparent gray (if they
+		// press the button to see the full grid).
 		if (hasBlockedCells) {
+
 			// Now we draw each blocked cell
 			for (int r = 0; r < gridCells.length; r++) {
 				for (int c = 0; c < gridCells[r].length; c++) {
@@ -122,6 +123,9 @@ public class GridView extends JPanel {
 
 		} else {
 
+			// If we aren't blocking any cells
+
+			// Gray color with specified opacity
 			Color color = new Color(Color.GRAY.getRed(), Color.GRAY.getGreen(),
 					Color.GRAY.getBlue(), 175);
 
@@ -138,9 +142,6 @@ public class GridView extends JPanel {
 
 		// draw the grid lines last
 		drawGridLines(g);
-
-		// We should make sure that the blocking is on top of the trees
-		// and the grid lines are on top of everything else
 
 	}
 
@@ -185,6 +186,7 @@ public class GridView extends JPanel {
 	 */
 	private void drawGridLines(Graphics g) {
 
+		// The lines should be black
 		g.setColor(Color.BLACK);
 
 		// This will draw the vertical lines
@@ -211,6 +213,7 @@ public class GridView extends JPanel {
 		// fill/draw the tree
 		Graphics2D g2d = (Graphics2D) g;
 
+		// Iterate through the tree array and draw each tree
 		for (int i = 0; i < trees.size(); i++) {
 
 			Tree tree = trees.get(i);
@@ -231,6 +234,5 @@ public class GridView extends JPanel {
 	public void setHasBlockedCells(boolean hasBlockedCells) {
 		this.hasBlockedCells = hasBlockedCells;
 	}
-	
-	
+
 }

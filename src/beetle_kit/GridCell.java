@@ -1,14 +1,16 @@
 package beetle_kit;
+
 /**
  * Chemistry Passport Project This represents the information contained in a
  * cell in the grid for the Estimation Game.
  * 
- * @author Charlotte Dye, Humaira Orchee, Sehr Sethi
- * @version April 3, 2015
+ * @author Charlotte Dye, Humaira Orchee, and Sehr Sethi
+ * @version April 30, 2015
  */
 public class GridCell {
 
-	// The number of non-infested trees that are in this cell (i.e. more than 50% in
+	// The number of non-infested trees that are in this cell (i.e. more than
+	// 50% in
 	// cell)
 	private int numInfestedTrees;
 
@@ -18,12 +20,6 @@ public class GridCell {
 
 	// True if this cell is "blocked" (covered in gray) or false otherwise
 	private boolean isBlocked;
-
-	// The column this cell is in
-	private int col;
-
-	// The row this cell is in.
-	private int row;
 
 	/**
 	 * Create a new GridCell
@@ -35,22 +31,19 @@ public class GridCell {
 	 */
 	public GridCell(int sCol, int sRow) {
 
-		// By default, it is blocked and has no trees
+		// By default, it is unblocked and has no trees
 		numInfestedTrees = 0;
 		numNonInfestedTrees = 0;
-		
+
 		// initially all cells are unblocked
 		isBlocked = false;
 
-		// Set row and column
-		col = sCol;
-		row = sRow;
 	}
 
 	/**
-	 * Returns true if the cell is blocked, otherwise false 
+	 * Returns true if the cell is blocked, otherwise false
 	 * 
-	 * @return  True if the cell is blocked, otherwise false 
+	 * @return True if the cell is blocked, otherwise false
 	 */
 	public boolean isBlocked() {
 		return isBlocked;
@@ -103,40 +96,41 @@ public class GridCell {
 	public int getNumNonInfestedTrees() {
 		return numNonInfestedTrees;
 	}
-	
+
 	/**
+	 * Decrement the number of infested trees in the cell unless the number is 0
 	 * 
-	 * @return False when numInfestedTrees is already 0
+	 * @return False when numInfestedTrees is already 0; true if it succeeds
 	 */
-	public boolean decrementNumInfested(){
-		
-		if(numInfestedTrees > 0){
+	public boolean decrementNumInfested() {
 
-			numInfestedTrees-- ;
-
-			return true ;
-			
-		}else{
-			
-			return false ;
+		// If there is at least one infested tree, decrement number of infested
+		// trees and return true
+		if (numInfestedTrees > 0) {
+			numInfestedTrees--;
+			return true;
+		} else {
+			// Otherwise, just return false
+			return false;
 		}
 	}
-	
+
 	/**
+	 * Decrement the number of non-infested trees in the cell unless the number
+	 * is 0
 	 * 
-	 * @return False when numNonInfestedTrees is already 0
+	 * @return False when numNonInfestedTrees is already 0; true if it succeeds
 	 */
-	public boolean decrementNumNonInfested(){
-		
-		if(numNonInfestedTrees > 0){
-			
-			numNonInfestedTrees-- ;
-						
-			return true ;
-			
-		}else{
-						
-			return false ;
+	public boolean decrementNumNonInfested() {
+
+		// If there is at least one non-infested tree, decrement the number of
+		// non-infested trees and return true
+		if (numNonInfestedTrees > 0) {
+			numNonInfestedTrees--;
+			return true;
+		} else {
+			// Otherwise, just return false
+			return false;
 		}
 	}
 }
