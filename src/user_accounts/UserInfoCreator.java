@@ -7,10 +7,21 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import javax.swing.filechooser.FileSystemView;
 
 import main.ChemGetPropertyValues;
 
+/**
+ * This class creates a directory for the Chemistry Passport Project in the root
+ * directory of the user's computer and creates a hidden file containing
+ * information about the user's progress for each kit. If the directory and the
+ * file already exists, then it does not recreate them. This class also provides
+ * the path of the file every time this application is started.
+ * 
+ * @author Sehr Sethi, Humaira Orchee and Charlotte Dye
+ * @version May 1, 2015
+ */
 public class UserInfoCreator {
 
 	// The directory to put the file in
@@ -31,16 +42,26 @@ public class UserInfoCreator {
 	private ChemGetPropertyValues propValues;
 
 	/**
+	 * Constructs a new UserInfoCreator that will provide the path to the hidden
+	 * file that stores user information.
 	 * 
+	 * @param propValues
+	 *            The class that will provide the information about the existing
+	 *            kits from the resources/config/config.properties file
 	 */
 	public UserInfoCreator(ChemGetPropertyValues propValues) {
 
 		this.propValues = propValues;
 
+		// The Chemistry Passport directory has to be in the root directory of
+		// the user's computer. Find that path.
 		String directoryPath = getRootDirectoryPath();
 
+		// Get the path of the hidden file containing user's information
 		filePath = getFilePath(directoryPath);
 
+		// If the directory already exist's then the .csv file will already
+		// exist in most cases. If not, then create the file.
 		exists = !createChemPassportDirectory(directoryPath);
 
 		if (!exists) {
@@ -53,7 +74,10 @@ public class UserInfoCreator {
 	/**
 	 * Return the path of the file depending on the Operating System
 	 * 
-	 * @return
+	 * @param directoryPath
+	 *            The path of the Chemistry Passport directory that the file
+	 *            will be in
+	 * @return The path of the file that will contain user information
 	 */
 	private String getFilePath(String directoryPath) {
 
@@ -80,20 +104,35 @@ public class UserInfoCreator {
 		}
 	}
 
+	/**
+	 * Creates a directory with the name "Chemistry Passport" (which should be
+	 * the value specified by DIRECTORY_NAME) in the location specified
+	 * 
+	 * @param directoryPath
+	 *            The location or path that the directory should be created in.
+	 *            This should be the root directory of the computer.
+	 * @return True of the directory was created. False if the directory already
+	 *         exists and was not created.
+	 */
 	private boolean createChemPassportDirectory(String directoryPath) {
 
 		return new File(directoryPath + DIRECTORY_NAME).mkdir();
 	}
 
+	/**
+	 * Creates the file that will contain information about the uer, including
+	 * their progress for each kit, in the Chemistry Passport directory
+	 */
 	private void createUserInfoFile() {
 
+		// create the file object
 		File userInfoFile = new File(filePath);
 
 		try {
-			// Make the user info file
+			// Create the file in the directory
 			userInfoFile.createNewFile();
 
-			// Create the headings for the file
+			// Create the column headings for the file
 
 			// Get a file writer
 			BufferedWriter out = new BufferedWriter(
@@ -125,17 +164,22 @@ public class UserInfoCreator {
 	}
 
 	/**
+	 * Returns the location of the root directory of the user's computer. For
+	 * instance, in Windows, it is usually "C:/"
 	 * 
-	 * @return
+	 * @return The location of the root directory of the user's computer.
 	 */
 	private String getRootDirectoryPath() {
 
 		// Get the home directory where the application is located
 		File currentFile = FileSystemView.getFileSystemView()
 				.getHomeDirectory();
+
 		File prevFile = currentFile;
 
-		// use the while loop to get the root directory of the computer
+		// use the while loop to get the root directory of the computer from the
+		// home directory. If currentFile is null, then prevFile is the root
+		// directory.
 		while (true) {
 
 			try {
@@ -151,22 +195,31 @@ public class UserInfoCreator {
 
 	}
 
+	/**
+	 * Returns the path of the file containing user's information
+	 * 
+	 * @return The path of the file containing user's information
+	 */
 	public static String getFilePath() {
 		return filePath;
 	}
 
 	/**
+	 * Depending on the parameter, it hides or shows the specified file. This
+	 * method is needed for on a Windows, putting a "." in front of file names
+	 * don't hide the file and windows cannot write to a hidden file.
 	 * 
 	 * @param userInfoFile
+	 *            The file to hide or to show
 	 * @param hide
 	 *            If hide is true, then the file will be hidden. If hide is
-	 *            false then the file will be not hidden
-	 * @throws IOException
+	 *            false then the file will be shown
 	 */
 	public static void setHideFile(File userInfoFile, boolean hide) {
 
 		Path path = FileSystems.getDefault().getPath(
 				userInfoFile.getAbsolutePath());
+
 		if (System.getProperty("os.name").contains("Windows")) {
 			try {
 

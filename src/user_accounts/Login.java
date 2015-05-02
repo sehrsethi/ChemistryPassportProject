@@ -1,9 +1,5 @@
 package user_accounts;
 
-/**
- * @author Sehr, Humaira and Charlotte 
- * @version March 10, 2015
- */
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
