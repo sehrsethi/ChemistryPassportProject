@@ -30,7 +30,7 @@ public class ChemistryPassportGUI extends JPanel{
 		this.setLayout(CARD_LAYOUT);
 		
 		//Add the passport
-		this.setSize(ChemistryPassport.PAGE_WIDTH, ChemistryPassport.PAGE_HEIGHT);
+		this.setSize(ChemistryPassportApplet.PAGE_WIDTH, ChemistryPassportApplet.PAGE_HEIGHT);
 		
 		userAccountGUI = new UserAccountGUI(new UserInfoCreator(propValues), this) ;
 		

@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import main.ChemistryPassport;
+import main.ChemistryPassportApplet;
 
 public class IntroductionPage extends JPanel {
 
@@ -99,10 +99,10 @@ public class IntroductionPage extends JPanel {
 		// Set the size
 		// this.setSize(new Dimension(Passport.PAGE_WIDTH,
 		// Passport.PAGE_HEIGHT));
-		this.setPreferredSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
-				ChemistryPassport.PAGE_HEIGHT));
-		this.setMinimumSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
-				ChemistryPassport.PAGE_HEIGHT));
+		this.setPreferredSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH,
+				ChemistryPassportApplet.PAGE_HEIGHT));
+		this.setMinimumSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH,
+				ChemistryPassportApplet.PAGE_HEIGHT));
 
 		// Make the background white
 
@@ -271,8 +271,8 @@ public class IntroductionPage extends JPanel {
 		// So that the button is on the right. Otherwise the button is added to
 		// the center
 		buttonPanel
-				.setPreferredSize(new Dimension(ChemistryPassport.PAGE_WIDTH - 50, 50));
-		buttonPanel.setMinimumSize(new Dimension(ChemistryPassport.PAGE_WIDTH - 50, 50));
+				.setPreferredSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH - 50, 50));
+		buttonPanel.setMinimumSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH - 50, 50));
 
 		Font font = new Font("Verdana", Font.PLAIN, 18);
 
