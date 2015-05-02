@@ -16,21 +16,21 @@ import user.User;
  */
 public class UserAccountGUI extends JPanel {
 
-	// The login screen
+	// The login screen.
 	private Login login;
 
-	// The main gui of the entire Chemistry Passport Application
+	// The main gui of the entire Chemistry Passport Program.
 	private ChemistryPassportGUI mainGUI;
 
 	/**
-	 * Creates a GUI that will display both the login GUI and the sign-up GUI
+	 * Creates a GUI that will display both the login GUI and the sign-up GUI.
 	 * 
 	 * @param userInfoCreator
 	 *            The class that will create the file containing the user
-	 *            information
+	 *            information.
 	 * @param mainGUI
-	 *            The main gui of the entire Chemistry Passport Application that
-	 *            this GUI is added to
+	 *            The main GUI of the entire Chemistry Passport Application that
+	 *            this GUI is added to.
 	 */
 	public UserAccountGUI(UserInfoCreator userInfoCreator,
 			ChemistryPassportGUI mainGUI) {
@@ -53,10 +53,10 @@ public class UserAccountGUI extends JPanel {
 
 	/**
 	 * Asks the main GUI to create the user's passport once the user has signed
-	 * up or logged in
+	 * up or logged in.
 	 * 
 	 * @param user
-	 *            The user currently using the Chemistry Passport Program
+	 *            The user currently using the Chemistry Passport Program.
 	 */
 	public void createPassport(User user) {
 

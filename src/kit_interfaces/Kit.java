@@ -6,26 +6,52 @@ import javax.swing.JPanel;
 import main.ChemistryPassportGUI;
 
 /**
- * Represents a kit in the Chemistry Passport Program
+ * A kit in the Chemistry Passport Program is designed to teach children in
+ * grade k-6 a skill.
  * 
  * @author Humaira Orchee, Charlotte Dye, Sehr Sethi
+ * @version May 2, 2015
  *
  */
 public abstract class Kit extends JPanel {
 
+	// Each kit has an integer associated with them, determined by the order
+	// they were added to the program. This number can be found in the
+	// config.properties file.
 	protected Integer kitIndex;
 
+	// The main GUI of the entire Chemistry Passport Program.
 	protected ChemistryPassportGUI mainGUI;
 
-	// The user's progress on current kit
+	// The Integer representing user's progress on current kit
 	protected int kitProgress;
 
+	/**
+	 * Creates a new kit. This constructor is used when only the reward game
+	 * needs to be added to the passport without the need for the entire kit to
+	 * be created.
+	 * 
+	 * @param mainGUI
+	 *            The main GUI of the entire Chemistry Passport Program.
+	 */
 	public Kit(ChemistryPassportGUI mainGUI) {
 
 		this.mainGUI = mainGUI;
 
 	}
 
+	/**
+	 * Creates a new kit. This constructor is used when only the reward game
+	 * needs to be added to the passport without the need for the entire kit to
+	 * be created.
+	 * 
+	 * @param mainGUI
+	 *            The main GUI of the entire Chemistry Passport Program.
+	 * @param kitProgress
+	 *            The Integer representing user's progress on current kit.
+	 * @param kitIndex
+	 *            The integer associated with the current kit.
+	 */
 	public Kit(ChemistryPassportGUI mainGUI, Integer kitProgress,
 			Integer kitIndex) {
 
@@ -37,9 +63,9 @@ public abstract class Kit extends JPanel {
 	}
 
 	/**
-	 * Gets the main ChemistryPassort GUI
+	 * Returns the main ChemistryPassort GUI.
 	 * 
-	 * @return the main GUI of the program
+	 * @return The main GUI of the program.
 	 */
 	public ChemistryPassportGUI getMainGUI() {
 
@@ -47,20 +73,28 @@ public abstract class Kit extends JPanel {
 	}
 
 	/**
-	 * Gets the kit progress of the user for this kit
+	 * Returns the kit progress of the user for this kit.
 	 * 
-	 * @return The kit progress
+	 * @return The kit progress of the user for this kit.
 	 */
 	public int getKitProgress() {
 
 		return kitProgress;
 	}
 
-	protected abstract void setUserKitProgress(int progress);
-
 	/**
+	 * Sets the new progress of the current user for this kit.
 	 * 
 	 * @param kitProgress
+	 *            The new progress of the current user for this kit.
+	 */
+	protected abstract void setUserKitProgress(int kitProgress);
+
+	/**
+	 * Sets the new progress of the user for this kit.
+	 * 
+	 * @param kitProgress
+	 *            The new progress of the user for this kit.
 	 */
 	public void setKitProgress(int kitProgress) {
 
@@ -73,12 +107,12 @@ public abstract class Kit extends JPanel {
 	public abstract void startKit();
 
 	/**
-	 * Returns the name of the button for this kit
+	 * Returns the name of the button for this kit in the KitSelectionPage
 	 * 
 	 * NOTE : This should exactly match the value of kit_[kit_num]_Name in the
 	 * config.properties file
 	 * 
-	 * @return Button name
+	 * @return The name of the button for this kit in the KitSelectionPage
 	 */
 	public abstract String getButtonName();
 

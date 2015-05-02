@@ -24,21 +24,21 @@ import main.ChemGetPropertyValues;
  */
 public class UserInfoCreator {
 
-	// The directory to put the file in
+	// The directory to put the file in.
 	private static final String DIRECTORY_NAME = "Chemistry Passport";
 
 	// The name of the csv file that stores the user's information. Add a "."
-	// before the file name to hide the file
+	// before the file name to hide the file.
 	private static final String FILE_NAME = ".userInfo.csv";
 
-	// The path of the csv file that stores the user's information
+	// The path of the csv file that stores the user's information.
 	private static String filePath;
 
 	// True if the userInfo files exists, i.e. the user has already used the
 	// program. Otherwise, false.
 	private boolean exists = false;
 
-	// This contains methods that will allow us to get the names of the kits
+	// This contains methods that will allow us to get the names of the kits.
 	private ChemGetPropertyValues propValues;
 
 	/**
@@ -47,7 +47,7 @@ public class UserInfoCreator {
 	 * 
 	 * @param propValues
 	 *            The class that will provide the information about the existing
-	 *            kits from the resources/config/config.properties file
+	 *            kits from the resources/config/config.properties file.
 	 */
 	public UserInfoCreator(ChemGetPropertyValues propValues) {
 
@@ -72,12 +72,12 @@ public class UserInfoCreator {
 	}
 
 	/**
-	 * Return the path of the file depending on the Operating System
+	 * Return the path of the file depending on the Operating System.
 	 * 
 	 * @param directoryPath
 	 *            The path of the Chemistry Passport directory that the file
-	 *            will be in
-	 * @return The path of the file that will contain user information
+	 *            will be in.
+	 * @return The path of the file that will contain user information.
 	 */
 	private String getFilePath(String directoryPath) {
 
@@ -106,7 +106,7 @@ public class UserInfoCreator {
 
 	/**
 	 * Creates a directory with the name "Chemistry Passport" (which should be
-	 * the value specified by DIRECTORY_NAME) in the location specified
+	 * the value specified by DIRECTORY_NAME) in the location specified.
 	 * 
 	 * @param directoryPath
 	 *            The location or path that the directory should be created in.
@@ -120,8 +120,8 @@ public class UserInfoCreator {
 	}
 
 	/**
-	 * Creates the file that will contain information about the uer, including
-	 * their progress for each kit, in the Chemistry Passport directory
+	 * Creates the file that will contain information about the user, including
+	 * their progress for each kit, in the Chemistry Passport directory.
 	 */
 	private void createUserInfoFile() {
 
@@ -165,7 +165,7 @@ public class UserInfoCreator {
 
 	/**
 	 * Returns the location of the root directory of the user's computer. For
-	 * instance, in Windows, it is usually "C:/"
+	 * instance, in Windows, it is usually "C:/".
 	 * 
 	 * @return The location of the root directory of the user's computer.
 	 */
@@ -196,9 +196,9 @@ public class UserInfoCreator {
 	}
 
 	/**
-	 * Returns the path of the file containing user's information
+	 * Returns the path of the file containing user's information.
 	 * 
-	 * @return The path of the file containing user's information
+	 * @return The path of the file containing user's information.
 	 */
 	public static String getFilePath() {
 		return filePath;
@@ -210,10 +210,10 @@ public class UserInfoCreator {
 	 * don't hide the file and windows cannot write to a hidden file.
 	 * 
 	 * @param userInfoFile
-	 *            The file to hide or to show
+	 *            The file to hide or to show.
 	 * @param hide
 	 *            If hide is true, then the file will be hidden. If hide is
-	 *            false then the file will be shown
+	 *            false then the file will be shown.
 	 */
 	public static void setHideFile(File userInfoFile, boolean hide) {
 
