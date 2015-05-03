@@ -314,7 +314,7 @@ public class EstimationGame extends JPanel {
 		// advanced
 		if (!hasViewedAnswer) {
 			beetleKit.setKitProgress(beetleKit.getKitProgress() + 1);
-			beetleKit.setUserKitProgress(beetleKit.getKitProgress());
+			//beetleKit.setUserKitProgress(beetleKit.getKitProgress());
 			currentGridNum++;
 		}
 

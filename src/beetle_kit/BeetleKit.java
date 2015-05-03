@@ -31,8 +31,6 @@ public class BeetleKit extends Kit {
 	// The page with the instructions for the Beetle Kit
 	private static EstimationStartPage startPage;
 
-	// The current passport
-	private Passport passport;
 
 	/**
 	 * Creates a new BeetleKit object with a reference to the
@@ -67,8 +65,6 @@ public class BeetleKit extends Kit {
 		// Set the layout to a card layout
 		this.setLayout(CARD_LAYOUT);
 
-		// Get the passport
-		passport = mainGUI.getPassport();
 
 	}
 
@@ -175,10 +171,10 @@ public class BeetleKit extends Kit {
 		return passport;
 	}
 
-	@Override
-	protected void setUserKitProgress(int progress) {
-
-		passport.getUser().setKitProgress(kitIndex, progress);
-
-	}
+//	@Override
+//	protected void setUserKitProgress(int progress) {
+//
+//		passport.getUser().setKitProgress(kitIndex, progress);
+//
+//	}
 }

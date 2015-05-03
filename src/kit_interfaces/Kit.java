@@ -3,6 +3,7 @@ package kit_interfaces;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import passport.Passport;
 import main.ChemistryPassportGUI;
 
 /**
@@ -25,6 +26,9 @@ public abstract class Kit extends JPanel {
 
 	// The Integer representing user's progress on current kit
 	protected int kitProgress;
+	
+	// The current passport
+	protected Passport passport;
 
 	/**
 	 * Creates a new kit. This constructor is used when only the reward game
@@ -37,6 +41,10 @@ public abstract class Kit extends JPanel {
 	public Kit(ChemistryPassportGUI mainGUI) {
 
 		this.mainGUI = mainGUI;
+		
+
+		// Get the passport
+		passport = mainGUI.getPassport();
 
 	}
 
@@ -82,13 +90,13 @@ public abstract class Kit extends JPanel {
 		return kitProgress;
 	}
 
-	/**
-	 * Sets the new progress of the current user for this kit.
-	 * 
-	 * @param kitProgress
-	 *            The new progress of the current user for this kit.
-	 */
-	protected abstract void setUserKitProgress(int kitProgress);
+//	/**
+//	 * Sets the new progress of the current user for this kit.
+//	 * 
+//	 * @param kitProgress
+//	 *            The new progress of the current user for this kit.
+//	 */
+//	protected abstract void setUserKitProgress(int kitProgress);
 
 	/**
 	 * Sets the new progress of the user for this kit.
@@ -99,6 +107,8 @@ public abstract class Kit extends JPanel {
 	public void setKitProgress(int kitProgress) {
 
 		this.kitProgress = kitProgress;
+		
+		passport.getUser().setKitProgress(kitIndex, kitProgress);
 	}
 
 	/**
