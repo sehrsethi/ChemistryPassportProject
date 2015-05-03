@@ -41,8 +41,8 @@ public class ChemistryPassport extends JApplet {
 
 		frame.getContentPane().add(gui);
 
-		frame.setSize(ChemistryPassportApplet.PAGE_WIDTH,
-				ChemistryPassportApplet.PAGE_HEIGHT + 30);
+		frame.setSize(ChemistryPassport.PAGE_WIDTH,
+				ChemistryPassport.PAGE_HEIGHT + 30);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

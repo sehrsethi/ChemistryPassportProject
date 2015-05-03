@@ -40,8 +40,7 @@ public abstract class Kit extends JPanel {
 	 */
 	public Kit(ChemistryPassportGUI mainGUI) {
 
-		this.mainGUI = mainGUI;
-		
+		this.mainGUI = mainGUI;		
 
 		// Get the passport
 		passport = mainGUI.getPassport();
@@ -68,6 +67,10 @@ public abstract class Kit extends JPanel {
 		this.kitProgress = kitProgress;
 
 		this.kitIndex = kitIndex;
+		
+
+		// Get the passport
+		passport = mainGUI.getPassport();
 	}
 
 	/**
@@ -139,4 +142,14 @@ public abstract class Kit extends JPanel {
 	 * @return The name associated with the reward component
 	 */
 	public abstract String getRewardName();
+	
+
+	/**
+	 * Get the passport that this BeetleKit belongs to
+	 * 
+	 * @return The user's passport
+	 */
+	public Passport getPassport() {
+		return passport;
+	}
 }

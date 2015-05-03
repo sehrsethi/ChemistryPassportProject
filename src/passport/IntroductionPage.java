@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import main.ChemistryPassportApplet;
+import main.ChemistryPassport;
 
 /**
  * This is the first page of the user's Passport that contains the name of the
@@ -97,10 +97,10 @@ public class IntroductionPage extends JPanel {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 15));
 
 		// Set the size
-		this.setPreferredSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH,
-				ChemistryPassportApplet.PAGE_HEIGHT));
-		this.setMinimumSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH,
-				ChemistryPassportApplet.PAGE_HEIGHT));
+		this.setPreferredSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
+				ChemistryPassport.PAGE_HEIGHT));
+		this.setMinimumSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
+				ChemistryPassport.PAGE_HEIGHT));
 
 		// Make the background white
 		this.setBackground(Color.WHITE);
@@ -265,9 +265,9 @@ public class IntroductionPage extends JPanel {
 		// So that the button is on the right. Otherwise the button will be
 		// added to the center
 		buttonPanel.setPreferredSize(new Dimension(
-				ChemistryPassportApplet.PAGE_WIDTH - 50, 50));
+				ChemistryPassport.PAGE_WIDTH - 50, 50));
 		buttonPanel.setMinimumSize(new Dimension(
-				ChemistryPassportApplet.PAGE_WIDTH - 50, 50));
+				ChemistryPassport.PAGE_WIDTH - 50, 50));
 
 		Font font = new Font("Verdana", Font.PLAIN, 18);
 

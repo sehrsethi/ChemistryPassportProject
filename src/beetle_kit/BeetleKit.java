@@ -162,14 +162,6 @@ public class BeetleKit extends Kit {
 		return beetleGame;
 	}
 
-	/**
-	 * Get the passport that this BeetleKit belongs to
-	 * 
-	 * @return The user's passport
-	 */
-	public Passport getPassport() {
-		return passport;
-	}
 
 //	@Override
 //	protected void setUserKitProgress(int progress) {
