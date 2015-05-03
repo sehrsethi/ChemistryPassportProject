@@ -423,7 +423,7 @@ public class Passport extends JPanel implements MouseListener {
 	 * 
 	 * @return The name of the user
 	 */
-	public String getUserName() {
+	public String getUserAdventureName() {
 		return userName;
 	}
 
