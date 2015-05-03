@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import kit_interfaces.Kit;
-import main.ChemistryPassportApplet;
+import main.ChemistryPassport;
 import main.ChemistryPassportGUI;
 import user.User;
 
@@ -80,10 +80,10 @@ public class KitSelectionPage extends JPanel {
 
 		this.setLayout(new BorderLayout());
 
-		this.setPreferredSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH,
-				ChemistryPassportApplet.PAGE_HEIGHT));
-		this.setMinimumSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH,
-				ChemistryPassportApplet.PAGE_HEIGHT));
+		this.setPreferredSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
+				ChemistryPassport.PAGE_HEIGHT));
+		this.setMinimumSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
+				ChemistryPassport.PAGE_HEIGHT));
 
 		mainGUI = passort.getChemGUI();
 

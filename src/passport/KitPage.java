@@ -25,7 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import main.ChemistryPassportApplet;
+import main.ChemistryPassport;
 
 /**
  * The passport page relevant to each existing kit in the Chemistry Passport
@@ -147,8 +147,8 @@ public class KitPage extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		// Set the size
-		this.setSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH,
-				ChemistryPassportApplet.PAGE_HEIGHT));
+		this.setSize(new Dimension(ChemistryPassport.PAGE_WIDTH,
+				ChemistryPassport.PAGE_HEIGHT));
 
 		// Set the background color
 		this.setBackground(BACKGROUND_COLOR);
