@@ -183,7 +183,7 @@ public class EstimationGame extends JPanel {
 					// for one
 					// user
 				} else if (lines[i].contains(beetleKit.getPassport()
-						.getUserName())) {
+						.getUserAdventureName())) {
 
 					// if we found the current user, change their kitProgress
 					// for the beetleKit (which is at index 2)

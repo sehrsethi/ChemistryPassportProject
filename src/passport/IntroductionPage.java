@@ -2,6 +2,7 @@ package passport;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -20,20 +21,17 @@ import javax.swing.JTextArea;
 
 import main.ChemistryPassportApplet;
 
+/**
+ * This is the first page of the user's Passport that contains the name of the
+ * program, welcome text for the user, the grades for which this program is made
+ * for, the user's name, the logo and the sponsors.
+ * 
+ * @author Humaira Orchee, Charlotte Dye, Sehr Sethi
+ * @version May 3, 2015
+ */
 public class IntroductionPage extends JPanel {
 
-	// The width of this page
-	//private static final int PAGE_WIDTH = 500;
-
-	// The height of this page
-	//private static final int PAGE_HEIGHT = 700;
-
-	// The name/location of the image this page shows
-	// private static final String IMAGE_FILE = "images//logo.png";
-
-	// The name/location of the image this page shows--we need to change this
-	// private static final String IMAGE_FILE =
-	// "C://Users//Humaira//Documents//Course Works//Spring 2015 - 8//CS 316 - Software Practicum//ChemistryPassportWorkspace//ChemistryPassport//bin//images//logo.png";
+	// The name of the package and file of the logo
 	private static final String IMAGE_FILE = "images/logo.png";
 
 	// The font for the header (the part that says PASSPORT)
@@ -43,18 +41,18 @@ public class IntroductionPage extends JPanel {
 	// The text for the header
 	private static final String HEADER_TEXT = "PASSPORT";
 
-	// The font for the second line
+	// The font for the welcome text
 	private static final Font CHEM_FONT = new Font("Times New Roman",
 			Font.ITALIC | Font.BOLD, 36);
 
-	// The text of the second line
+	// The text of the welcome text
 	private static final String CHEM_TEXT = "to Chemistry Adventure";
 
 	// The font for the line with grades
 	private static final Font GRADE_FONT = new Font("Times New Roman",
 			Font.PLAIN, 24);
 
-	// The text for the grade range
+	// The text for the grades
 	private static final String GRADE_TEXT = "Grades K-6";
 
 	// The font for the name of the sponsor
@@ -71,51 +69,51 @@ public class IntroductionPage extends JPanel {
 	// The text color
 	private static final Color TEXT_COLOR = Color.BLACK;
 
+	// The passport object that this first page belongs to
 	private static Passport passport;
 
-	// The name of the child whose passport this is
-	private String childName;
+	// The name of the user whose passport this is
+	private String userAdventureName;
 
 	// The image of the logo
 	private Image logo;
 
 	/**
-	 * Constructs the first page
+	 * Constructs the introduction (i.e. first) page of the passport
 	 * 
 	 * @param passport
-	 *            TODO
+	 *            The passport object that this first page belongs to
 	 */
 
 	public IntroductionPage(Passport passport) {
 
-		this.passport = passport;
+		// store the passport object
+		IntroductionPage.passport = passport;
 
-		// Store the name of the child
-		this.childName = passport.getUserName();
+		// Store the name of the user
+		this.userAdventureName = passport.getUserAdventureName();
 
 		// Set the layout to FlowLayout
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 15));
 
 		// Set the size
-		// this.setSize(new Dimension(Passport.PAGE_WIDTH,
-		// Passport.PAGE_HEIGHT));
 		this.setPreferredSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH,
 				ChemistryPassportApplet.PAGE_HEIGHT));
 		this.setMinimumSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH,
 				ChemistryPassportApplet.PAGE_HEIGHT));
 
 		// Make the background white
-
 		this.setBackground(Color.WHITE);
 
-		// Do the following so that the images are in the path and hence can run a jar file on any computer
+		// Do the following so that the images are included in the path of this
+		// application and hence can run a jar file on any computer
 		try {
 			ClassLoader classLoader = Thread.currentThread()
 					.getContextClassLoader();
 			InputStream input = classLoader.getResourceAsStream(IMAGE_FILE);
 
 			logo = ImageIO.read(input);
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,9 +123,8 @@ public class IntroductionPage extends JPanel {
 		addContent();
 	}
 
-	
 	/**
-	 * Adds the content to the first page
+	 * Adds the content to the introduction page
 	 */
 	private void addContent() {
 
@@ -146,24 +143,21 @@ public class IntroductionPage extends JPanel {
 		// text - sponsor
 		addSponsorText();
 
-		// name of child/user
-		addChildName();
+		// name of user
+		addUserAdventureName();
 
 		// back and fwd buttons
-		addFwdButton();
+		addForwardButton();
 
 	}
 
 	/**
-	 * 
+	 * Adds the adventure name of the user to this page
 	 */
-	private void addChildName() {
-
-		// child name can have max 20 characters or the entire name will not be
-		// displayed
+	private void addUserAdventureName() {
 
 		// Create the label for the child's name
-		JLabel childLabel = new JLabel(childName);
+		JLabel childLabel = new JLabel(userAdventureName);
 
 		// Set the font for the child's name
 		childLabel.setFont(CHILD_FONT);
@@ -179,7 +173,7 @@ public class IntroductionPage extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Adds the sponsors to this page
 	 */
 	private void addSponsorText() {
 		JTextArea sponsor = new JTextArea(SPONSOR_TEXT, 3, 30);
@@ -194,12 +188,14 @@ public class IntroductionPage extends JPanel {
 
 		sponsor.setEditable(false);
 
+		sponsor.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 		add(sponsor);
-		
+
 	}
 
 	/**
-	 * 
+	 * Adds the text "to Chemistry Adventure" to this page
 	 */
 	private void addChemText() {
 
@@ -217,7 +213,7 @@ public class IntroductionPage extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Adds the text "Grades K-6" to this page
 	 */
 	private void addGradeText() {
 		// text - grade
@@ -233,12 +229,9 @@ public class IntroductionPage extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Adds the image of the logo to this page
 	 */
 	private void addLogo() {
-		// ImageIcon imageIcon = new ImageIcon(IMAGE_FILE);
-		//
-		// JLabel image = new JLabel(imageIcon);
 
 		JLabel image = new JLabel(new ImageIcon(logo));
 
@@ -246,7 +239,7 @@ public class IntroductionPage extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Adds the text "PASSPORT" to this page
 	 */
 	private void addHeader() {
 		JLabel header = new JLabel(HEADER_TEXT);
@@ -261,18 +254,20 @@ public class IntroductionPage extends JPanel {
 	}
 
 	/**
-	 * Creates the forward button
+	 * Creates the forward button to this page. This button lets the user go to
+	 * the KitSelectionPage
 	 */
-	private void addFwdButton() {
+	private void addForwardButton() {
 
 		JPanel buttonPanel = new JPanel(new BorderLayout());
 		buttonPanel.setBackground(Color.white);
 
-		// So that the button is on the right. Otherwise the button is added to
-		// the center
-		buttonPanel
-				.setPreferredSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH - 50, 50));
-		buttonPanel.setMinimumSize(new Dimension(ChemistryPassportApplet.PAGE_WIDTH - 50, 50));
+		// So that the button is on the right. Otherwise the button will be
+		// added to the center
+		buttonPanel.setPreferredSize(new Dimension(
+				ChemistryPassportApplet.PAGE_WIDTH - 50, 50));
+		buttonPanel.setMinimumSize(new Dimension(
+				ChemistryPassportApplet.PAGE_WIDTH - 50, 50));
 
 		Font font = new Font("Verdana", Font.PLAIN, 18);
 
