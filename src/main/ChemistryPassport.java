@@ -5,13 +5,6 @@ import java.awt.Dimension;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 
-import passport.Passport;
-
-/**
- * 
- * @author Humaira Orchee, Charlotte Dye, Sehr Sethi
- * @version May 2, 2015
- */
 public class ChemistryPassport extends JApplet {
 
 	public static final int PAGE_WIDTH = 600;
@@ -38,10 +31,7 @@ public class ChemistryPassport extends JApplet {
 
 	}
 
-	/**
-	 * 
-	 * @param args
-	 */
+
 	public static void main(String args[]) {
 
 		JFrame frame = new JFrame();

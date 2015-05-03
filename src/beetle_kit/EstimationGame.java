@@ -24,6 +24,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import passport.Passport;
+import user.User;
 import user_accounts.UserInfoCreator;
 
 /**
@@ -118,7 +120,9 @@ public class EstimationGame extends JPanel {
 	private void createNewGrid() {
 
 		// Find out the user's grade so we know what size to make the grid
-		String userGrade = beetleKit.getPassport().getUser().getGrade();
+		Passport passport = beetleKit.getPassport();
+		User user = passport.getUser();
+		String userGrade = user.getGrade();
 
 		// The grid with the trees
 		EstimationGrid grid = new EstimationGrid(userGrade, BeetleKit
@@ -314,7 +318,7 @@ public class EstimationGame extends JPanel {
 		// advanced
 		if (!hasViewedAnswer) {
 			beetleKit.setKitProgress(beetleKit.getKitProgress() + 1);
-			beetleKit.setUserKitProgress(beetleKit.getKitProgress());
+			//beetleKit.setUserKitProgress(beetleKit.getKitProgress());
 			currentGridNum++;
 		}
 
