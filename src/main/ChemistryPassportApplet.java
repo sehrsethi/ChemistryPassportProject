@@ -36,11 +36,8 @@ public class ChemistryPassportApplet extends JApplet {
 		setMaximumSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
 		
 		setMinimumSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
-
 				
 		setVisible(true);
-		 
-		
 
 	}
 
