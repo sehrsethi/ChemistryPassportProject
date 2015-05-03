@@ -145,7 +145,7 @@ public class KitPage extends JPanel {
 		this.passport = passport;
 
 		// Save the name of the child
-		this.childName = passport.getUserName();
+		this.childName = passport.getUserAdventureName();
 
 		// Set the layout to BoxLayout
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
