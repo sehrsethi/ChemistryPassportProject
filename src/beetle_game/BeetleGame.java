@@ -8,11 +8,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import main.ChemGetPropertyValues;
 import main.ChemistryPassportGUI;
 import passport.Passport;
 
@@ -23,7 +21,7 @@ import passport.Passport;
  * beetle follows it.
  * 
  * @author Humaira Orchee, Charlotte Dye, Sehr Sethi
- * @version April 30th, 2015
+ * @version April 30, 2015
  *
  */
 public class BeetleGame extends JPanel {
@@ -60,12 +58,16 @@ public class BeetleGame extends JPanel {
 	}
 
 	/**
-	 * Adds a button that allows the user to go back to the KitSelectionPage of the passport
+	 * Adds a button that allows the user to go back to the KitSelectionPage of
+	 * the passport
 	 * 
-	 * @return A button that allows the user to go back to the KitSelectionPage of the passport
+	 * @return A button that allows the user to go back to the KitSelectionPage
+	 *         of the passport
 	 */
 	private JButton addGoToPassportButton() {
 
+		// add the go back to passport button at the bottom of the beetle game
+		// applet
 		JButton passportButton = new JButton("Go to Passport");
 
 		passportButton.addActionListener(new ActionListener() {
@@ -73,6 +75,8 @@ public class BeetleGame extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				// when the go back to passport button has been clicked, go back
+				// to the passport
 				mainGUI.goToCard(ChemistryPassportGUI.PASSPORT_TEXT);
 
 				mainGUI.getPassport().goToPage(Passport.KIT_SELECTION_NAME);
@@ -105,6 +109,5 @@ public class BeetleGame extends JPanel {
 
 		return instructionArea;
 	}
-
 
 }

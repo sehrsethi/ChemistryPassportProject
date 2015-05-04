@@ -1,6 +1,7 @@
 package beetle_game;
 
 /**
+ * The first beetle of the beetle game and its tail parts
  * @author Sehr Sethi, Humaira Orchee and Charlotte Dye
  * @version April 30th, 2015
  */
@@ -29,11 +30,11 @@ public class FirstBeetle implements BeetlePart {
 	// The component
 	private JComponent component;
 
-	// The x point of the beetle head
-	private double x;
+	// The current x point of the beetle head
+	private double currentX;
 
-	// The y point of the beetle head
-	private double y;
+	// The current y point of the beetle head
+	private double currentY;
 
 	/**
 	 * Initializes the instance variables
@@ -48,8 +49,8 @@ public class FirstBeetle implements BeetlePart {
 	public FirstBeetle(JComponent component, double x, double y) {
 
 		this.component = component;
-		this.x = x + 4;
-		this.y = y + 4;
+		this.currentX = x + 4;
+		this.currentY = y + 4;
 
 		// get the beetle image from the build path
 		try {
@@ -69,33 +70,44 @@ public class FirstBeetle implements BeetlePart {
 
 	/**
 	 * Paints the beetle head image
+	 * 
+	 * @param g
+	 *            the Graphics component
 	 */
 	public void paint(Graphics g) {
-
-		firstBeetleImage.paintIcon(component, g, (int) x + 2, (int) y + 2);
+		// paint the first beetle head image
+		firstBeetleImage.paintIcon(component, g, (int) currentX + 2,
+				(int) currentY + 2);
 	}
 
 	/**
 	 * Moves the entire beetle with the movement of the end point of the tail
+	 * 
+	 * @param newX
+	 *            the updated X point
+	 * @param newY
+	 *            the updated Y point
 	 */
 	public void moveBeetle(double newX, double newY) {
 
-		x = newX - firstBeetleImage.getIconWidth() / 2;
-		y = newY - firstBeetleImage.getIconHeight() / 2;
+		currentX = newX - firstBeetleImage.getIconWidth() / 2;
+		currentY = newY - firstBeetleImage.getIconHeight() / 2;
 
 	}
 
 	/**
 	 * Moves the beetle tail
+	 * 
+	 * @param distanceX
+	 *            the X distance of the beetle tail
+	 * @param distanceY
+	 *            the Y distance of the beetle tail
 	 */
 	public void moveTail(double distanceX, double distanceY) {
 
 	}
 
 	@Override
-	/**
-	 * The point where the movement starts
-	 */
 	public boolean startsAt(Point2D xAndy) {
 
 		return false;

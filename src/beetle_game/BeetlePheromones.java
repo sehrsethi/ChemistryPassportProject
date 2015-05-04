@@ -7,31 +7,28 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 /**
- * The beetle tail parts
+ * The beetle tail parts that construct the beetle tail
  * 
  * @author Sehr Sethi, Charlotte Dye and Humaira Orchee
- * 
+ * @version April 30, 2015
  */
 
 public class BeetlePheromones implements BeetlePart {
 
+	// The first color of the beetle tail part
 	public static final Color COLOR1 = new Color(255, 0, 0, 150);
 
+	// The second color of the beetle tail part
 	public static final Color COLOR2 = new Color(0, 0, 0, 175);
 
 	// The ellipse2D objects that make the beetle tail
-
 	private Ellipse2D tail;
 
-	// The beetle tail
-
+	// The rest of the beetle, including the beetle tail and the second beetle
 	private BeetlePart restBeetlePart;
 
 	// The color of the tail
-
 	private Color color;
-
-	// private BeetleHead beetleHead;
 
 	/**
 	 * Initializes the instance variables
@@ -49,7 +46,6 @@ public class BeetlePheromones implements BeetlePart {
 		this.tail = ellipse;
 		this.restBeetlePart = restBeetleTail;
 		this.color = color;
-		// this.beetleHead=beetleHead;
 
 	}
 
@@ -65,10 +61,13 @@ public class BeetlePheromones implements BeetlePart {
 
 		g2.fill(tail);
 
+		// if the rest of the beetle has not been constructed, paint the rest of
+		// the beetle
 		if (restBeetlePart != null) {
 			restBeetlePart.paint(g);
 		}
 
+		// alternate between two colors for the beetle tail parts
 		if (color == COLOR1) {
 
 			color = COLOR2;
@@ -84,12 +83,13 @@ public class BeetlePheromones implements BeetlePart {
 	 * Moves the entire beetle with the movement of the end point of the tail
 	 */
 	public void moveBeetle(double newX, double newY) {
-
+		// detect the starting points of the beetle tail
+		// get their cordinates
 		double originalx = tail.getX();
 		double originaly = tail.getY();
 
+		// draw the beetle at those starting points
 		tail.setFrame(newX, newY, tail.getWidth(), tail.getHeight());
-
 		restBeetlePart.moveBeetle(originalx, originaly);
 
 	}

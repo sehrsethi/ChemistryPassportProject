@@ -12,9 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 /**
+ * The beetle at the end of the tail i.e. the second beetle of the beetle game
  * 
  * @author Sehr Sethi, Charlotte Dye and Humaira Orchee
- * @version April 30th, 2015
+ * @version April 30, 2015
  *
  */
 public class SecondBeetle implements BeetlePart {

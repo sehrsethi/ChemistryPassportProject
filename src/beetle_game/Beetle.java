@@ -25,23 +25,18 @@ public class Beetle extends JComponent implements MouseListener,
 	private static final int DIAMETER = 25;
 
 	// The interface beetlePart
-
 	private BeetlePart beetlePart;
 
-	// The beetleTailPart
-
+	// The beetle tail parts
 	private BeetlePheromones beetlePheromones;
 
-	// Checks if in drawing mode
-
+	// Checks if the tail is in drawing mode
 	private boolean drawingTail = false;
 
 	// Checks if in moving mode
-
 	private boolean isMoving = false;
 
 	// The last x and y point of the tail
-
 	private Point2D lastXandY;
 
 	/**
@@ -69,8 +64,11 @@ public class Beetle extends JComponent implements MouseListener,
 	@Override
 	public void mousePressed(MouseEvent e) {
 
+		// if the beetle tail has not been drawn
 		if (beetlePart == null) {
+			// start the beetle tail chain
 			startChain(e.getPoint());
+			// draw the beetle tail chain
 			drawingTail = true;
 
 		}
@@ -87,6 +85,7 @@ public class Beetle extends JComponent implements MouseListener,
 	@Override
 	public void mouseReleased(MouseEvent e) {
 
+		// if the user releases the mouse, stop drawing the tail
 		if (drawingTail) {
 
 			endTail(e.getPoint());
@@ -102,20 +101,23 @@ public class Beetle extends JComponent implements MouseListener,
 	@Override
 	public void mouseDragged(MouseEvent e) {
 
+		// if the user drags the mouse
 		if (drawingTail) {
+			// keep drawing the chain of the beetle tail
 			Ellipse2D.Double ellipse = new Ellipse2D.Double(e.getX(), e.getY(),
 					DIAMETER, DIAMETER);
 			addLink(ellipse);
 
+			// if the user drags the mouse, detect movement
 		} else if (isMoving) {
 
+			// move the beetle chain tail with the movement of the mouse
 			beetlePart.moveTail(e.getX() - (int) lastXandY.getX(), e.getY()
 					- (int) lastXandY.getY());
 
 			repaint();
 
 		}
-
 		lastXandY = e.getPoint();
 
 	}
@@ -128,6 +130,7 @@ public class Beetle extends JComponent implements MouseListener,
 	 * Constructs a new beetle head
 	 * 
 	 * @param xandy
+	 *            stats the chain of the beetle tail at these starting points
 	 */
 	public void startChain(Point2D xandy) {
 
@@ -138,6 +141,7 @@ public class Beetle extends JComponent implements MouseListener,
 	 * Adds the beetle tail parts
 	 * 
 	 * @param ellipse
+	 *            the ellipse 2D points that construct the beetle tail
 	 */
 	public void addLink(Ellipse2D ellipse) {
 
@@ -148,9 +152,10 @@ public class Beetle extends JComponent implements MouseListener,
 	}
 
 	/**
+	 * Detect the point where the tail ends
 	 * 
 	 * @param endPoint
-	 *            of the tail
+	 *            the end point of the tail
 	 */
 	public void endTail(Point2D endPoint) {
 
@@ -161,6 +166,9 @@ public class Beetle extends JComponent implements MouseListener,
 
 	/**
 	 * Draws the current frame. This consists of a rectangle for the background
+	 * 
+	 * @param g
+	 *            the graphics
 	 */
 	public void paintComponent(Graphics g) {
 

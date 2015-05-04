@@ -71,7 +71,7 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	 * Constructs the log in page
 	 * 
 	 * @param userAccountGUI
-	 *            the log in and sign up GUI
+	 *            The GUI that the SignUp GUI is added to
 	 */
 	public Login(UserAccountGUI userAccountGUI) {
 
@@ -102,7 +102,8 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 		userAdventureNameLabel = new JLabel("Adventure Name:  ");
 		userAdventureNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		userAdventureNameTextField = new JTextField(40);
-		userAdventureNameTextField.setFont(new Font("Monospaced", Font.BOLD, 12));
+		userAdventureNameTextField
+				.setFont(new Font("Monospaced", Font.BOLD, 12));
 		adventurePanel.add(userAdventureNameLabel);
 		adventurePanel.add(userAdventureNameTextField);
 		userAdventureNameTextField.addKeyListener(this);

@@ -39,7 +39,7 @@ import user.User;
  * @version April 30, 2015
  *
  */
-public class SignUp extends JPanel implements ActionListener, KeyListener {
+public class SignUp extends JPanel implements ActionListener{
 
 	// Adds the text "Sign Up" to the Sign Up GUI
 	private JLabel signUpLabel = null;
@@ -86,7 +86,7 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	 * Constructs a Sign Up GUI
 	 * 
 	 * @param userAccountGUI
-	 *            the log in and sign up GUI
+	 *            The GUI that the SignUp GUI is added to
 	 */
 	public SignUp(UserAccountGUI userAccountGUI) {
 
@@ -137,7 +137,6 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		userAdventureNameTextField
 				.setFont(new Font("Monospaced", Font.BOLD, 12));
 
-		userAdventureNameTextField.addKeyListener(this);
 		// add this adventure name panel to the main sign up panel
 		root_panel_inside_tabbedPane.add(userAdventureNamePanel);
 
@@ -175,7 +174,6 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		// Add the drop down of grades to the grade panel
 		gradePanel.add(gradeComboBox);
 		gradeComboBox.setFont(new Font("Monospaced", Font.BOLD, 14));
-		gradeComboBox.addKeyListener(this);
 		// Add the grade panel to the main sign up panel
 		root_panel_inside_tabbedPane.add(gradePanel);
 
@@ -194,23 +192,6 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 
 	/**
 	 * Once the submit button has been pressed, get the user information and

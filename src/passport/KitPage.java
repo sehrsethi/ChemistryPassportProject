@@ -36,12 +36,6 @@ import main.ChemistryPassport;
  */
 public class KitPage extends JPanel {
 
-	// The name of the page
-	private String pageName;
-
-	// The adventure name of the user
-	private String userAdventureName;
-
 	// The name/location of the sticker image this page shows
 	private static final String IMAGE_FILE = "images/logo.png";
 
@@ -69,6 +63,13 @@ public class KitPage extends JPanel {
 
 	// The animation will continue for at least this long
 	private static final long ANIMATION_MIN_RUNTIME = 3000;
+	
+
+	// The name of the page
+	private String pageName;
+
+	// The adventure name of the user
+	private String userAdventureName;
 
 	// Whether the sticker should be displayed or not
 	private boolean showSticker;
@@ -404,7 +405,7 @@ public class KitPage extends JPanel {
 
 	/**
 	 * Returns true if this page is the last page of the kit. Returns false
-	 * otherwise.
+	 * otherwise. This information is needed to determine whether or not the forward button on this kit page will be enabled or not.
 	 * 
 	 * @return True if this page is the last page of the kit and false
 	 *         otherwise.

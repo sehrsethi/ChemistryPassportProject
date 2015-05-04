@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
  * The interface for the Beetle Reward Game
  * 
  * @author Sehr Sethi, Charlotte Dye and Humaira Orchee
- * @version April 30th, 2015
+ * @version April 30, 2015
  * 
  */
 
