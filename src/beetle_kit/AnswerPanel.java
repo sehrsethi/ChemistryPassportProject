@@ -521,7 +521,7 @@ public class AnswerPanel extends JPanel {
 
 						// Tell the user they got the right answer
 						JOptionPane.showMessageDialog(popupPanel,
-								"You got the correct answer! Good job!");
+								"That was a good estimate! Well done!");
 
 						// If they guessed infested trees, note that they got
 						// that correct
