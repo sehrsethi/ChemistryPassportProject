@@ -273,7 +273,7 @@ public class SignUp extends JPanel implements ActionListener{
 	 *            the Adventure Name of the user entered
 	 * @param grade
 	 *            the selected grade level
-	 * @return
+	 * @return false if the adventure name already exists, or true otherwise
 	 */
 	private boolean writeToFile(JTextField adventureNameText, String grade) {
 
@@ -388,7 +388,7 @@ public class SignUp extends JPanel implements ActionListener{
 	 * 
 	 * @param adventureName
 	 *            the user name entered
-	 * @return
+	 * @return true if the adventure name already exists, or false otherwise
 	 */
 	private boolean adventureNameExists(String adventureName) {
 

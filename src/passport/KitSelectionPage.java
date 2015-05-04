@@ -144,7 +144,7 @@ public class KitSelectionPage extends JPanel {
 	/**
 	 * Adds a button corresponding to the kit just added
 	 * 
-	 * @param kitName
+	 * @param kitButtonName
 	 *            The name of the kit added to the passport
 	 */
 	public void addKitButton(String kitButtonName) {
