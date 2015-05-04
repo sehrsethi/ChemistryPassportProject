@@ -5,18 +5,33 @@ import java.awt.Dimension;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 
+/**
+ * The main class that starts the applet or the JFrame for the Chemistry Passort
+ * Application
+ * 
+ * @author Humaira Orchee, Sehr Sethi, and Charlotte Dye
+ * @version April 30, 2015
+ */
 public class ChemistryPassport extends JApplet {
 
+	// The width of the applet/JFrame
 	public static final int PAGE_WIDTH = 600;
 
+	// The height of the applet/JFrame
 	public static final int PAGE_HEIGHT = 690;
 
+	/**
+	 * Constructs the main applet for the Chemistry Passport Application
+	 */
 	public void init() {
 
+		// get the property values
 		ChemGetPropertyValues propValues = new ChemGetPropertyValues();
 
+		// construct a GUI, given the property values
 		ChemistryPassportGUI gui = new ChemistryPassportGUI(propValues);
 
+		// add the gui to the applet
 		add(gui);
 
 		setSize(PAGE_WIDTH, PAGE_HEIGHT);
@@ -27,19 +42,30 @@ public class ChemistryPassport extends JApplet {
 
 		setMinimumSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
 
+		// view the applet
 		setVisible(true);
 
 	}
 
-
+	/**
+	 * Constructs the main JFrame of the Chemistry Passport Application
+	 * 
+	 * @param args
+	 *            The arguments to pass. Do not need to pass any for this
+	 *            application.
+	 */
 	public static void main(String args[]) {
 
+		// constructs a new JFrame for the application
 		JFrame frame = new JFrame();
 
+		// get the property values
 		ChemGetPropertyValues propValues = new ChemGetPropertyValues();
 
+		// construct a GUI. given these property values
 		ChemistryPassportGUI gui = new ChemistryPassportGUI(propValues);
 
+		// add the GUI to the JFrame
 		frame.getContentPane().add(gui);
 
 		frame.setSize(ChemistryPassport.PAGE_WIDTH,
@@ -47,8 +73,10 @@ public class ChemistryPassport extends JApplet {
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		// make the JFrame visible
 		frame.setVisible(true);
 
+		// Allow the user to resize the Jframe
 		frame.setResizable(false);
 
 	}

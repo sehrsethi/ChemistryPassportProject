@@ -31,58 +31,66 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import user.User;
+
 /**
  * GUI for constructing the Sign Up Page for the Chemistry Passport Program
  * 
  * @author Sehr Sethi, Humaira Orchee and Charlotte Dye
- * @version April 30th, 2015
+ * @version April 30, 2015
  *
  */
 public class SignUp extends JPanel implements ActionListener, KeyListener {
 
-	//Adds the text "Sign Up" to the Sign Up GUI
+	// Adds the text "Sign Up" to the Sign Up GUI
 	private JLabel signUpLabel = null;
-	
-	//Adds the text "Grade" to the Sign Up GUI
-	private JLabel gradeLabel = null;
-	
-	//Adds the text "Adventure Name" to the Sign Up GUI
-	private JLabel userAdventureNameLabel = null;
-	
-	//Allows the user to enter their "Adventure Name"
-	private JTextField userAdventureNameTextField = null;
-	
-	//The button for submitting the sign up button
-	private JButton submitButton = null;
-	
-	//Allows the user to select their grade level from a drop down of available grade levels
-	private JComboBox<String> gradeComboBox = null;
-	
-	//Holds the grade levels for the users
-	private String[] grades = { "" , "K", "1", "2", "3", "4", "5", "6" };
-	
-	//Holds the current user's grade level
-	private String userGrade ;
 
-	// The main sign up panel that contains all the sign up information and the sign up title
+	// Adds the text "Grade" to the Sign Up GUI
+	private JLabel gradeLabel = null;
+
+	// Adds the text "Adventure Name" to the Sign Up GUI
+	private JLabel userAdventureNameLabel = null;
+
+	// Allows the user to enter their "Adventure Name"
+	private JTextField userAdventureNameTextField = null;
+
+	// The button for submitting the sign up button
+	private JButton submitButton = null;
+
+	// Allows the user to select their grade level from a drop down of available
+	// grade levels
+	private JComboBox<String> gradeComboBox = null;
+
+	// Holds the grade levels for the users
+	private String[] grades = { "", "K", "1", "2", "3", "4", "5", "6" };
+
+	// Holds the current user's grade level
+	private String userGrade;
+
+	// The main sign up panel that contains all the sign up information and the
+	// sign up title
 	private JTabbedPane g_tabbedPane = new JTabbedPane();
-	
-	// Panel for JButtons and Jlabel with sign up tab
+
+	// Panel that contains all sign up information; labels, text fields and
+	// buttons
 	private JPanel root_panel_inside_tabbedPane = new JPanel();
-	
-	private UserAccountGUI userAccountGUI ;
-	
-	private User user ;
-	
+
+	// Displays the log in and the sign up GUI at the start up of the
+	// application
+	private UserAccountGUI userAccountGUI;
+
+	// The current user that is currently playing the Chemistry Passport
+	// Application
+	private User user;
+
 	/**
+	 * Constructs a Sign Up GUI
 	 * 
-	 * @param userAccountGUI TODO
+	 * @param userAccountGUI
+	 *            the log in and sign up GUI
 	 */
 	public SignUp(UserAccountGUI userAccountGUI) {
 
-		//this.userInfoCreator = userInfoCreator;
-		
-		this.userAccountGUI = userAccountGUI ;
+		this.userAccountGUI = userAccountGUI;
 
 		BoxLayout boxLayout = new BoxLayout(root_panel_inside_tabbedPane,
 				BoxLayout.Y_AXIS);
@@ -92,54 +100,53 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	}
 
 	/**
-	 * Creates labels and buttons for sign up to ask for user information
+	 * Constructs the Sign Up Page Contains Sin Up labels, buttons and
+	 * textFields to hold Sign Up user information
 	 */
 	public void signUp() {
 
+		// Adds a box layout to the main panel containing the sign up user
+		// information
 		BoxLayout boxLayout = new BoxLayout(root_panel_inside_tabbedPane,
 				BoxLayout.Y_AXIS);
 		root_panel_inside_tabbedPane.setLayout(boxLayout);
 		root_panel_inside_tabbedPane.setLayout(new GridLayout(7, 1));
 		root_panel_inside_tabbedPane.setBorder(BorderFactory.createLineBorder(
 				(new Color(150, 150, 150)), 3));
-
+		// add the main panel to the tabbed pane that contains the sign up title
+		// and now holds all the sign up user information
 		g_tabbedPane.add(root_panel_inside_tabbedPane);
 
 		// The panel that holds the label to ask users to sign up
-		JPanel pan11 = new JPanel();
+		JPanel startUpPanel = new JPanel();
 		signUpLabel = new JLabel("         Not A User Yet? Sign Up Below!  ");
 		signUpLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		pan11.add(signUpLabel);
+		startUpPanel.add(signUpLabel);
 		root_panel_inside_tabbedPane.add(new JPanel());
-		root_panel_inside_tabbedPane.add(pan11);
+		// add this panel to the main sign up panel
+		root_panel_inside_tabbedPane.add(startUpPanel);
 
 		// The panel that requests the user to input a Adventure Name
-		JPanel pan12 = new JPanel();
+		JPanel userAdventureNamePanel = new JPanel();
 		userAdventureNameLabel = new JLabel("Adventure Name:  ");
 		userAdventureNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		userAdventureNameTextField = new JTextField(45);
-		userAdventureNameTextField.setFont(new Font("Monospaced", Font.BOLD, 12));
+		userAdventureNameTextField
+				.setFont(new Font("Monospaced", Font.BOLD, 12));
 
-		userAdventureNameTextField.setFont(new Font("Monospaced", Font.BOLD, 12));
+		userAdventureNameTextField
+				.setFont(new Font("Monospaced", Font.BOLD, 12));
 
 		userAdventureNameTextField.addKeyListener(this);
-		root_panel_inside_tabbedPane.add(pan12);
+		// add this adventure name panel to the main sign up panel
+		root_panel_inside_tabbedPane.add(userAdventureNamePanel);
 
-		// The panel that asks the user to input a user name
-
-		// JPanel pan13 = new JPanel();
-		// signUp_UserNameLabel = new JLabel("User Name:  ");
-		// signUp_UserNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		// signUp_UserNameText = new JTextField(45);
-		// signUp_UserNameText.setFont(new Font("Monospaced", Font.BOLD, 12));
-
-		// signUp_UserNameText.setFont(new Font("Monospaced", Font.BOLD, 12));
-
-		// The panel that asks the user to select a grade level
-		JPanel pan14 = new JPanel();
+		// The panel that contains user grade information
+		// Asks the user to select an appropriate grade level given a drop down
+		// of grades
+		JPanel gradePanel = new JPanel();
 		gradeLabel = new JLabel("Grade:        ");
 		gradeLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
-
 		gradeComboBox = new JComboBox<String>(grades);
 		gradeComboBox.setFont(new Font("Monospaced", Font.BOLD, 12));
 		gradeComboBox.setEnabled(true);
@@ -150,36 +157,35 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 
-				userGrade = (String) gradeComboBox
-						.getSelectedItem();
+				userGrade = (String) gradeComboBox.getSelectedItem();
 
 			}
 		});
 
-		pan12.add(userAdventureNameLabel);
-		pan12.add(userAdventureNameTextField);
+		// Add the text "Adventure Name" and allow the user to input an
+		// "Adventure Name"
+		// Add this information to the panel that contains information for
+		// "Adventure Name"
+		userAdventureNamePanel.add(userAdventureNameLabel);
+		userAdventureNamePanel.add(userAdventureNameTextField);
 
-		// pan13.add(signUp_UserNameLabel);
-		// pan13.add(signUp_UserNameText);
-
-		pan14.add(gradeLabel);
-		pan14.add(gradeComboBox);
+		// Add the text "Grade" to the panel that contains user grade
+		// information
+		gradePanel.add(gradeLabel);
+		// Add the drop down of grades to the grade panel
+		gradePanel.add(gradeComboBox);
 		gradeComboBox.setFont(new Font("Monospaced", Font.BOLD, 14));
-
 		gradeComboBox.addKeyListener(this);
-		// root_panel_inside_tabbedPane.add(pan13);
-
-		// signUp_UserNameText.addKeyListener(this);
-
-		root_panel_inside_tabbedPane.add(pan14);
+		// Add the grade panel to the main sign up panel
+		root_panel_inside_tabbedPane.add(gradePanel);
 
 		// The panel that holds the submit information button
-		JPanel pan8 = new JPanel();
+		JPanel signUpSubmitButtonPanel = new JPanel();
 		submitButton = new JButton("  Submit  ");
-		pan8.add(submitButton);
-		Insets insets2 = pan8.getInsets();
+		signUpSubmitButtonPanel.add(submitButton);
+		Insets insets2 = signUpSubmitButtonPanel.getInsets();
 		submitButton.setBounds(430 + insets2.left, insets2.top, 90, 30);
-		root_panel_inside_tabbedPane.add(pan8);
+		root_panel_inside_tabbedPane.add(signUpSubmitButtonPanel);
 		submitButton.addActionListener(this);
 
 		// Add to the main sign up panel
@@ -212,20 +218,22 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent evt) {
+		// If the user clicks the submit button on the sign up page
 		if (evt.getSource() == submitButton)
 
 			if (checkSignUp()) {
 
+				// Write their entered "Adventure Name" and selected grade to
+				// database file
 				if (writeToFile(userAdventureNameTextField, userGrade)) {
-					
+
+					// Prompt them that their account has been created
 					JOptionPane.showMessageDialog(this, "User account for "
 							+ userAdventureNameTextField.getText()
 							+ " has been created. Cheers!");
-					
-					
-					userAccountGUI.createPassport(user);
-					
 
+					// Create a passport for this current user
+					userAccountGUI.createPassport(user);
 
 				}
 
@@ -236,31 +244,36 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	/**
 	 * Checks if the user name and Adventure Name already exist in the database
 	 * 
-	 * @return
+	 * @return true if exists, otherwise prompt user to select another Adventure
+	 *         Name
 	 */
 
 	private boolean checkSignUp() {
-		// getUserName = signUp_UserNameText.getText();
-		// m_grade = signUp_GradeCombo.getSelectedItem();
 
-		if ((userAdventureNameTextField.getText() == null) || userAdventureNameTextField.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "Enter the Adventure Name", "Error",
-					JOptionPane.ERROR_MESSAGE);
+		// If the user has not entered an "Adventure Name" or have left the
+		// field empty
+		if ((userAdventureNameTextField.getText() == null)
+				|| userAdventureNameTextField.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Enter the Adventure Name",
+					"Error", JOptionPane.ERROR_MESSAGE);
 
 			return false;
 
-		}else if(userAdventureNameTextField.getText().contains(",")){
-			
-			JOptionPane.showMessageDialog(this, "Adventure Name cannot have a ','. Try again!", "Error",
+			// if they adventure name contains a ","
+		} else if (userAdventureNameTextField.getText().contains(",")) {
+
+			// tell them that the adventure name cannot contain commas
+			JOptionPane.showMessageDialog(this,
+					"Adventure Name cannot have a ','. Try again!", "Error",
 					JOptionPane.ERROR_MESSAGE);
 
 			return false;
 
 		}
-		
-		
-		else if ((userGrade == null)
-				|| (userGrade.equals(""))) {
+
+		// if the user has not selected a grade level
+		else if ((userGrade == null) || (userGrade.equals(""))) {
+			// promt them to enter a grade level
 			JOptionPane.showMessageDialog(this, "Enter the Grade", "Error",
 					JOptionPane.ERROR_MESSAGE);
 
@@ -283,52 +296,54 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	 */
 	private boolean writeToFile(JTextField adventureNameText, String grade) {
 
+		// the file that contains user information
 		File databaseFile = new File(UserInfoCreator.getFilePath());
 
+		// holds the users kit progress information
 		String kitProgress = createKitProgressString();
 
 		try {
-			
+
 			// the file should be un-hidden before writing to file
 			UserInfoCreator.setHideFile(databaseFile, false);
 
 			BufferedWriter out = new BufferedWriter(new FileWriter(
 					databaseFile, true));
 
+			// get the adventure name of the user
 			String adventureName = adventureNameText.getText();
 
+			// if this adventure name already exists
 			if (adventureNameExists(adventureName)) {
 
+				// ask them to enter another adventure name
 				JOptionPane.showMessageDialog(this,
 						"Someone already has this username: " + adventureName
 								+ ". Let's pick another one!");
-				
+
 				out.flush();
 
 				out.close();
-				
+
 				// the file should be hidden after writing to file
 				UserInfoCreator.setHideFile(databaseFile, true);
 
 				return false;
 			}
 
-
-			
-			//adventureName += ",";
-
-			// grade = (JComboBox) grade.getSelectedItem();
+			// write the users adventure name, grade and kit progress to file
 			out.write("\n" + adventureName + "," + grade + "," + kitProgress);
 
 			out.flush();
 
 			out.close();
-	
+
 			// the file should be hidden after writing to file
 			UserInfoCreator.setHideFile(databaseFile, true);
-			
-			user = new User(adventureName, grade, kitProgress) ;
-			
+
+			// construct a new user with the entered information
+			user = new User(adventureName, grade, kitProgress);
+
 			return true;
 
 		} catch (IOException e) {
@@ -339,23 +354,23 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		return false;
 	}
 
-
 	/**
 	 * For each kit in the program, it sets the user's progress to 0.
-	 * @return
+	 * 
+	 * @return a string of the user's kit progress
 	 */
 	private String createKitProgressString() {
 
 		File databaseFile = new File(UserInfoCreator.getFilePath());
 
 		try {
-			
-			BufferedReader in = new BufferedReader(new FileReader(databaseFile));
 
+			BufferedReader in = new BufferedReader(new FileReader(databaseFile));
 
 			String[] firstLine = in.readLine().split(",");
 
-			// the first line in the file has the Adventure Name, Grade and then all the names of the existing Kits
+			// the first line in the file has the Adventure Name, Grade and then
+			// all the names of the existing Kits
 			int numKits = firstLine.length - 2;
 
 			String kitProgress = "";
@@ -388,14 +403,6 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 	}
 
 	/**
-	 * 
-	 * @return
-	 */
-	private String autogenerateUserName() {
-		return null;
-	}
-
-	/**
 	 * Checks if the user name entered already exists
 	 * 
 	 * @param adventureName
@@ -410,36 +417,37 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 			BufferedReader in = new BufferedReader(new FileReader(databaseFile));
 
-			// don't care about the first line because it just contains the column headers
+			// don't care about the first line because it just contains the
+			// column headers
 			in.readLine();
 
 			// start reading to find user name in the file
 			String line = in.readLine();
-			
+
 			while (line != null) {
-				
+
 				String[] userInfo = line.split(",");
-				
+
 				String tempAdventureName = userInfo[0];
-				
+
 				if (tempAdventureName.trim().equals(adventureName.trim())) {
-					
+
 					return true;
-					
+
 				} else {
-					
+
 					line = in.readLine();
 				}
 			}
 			return false;
 
 		} catch (FileNotFoundException e) {
-			
+
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 		} catch (IOException e) {
-			
+
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 

@@ -28,7 +28,7 @@ import user.User;
  * GUI for constructing the Login Page for the Chemistry Passport Program
  * 
  * @author Sehr Sethi, Humaira Orchee and Charlotte Dye
- * @version April 30th, 2015
+ * @version April 30, 2015
  *
  */
 public class Login extends JPanel implements ActionListener, KeyListener {
