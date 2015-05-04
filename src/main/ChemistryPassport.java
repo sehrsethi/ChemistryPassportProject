@@ -6,22 +6,22 @@ import javax.swing.JApplet;
 import javax.swing.JFrame;
 
 /**
- * The main class that starts the applet or the JFrame for the Chemistry Passort
- * Application
+ * The main class that starts the JApplet or the JFrame for the Chemistry
+ * Passport Program
  * 
  * @author Humaira Orchee, Sehr Sethi, and Charlotte Dye
  * @version April 30, 2015
  */
 public class ChemistryPassport extends JApplet {
 
-	// The width of the applet/JFrame
+	// The width of the JApplet/JFrame
 	public static final int PAGE_WIDTH = 600;
 
-	// The height of the applet/JFrame
+	// The height of the JApplet/JFrame
 	public static final int PAGE_HEIGHT = 690;
 
 	/**
-	 * Constructs the main applet for the Chemistry Passport Application
+	 * Starts the JApplet for the Chemistry Passport Program
 	 */
 	public void init() {
 
@@ -34,6 +34,7 @@ public class ChemistryPassport extends JApplet {
 		// add the gui to the applet
 		add(gui);
 
+		// set the dimensions
 		setSize(PAGE_WIDTH, PAGE_HEIGHT);
 
 		setPreferredSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
@@ -76,7 +77,7 @@ public class ChemistryPassport extends JApplet {
 		// make the JFrame visible
 		frame.setVisible(true);
 
-		// Allow the user to resize the Jframe
+		// Does not allow the user to resize the JFrame
 		frame.setResizable(false);
 
 	}

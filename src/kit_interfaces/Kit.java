@@ -93,14 +93,6 @@ public abstract class Kit extends JPanel {
 		return kitProgress;
 	}
 
-//	/**
-//	 * Sets the new progress of the current user for this kit.
-//	 * 
-//	 * @param kitProgress
-//	 *            The new progress of the current user for this kit.
-//	 */
-//	protected abstract void setUserKitProgress(int kitProgress);
-
 	/**
 	 * Sets the new progress of the user for this kit.
 	 * 

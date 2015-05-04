@@ -19,7 +19,7 @@ public class UserAccountGUI extends JPanel {
 	// The login screen.
 	private Login login;
 
-	// The main gui of the entire Chemistry Passport Program.
+	// The main GUI of the entire Chemistry Passport Program.
 	private ChemistryPassportGUI mainGUI;
 
 	/**

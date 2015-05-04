@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 /**
- * A Tree object that is represented by a circle
+ * A Tree object that is represented by an Ellipse2D.Double
  * 
  * @author Humaira Orchee, Charlotte Dye, and Sehr Sethi
  * @version April 30, 2015

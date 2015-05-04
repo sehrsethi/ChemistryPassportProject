@@ -318,7 +318,6 @@ public class EstimationGame extends JPanel {
 		// advanced
 		if (!hasViewedAnswer) {
 			beetleKit.setKitProgress(beetleKit.getKitProgress() + 1);
-			//beetleKit.setUserKitProgress(beetleKit.getKitProgress());
 			currentGridNum++;
 		}
 
@@ -506,6 +505,7 @@ public class EstimationGame extends JPanel {
 	/**
 	 * Removes a JOptionPane and its children
 	 * 
+	 * Code from
 	 * http://stackoverflow.com/questions/18105598/closing-a-joptionpane-
 	 * programatically
 	 */

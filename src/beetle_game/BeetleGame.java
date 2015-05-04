@@ -60,9 +60,9 @@ public class BeetleGame extends JPanel {
 	}
 
 	/**
-	 * Adds a button that allows the user to go back to the passport
+	 * Adds a button that allows the user to go back to the KitSelectionPage of the passport
 	 * 
-	 * @return A button that allows the user to go back to the passport
+	 * @return A button that allows the user to go back to the KitSelectionPage of the passport
 	 */
 	private JButton addGoToPassportButton() {
 

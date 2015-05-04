@@ -675,6 +675,7 @@ public class AnswerPanel extends JPanel {
 	/**
 	 * Removes a JOptionPane and its children
 	 * 
+	 * Code from
 	 * http://stackoverflow.com/questions/18105598/closing-a-joptionpane-
 	 * programatically
 	 */

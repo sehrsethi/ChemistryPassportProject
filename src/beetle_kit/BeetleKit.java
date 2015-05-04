@@ -162,11 +162,4 @@ public class BeetleKit extends Kit {
 		return beetleGame;
 	}
 
-
-//	@Override
-//	protected void setUserKitProgress(int progress) {
-//
-//		passport.getUser().setKitProgress(kitIndex, progress);
-//
-//	}
 }

@@ -11,7 +11,7 @@ import java.util.Properties;
  * the resources folder about the kits.
  * 
  * @author Charlotte Dye, Humaira Orchee, and Sehr Sethi
- *
+ * @version May 3, 2015
  */
 public class ChemGetPropertyValues {
 

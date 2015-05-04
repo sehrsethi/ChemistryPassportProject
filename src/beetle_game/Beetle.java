@@ -16,7 +16,7 @@ import javax.swing.JComponent;
  * 
  * @author Sehr Sethi, Charlotte Dye and Humaira Orchee
  * 
- * @version April 30th, 2015
+ * @version April 30, 2015
  */
 
 public class Beetle extends JComponent implements MouseListener,
