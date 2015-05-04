@@ -106,14 +106,5 @@ public class BeetleGame extends JPanel {
 		return instructionArea;
 	}
 
-	public static void main(String[] args) {
-
-		JFrame f = new JFrame();
-		f.getContentPane().add(
-				new BeetleGame(new ChemistryPassportGUI(
-						new ChemGetPropertyValues())));
-		f.setVisible(true);
-		f.setSize(600, 600);
-	}
 
 }
