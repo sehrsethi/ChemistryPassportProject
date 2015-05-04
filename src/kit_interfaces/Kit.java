@@ -68,7 +68,6 @@ public abstract class Kit extends JPanel {
 
 		this.kitIndex = kitIndex;
 		
-
 		// Get the passport
 		passport = mainGUI.getPassport();
 	}
