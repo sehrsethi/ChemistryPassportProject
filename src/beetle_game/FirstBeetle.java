@@ -1,10 +1,6 @@
 package beetle_game;
 
-/**
- * The first beetle of the beetle game and its tail parts
- * @author Sehr Sethi, Humaira Orchee and Charlotte Dye
- * @version April 30th, 2015
- */
+
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -15,7 +11,11 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-
+/**
+ * The first beetle of the beetle game and its tail parts
+ * @author Sehr Sethi, Humaira Orchee and Charlotte Dye
+ * @version April 30th, 2015
+ */
 public class FirstBeetle implements BeetlePart {
 
 	// The location of the first beetle image
