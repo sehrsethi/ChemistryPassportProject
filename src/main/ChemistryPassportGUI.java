@@ -7,6 +7,11 @@ import passport.Passport;
 import user.User;
 import user_accounts.UserAccountGUI;
 import user_accounts.UserInfoCreator;
+/**
+ * 
+ * @author Humaira Orchee, Sehr Sethi, and Charlotte Dye
+ * @version April 30, 2015
+ */
 
 public class ChemistryPassportGUI extends JPanel{
 	
