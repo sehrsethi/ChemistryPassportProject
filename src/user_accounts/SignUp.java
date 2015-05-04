@@ -31,28 +31,44 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import user.User;
-
+/**
+ * GUI for constructing the Sign Up Page for the Chemistry Passport Program
+ * 
+ * @author Sehr Sethi, Humaira Orchee and Charlotte Dye
+ * @version April 30th, 2015
+ *
+ */
 public class SignUp extends JPanel implements ActionListener, KeyListener {
 
-	// Instance variables for Sign Up Page
-
+	//Adds the text "Sign Up" to the Sign Up GUI
 	private JLabel signUpLabel = null;
+	
+	//Adds the text "Grade" to the Sign Up GUI
 	private JLabel gradeLabel = null;
-	private JLabel adventureNameLabel = null;
-	private JTextField adventureNameTextField = null;
+	
+	//Adds the text "Adventure Name" to the Sign Up GUI
+	private JLabel userAdventureNameLabel = null;
+	
+	//Allows the user to enter their "Adventure Name"
+	private JTextField userAdventureNameTextField = null;
+	
+	//The button for submitting the sign up button
 	private JButton submitButton = null;
+	
+	//Allows the user to select their grade level from a drop down of available grade levels
 	private JComboBox<String> gradeComboBox = null;
+	
+	//Holds the grade levels for the users
 	private String[] grades = { "" , "K", "1", "2", "3", "4", "5", "6" };
 	
+	//Holds the current user's grade level
 	private String userGrade ;
 
-	// The main sign up panel
+	// The main sign up panel that contains all the sign up information and the sign up title
 	private JTabbedPane g_tabbedPane = new JTabbedPane();
+	
 	// Panel for JButtons and Jlabel with sign up tab
 	private JPanel root_panel_inside_tabbedPane = new JPanel();
-
-	//
-	//private UserInfoCreator userInfoCreator;
 	
 	private UserAccountGUI userAccountGUI ;
 	
@@ -99,14 +115,14 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 		// The panel that requests the user to input a Adventure Name
 		JPanel pan12 = new JPanel();
-		adventureNameLabel = new JLabel("Adventure Name:  ");
-		adventureNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		adventureNameTextField = new JTextField(45);
-		adventureNameTextField.setFont(new Font("Monospaced", Font.BOLD, 12));
+		userAdventureNameLabel = new JLabel("Adventure Name:  ");
+		userAdventureNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		userAdventureNameTextField = new JTextField(45);
+		userAdventureNameTextField.setFont(new Font("Monospaced", Font.BOLD, 12));
 
-		adventureNameTextField.setFont(new Font("Monospaced", Font.BOLD, 12));
+		userAdventureNameTextField.setFont(new Font("Monospaced", Font.BOLD, 12));
 
-		adventureNameTextField.addKeyListener(this);
+		userAdventureNameTextField.addKeyListener(this);
 		root_panel_inside_tabbedPane.add(pan12);
 
 		// The panel that asks the user to input a user name
@@ -140,8 +156,8 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 			}
 		});
 
-		pan12.add(adventureNameLabel);
-		pan12.add(adventureNameTextField);
+		pan12.add(userAdventureNameLabel);
+		pan12.add(userAdventureNameTextField);
 
 		// pan13.add(signUp_UserNameLabel);
 		// pan13.add(signUp_UserNameText);
@@ -200,10 +216,10 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 
 			if (checkSignUp()) {
 
-				if (writeToFile(adventureNameTextField, userGrade)) {
+				if (writeToFile(userAdventureNameTextField, userGrade)) {
 					
 					JOptionPane.showMessageDialog(this, "User account for "
-							+ adventureNameTextField.getText()
+							+ userAdventureNameTextField.getText()
 							+ " has been created. Cheers!");
 					
 					
@@ -227,13 +243,13 @@ public class SignUp extends JPanel implements ActionListener, KeyListener {
 		// getUserName = signUp_UserNameText.getText();
 		// m_grade = signUp_GradeCombo.getSelectedItem();
 
-		if ((adventureNameTextField.getText() == null) || adventureNameTextField.getText().equals("")) {
+		if ((userAdventureNameTextField.getText() == null) || userAdventureNameTextField.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Enter the Adventure Name", "Error",
 					JOptionPane.ERROR_MESSAGE);
 
 			return false;
 
-		}else if(adventureNameTextField.getText().contains(",")){
+		}else if(userAdventureNameTextField.getText().contains(",")){
 			
 			JOptionPane.showMessageDialog(this, "Adventure Name cannot have a ','. Try again!", "Error",
 					JOptionPane.ERROR_MESSAGE);

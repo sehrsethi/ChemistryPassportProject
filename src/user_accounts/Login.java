@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 import user.User;
 
 /**
- * GUI for constructing the Login and Sign Up Page
+ * GUI for constructing the Login Page for the Chemistry Passport Program
  * 
  * @author Sehr Sethi, Humaira Orchee and Charlotte Dye
  * @version April 30th, 2015
@@ -33,91 +33,122 @@ import user.User;
  */
 public class Login extends JPanel implements ActionListener, KeyListener {
 
+	// Adds the text "Adventure Name" to the Log in GUI
+	private JLabel userAdventureNameLabel = null;
 
-	private JLabel adventureNameLabel = null;
-	
-	private JTextField adventureNameTextField = null;
-	
+	// Adds the text Field for the user to type their "Adventure Name"
+	private JTextField userAdventureNameTextField = null;
+
+	// The button that allows the user to log in
 	private JButton loginButton = null;
-	
+
+	// The button that allows the user to canel out of the log in GUI
 	private JButton loginCancelButton = null;
-	
+
+	// Represents the borders for the container. Used to specify the location
+	// for the log in button
 	private Insets insets;
-	
+
+	// The panel that the log in information is added to along with the log in
+	// title
 	private JTabbedPane g_tabbedPane = new JTabbedPane();
-	
+
+	// The panel that holds the log in labels, text fields and buttons
 	private JPanel root_panel = null;
-	
-	private String m_user = null;	
-	
-	private User user ;
-	
-	private UserAccountGUI userAccountGUI ;
+
+	// Used to get the adventure name text
+	private String m_user = null;
+
+	// The current user that is currently playing the Chemistry Passport
+	// Application
+	private User user;
+
+	// Displays the log in and the sign up GUI at the start up of the
+	// application
+	private UserAccountGUI userAccountGUI;
 
 	/**
+	 * Constructs the log in page
 	 * 
-	 * @param userAccountGUI TODO
+	 * @param userAccountGUI
+	 *            the log in and sign up GUI
 	 */
 	public Login(UserAccountGUI userAccountGUI) {
 
-		//this.userInfoCreator = userInfoCreator ;
-		
-		this.userAccountGUI = userAccountGUI ;
-		
+		// this.userInfoCreator = userInfoCreator ;
+
+		this.userAccountGUI = userAccountGUI;
+
 		loginPage();
-		
-		
 
 	}
 
 	/**
-	 * Constructs the Login Page
+	 * Constructs the Login Page Contains log in labels, buttons and textFields
+	 * to hold log in information
 	 */
 	public void loginPage() {
 
+		// Sets the layout of the root_panel that is responsible for holding all
+		// log in information
 		root_panel = new JPanel();
 		root_panel.setLayout(new BoxLayout(root_panel, BoxLayout.Y_AXIS));
 		root_panel.setBorder(BorderFactory.createLineBorder((new Color(150,
 				150, 150)), 2));
 
-		JPanel pan2 = new JPanel();
-		adventureNameLabel = new JLabel("Adventure Name:  ");
-		adventureNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		adventureNameTextField = new JTextField(40);
-		adventureNameTextField.setFont(new Font("Monospaced", Font.BOLD, 12));
-		pan2.add(adventureNameLabel);
-		pan2.add(adventureNameTextField);
-		adventureNameTextField.addKeyListener(this);
-		root_panel.add(pan2);
+		// The panel that contains the text "Adventure Name" and the associated
+		// text field
+		JPanel adventurePanel = new JPanel();
+		userAdventureNameLabel = new JLabel("Adventure Name:  ");
+		userAdventureNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		userAdventureNameTextField = new JTextField(40);
+		userAdventureNameTextField.setFont(new Font("Monospaced", Font.BOLD, 12));
+		adventurePanel.add(userAdventureNameLabel);
+		adventurePanel.add(userAdventureNameTextField);
+		userAdventureNameTextField.addKeyListener(this);
+		// Add adventure panel to the root panel
+		root_panel.add(adventurePanel);
 
-		JPanel pan5 = new JPanel();
+		// The panel that holds the log in button and the cancel log in button
+		JPanel buttonPanel = new JPanel();
 		loginButton = new JButton("  Login  ");
 		loginCancelButton = new JButton("  Cancel  ");
-		pan5.add(loginButton);
-		pan5.add(loginCancelButton);
-		insets = pan5.getInsets();
+		buttonPanel.add(loginButton);
+		buttonPanel.add(loginCancelButton);
+		insets = buttonPanel.getInsets();
 		loginButton.setBounds(330 + insets.left, insets.top, 90, 30);
 		loginCancelButton.setBounds(430 + insets.left, insets.top, 90, 30);
-		root_panel.add(pan5);
+		// adds the button panel to the root panel
+		root_panel.add(buttonPanel);
 
+		// Add action listener to the cancel and log in button
 		loginButton.addActionListener(this);
 		loginCancelButton.addActionListener(this);
 
+		// Constructs a panel that contains the log in tab and adds the root
+		// panel to this panel
 		g_tabbedPane.addTab("Login", null, root_panel, "");
-
 		add(g_tabbedPane);
 		this.setBounds(100, 100, 530, 325);
 	}
 
+	/**
+	 * Performs the appropriate actions when the user clicks either the log in
+	 * or cancel button
+	 */
 	public void actionPerformed(ActionEvent evt) {
+		// if the user cicked the log in button
 		if (evt.getSource() == loginButton) {
 
+			// if they have entered an "Adventure Name"
 			if (userNameEntered()) {
-				this.readFromFile(adventureNameTextField);
+				// read their "Adventure Name" from the file
+				this.readFromFile(userAdventureNameTextField);
 			}
 		}
-
-		if (evt.getSource() == loginCancelButton){
+		// if the user clicks the cancel button
+		if (evt.getSource() == loginCancelButton) {
+			// close the application
 			System.exit(0);
 		}
 	}
@@ -128,21 +159,35 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 	}
 
+	/**
+	 * Allows the user to log in when they press the enter key
+	 */
 	public void keyPressed(KeyEvent evt) {
+		// when the user presses the enter key
 		if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
+			// if they already have an account
 			if (userNameEntered()) {
-
-				this.readFromFile(adventureNameTextField);
+				// get their "Adventure Name" from the file
+				this.readFromFile(userAdventureNameTextField);
 
 			}
 		}
 	}
 
+	/**
+	 * Checks if the user name has entered text in the log in text field that
+	 * holds user name
+	 * 
+	 * @return true if the user name entered exists in file, else return false
+	 */
 	private boolean userNameEntered() {
-		m_user = adventureNameTextField.getText();
+		// gets the user's "Adventure Name"
+		m_user = userAdventureNameTextField.getText();
 
+		// If the user has not entered an "Adventure Name" or have left the
+		// field empty
 		if ((m_user == null) || (m_user.equals(""))) {
+			// inform them to enter a user name to log in to the application
 			JOptionPane.showMessageDialog(this, "Enter the User Name", "Error",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
@@ -152,6 +197,13 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 		return true;
 	}
 
+	/**
+	 * Reads the user information from a file to check if the user name entered
+	 * in the log in page exists in the file
+	 * 
+	 * @param adventureNameText
+	 *            the user "Adventure Name"
+	 */
 	private void readFromFile(JTextField adventureNameText) {
 
 		File databaseFile = new File(UserInfoCreator.getFilePath());
@@ -160,12 +212,11 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 		try {
 
-			
 			BufferedReader in = new BufferedReader(new FileReader(databaseFile));
-			
+
 			// read first line
 			in.readLine();
-			
+
 			// start reading the file to look for the adventure name
 			String line = in.readLine();
 
@@ -184,20 +235,21 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 					// at this point, some controller should get the user so
 					// that the passport for the user is created and the chosen
 					// kit can be started.
-					
+
 					userAccountGUI.createPassport(user);
 
 					in.close();
-					
+
 					break;
 				}
 
 				line = in.readLine();
 
 			}
+			// if the user is not found in the file
 
 			if (!userFound) {
-
+				// inform the user that this user does not exist
 				JOptionPane.showMessageDialog(this, "Sorry but the username "
 						+ adventureNameText.getText() + " was not found.");
 
@@ -215,19 +267,24 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 	 * Creates a user
 	 * 
 	 * @param line
+	 *            the row in the database file that hold user name, grade and
+	 *            kit progress
 	 */
 	private User createUser(String line) {
 
 		String[] userInfo = line.split(",");
 
+		// The "Adventure Name of the user
 		String adventureName = userInfo[0];
 
+		// The user grade
 		String grade = userInfo[1];
 
+		// Holds the user's kit progress
 		ArrayList<Integer> kitProgress = new ArrayList<Integer>();
-		
-		int index = 0 ;
-		
+
+		int index = 0;
+
 		// i = 0 : adventure name
 		// i = 1 : grade
 		// so to look for kit progress we start looking at i = 2
@@ -235,21 +292,22 @@ public class Login extends JPanel implements ActionListener, KeyListener {
 
 			kitProgress.add(Integer.parseInt(userInfo[i]));
 
-			index++ ;
+			index++;
 		}
 
 		User tempUser = new User(adventureName, grade, kitProgress);
 
-		return tempUser ;
+		return tempUser;
 
 	}
 
+	/**
+	 * Returns the current user
+	 * 
+	 * @return the current user
+	 */
 	public User getUser() {
 		return user;
 	}
-	
-	
-	
-	
 
 }
