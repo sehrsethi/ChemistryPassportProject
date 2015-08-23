@@ -12,7 +12,7 @@ import javax.swing.JFrame;
  * @author Humaira Orchee, Sehr Sethi, and Charlotte Dye
  * @version April 30, 2015
  */
-public class ChemistryPassport extends JApplet {
+public class ChemistryPassport {//extends JApplet {
 
 	// The width of the JApplet/JFrame
 	public static final int PAGE_WIDTH = 600;
@@ -20,33 +20,33 @@ public class ChemistryPassport extends JApplet {
 	// The height of the JApplet/JFrame
 	public static final int PAGE_HEIGHT = 690;
 
-	/**
-	 * Starts the JApplet for the Chemistry Passport Program
-	 */
-	public void init() {
-
-		// get the property values
-		ChemGetPropertyValues propValues = new ChemGetPropertyValues();
-
-		// construct a GUI, given the property values
-		ChemistryPassportGUI gui = new ChemistryPassportGUI(propValues);
-
-		// add the gui to the applet
-		add(gui);
-
-		// set the dimensions
-		setSize(PAGE_WIDTH, PAGE_HEIGHT);
-
-		setPreferredSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
-
-		setMaximumSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
-
-		setMinimumSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
-
-		// view the applet
-		setVisible(true);
-
-	}
+//	/**
+//	 * Starts the JApplet for the Chemistry Passport Program
+//	 */
+//	public void init() {
+//
+//		// get the property values
+//		ChemGetPropertyValues propValues = new ChemGetPropertyValues();
+//
+//		// construct a GUI, given the property values
+//		ChemistryPassportGUI gui = new ChemistryPassportGUI(propValues);
+//
+//		// add the gui to the applet
+//		add(gui);
+//
+//		// set the dimensions
+//		setSize(PAGE_WIDTH, PAGE_HEIGHT);
+//
+//		setPreferredSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
+//
+//		setMaximumSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
+//
+//		setMinimumSize(new Dimension(PAGE_WIDTH, PAGE_HEIGHT));
+//
+//		// view the applet
+//		setVisible(true);
+//
+//	}
 
 	/**
 	 * Constructs the main JFrame of the Chemistry Passport Application
@@ -56,7 +56,7 @@ public class ChemistryPassport extends JApplet {
 	 *            application.
 	 */
 	public static void main(String args[]) {
-
+		
 		// constructs a new JFrame for the application
 		JFrame frame = new JFrame();
 

@@ -20,12 +20,12 @@ import main.ChemGetPropertyValues;
  * the path of the file every time this application is started.
  * 
  * @author Sehr Sethi, Humaira Orchee and Charlotte Dye
- * @version May 1, 2015
+ * @version August 23, 2015
  */
 public class UserInfoCreator {
 
 	// The directory to put the file in.
-	private static final String DIRECTORY_NAME = "Chemistry Passport";
+	private static final String DIRECTORY_NAME = "ChemistryPassport";
 
 	// The name of the csv file that stores the user's information. Add a "."
 	// before the file name to hide the file.
@@ -50,23 +50,45 @@ public class UserInfoCreator {
 	 *            kits from the resources/config/config.properties file.
 	 */
 	public UserInfoCreator(ChemGetPropertyValues propValues) {
-
+		
 		this.propValues = propValues;
+		
 
 		// The Chemistry Passport directory has to be in the root directory of
 		// the user's computer. Find that path.
-		String directoryPath = getRootDirectoryPath();
 
+		String directoryPath = getDirectoryPath() ;
+				
 		// Get the path of the hidden file containing user's information
 		filePath = getFilePath(directoryPath);
-
+		
 		// If the directory already exist's then the .csv file will already
 		// exist in most cases. If not, then create the file.
 		exists = !createChemPassportDirectory(directoryPath);
 
 		if (!exists) {
-
 			createUserInfoFile();
+		}
+
+	}
+
+	private String getDirectoryPath() {
+		
+		String dirPath = System.getProperty("user.home") ;
+						
+		//The way we format file paths depends on the operating system
+		if (System.getProperty("os.name").contains("Windows")) {
+			
+			return dirPath + "\\" + DIRECTORY_NAME ;
+
+		} else if (System.getProperty("os.name").contains("Mac")) {
+
+			return dirPath + "/" + DIRECTORY_NAME ;
+
+		} else {
+			
+			// this should work for a linux or unix OS but we are not entirely sure because we could not test it on another OS.
+			return dirPath + "/" + DIRECTORY_NAME ;
 		}
 
 	}
@@ -80,27 +102,21 @@ public class UserInfoCreator {
 	 * @return The path of the file that will contain user information.
 	 */
 	private String getFilePath(String directoryPath) {
-
+		
 		// if in a windows
 		if (System.getProperty("os.name").contains("Windows")) {
 
-			return directoryPath + DIRECTORY_NAME + "\\" + FILE_NAME;
+			return directoryPath + "\\" + FILE_NAME;
 
 		} else if (System.getProperty("os.name").contains("Mac")) {
 
 			// if in a Mac
-
-			return directoryPath + DIRECTORY_NAME + "/" + FILE_NAME;
+			return directoryPath + "/" + FILE_NAME;
 
 		} else {
-
-			// if in any other OS, like Linux, don't put the file in a directory
-			// because we are not sure what slash ("\\" or "/" or something
-			// else) to use
-
-			// add a "." before the file name to hide the file
-
-			return directoryPath + "." + FILE_NAME;
+			
+			// this should work for a linux or unix OS but we are not entirely sure because we could not test it on another OS.
+			return directoryPath + "/." + FILE_NAME;
 		}
 	}
 
@@ -116,7 +132,7 @@ public class UserInfoCreator {
 	 */
 	private boolean createChemPassportDirectory(String directoryPath) {
 
-		return new File(directoryPath + DIRECTORY_NAME).mkdir();
+		return new File(directoryPath).mkdir();
 	}
 
 	/**
@@ -127,10 +143,13 @@ public class UserInfoCreator {
 
 		// create the file object
 		File userInfoFile = new File(filePath);
+		
+
 
 		try {
 			// Create the file in the directory
-			userInfoFile.createNewFile();
+			boolean created=userInfoFile.createNewFile();
+
 
 			// Create the column headings for the file
 
@@ -164,6 +183,7 @@ public class UserInfoCreator {
 	}
 
 	/**
+	 * This method is not being used anymore.
 	 * Returns the location of the root directory of the user's computer. For
 	 * instance, in Windows, it is usually "C:/".
 	 * 

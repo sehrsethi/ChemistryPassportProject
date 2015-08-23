@@ -44,7 +44,7 @@ public class ChemistryPassportGUI extends JPanel {
 	 *            config.properties file
 	 */
 	public ChemistryPassportGUI(ChemGetPropertyValues propValues) {
-
+		
 		this.propValues = propValues;
 
 		this.setLayout(CARD_LAYOUT);
